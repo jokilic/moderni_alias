@@ -1,0 +1,49 @@
+# Moderni Alias
+
+Moderni Alias is a simple app made in **Flutter**.
+It features an extensive croatian dictionary used for the game.
+The game is simple, light (6.5MB) and doesn't use any permissions.
+
+### Game can be downloaded from [HERE](https://raw.githubusercontent.com/jokilic/moderni_alias/moderni_alias.apk).
+
+## Some screenshots
+
+### 1. Starting page
+
+![Home page](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/1home_page.jpg)
+
+### 2. Choose your settings
+
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/2start_game.jpg)
+
+### 3. Start playing the game
+
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/3playing_game1.jpg)
+
+### 4. Game in progress
+
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/4playing_game2.jpg)
+
+### 5. We have a winner!
+
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/5game_finished.jpg)
+
+## Things I still want to do:
+
+- [ ] Add a 'Just play' button which throws you in the game and shows you a score in the end
+- [ ] Add 'focusNodes' to be able to press Enter to go to the next team name field
+- [ ] Make the app responsive with 'MediaQuery.of(context).size'
+- [ ] Refactor 'theme' property
+- [ ] Implement SnackBar() for the missing team names
+- [ ] Implement 'Are you sure?' modal when a user presses the Back button
+- [ ] Add a radio button to use only nouns, verbs, adjectives or everything
+- [ ] Add a checkbox if special dictionary should be used
+- [ ] Add a short (?) explaining what the special dictionary is
+- [ ] Implement 'HowToPlay' screen
+- [ ] Reorder teams in the score modal by the amount of points
+- [x] Implement a modal when the user presses the (x) midgame
+- [x] Separate the constants to colors.dart & strings.dart
+- [x] Add sounds for pressing buttons in-game
+- [x] Clean-up the dictionary
+- [x] Make all imports relative
+- [x] Create a simple 'Readme.md' file
