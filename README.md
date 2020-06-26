@@ -8,6 +8,7 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 
 ## Things I still want to do:
 
+- [ ] During normal game, clicking the (x) and continuing the game makes the Correct/Wrong buttons unusable
 - [ ] Add a short (?) with a tooltip explaining about normal and quick games
 - [ ] Implement 'HowToPlay' screen
 - [ ] Implement 'GeneralInfo' screen
@@ -32,20 +33,20 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 
 ### 1. Starting page
 
-![Home page](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/1home_page.jpg)
+![Home page](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/1-home_page.jpg)
 
 ### 2. Choose your settings
 
-![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/2start_game.jpg)
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/2-start_game.jpg)
 
 ### 3. Start playing the game
 
-![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/3playing_game1.jpg)
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/3-playing_game1.jpg)
 
 ### 4. Game in progress
 
-![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/4playing_game2.jpg)
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/4-playing_game2.jpg)
 
 ### 5. We have a winner!
 
-![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/5game_finished.jpg)
+![Screenshot of the app](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/5-game_finished.jpg)
