@@ -20,6 +20,7 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 - [ ] Add a checkbox if special dictionary should be used
 - [ ] Add a short (?) explaining what the special dictionary is
 - [ ] Reorder teams in the score modal by the amount of points
+- [x] During normal game, clicking the (x) and continuing the game makes the Correct/Wrong buttons unusable
 - [x] Add a 'Just play' button which throws you in the game and shows you a score in the end
 - [x] Implement a modal when the user presses the (x) midgame
 - [x] Separate the constants to colors.dart & strings.dart
