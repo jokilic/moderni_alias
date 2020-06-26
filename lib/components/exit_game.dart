@@ -7,8 +7,6 @@ import '../screens/home_page/home_page_screen.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 
 void exitGame(BuildContext context) {
-  gamePlaying = false;
-
   showModalBottomSheet(
     context: context,
     builder: (context) {
