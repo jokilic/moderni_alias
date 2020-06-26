@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 
-import '../strings.dart';
+import '../colors.dart';
 
 class PlayButton extends StatelessWidget {
+  final String text;
+  final double horizontalPadding;
+  final double verticalPadding;
   final Function onPressed;
 
-  PlayButton({this.onPressed});
+  PlayButton({
+    this.text,
+    this.horizontalPadding = 50.0,
+    this.verticalPadding = 20.0,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 56.0,
-          vertical: 20.0,
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
         ),
         child: Text(
-          startButtonString.toUpperCase(),
+          text,
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
+            color: textColor,
           ),
         ),
       ),
       onPressed: onPressed,
-      textColor: Colors.white,
+      textColor: textColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),
         side: BorderSide(
-          color: Colors.white,
+          color: buttonColor,
           width: 2.0,
         ),
       ),

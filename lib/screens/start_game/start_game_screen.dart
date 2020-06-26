@@ -210,11 +210,14 @@ class _StartGameState extends State<StartGame> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    child: PlayButton(onPressed: () {
-                      setState(() {
-                        validateSetGo();
-                      });
-                    }),
+                    child: PlayButton(
+                        text: playTheGameString.toUpperCase(),
+                        horizontalPadding: 50.0,
+                        onPressed: () {
+                          setState(() {
+                            validateSetGo();
+                          });
+                        }),
                   ),
                   SizedBox(height: 50.0),
                 ],

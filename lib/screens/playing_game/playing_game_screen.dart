@@ -4,10 +4,10 @@ import 'package:audioplayers/audio_cache.dart';
 import '../../components/background_image.dart';
 import './components/playing_team_info.dart';
 import './components/show_scores.dart';
-import './components/exit_game.dart';
-import './components/game_off.dart';
-import './components/game_on.dart';
-import './components/wrong_correct_buttons.dart';
+import '../../components/exit_game.dart';
+import '../../components/game_off.dart';
+import '../../components/game_on.dart';
+import '../../components/wrong_correct_buttons.dart';
 import '../game_finished/game_finished.dart';
 import '../../models/dictionary.dart';
 import '../../models/team.dart';
@@ -27,7 +27,7 @@ enum ChosenButton {
 }
 
 class PlayingGame extends StatefulWidget {
-  static const routeName = 'playing-game';
+  static const routeName = '/playing-game';
 
   @override
   _PlayingGameState createState() => _PlayingGameState();

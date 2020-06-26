@@ -9,6 +9,7 @@ class HowToPlay extends StatelessWidget {
       body: Center(
         child: Text(
           'How to play',
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline1,
         ),
       ),

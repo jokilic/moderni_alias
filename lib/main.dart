@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import './screens/home_page/home_page_screen.dart';
+import './screens/general_info/general_info_screen.dart';
 import './screens/how_to_play/how_to_play_screen.dart';
 import './screens/start_game/start_game_screen.dart';
 import './screens/playing_game/playing_game_screen.dart';
 import './screens/game_finished/game_finished.dart';
+import './screens/quick_game/quick_game_screen.dart';
+import './screens/quick_game_finished/quick_game_finished.dart';
 
 void main() => runApp(ModerniAlias());
 
@@ -17,10 +20,13 @@ class ModerniAlias extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage(),
+        GeneralInfo.routeName: (context) => GeneralInfo(),
         StartGame.routeName: (context) => StartGame(),
         HowToPlay.routeName: (context) => HowToPlay(),
         PlayingGame.routeName: (context) => PlayingGame(),
         GameFinished.routeName: (context) => GameFinished(),
+        QuickGame.routeName: (context) => QuickGame(),
+        QuickGameFinished.routeName: (context) => QuickGameFinished(),
       },
       theme: ThemeData(
         primaryColor: darkColor,

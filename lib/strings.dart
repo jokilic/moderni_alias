@@ -7,7 +7,8 @@ const String appNameString = 'ModerniAlias';
 const String appNameFirstString = 'Moderni';
 const String appNameSecondString = 'Alias';
 
-const String startButtonString = 'Igraj';
+const String startButtonString = 'Normalna igra';
+const String quickStartButtonString = 'Brza igra';
 const String howToPlayButtonString = 'Kako igrati Alias?';
 
 // Start Game
@@ -15,8 +16,9 @@ const String teamsString = 'Timovi';
 const String numberOfPointsString = 'Broj bodova';
 const String lengthOfRoundString = 'Duljina runde';
 const String teamNamesString = 'Imena timova';
-const String teamNameString = 'Ime tima...';
+const String teamNameString = 'Ime tima';
 const String teamNamesMissingString = 'Imena timova ti fale...';
+const String playTheGameString = 'Igraj';
 
 // Playing Game
 const String currentlyPlayingPlaceholder = 'Trenutno igra';
@@ -30,6 +32,13 @@ const String startGameOnPressString = 'Stisni ovdje i počni igru';
 const String winnerFirstString = 'Pobjednik je ';
 const String winnerSecondString = ' sa ';
 const String winnerThirdString = ' bodova!';
+
+// Quick Game
+const String quickGameFinishedFirstString = 'Imali ste ';
+const String quickGameFinishedSecondString = ' točnih i ';
+const String quickGameFinishedThirdString = ' krivih odgovora.';
+const String quickGameFinishedPlayAgainString = 'Igraj ponovno';
+const String quickGameFinishedExitString = 'Izađi';
 
 /* ----------
 - Images -

@@ -8,7 +8,9 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 
 ## Things I still want to do:
 
-- [ ] Add a 'Just play' button which throws you in the game and shows you a score in the end
+- [ ] Add a short (?) with a tooltip explaining about normal and quick games
+- [ ] Implement 'HowToPlay' screen
+- [ ] Implement 'GeneralInfo' screen
 - [ ] Add 'focusNodes' to be able to press Enter to go to the next team name field
 - [ ] Make the app responsive with 'MediaQuery.of(context).size'
 - [ ] Refactor 'theme' property
@@ -17,8 +19,8 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 - [ ] Add a radio button to use only nouns, verbs, adjectives or everything
 - [ ] Add a checkbox if special dictionary should be used
 - [ ] Add a short (?) explaining what the special dictionary is
-- [ ] Implement 'HowToPlay' screen
 - [ ] Reorder teams in the score modal by the amount of points
+- [x] Add a 'Just play' button which throws you in the game and shows you a score in the end
 - [x] Implement a modal when the user presses the (x) midgame
 - [x] Separate the constants to colors.dart & strings.dart
 - [x] Add sounds for pressing buttons in-game

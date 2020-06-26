@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../colors.dart';
+
 class GenericButton extends StatelessWidget {
   final Function onTap;
   final int number;
@@ -43,7 +45,7 @@ class GenericButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: backgroundColor,
             border: Border.all(
-              color: Colors.white,
+              color: buttonColor,
               width: 4,
             ),
             borderRadius: BorderRadius.all(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../colors.dart';
 import '../../../strings.dart';
 import '../../how_to_play/how_to_play_screen.dart';
 
@@ -13,7 +14,7 @@ class HowToPlayButton extends StatelessWidget {
           howToPlayButtonString,
           style: TextStyle(
             fontSize: 13.0,
-            color: Colors.white,
+            color: textColor,
           ),
         ),
       ),

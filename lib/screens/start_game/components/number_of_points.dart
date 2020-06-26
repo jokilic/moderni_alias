@@ -8,8 +8,8 @@ Widget createNumberOfPointsButton(
     int chosenNumberOfPoints, Function updateValue) {
   return GenericButton(
     backgroundColor:
-        pointsToWin == chosenNumberOfPoints ? Colors.white : Colors.transparent,
-    color: pointsToWin == chosenNumberOfPoints ? darkColor : Colors.white,
+        pointsToWin == chosenNumberOfPoints ? buttonColor : Colors.transparent,
+    color: pointsToWin == chosenNumberOfPoints ? darkColor : textColor,
     fontSize: 24.0,
     horizontalPadding: 12.0,
     number: chosenNumberOfPoints,

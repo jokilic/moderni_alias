@@ -8,9 +8,9 @@ Widget createNumberOfTeamsButton(
     int chosenNumberOfTeams, Function updateValue) {
   return GenericButton(
     backgroundColor: numOfTeamsValue == chosenNumberOfTeams
-        ? Colors.white
+        ? buttonColor
         : Colors.transparent,
-    color: numOfTeamsValue == chosenNumberOfTeams ? darkColor : Colors.white,
+    color: numOfTeamsValue == chosenNumberOfTeams ? darkColor : textColor,
     fontSize: 36.0,
     horizontalPadding: 20.0,
     number: chosenNumberOfTeams,

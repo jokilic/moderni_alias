@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../strings.dart';
 import '../../components/background_image.dart';
-import './components/confetti.dart';
+import '../../components/confetti.dart';
 import '../home_page/home_page_screen.dart';
 
 class GameFinished extends StatefulWidget {
@@ -16,7 +16,7 @@ class GameFinished extends StatefulWidget {
 class _GameFinishedState extends State<GameFinished> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     final routeArguments =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
 

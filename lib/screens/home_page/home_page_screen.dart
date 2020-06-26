@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../components/background_image.dart';
+import './components/info_button.dart';
 import './components/home_title.dart';
-import '../../components/play_button.dart';
-import './components/how_to_play_button.dart';
-import '../start_game/start_game_screen.dart';
+import './components/home_page_buttons.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/';
@@ -15,30 +14,11 @@ class HomePage extends StatelessWidget {
       body: BackgroundImage(
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              InfoButton(),
               HomeTitle(),
-              SizedBox(
-                height: 25.0,
-              ),
-              Container(
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      PlayButton(
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          StartGame.routeName,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 25.0,
-                      ),
-                      HowToPlayButton(),
-                    ],
-                  ),
-                ),
-              )
+              HomePageButtons(),
             ],
           ),
         ),
