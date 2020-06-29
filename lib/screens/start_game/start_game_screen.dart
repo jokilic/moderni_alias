@@ -16,7 +16,7 @@ int lengthOfRound = 60;
 
 bool validated = true;
 
-List<TextEditingController> textFieldControllers = [];
+List<TextEditingController> teamNameFieldsControllers = [];
 
 List<String> teamNames = [];
 
@@ -34,53 +34,55 @@ class _StartGameState extends State<StartGame> {
   void initState() {
     super.initState();
 
-    textFieldControllers.clear();
+    teamNameFieldsControllers.clear();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    textFieldControllers.forEach((controller) {
+    teamNameFieldsControllers.forEach((controller) {
       controller.dispose();
     });
   }
 
   void updateNumberOfTeams(int chosenValue) {
-    textFieldControllers.clear();
+    teamNameFieldsControllers.clear();
     setState(() {
       numOfTeamsValue = chosenValue;
     });
   }
 
-  void validateTextFields(textFieldControllers) {
-    var counter = 0;
+  void validateTeamNames(textFieldControllers) {
+    var errorsCount = 0;
     textFieldControllers.forEach((controller) {
-      if (controller.text.isEmpty) counter++;
+      if (controller.text.isEmpty) errorsCount++;
     });
     textFieldControllers.clear();
 
-    counter > 0 ? validated = false : validated = true;
+    errorsCount > 0 ? validated = false : validated = true;
   }
 
   NameOfTeam createNameOfTeamTextField(int index) {
-    textFieldControllers.add(TextEditingController());
+    // show previous team names, don't clear them on validation failure (e.g. missing team name)
+    String teamName = teamNames.length >= (index + 1) ? teamNames[index] : '';
+    teamNameFieldsControllers.add(TextEditingController(text: teamName));
 
     return NameOfTeam(
       hintText: teamNameString,
-      textFieldController: textFieldControllers[index],
+      textFieldController: teamNameFieldsControllers[index],
     );
   }
 
   void updateLengthOfRound(int chosenValue) {
-    textFieldControllers.clear();
+    teamNameFieldsControllers.clear();
     setState(() {
       lengthOfRound = chosenValue;
     });
   }
 
   void updateNumberOfPoints(int chosenValue) {
-    textFieldControllers.clear();
+    teamNameFieldsControllers.clear();
     setState(() {
       pointsToWin = chosenValue;
     });
@@ -88,11 +90,11 @@ class _StartGameState extends State<StartGame> {
 
   void validateSetGo() {
     teamNames.clear();
-    textFieldControllers.forEach((controller) {
+    teamNameFieldsControllers.forEach((controller) {
       teamNames.add(controller.text);
     });
 
-    validateTextFields(textFieldControllers);
+    validateTeamNames(teamNameFieldsControllers);
 
     routeArguments = {
       'pointsToWin': pointsToWin.toString(),
@@ -126,66 +128,73 @@ class _StartGameState extends State<StartGame> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   StartGameTitle(teamsString),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      createNumberOfTeamsButton(
-                        2,
-                        () => updateNumberOfTeams(2),
-                      ),
-                      createNumberOfTeamsButton(
-                        3,
-                        () => updateNumberOfTeams(3),
-                      ),
-                      createNumberOfTeamsButton(
-                        4,
-                        () => updateNumberOfTeams(4),
-                      ),
-                    ],
-                  ),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          createNumberOfTeamsButton(
+                            2,
+                            () => updateNumberOfTeams(2),
+                          ),
+                          createNumberOfTeamsButton(
+                            3,
+                            () => updateNumberOfTeams(3),
+                          ),
+                          createNumberOfTeamsButton(
+                            4,
+                            () => updateNumberOfTeams(4),
+                          ),
+                        ],
+                      )),
                   StartGameTitle(numberOfPointsString),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      createNumberOfPointsButton(
-                        25,
-                        () => updateNumberOfPoints(25),
-                      ),
-                      createNumberOfPointsButton(
-                        50,
-                        () => updateNumberOfPoints(50),
-                      ),
-                      createNumberOfPointsButton(
-                        75,
-                        () => updateNumberOfPoints(75),
-                      ),
-                      createNumberOfPointsButton(
-                        100,
-                        () => updateNumberOfPoints(100),
-                      ),
-                    ],
-                  ),
+                  SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          createNumberOfPointsButton(
+                            25,
+                            () => updateNumberOfPoints(25),
+                          ),
+                          createNumberOfPointsButton(
+                            50,
+                            () => updateNumberOfPoints(50),
+                          ),
+                          createNumberOfPointsButton(
+                            75,
+                            () => updateNumberOfPoints(75),
+                          ),
+                          createNumberOfPointsButton(
+                            100,
+                            () => updateNumberOfPoints(100),
+                          ),
+                        ],
+                      )),
                   StartGameTitle(lengthOfRoundString),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      createLengthOfRoundButton(
-                        20,
-                        () => updateLengthOfRound(20),
-                      ),
-                      createLengthOfRoundButton(
-                        45,
-                        () => updateLengthOfRound(45),
-                      ),
-                      createLengthOfRoundButton(
-                        60,
-                        () => updateLengthOfRound(60),
-                      ),
-                      createLengthOfRoundButton(
-                        90,
-                        () => updateLengthOfRound(90),
-                      ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        createLengthOfRoundButton(
+                          20,
+                          () => updateLengthOfRound(20),
+                        ),
+                        createLengthOfRoundButton(
+                          45,
+                          () => updateLengthOfRound(45),
+                        ),
+                        createLengthOfRoundButton(
+                          60,
+                          () => updateLengthOfRound(60),
+                        ),
+                        createLengthOfRoundButton(
+                          90,
+                          () => updateLengthOfRound(90),
+                        ),
+                      ],
+                    ),
                   ),
                   StartGameTitle(teamNamesString),
                   ListView.builder(
