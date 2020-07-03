@@ -33,7 +33,7 @@ class PlayingTeamInfo extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: -6,
+            left: -10,
             top: -10,
             child: FlatButton(
               child: Icon(
@@ -45,7 +45,7 @@ class PlayingTeamInfo extends StatelessWidget {
             ),
           ),
           Positioned(
-            right: -6,
+            right: -10,
             top: -10,
             child: FlatButton(
               child: Icon(

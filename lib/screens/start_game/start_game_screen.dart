@@ -4,6 +4,7 @@ import '../../strings.dart';
 import '../../components/background_image.dart';
 import '../../components/play_button.dart';
 import './components/start_game_title.dart';
+import './components/horizontal_row.dart';
 import './components/number_of_teams_button.dart';
 import './components/number_of_points.dart';
 import './components/length_of_round_button.dart';
@@ -126,9 +127,8 @@ class _StartGameState extends State<StartGame> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   StartGameTitle(teamsString),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                  HorizontalScroll(
+                    [
                       createNumberOfTeamsButton(
                         2,
                         () => updateNumberOfTeams(2),
@@ -144,9 +144,8 @@ class _StartGameState extends State<StartGame> {
                     ],
                   ),
                   StartGameTitle(numberOfPointsString),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                  HorizontalScroll(
+                    [
                       createNumberOfPointsButton(
                         25,
                         () => updateNumberOfPoints(25),
@@ -166,9 +165,8 @@ class _StartGameState extends State<StartGame> {
                     ],
                   ),
                   StartGameTitle(lengthOfRoundString),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                  HorizontalScroll(
+                    [
                       createLengthOfRoundButton(
                         20,
                         () => updateLengthOfRound(20),
@@ -211,13 +209,16 @@ class _StartGameState extends State<StartGame> {
                   Container(
                     alignment: Alignment.center,
                     child: PlayButton(
-                        text: playTheGameString.toUpperCase(),
-                        horizontalPadding: 50.0,
-                        onPressed: () {
-                          setState(() {
+                      text: playTheGameString.toUpperCase(),
+                      horizontalPadding: 50.0,
+                      onPressed: () {
+                        setState(
+                          () {
                             validateSetGo();
-                          });
-                        }),
+                          },
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(height: 50.0),
                 ],

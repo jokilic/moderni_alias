@@ -14,7 +14,7 @@ class InfoButton extends StatelessWidget {
         GeneralInfo.routeName,
       ),
       child: Container(
-        padding: EdgeInsets.all(24.0),
+        padding: EdgeInsets.all(20.0),
         alignment: Alignment.topRight,
         child: Icon(
           Icons.info_outline,

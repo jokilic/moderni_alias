@@ -14,10 +14,14 @@ class HomePage extends StatelessWidget {
       body: BackgroundImage(
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              InfoButton(),
-              HomeTitle(),
+              Column(
+                children: <Widget>[
+                  InfoButton(),
+                  HomeTitle(),
+                ],
+              ),
               HomePageButtons(),
             ],
           ),

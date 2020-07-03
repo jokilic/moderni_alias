@@ -10,7 +10,7 @@ void showScores(BuildContext context) {
     builder: (context) {
       return Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 56.0, vertical: 36.0),
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 36.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -23,7 +23,6 @@ void showScores(BuildContext context) {
               child: ListView.builder(
                 itemCount: teams.length,
                 itemBuilder: (context, index) => HighscoreValue(
-                  position: index + 1,
                   teamName: teams[index].name,
                   points: teams[index].points,
                 ),

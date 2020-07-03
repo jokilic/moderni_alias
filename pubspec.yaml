@@ -34,8 +34,8 @@ flutter:
   assets:
     - assets/
   fonts:
-    - family: Roboto Slab
+    - family: Sen
       fonts:
-        - asset: fonts\Roboto Slab\RobotoSlab-Regular.ttf
-        - asset: fonts\Roboto Slab\RobotoSlab-Bold.ttf
+        - asset: fonts\Sen\Sen-Regular.ttf
+        - asset: fonts\Sen\Sen-Bold.ttf
           weight: 700

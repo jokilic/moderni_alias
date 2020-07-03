@@ -21,7 +21,7 @@ class InfoSection extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Positioned(
-            left: -6,
+            left: -10,
             top: -10,
             child: FlatButton(
               child: Icon(
@@ -33,7 +33,7 @@ class InfoSection extends StatelessWidget {
             ),
           ),
           Positioned(
-            right: 12,
+            right: 20,
             top: -10,
             child: Row(
               children: <Widget>[

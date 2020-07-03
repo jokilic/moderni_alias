@@ -33,37 +33,37 @@ class ModerniAlias extends StatelessWidget {
         accentColor: yellowColor,
         canvasColor: Colors.transparent,
         scaffoldBackgroundColor: darkColor,
-        fontFamily: 'Roboto Slab',
+        fontFamily: 'Sen',
         textTheme: TextTheme(
             headline1: TextStyle(
               color: textColor,
-              fontSize: 58.0,
+              fontSize: 50.0,
             ),
             headline2: TextStyle(
               color: textColor,
-              fontSize: 38.0,
+              fontSize: 34.0,
               fontWeight: FontWeight.bold,
             ),
             headline3: TextStyle(
               color: textColor,
-              fontSize: 36.0,
+              fontSize: 30.0,
               fontWeight: FontWeight.bold,
             ),
             bodyText1: TextStyle(
               color: textColor,
-              fontSize: 24.0,
+              fontSize: 22.0,
               fontWeight: FontWeight.bold,
             ),
             bodyText2: TextStyle(
               color: textColor,
-              fontSize: 16.0,
+              fontSize: 14.0,
             ),
             button: TextStyle(
               color: textColor,
             ),
             headline6: TextStyle(
               color: textColor,
-              fontSize: 58.0,
+              fontSize: 54.0,
               fontWeight: FontWeight.bold,
               letterSpacing: 8.0,
             )),

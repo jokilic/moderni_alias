@@ -51,7 +51,7 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
           Center(
             child: Container(
               width: size.width * 0.8,
-              height: 500,
+              height: size.height,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -86,27 +86,25 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                     ),
                   ),
                   SizedBox(height: 50.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
                     children: <Widget>[
                       PlayButton(
                         text: quickGameFinishedPlayAgainString.toUpperCase(),
-                        horizontalPadding: 20.0,
                         onPressed: () => Navigator.pushNamed(
                           context,
                           QuickGame.routeName,
                         ),
                       ),
+                      SizedBox(height: 20.0),
                       PlayButton(
                         text: quickGameFinishedExitString.toUpperCase(),
-                        horizontalPadding: 20.0,
                         onPressed: () => Navigator.pushNamed(
                           context,
                           HomePage.routeName,
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

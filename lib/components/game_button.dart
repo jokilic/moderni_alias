@@ -21,12 +21,12 @@ class GameButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.all(54.0),
+          padding: EdgeInsets.all(50.0),
           child: SvgPicture.asset(
             svgIconPath,
             color: buttonColor,
           ),
-          height: 185.0,
+          height: 150.0,
           decoration: BoxDecoration(
             color: buttonBackgroundColor,
             borderRadius: borderRadius,

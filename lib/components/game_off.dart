@@ -12,6 +12,8 @@ class GameOff extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: onTap,
       child: Stack(
@@ -19,8 +21,8 @@ class GameOff extends StatelessWidget {
         children: <Widget>[
           CircularCountDownTimer(
             duration: 0,
-            width: 400.0,
-            height: 400.0,
+            width: size.width * 0.9,
+            height: size.height * 0.6,
             color: countdownTimerColor,
             fillColor: countdownTimerFillColor,
             strokeWidth: 36.0,
@@ -29,6 +31,7 @@ class GameOff extends StatelessWidget {
             ),
           ),
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SvgPicture.asset(
                 clickImage,

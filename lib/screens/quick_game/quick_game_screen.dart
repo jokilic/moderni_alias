@@ -32,6 +32,8 @@ class _QuickGameState extends State<QuickGame> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     void startGame() {
       correctAnswers = 0;
       wrongAnswers = 0;
@@ -73,27 +75,42 @@ class _QuickGameState extends State<QuickGame> {
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Stack(
+              alignment: Alignment.center,
               children: <Widget>[
-                InfoSection(
-                  exitGame: () {
-                    exitGame(context);
-                  },
-                  correctAnswers: correctAnswers,
-                  wrongAnswers: wrongAnswers,
+                Positioned(
+                  top: 0.0,
+                  width: size.width,
+                  child: InfoSection(
+                    exitGame: () {
+                      exitGame(context);
+                    },
+                    correctAnswers: correctAnswers,
+                    wrongAnswers: wrongAnswers,
+                  ),
                 ),
                 simpleGamePlaying
-                    ? GameOn(
-                        onComplete: endOfGame,
+                    ? Positioned(
+                        top: -75.0,
+                        bottom: 0.0,
+                        child: GameOn(
+                          onComplete: endOfGame,
+                        ),
                       )
-                    : GameOff(
-                        onTap: startGame,
+                    : Positioned(
+                        top: -75.0,
+                        bottom: 0.0,
+                        child: GameOff(
+                          onTap: startGame,
+                        ),
                       ),
-                WrongCorrectButtons(
-                  wrongChosen: () => answerChosen(ChosenButton.Wrong),
-                  correctChosen: () => answerChosen(ChosenButton.Correct),
+                Positioned(
+                  bottom: 0.0,
+                  width: size.width,
+                  child: WrongCorrectButtons(
+                    wrongChosen: () => answerChosen(ChosenButton.Wrong),
+                    correctChosen: () => answerChosen(ChosenButton.Correct),
+                  ),
                 ),
               ],
             ),

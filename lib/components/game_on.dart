@@ -12,6 +12,8 @@ class GameOn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () => null,
       child: Stack(
@@ -19,8 +21,8 @@ class GameOn extends StatelessWidget {
         children: <Widget>[
           CircularCountDownTimer(
             duration: lengthOfRound,
-            width: 400.0,
-            height: 400.0,
+            width: size.width * 0.9,
+            height: size.height * 0.6,
             onComplete: onComplete,
             color: countdownTimerColor,
             fillColor: countdownTimerFillColor,
@@ -29,13 +31,16 @@ class GameOn extends StatelessWidget {
               color: Colors.transparent,
             ),
           ),
-          Text(
-            currentWord.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline1.copyWith(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 8.0,
-                ),
+          Container(
+            width: size.width,
+            child: Text(
+              currentWord.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 8.0,
+                  ),
+            ),
           ),
         ],
       ),
