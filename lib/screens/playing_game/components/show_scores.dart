@@ -10,7 +10,7 @@ void showScores(BuildContext context) {
     builder: (context) {
       return Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 36.0),
+        padding: EdgeInsets.only(top: 36.0, bottom: 24.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

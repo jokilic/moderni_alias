@@ -15,8 +15,10 @@ int numOfTeamsValue = 2;
 int pointsToWin = 50;
 int lengthOfRound = 60;
 
+int validationCounter;
 bool validated = true;
 
+List<FocusNode> focusNodes = [];
 List<TextEditingController> textFieldControllers = [];
 
 List<String> teamNames = [];
@@ -35,6 +37,7 @@ class _StartGameState extends State<StartGame> {
   void initState() {
     super.initState();
 
+    focusNodes.clear();
     textFieldControllers.clear();
   }
 
@@ -42,51 +45,56 @@ class _StartGameState extends State<StartGame> {
   void dispose() {
     super.dispose();
 
-    textFieldControllers.forEach((controller) {
-      controller.dispose();
-    });
+    focusNodes.forEach(
+      (node) => node.dispose(),
+    );
+
+    textFieldControllers.forEach(
+      (controller) => controller.dispose(),
+    );
   }
 
+// Called when tapping on the 'Timovi' buttons
   void updateNumberOfTeams(int chosenValue) {
+    focusNodes.clear();
     textFieldControllers.clear();
+
     setState(() {
       numOfTeamsValue = chosenValue;
     });
   }
 
-  void validateTextFields(textFieldControllers) {
-    var counter = 0;
-    textFieldControllers.forEach((controller) {
-      if (controller.text.isEmpty) counter++;
-    });
-    textFieldControllers.clear();
-
-    counter > 0 ? validated = false : validated = true;
-  }
-
-  NameOfTeam createNameOfTeamTextField(int index) {
-    textFieldControllers.add(TextEditingController());
-
-    return NameOfTeam(
-      hintText: teamNameString,
-      textFieldController: textFieldControllers[index],
-    );
-  }
-
-  void updateLengthOfRound(int chosenValue) {
-    textFieldControllers.clear();
-    setState(() {
-      lengthOfRound = chosenValue;
-    });
-  }
-
+// Called when tapping on the 'Broj bodova' buttons
   void updateNumberOfPoints(int chosenValue) {
-    textFieldControllers.clear();
     setState(() {
       pointsToWin = chosenValue;
     });
   }
 
+// Called when tapping on the 'Duljina runde' buttons
+  void updateLengthOfRound(int chosenValue) {
+    setState(() {
+      lengthOfRound = chosenValue;
+    });
+  }
+
+// Called when creating TextFields in the dynamic ListView
+  NameOfTeam createNameOfTeamTextField(int index) {
+    if (focusNodes.length <= index) focusNodes.add(FocusNode());
+
+    if (textFieldControllers.length <= index)
+      textFieldControllers.add(TextEditingController());
+
+    return NameOfTeam(
+      hintText: teamNameString,
+      focusNode: focusNodes[index],
+      onFieldSubmitted: (_) =>
+          FocusScope.of(context).requestFocus(focusNodes[index + 1]),
+      textFieldController: textFieldControllers[index],
+    );
+  }
+
+// Called when tapping on the 'Igraj' button
   void validateSetGo() {
     teamNames.clear();
     textFieldControllers.forEach((controller) {
@@ -113,6 +121,19 @@ class _StartGameState extends State<StartGame> {
         arguments: routeArguments,
       );
     }
+  }
+
+// Validate if all TextFields have values
+  void validateTextFields(textFieldControllers) {
+    validationCounter = 0;
+    textFieldControllers.forEach((controller) {
+      if (controller.text.isEmpty) validationCounter++;
+    });
+
+    focusNodes.clear();
+    textFieldControllers.clear();
+
+    validationCounter > 0 ? validated = false : validated = true;
   }
 
   @override
