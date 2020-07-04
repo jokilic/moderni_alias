@@ -4,7 +4,7 @@ Moderni Alias is a simple app made in **Flutter**.
 It features an extensive croatian dictionary used for the game.
 The game is simple, light (6.5MB) and doesn't use any permissions.
 
-### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.2/moderni_alias-092.apk).
+### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.2/moderni_alias-v092.apk).
 
 ## Things I still want to do:
 
