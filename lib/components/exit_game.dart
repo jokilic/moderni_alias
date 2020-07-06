@@ -7,8 +7,8 @@ import './exit_game_button.dart';
 import '../screens/home_page/home_page_screen.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 
-void exitGame(BuildContext context) {
-  showModalBottomSheet(
+Future<bool> exitGame(BuildContext context) {
+  return showModalBottomSheet(
     context: context,
     builder: (context) {
       return Container(
@@ -37,10 +37,10 @@ void exitGame(BuildContext context) {
                       quickAudioPlayer.stop();
                       countdownTimerFillColor =
                           countdownTimerFillColorNormalGame;
-                      Navigator.pushReplacementNamed(
-                        context,
-                        HomePage.routeName,
-                      );
+                      Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(HomePage
+                          .routeName)); // navigates to home screen and clears "history" for back button
                     }),
                 SizedBox(width: 24.0),
                 ExitGameButton(
@@ -65,5 +65,5 @@ void exitGame(BuildContext context) {
         ),
       );
     },
-  );
+  ) ?? false;
 }
