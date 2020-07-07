@@ -4,13 +4,12 @@ Moderni Alias is a simple app made in **Flutter**.
 It features an extensive croatian dictionary used for the game.
 The game is simple, light (6.5MB) and doesn't use any permissions.
 
-### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.2/moderni_alias-v092.apk).
+### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.3/moderni_alias-v093.apk).
 
 ## Things I still want to do:
 
 - [ ] Implement 'HowToPlay' screen
 - [ ] Implement 'GeneralInfo' screen
-- [ ] Implement countdown sound - Last 5 seconds
 - [ ] Already used words should not appear during the current game
 - [ ] Make some UI changes, make it prettier
 - [ ] Increase number of words in the dictionary
@@ -22,6 +21,7 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 - [ ] Add a checkbox if special dictionary should be used
 - [ ] Add a short (?) explaining what the special dictionary is
 - [ ] Reorder teams in the score modal by the amount of points
+- [x] Implement countdown sound - Last 5 seconds
 - [x] Add 'focusNodes' to be able to press Enter to go to the next team name field
 - [x] Make the app responsive with 'MediaQuery.of(context).size'
 - [x] During normal game, clicking the (x) and continuing the game makes the Correct/Wrong buttons unusable
