@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../screens/playing_game/playing_game_screen.dart';
+import '../colors.dart';
 import '../strings.dart';
+import '../screens/playing_game/playing_game_screen.dart';
 import './exit_game_button.dart';
 import '../screens/home_page/home_page_screen.dart';
 import '../screens/quick_game/quick_game_screen.dart';
@@ -30,6 +31,12 @@ void exitGame(BuildContext context) {
                     onPressed: () {
                       gamePlaying = false;
                       simpleGamePlaying = false;
+                      if (timer != null) timer.cancel();
+                      if (quickTimer != null) quickTimer.cancel();
+                      audioPlayer.stop();
+                      quickAudioPlayer.stop();
+                      countdownTimerFillColor =
+                          countdownTimerFillColorNormalGame;
                       Navigator.pushReplacementNamed(
                         context,
                         HomePage.routeName,

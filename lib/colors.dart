@@ -11,6 +11,8 @@ const Color buttonColor = Color(0xF1F1F1F1);
 const Color buttonBackgroundColor = Color(0xDD171717);
 
 const Color countdownTimerColor = Color(0xDD313131);
-const Color countdownTimerFillColor = Color(0x95FDDE9E);
+Color countdownTimerFillColor = Color(0x95FDDE9E);
+const Color countdownTimerFillColorNormalGame = Color(0x95FDDE9E);
+const Color countdownTimerFillColorFinalSeconds = Color(0x95EF9A9A);
 
 const Color textColor = Color(0xF1F1F1F1);

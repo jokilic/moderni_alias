@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
 
+import '../../colors.dart';
 import '../../components/background_image.dart';
 import './components/playing_team_info.dart';
 import './components/show_scores.dart';
@@ -20,6 +23,10 @@ int wrongAnswers = 0;
 int correctAnswers = 0;
 int currentScore = 0;
 Map<String, String> routeArguments = {};
+int finalSecondsInRound = 5;
+Timer timer;
+final AudioPlayer audioPlayer = AudioPlayer();
+final AudioCache player = AudioCache(fixedPlayer: audioPlayer);
 
 enum ChosenButton {
   Correct,
@@ -34,7 +41,6 @@ class PlayingGame extends StatefulWidget {
 }
 
 class _PlayingGameState extends State<PlayingGame> {
-  final AudioCache player = AudioCache();
   String pointsToWin;
   String lengthOfRound;
   List<String> routeTeams;
@@ -65,6 +71,16 @@ class _PlayingGameState extends State<PlayingGame> {
     currentlyPlayingTeam = teams[currentlyPlayingIndex];
   }
 
+  void startCountdown() {
+    timer = Timer(
+        Duration(seconds: int.parse(lengthOfRound) - finalSecondsInRound), () {
+      player.play('timer.ogg');
+      setState(() {
+        countdownTimerFillColor = countdownTimerFillColorFinalSeconds;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -74,7 +90,9 @@ class _PlayingGameState extends State<PlayingGame> {
       wrongAnswers = 0;
       currentScore = 0;
       gamePlaying = true;
+      countdownTimerFillColor = countdownTimerFillColorNormalGame;
       currentWord = getRandomWord;
+      startCountdown();
       setState(() {});
     }
 
@@ -94,8 +112,10 @@ class _PlayingGameState extends State<PlayingGame> {
 
     void endOfRound() {
       gamePlaying = false;
+      countdownTimerFillColor = countdownTimerFillColorNormalGame;
+      timer.cancel();
+      audioPlayer.stop();
       teams[currentlyPlayingIndex].points += correctAnswers - wrongAnswers;
-
       if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin)) {
         routeArguments = {
           'winningTeam': teams[currentlyPlayingIndex].name,
@@ -140,6 +160,7 @@ class _PlayingGameState extends State<PlayingGame> {
                         top: -75.0,
                         bottom: 0.0,
                         child: GameOn(
+                          length: int.parse(lengthOfRound),
                           onComplete: endOfRound,
                         ),
                       )

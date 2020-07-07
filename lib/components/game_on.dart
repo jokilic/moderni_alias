@@ -3,12 +3,12 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 import '../colors.dart';
 import '../models/dictionary.dart';
-import '../screens/start_game/start_game_screen.dart';
 
 class GameOn extends StatelessWidget {
+  final int length;
   final Function onComplete;
 
-  GameOn({this.onComplete});
+  GameOn({this.length, this.onComplete});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class GameOn extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           CircularCountDownTimer(
-            duration: lengthOfRound,
+            duration: length,
             width: size.width * 0.9,
             height: size.height * 0.6,
             onComplete: onComplete,
