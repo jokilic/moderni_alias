@@ -114,7 +114,7 @@ class _PlayingGameState extends State<PlayingGame> {
       gamePlaying = false;
       countdownTimerFillColor = countdownTimerFillColorNormalGame;
       timer.cancel();
-      audioPlayer.stop();
+
       teams[currentlyPlayingIndex].points += correctAnswers - wrongAnswers;
       if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin)) {
         routeArguments = {

@@ -16,3 +16,5 @@ const Color countdownTimerFillColorNormalGame = Color(0x95FDDE9E);
 const Color countdownTimerFillColorFinalSeconds = Color(0x95EF9A9A);
 
 const Color textColor = Color(0xF1F1F1F1);
+const Color correctColor = Color(0xF14CAF50);
+const Color wrongColor = Color(0xF1F44336);

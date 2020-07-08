@@ -35,38 +35,44 @@ class ModerniAlias extends StatelessWidget {
         scaffoldBackgroundColor: darkColor,
         fontFamily: 'Sen',
         textTheme: TextTheme(
-            headline1: TextStyle(
-              color: textColor,
-              fontSize: 50.0,
-            ),
-            headline2: TextStyle(
-              color: textColor,
-              fontSize: 34.0,
-              fontWeight: FontWeight.bold,
-            ),
-            headline3: TextStyle(
-              color: textColor,
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-            ),
-            bodyText1: TextStyle(
-              color: textColor,
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-            ),
-            bodyText2: TextStyle(
-              color: textColor,
-              fontSize: 14.0,
-            ),
-            button: TextStyle(
-              color: textColor,
-            ),
-            headline6: TextStyle(
-              color: textColor,
-              fontSize: 54.0,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 8.0,
-            )),
+          headline1: TextStyle(
+            color: textColor,
+            fontSize: 50.0,
+          ),
+          headline2: TextStyle(
+            color: textColor,
+            fontSize: 34.0,
+            fontWeight: FontWeight.bold,
+          ),
+          headline3: TextStyle(
+            color: textColor,
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+          ),
+          headline6: TextStyle(
+            color: textColor,
+            fontSize: 54.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 8.0,
+          ),
+          bodyText1: TextStyle(
+            color: textColor,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyText2: TextStyle(
+            color: textColor,
+            fontSize: 14.0,
+          ),
+          headline4: TextStyle(
+            color: textColor,
+            fontSize: 20.0,
+            height: 1.4,
+          ),
+          button: TextStyle(
+            color: textColor,
+          ),
+        ),
       ),
     );
   }

@@ -78,7 +78,7 @@ class _QuickGameState extends State<QuickGame> {
       simpleGamePlaying = false;
       countdownTimerFillColor = countdownTimerFillColorNormalGame;
       quickTimer.cancel();
-      quickAudioPlayer.stop();
+
       routeArguments = {
         'correctAnswers': correctAnswers.toString(),
         'wrongAnswers': wrongAnswers.toString(),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../strings.dart';
 import '../../components/background_image.dart';
 import '../../components/play_button.dart';
-import './components/start_game_title.dart';
+import '../../components/game_title.dart';
 import './components/horizontal_row.dart';
 import './components/number_of_teams_button.dart';
 import './components/number_of_points.dart';
@@ -147,7 +147,7 @@ class _StartGameState extends State<StartGame> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  StartGameTitle(teamsString),
+                  GameTitle(teamsString),
                   HorizontalScroll(
                     [
                       createNumberOfTeamsButton(
@@ -164,7 +164,7 @@ class _StartGameState extends State<StartGame> {
                       ),
                     ],
                   ),
-                  StartGameTitle(numberOfPointsString),
+                  GameTitle(numberOfPointsString),
                   HorizontalScroll(
                     [
                       createNumberOfPointsButton(
@@ -185,7 +185,7 @@ class _StartGameState extends State<StartGame> {
                       ),
                     ],
                   ),
-                  StartGameTitle(lengthOfRoundString),
+                  GameTitle(lengthOfRoundString),
                   HorizontalScroll(
                     [
                       createLengthOfRoundButton(
@@ -206,7 +206,7 @@ class _StartGameState extends State<StartGame> {
                       ),
                     ],
                   ),
-                  StartGameTitle(teamNamesString),
+                  GameTitle(teamNamesString),
                   ListView.builder(
                     itemCount: numOfTeamsValue,
                     itemBuilder: (context, index) =>

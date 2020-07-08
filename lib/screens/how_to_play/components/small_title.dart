@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-class StartGameTitle extends StatelessWidget {
+class SmallTitle extends StatelessWidget {
   final String title;
 
-  StartGameTitle(this.title);
+  SmallTitle(this.title);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: 32.0,
-        left: 32.0,
+        top: 16.0,
+        left: 16.0,
+        right: 16.0,
       ),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.headline2,
+        style: Theme.of(context).textTheme.headline3.copyWith(fontSize: 26.0),
       ),
     );
   }
