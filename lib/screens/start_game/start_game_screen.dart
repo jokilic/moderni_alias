@@ -115,6 +115,8 @@ class _StartGameState extends State<StartGame> {
     if (numOfTeamsValue == 4) routeArguments['team4'] = teamNames[3];
 
     if (validated) {
+      FocusScope.of(context).unfocus();
+
       Navigator.pushNamed(
         context,
         PlayingGame.routeName,

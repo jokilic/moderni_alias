@@ -75,6 +75,7 @@ const String wordWrongExplanationThirdString =
 
 const String roundFinishedExplanationString =
     'Runda je završila i sad je vrijeme za drugi tim.\nJedan od članova drugog tima objašnjava riječi dok drugi članovi pogađaju.\n\nTimovi se izmjenjuju dok jedan od njih ne skupi dovoljan broj bodova za pobjedu.';
+
 const String howToQuickAliasExplanationString =
     'Brzi Alias se igra bez timova, bez dodatnih pravila. Igra traje 60 sekundi i odmah počinje.\nKada vrijeme završi, vidljivi su točni i krivi odgovori.\n\nAko želite, moguće je odigrati novu igru ili se vratiti u glavni meni.';
 

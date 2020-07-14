@@ -8,18 +8,16 @@ class InfoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(
-        context,
-        GeneralInfo.routeName,
-      ),
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        alignment: Alignment.topRight,
-        child: Icon(
-          Icons.info_outline,
-          color: textColor,
-          size: 36.0,
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      alignment: Alignment.topRight,
+      child: IconButton(
+        icon: Icon(Icons.info_outline),
+        color: textColor,
+        iconSize: 36.0,
+        onPressed: () => Navigator.pushNamed(
+          context,
+          GeneralInfo.routeName,
         ),
       ),
     );
