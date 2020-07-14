@@ -6,6 +6,9 @@ Moderni Alias is a simple app made in **Flutter**.
 It features an extensive croatian dictionary used for the game.
 The game is simple, light (6.5MB) and doesn't use any permissions.
 
+Despite the Google Play Store logos in the screenshots, the game will be available there at a later date.
+You can download it from the 'Releases' tab.
+
 ### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.4/moderni_alias-v094.apk).
 
 ![Multi](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/multi.png)
@@ -39,22 +42,12 @@ The game is simple, light (6.5MB) and doesn't use any permissions.
 
 ## Some screenshots
 
-### 1. Starting page
+![Image1](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image1.png)
 
-![Home page](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/1-home_page.jpg)
+![Image2](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image2.png)
 
-### 2. Choose your settings
+![Image3](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image3.png)
 
-![Start page](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/2-start_game.jpg)
+![Image4](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image4.png)
 
-### 3. Start playing the game
-
-![Playing game 1](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/3-playing_game1.jpg)
-
-### 4. Game in progress
-
-![Playing game 2](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/4-playing_game2.jpg)
-
-### 5. We have a winner!
-
-![Game finished](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/5-game_finished.jpg)
+![Image5](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image5.png)
