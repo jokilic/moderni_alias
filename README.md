@@ -42,12 +42,4 @@ You can download it from the 'Releases' tab.
 
 ## Some screenshots
 
-![Image1](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image1.png)
-
-![Image2](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image2.png)
-
-![Image3](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image3.png)
-
-![Image4](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image4.png)
-
-![Image5](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/playstore/image5.png)
+![play](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/play.png)
