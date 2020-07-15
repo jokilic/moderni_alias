@@ -19,9 +19,13 @@ int lengthOfRound = 60;
 int finalSecondsInRound = 5;
 bool simpleGamePlaying = false;
 Timer quickTimer;
-final AudioPlayer quickAudioPlayer = AudioPlayer();
-final AudioCache quickPlayer = AudioCache(fixedPlayer: quickAudioPlayer);
 Map<String, String> routeArguments = {};
+final AudioPlayer buttonQuickAudioPlayer = AudioPlayer();
+final AudioPlayer countdownQuickAudioPlayer = AudioPlayer();
+final AudioCache buttonQuickPlayer =
+    AudioCache(fixedPlayer: buttonQuickAudioPlayer);
+final AudioCache countdownQuickPlayer =
+    AudioCache(fixedPlayer: countdownQuickAudioPlayer);
 
 enum ChosenButton {
   Correct,
@@ -39,7 +43,7 @@ class _QuickGameState extends State<QuickGame> {
   void startCountdown() {
     quickTimer =
         Timer(Duration(seconds: lengthOfRound - finalSecondsInRound), () {
-      quickPlayer.play('timer.ogg');
+      countdownQuickPlayer.play('timer.ogg');
       setState(() {
         countdownTimerFillColor = countdownTimerFillColorFinalSeconds;
       });
@@ -63,10 +67,10 @@ class _QuickGameState extends State<QuickGame> {
     void answerChosen(ChosenButton chosenButton) {
       if (simpleGamePlaying) {
         if (chosenButton == ChosenButton.Correct) {
-          quickPlayer.play('correct.ogg');
+          buttonQuickPlayer.play('correct.ogg');
           correctAnswers++;
         } else {
-          quickPlayer.play('wrong.ogg');
+          buttonQuickPlayer.play('wrong.ogg');
           wrongAnswers++;
         }
         currentWord = getRandomWord;
@@ -103,9 +107,7 @@ class _QuickGameState extends State<QuickGame> {
                   top: 0.0,
                   width: size.width,
                   child: InfoSection(
-                    exitGame: () {
-                      exitGame(context);
-                    },
+                    exitGame: () => exitGame(context),
                     correctAnswers: correctAnswers,
                     wrongAnswers: wrongAnswers,
                   ),

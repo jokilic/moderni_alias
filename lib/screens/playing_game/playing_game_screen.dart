@@ -25,8 +25,11 @@ int currentScore = 0;
 Map<String, String> routeArguments = {};
 int finalSecondsInRound = 5;
 Timer timer;
-final AudioPlayer audioPlayer = AudioPlayer();
-final AudioCache player = AudioCache(fixedPlayer: audioPlayer);
+final AudioPlayer buttonAudioPlayer = AudioPlayer();
+final AudioPlayer countdownAudioPlayer = AudioPlayer();
+final AudioCache buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
+final AudioCache countdownPlayer =
+    AudioCache(fixedPlayer: countdownAudioPlayer);
 
 enum ChosenButton {
   Correct,
@@ -74,7 +77,7 @@ class _PlayingGameState extends State<PlayingGame> {
   void startCountdown() {
     timer = Timer(
         Duration(seconds: int.parse(lengthOfRound) - finalSecondsInRound), () {
-      player.play('timer.ogg');
+      countdownPlayer.play('timer.ogg');
       setState(() {
         countdownTimerFillColor = countdownTimerFillColorFinalSeconds;
       });
@@ -99,10 +102,10 @@ class _PlayingGameState extends State<PlayingGame> {
     void answerChosen(ChosenButton chosenButton) {
       if (gamePlaying) {
         if (chosenButton == ChosenButton.Correct) {
-          player.play('correct.ogg');
+          buttonPlayer.play('correct.ogg');
           correctAnswers++;
         } else {
-          player.play('wrong.ogg');
+          buttonPlayer.play('wrong.ogg');
           wrongAnswers++;
         }
         currentWord = getRandomWord;

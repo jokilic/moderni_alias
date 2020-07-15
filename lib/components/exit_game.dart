@@ -33,8 +33,8 @@ Future<bool> exitGame(BuildContext context) {
                           simpleGamePlaying = false;
                           if (timer != null) timer.cancel();
                           if (quickTimer != null) quickTimer.cancel();
-                          audioPlayer.stop();
-                          quickAudioPlayer.stop();
+                          countdownAudioPlayer.stop();
+                          countdownQuickAudioPlayer.stop();
                           countdownTimerFillColor =
                               countdownTimerFillColorNormalGame;
                           Navigator.popUntil(
