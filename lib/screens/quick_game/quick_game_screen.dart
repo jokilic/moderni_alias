@@ -92,7 +92,7 @@ class _QuickGameState extends State<QuickGame> {
     }
 
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () => exitGame(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(

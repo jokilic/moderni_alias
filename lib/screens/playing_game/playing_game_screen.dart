@@ -140,9 +140,7 @@ class _PlayingGameState extends State<PlayingGame> {
     }
 
     return WillPopScope(
-      onWillPop: () {
-        return exitGame(context);
-      },
+      onWillPop: () => exitGame(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
