@@ -38,7 +38,7 @@ class PlayingTeamInfo extends StatelessWidget {
             child: FlatButton(
               child: Icon(
                 Icons.close,
-                color: buttonColor,
+                color: whiteColor,
                 size: 30.0,
               ),
               onPressed: exitGame,
@@ -50,7 +50,7 @@ class PlayingTeamInfo extends StatelessWidget {
             child: FlatButton(
               child: Icon(
                 Icons.format_list_numbered,
-                color: buttonColor,
+                color: whiteColor,
                 size: 30.0,
               ),
               onPressed: showScores,

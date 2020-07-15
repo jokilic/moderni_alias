@@ -28,16 +28,16 @@ class PlayButton extends StatelessWidget {
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
-            color: textColor,
+            color: whiteColor,
           ),
         ),
       ),
       onPressed: onPressed,
-      textColor: textColor,
+      textColor: whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),
         side: BorderSide(
-          color: buttonColor,
+          color: whiteColor,
           width: 2.0,
         ),
       ),

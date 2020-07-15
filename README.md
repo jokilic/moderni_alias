@@ -4,12 +4,12 @@
 
 Moderni Alias is a simple app made in **Flutter**.
 It features an extensive croatian dictionary used for the game.
-The game is simple, light (6.5MB) and doesn't use any permissions.
+The game is simple, light (6.75MB) and doesn't use any permissions.
 
 Despite the Google Play Store logos in the screenshots, the game will be available there at a later date.
 You can download it from the 'Releases' tab.
 
-### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.4/moderni_alias-v094.apk).
+### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.5/moderni_alias-v095.apk).
 
 ![Multi](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/multi.png)
 
@@ -17,16 +17,12 @@ You can download it from the 'Releases' tab.
 
 - [ ] Implement 'GeneralInfo' screen
 - [ ] Already used words should not appear during the current game
-- [ ] Make some UI changes, make it prettier
 - [ ] Increase number of words in the dictionary
-- [ ] Add a short (?) with a tooltip explaining about normal and quick games
 - [ ] Refactor 'theme' property
-- [ ] Implement 'Are you sure?' modal when a user presses the Back button
-- [ ] Implement SnackBar() for the missing team names
-- [ ] Add a radio button to use only nouns, verbs, adjectives or everything
-- [ ] Add a checkbox if special dictionary should be used
-- [ ] Add a short (?) explaining what the special dictionary is
-- [ ] Reorder teams in the score modal by the amount of points
+- [ ] Add a checkbox if special dictionary should be used and a tooltip explaining it
+- [ ] Introduce English dictionary and flags to choose desired dictionary during game
+- [x] Make some UI changes
+- [x] Implement 'Are you sure?' modal when a user presses the Back button
 - [x] Implement 'HowToPlay' screen
 - [x] Implement countdown sound - Last 5 seconds
 - [x] Add 'focusNodes' to be able to press Enter to go to the next team name field

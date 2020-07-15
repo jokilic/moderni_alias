@@ -30,7 +30,7 @@ class HowToPlay extends StatelessWidget {
                       onTap: () => Navigator.pop(context),
                       child: Icon(
                         Icons.arrow_back,
-                        color: buttonColor,
+                        color: whiteColor,
                         size: 44.0,
                       ),
                     ),
@@ -85,7 +85,7 @@ class HowToPlay extends StatelessWidget {
                             text: wordCorrectExplanationSecondString,
                             style:
                                 Theme.of(context).textTheme.headline4.copyWith(
-                                      color: correctColor,
+                                      color: greenColor,
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),
@@ -107,7 +107,7 @@ class HowToPlay extends StatelessWidget {
                             text: wordWrongExplanationSecondString,
                             style:
                                 Theme.of(context).textTheme.headline4.copyWith(
-                                      color: wrongColor,
+                                      color: redColor,
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),

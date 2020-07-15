@@ -24,7 +24,7 @@ class GameOn extends StatelessWidget {
             width: size.width * 0.9,
             height: size.height * 0.6,
             onComplete: onComplete,
-            color: countdownTimerColor,
+            color: darkBlueColor,
             fillColor: countdownTimerFillColor,
             strokeWidth: 36.0,
             textStyle: TextStyle(

@@ -24,11 +24,11 @@ class GameButton extends StatelessWidget {
           padding: EdgeInsets.all(50.0),
           child: SvgPicture.asset(
             svgIconPath,
-            color: buttonColor,
+            color: whiteColor,
           ),
           height: 150.0,
           decoration: BoxDecoration(
-            color: buttonBackgroundColor,
+            color: whiteColor.withOpacity(0.05),
             borderRadius: borderRadius,
           ),
         ),

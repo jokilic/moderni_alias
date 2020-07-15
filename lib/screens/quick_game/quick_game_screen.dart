@@ -16,9 +16,14 @@ import '../quick_game_finished/quick_game_finished.dart';
 int wrongAnswers = 0;
 int correctAnswers = 0;
 int lengthOfRound = 60;
-int finalSecondsInRound = 5;
+double quickGreenSeconds;
+double quickYellowSeconds;
+double quickRedSeconds;
+Timer quickGreenTimer;
+Timer quickYellowTimer;
+Timer quickRedTimer;
+Timer quickSoundTimer;
 bool simpleGamePlaying = false;
-Timer quickTimer;
 Map<String, String> routeArguments = {};
 final AudioPlayer buttonQuickAudioPlayer = AudioPlayer();
 final AudioPlayer countdownQuickAudioPlayer = AudioPlayer();
@@ -40,14 +45,25 @@ class QuickGame extends StatefulWidget {
 }
 
 class _QuickGameState extends State<QuickGame> {
-  void startCountdown() {
-    quickTimer =
-        Timer(Duration(seconds: lengthOfRound - finalSecondsInRound), () {
-      countdownQuickPlayer.play('timer.ogg');
+  Timer makeTimer(double chosenSeconds, Color chosenColor) {
+    return Timer(Duration(seconds: lengthOfRound - chosenSeconds.round()), () {
       setState(() {
-        countdownTimerFillColor = countdownTimerFillColorFinalSeconds;
+        countdownTimerFillColor = chosenColor;
       });
     });
+  }
+
+  void startCountdown() {
+    quickGreenSeconds = lengthOfRound * 0.6;
+    quickYellowSeconds = lengthOfRound * 0.4;
+    quickRedSeconds = lengthOfRound * 0.15;
+
+    quickSoundTimer = Timer(Duration(seconds: lengthOfRound - 5),
+        () => countdownQuickPlayer.play('timer.ogg'));
+
+    quickGreenTimer = makeTimer(quickGreenSeconds, greenColor);
+    quickYellowTimer = makeTimer(quickYellowSeconds, yellowColor);
+    quickRedTimer = makeTimer(quickRedSeconds, redColor);
   }
 
   @override
@@ -59,7 +75,7 @@ class _QuickGameState extends State<QuickGame> {
       wrongAnswers = 0;
       simpleGamePlaying = true;
       currentWord = getRandomWord;
-      countdownTimerFillColor = countdownTimerFillColorNormalGame;
+      countdownTimerFillColor = blueColor;
       startCountdown();
       setState(() {});
     }
@@ -80,8 +96,8 @@ class _QuickGameState extends State<QuickGame> {
 
     void endOfGame() {
       simpleGamePlaying = false;
-      countdownTimerFillColor = countdownTimerFillColorNormalGame;
-      quickTimer.cancel();
+      countdownTimerFillColor = darkBlueColor;
+      quickSoundTimer.cancel();
 
       routeArguments = {
         'correctAnswers': correctAnswers.toString(),

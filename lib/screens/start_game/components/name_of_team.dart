@@ -31,10 +31,10 @@ class NameOfTeam extends StatelessWidget {
           enabledBorder: buildInputBorder(),
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: textColor.withOpacity(0.6),
+                color: whiteColor.withOpacity(0.6),
               ),
         ),
-        cursorColor: textColor,
+        cursorColor: whiteColor,
         cursorRadius: Radius.circular(16.0),
         cursorWidth: 4.0,
       ),
@@ -46,7 +46,7 @@ class NameOfTeam extends StatelessWidget {
 UnderlineInputBorder buildInputBorder() {
   return UnderlineInputBorder(
     borderSide: BorderSide(
-      color: buttonColor,
+      color: whiteColor,
       width: 2.0,
     ),
   );

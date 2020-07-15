@@ -26,7 +26,7 @@ class InfoSection extends StatelessWidget {
             child: FlatButton(
               child: Icon(
                 Icons.close,
-                color: textColor,
+                color: whiteColor,
                 size: 30.0,
               ),
               onPressed: exitGame,
@@ -40,14 +40,14 @@ class InfoSection extends StatelessWidget {
                 Text(
                   wrongAnswers.toString(),
                   style: Theme.of(context).textTheme.headline2.copyWith(
-                        color: textColor,
+                        color: whiteColor,
                       ),
                 ),
                 SizedBox(width: 10.0),
                 Text(
                   correctAnswers.toString(),
                   style: Theme.of(context).textTheme.headline2.copyWith(
-                        color: yellowColor,
+                        color: blueColor,
                       ),
                 ),
               ],

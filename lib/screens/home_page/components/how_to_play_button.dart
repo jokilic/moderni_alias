@@ -14,7 +14,7 @@ class HowToPlayButton extends StatelessWidget {
           howToPlayButtonString,
           style: TextStyle(
             fontSize: 13.0,
-            color: textColor,
+            color: whiteColor,
           ),
         ),
       ),

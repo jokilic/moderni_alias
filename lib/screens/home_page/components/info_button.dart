@@ -13,7 +13,7 @@ class InfoButton extends StatelessWidget {
       alignment: Alignment.topRight,
       child: IconButton(
         icon: Icon(Icons.info_outline),
-        color: textColor,
+        color: whiteColor,
         iconSize: 36.0,
         onPressed: () => Navigator.pushNamed(
           context,

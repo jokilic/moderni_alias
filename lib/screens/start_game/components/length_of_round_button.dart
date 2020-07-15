@@ -8,8 +8,8 @@ Widget createLengthOfRoundButton(
     int chosenLengthOfRound, Function updateValue) {
   return GenericButton(
     backgroundColor:
-        lengthOfRound == chosenLengthOfRound ? buttonColor : Colors.transparent,
-    color: lengthOfRound == chosenLengthOfRound ? darkColor : textColor,
+        lengthOfRound == chosenLengthOfRound ? whiteColor : Colors.transparent,
+    color: lengthOfRound == chosenLengthOfRound ? darkBlueColor : whiteColor,
     fontSize: 24.0,
     horizontalPadding: 12.0,
     number: chosenLengthOfRound,

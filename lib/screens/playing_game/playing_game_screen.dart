@@ -22,9 +22,15 @@ int currentlyPlayingIndex = 0;
 int wrongAnswers = 0;
 int correctAnswers = 0;
 int currentScore = 0;
+int lengthOfRound;
 Map<String, String> routeArguments = {};
-int finalSecondsInRound = 5;
-Timer timer;
+double greenSeconds;
+double yellowSeconds;
+double redSeconds;
+Timer greenTimer;
+Timer yellowTimer;
+Timer redTimer;
+Timer soundTimer;
 final AudioPlayer buttonAudioPlayer = AudioPlayer();
 final AudioPlayer countdownAudioPlayer = AudioPlayer();
 final AudioCache buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
@@ -45,7 +51,7 @@ class PlayingGame extends StatefulWidget {
 
 class _PlayingGameState extends State<PlayingGame> {
   String pointsToWin;
-  String lengthOfRound;
+  String lengthOfRoundString;
   List<String> routeTeams;
 
   @override
@@ -56,7 +62,8 @@ class _PlayingGameState extends State<PlayingGame> {
         ModalRoute.of(context).settings.arguments as Map<String, String>;
 
     pointsToWin = routeArguments['pointsToWin'];
-    lengthOfRound = routeArguments['lengthOfRound'];
+    lengthOfRoundString = routeArguments['lengthOfRound'];
+    lengthOfRound = int.parse(lengthOfRoundString);
     routeTeams = [
       routeArguments['team1'],
       routeArguments['team2'],
@@ -74,14 +81,25 @@ class _PlayingGameState extends State<PlayingGame> {
     currentlyPlayingTeam = teams[currentlyPlayingIndex];
   }
 
-  void startCountdown() {
-    timer = Timer(
-        Duration(seconds: int.parse(lengthOfRound) - finalSecondsInRound), () {
-      countdownPlayer.play('timer.ogg');
+  Timer makeTimer(double chosenSeconds, Color chosenColor) {
+    return Timer(Duration(seconds: lengthOfRound - chosenSeconds.round()), () {
       setState(() {
-        countdownTimerFillColor = countdownTimerFillColorFinalSeconds;
+        countdownTimerFillColor = chosenColor;
       });
     });
+  }
+
+  void startCountdown() {
+    greenSeconds = lengthOfRound * 0.6;
+    yellowSeconds = lengthOfRound * 0.4;
+    redSeconds = lengthOfRound * 0.15;
+
+    soundTimer = Timer(Duration(seconds: lengthOfRound - 5),
+        () => countdownPlayer.play('timer.ogg'));
+
+    greenTimer = makeTimer(greenSeconds, greenColor);
+    yellowTimer = makeTimer(yellowSeconds, yellowColor);
+    redTimer = makeTimer(redSeconds, redColor);
   }
 
   @override
@@ -93,7 +111,7 @@ class _PlayingGameState extends State<PlayingGame> {
       wrongAnswers = 0;
       currentScore = 0;
       gamePlaying = true;
-      countdownTimerFillColor = countdownTimerFillColorNormalGame;
+      countdownTimerFillColor = blueColor;
       currentWord = getRandomWord;
       startCountdown();
       setState(() {});
@@ -115,8 +133,11 @@ class _PlayingGameState extends State<PlayingGame> {
 
     void endOfRound() {
       gamePlaying = false;
-      countdownTimerFillColor = countdownTimerFillColorNormalGame;
-      timer.cancel();
+      countdownTimerFillColor = darkBlueColor;
+      soundTimer.cancel();
+      greenTimer.cancel();
+      yellowTimer.cancel();
+      redTimer.cancel();
 
       teams[currentlyPlayingIndex].points += correctAnswers - wrongAnswers;
       if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin)) {
@@ -163,7 +184,7 @@ class _PlayingGameState extends State<PlayingGame> {
                         top: -75.0,
                         bottom: 0.0,
                         child: GameOn(
-                          length: int.parse(lengthOfRound),
+                          length: lengthOfRound,
                           onComplete: endOfRound,
                         ),
                       )

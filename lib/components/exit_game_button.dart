@@ -25,11 +25,11 @@ class ExitGameButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      textColor: textColor,
+      textColor: whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),
         side: BorderSide(
-          color: buttonColor,
+          color: whiteColor,
           width: 2.0,
         ),
       ),

@@ -23,12 +23,10 @@ class GameOff extends StatelessWidget {
             duration: 0,
             width: size.width * 0.9,
             height: size.height * 0.6,
-            color: countdownTimerColor,
+            color: darkBlueColor,
             fillColor: countdownTimerFillColor,
             strokeWidth: 36.0,
-            textStyle: TextStyle(
-              color: Colors.transparent,
-            ),
+            textStyle: TextStyle(color: Colors.transparent),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

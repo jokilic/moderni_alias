@@ -31,12 +31,14 @@ Future<bool> exitGame(BuildContext context) {
                         onPressed: () {
                           gamePlaying = false;
                           simpleGamePlaying = false;
-                          if (timer != null) timer.cancel();
-                          if (quickTimer != null) quickTimer.cancel();
+                          if (soundTimer != null) soundTimer.cancel();
+                          if (greenTimer != null) greenTimer.cancel();
+                          if (yellowTimer != null) yellowTimer.cancel();
+                          if (redTimer != null) redTimer.cancel();
+                          if (quickSoundTimer != null) quickSoundTimer.cancel();
                           countdownAudioPlayer.stop();
                           countdownQuickAudioPlayer.stop();
-                          countdownTimerFillColor =
-                              countdownTimerFillColorNormalGame;
+                          countdownTimerFillColor = darkBlueColor;
                           Navigator.popUntil(
                             context,
                             ModalRoute.withName(HomePage.routeName),

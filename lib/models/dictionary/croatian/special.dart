@@ -14,5 +14,6 @@ const List<String> specijalne = [
   'oči boje trapera',
   'gori',
   'petarda',
-  'ne da mi se'
+  'ne da mi se',
+  'aee reko, štaaee'
 ];

@@ -45,7 +45,7 @@ class GenericButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: backgroundColor,
             border: Border.all(
-              color: buttonColor,
+              color: whiteColor,
               width: 4,
             ),
             borderRadius: BorderRadius.all(
