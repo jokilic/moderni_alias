@@ -25,91 +25,104 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
     final String correctAnswers = routeArguments['correctAnswers'];
     final String wrongAnswers = routeArguments['wrongAnswers'];
 
-    return BackgroundImage(
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 200.0,
-            left: size.width / 2,
-            child: Confetti(),
-          ),
-          Positioned(
-            bottom: 200.0,
-            left: size.width / 2,
-            child: Confetti(),
-          ),
-          Positioned(
-            top: size.height / 2,
-            left: 50,
-            child: Confetti(),
-          ),
-          Positioned(
-            top: size.height / 2,
-            right: 50,
-            child: Confetti(),
-          ),
-          Center(
-            child: Container(
-              width: size.width * 0.8,
-              height: size.height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SvgPicture.asset(
-                    clapImage,
-                    height: 220.0,
-                  ),
-                  SizedBox(height: 30.0),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: quickGameFinishedFirstString,
-                      style: Theme.of(context).textTheme.bodyText1,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: correctAnswers,
-                          style: Theme.of(context).textTheme.headline2.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+    Future<bool> exitGame(BuildContext context) async {
+      Navigator.popUntil(
+        context,
+        ModalRoute.withName(HomePage.routeName),
+      );
+      return true;
+    }
+
+    return WillPopScope(
+      onWillPop: () => exitGame(context),
+      child: BackgroundImage(
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 200.0,
+              left: size.width / 2,
+              child: Confetti(),
+            ),
+            Positioned(
+              bottom: 200.0,
+              left: size.width / 2,
+              child: Confetti(),
+            ),
+            Positioned(
+              top: size.height / 2,
+              left: 50,
+              child: Confetti(),
+            ),
+            Positioned(
+              top: size.height / 2,
+              right: 50,
+              child: Confetti(),
+            ),
+            Center(
+              child: Container(
+                width: size.width * 0.8,
+                height: size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      clapImage,
+                      height: 220.0,
+                    ),
+                    SizedBox(height: 30.0),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: quickGameFinishedFirstString,
+                        style: Theme.of(context).textTheme.bodyText1,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: correctAnswers,
+                            style:
+                                Theme.of(context).textTheme.headline2.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                          ),
+                          TextSpan(text: quickGameFinishedSecondString),
+                          TextSpan(
+                            text: wrongAnswers,
+                            style:
+                                Theme.of(context).textTheme.headline2.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                          ),
+                          TextSpan(
+                            text: quickGameFinishedThirdString,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 50.0),
+                    Column(
+                      children: <Widget>[
+                        PlayButton(
+                          text: quickGameFinishedPlayAgainString.toUpperCase(),
+                          onPressed: () => Navigator.pushReplacementNamed(
+                            context,
+                            QuickGame.routeName,
+                          ),
                         ),
-                        TextSpan(text: quickGameFinishedSecondString),
-                        TextSpan(
-                          text: wrongAnswers,
-                          style: Theme.of(context).textTheme.headline2.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        TextSpan(
-                          text: quickGameFinishedThirdString,
+                        SizedBox(height: 20.0),
+                        PlayButton(
+                          text: quickGameFinishedExitString.toUpperCase(),
+                          onPressed: () => Navigator.popUntil(
+                            context,
+                            ModalRoute.withName(HomePage.routeName),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 50.0),
-                  Column(
-                    children: <Widget>[
-                      PlayButton(
-                        text: quickGameFinishedPlayAgainString.toUpperCase(),
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          QuickGame.routeName,
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
-                      PlayButton(
-                        text: quickGameFinishedExitString.toUpperCase(),
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          HomePage.routeName,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

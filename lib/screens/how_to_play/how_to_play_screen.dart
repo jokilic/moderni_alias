@@ -131,8 +131,20 @@ class HowToPlay extends StatelessWidget {
                   HowToPlayText(
                     RichText(
                       text: TextSpan(
-                        text: howToQuickAliasExplanationString,
+                        text: howToQuickAliasExplanationFirstString,
                         style: Theme.of(context).textTheme.headline4,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: howToQuickAliasExplanationSecondString,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: howToQuickAliasExplanationThirdString,
+                          ),
+                        ],
                       ),
                     ),
                   ),
