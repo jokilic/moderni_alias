@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class HowToPlayText extends StatelessWidget {
+class StandardText extends StatelessWidget {
   final Widget textChild;
 
-  HowToPlayText(this.textChild);
+  StandardText(this.textChild);
 
   @override
   Widget build(BuildContext context) {

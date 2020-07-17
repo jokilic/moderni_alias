@@ -4,8 +4,8 @@ import '../../colors.dart';
 import '../../strings.dart';
 import '../../components/background_image.dart';
 import '../../components/game_title.dart';
-import './components/small_title.dart';
-import './components/how_to_play_text.dart';
+import '../../components/small_title.dart';
+import '../../components/standard_text.dart';
 
 class HowToPlay extends StatelessWidget {
   static const routeName = '/how-to-play';
@@ -26,17 +26,15 @@ class HowToPlay extends StatelessWidget {
                   Container(
                     height: size.height * 0.1,
                     margin: EdgeInsets.only(top: 8.0, left: 16.0),
-                    child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: whiteColor,
-                        size: 44.0,
-                      ),
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      color: whiteColor,
+                      iconSize: 44.0,
+                      onPressed: () => Navigator.pop(context),
                     ),
                   ),
                   GameTitle(whatIsAliasTitleString),
-                  HowToPlayText(
+                  StandardText(
                     RichText(
                       text: TextSpan(
                         text: whatIsAliasFirstString,
@@ -66,7 +64,7 @@ class HowToPlay extends StatelessWidget {
                     ),
                   ),
                   GameTitle(howToPlayTitleString),
-                  HowToPlayText(
+                  StandardText(
                     RichText(
                       text: TextSpan(
                         text: howToPlayExplanationString,
@@ -75,7 +73,7 @@ class HowToPlay extends StatelessWidget {
                     ),
                   ),
                   SmallTitle(wordCorrectTitleString),
-                  HowToPlayText(
+                  StandardText(
                     RichText(
                       text: TextSpan(
                         text: wordCorrectExplanationFirstString,
@@ -97,7 +95,7 @@ class HowToPlay extends StatelessWidget {
                     ),
                   ),
                   SmallTitle(wordWrongTitleString),
-                  HowToPlayText(
+                  StandardText(
                     RichText(
                       text: TextSpan(
                         text: wordWrongExplanationFirstString,
@@ -119,7 +117,7 @@ class HowToPlay extends StatelessWidget {
                     ),
                   ),
                   SmallTitle(roundFinishedTitleString),
-                  HowToPlayText(
+                  StandardText(
                     RichText(
                       text: TextSpan(
                         text: roundFinishedExplanationString,
@@ -128,7 +126,7 @@ class HowToPlay extends StatelessWidget {
                     ),
                   ),
                   GameTitle(howToQuickAliasTitleString),
-                  HowToPlayText(
+                  StandardText(
                     RichText(
                       text: TextSpan(
                         text: howToQuickAliasExplanationFirstString,
