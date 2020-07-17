@@ -9,7 +9,7 @@ The game is simple, light (6.75MB) and doesn't use any permissions.
 Despite the Google Play Store logos in the screenshots, the game will be available there at a later date.
 You can download it from the 'Releases' tab.
 
-### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v0.9.6/moderni_alias-v096.apk).
+### Game can be downloaded from [HERE](https://github.com/jokilic/moderni_alias/releases/download/v1.0.0/moderni_alias-v100.apk).
 
 ![Multi](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/multi.png)
 
