@@ -133,7 +133,7 @@ const String enjoyTitleString = 'Uživajte u ovoj zabavnoj igri.';
 const String whatIsAliasFirstString = 'Alias';
 const String whatIsAliasSecondString =
     ' je zabavna igra objašnjavanja pojmova koju igraju ';
-const String whatIsAliasThirdString = 'dva ili više igrača';
+const String whatIsAliasThirdString = 'dva ili više tima igrača';
 const String whatIsAliasFourthString =
     '. U igri se objašnjavaju pojmovi upotrebljavajući riječi srodnog ili suprotnog značenja, asocijacije i slično, tako da pripadnici vaše ekipe pogode ';
 const String whatIsAliasFifthString = 'što više pojmova prije isteka vremena';
