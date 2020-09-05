@@ -4,10 +4,7 @@
 
 Moderni Alias is a simple app made in **Flutter**.
 It features an extensive croatian dictionary used for the game.
-The game is simple, light (6.75MB) and doesn't use any permissions.
-
-Despite the Google Play Store logos in the screenshots, the game will be available there at a later date.
-You can download it from the 'Releases' tab.
+The game is simple, light (7.25MB) and doesn't use any permissions.
 
 ### Game can be downloaded from [HERE](https://play.google.com/store/apps/details?id=com.josipkilic.modernialias).
 
@@ -15,12 +12,16 @@ You can download it from the 'Releases' tab.
 
 ## Things I still want to do:
 
-- [ ] Implement 'GeneralInfo' screen
-- [ ] Already used words should not appear during the current game
 - [ ] Increase number of words in the dictionary
-- [ ] Refactor 'theme' property
-- [ ] Add a checkbox if special dictionary should be used and a tooltip explaining it
 - [ ] Introduce English dictionary and flags to choose desired dictionary during game
+- [ ] Refactor 'theme' property
+- [ ] Currently entered team names get deleted when validation fails
+- [ ] Add a checkbox if special dictionary should be used and a tooltip explaining it
+- [x] Update Flutter packages & Readme.md
+- [x] Lock the orientation to portrait only
+- [x] Shorten and amplify the sound when the user presses the 'wrong' button
+- [x] Already used words should not appear during the current game
+- [x] Implement 'GeneralInfo' screen
 - [x] Pressing the back button after the game finishes brings you back in
 - [x] Make some UI changes
 - [x] Implement 'Are you sure?' modal when a user presses the Back button

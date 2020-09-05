@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'colors.dart';
+import './colors.dart';
 import './screens/home_page/home_page_screen.dart';
 import './screens/general_info/general_info_screen.dart';
 import './screens/how_to_play/how_to_play_screen.dart';
@@ -10,7 +11,14 @@ import './screens/game_finished/game_finished.dart';
 import './screens/quick_game/quick_game_screen.dart';
 import './screens/quick_game_finished/quick_game_finished.dart';
 
-void main() => runApp(ModerniAlias());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  ).then((_) {
+    runApp(ModerniAlias());
+  });
+}
 
 class ModerniAlias extends StatelessWidget {
   @override
