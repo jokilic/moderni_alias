@@ -15,5 +15,6 @@ const List<String> specijalne = [
   'gori',
   'petarda',
   'ne da mi se',
-  'aee reko, štaaee'
+  'aee reko, štaaee',
+  'Šiško Menčetić',
 ];

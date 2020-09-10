@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../strings.dart';
+import '../strings.dart';
 
-class HomeTitle extends StatelessWidget {
+class HeroTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../colors.dart';
 import '../../strings.dart';
 import '../../components/background_image.dart';
+import '../../components/hero_title.dart';
 import '../../components/game_title.dart';
 import '../../components/standard_text.dart';
 import '../../components/small_title.dart';
@@ -15,8 +16,6 @@ class GeneralInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: BackgroundImage(
         child: SafeArea(
@@ -26,16 +25,9 @@ class GeneralInfo extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: size.height * 0.1,
-                    margin: EdgeInsets.only(top: 8.0, left: 16.0),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      color: whiteColor,
-                      iconSize: 44.0,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ),
+                  SizedBox(height: 50.0),
+                  HeroTitle(),
+                  SizedBox(height: 40.0),
                   GameTitle(howTitleString),
                   StandardText(
                     RichText(

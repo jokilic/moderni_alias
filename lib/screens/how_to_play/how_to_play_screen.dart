@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../colors.dart';
 import '../../strings.dart';
 import '../../components/background_image.dart';
+import '../../components/hero_title.dart';
 import '../../components/game_title.dart';
 import '../../components/small_title.dart';
 import '../../components/standard_text.dart';
@@ -12,8 +13,6 @@ class HowToPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: BackgroundImage(
         child: SafeArea(
@@ -23,16 +22,9 @@ class HowToPlay extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: size.height * 0.1,
-                    margin: EdgeInsets.only(top: 8.0, left: 16.0),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      color: whiteColor,
-                      iconSize: 44.0,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ),
+                  SizedBox(height: 50.0),
+                  HeroTitle(),
+                  SizedBox(height: 40.0),
                   GameTitle(whatIsAliasTitleString),
                   StandardText(
                     RichText(

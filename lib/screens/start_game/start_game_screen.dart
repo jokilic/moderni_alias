@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../strings.dart';
+import '../../models/dictionary.dart';
 import '../../components/background_image.dart';
 import '../../components/play_button.dart';
 import '../../components/game_title.dart';
 import './components/horizontal_row.dart';
+import '../../components/flag_button.dart';
 import './components/number_of_teams_button.dart';
 import './components/number_of_points.dart';
 import './components/length_of_round_button.dart';
 import './components/name_of_team.dart';
 import '../playing_game/playing_game_screen.dart';
+
+Flags chosenDictionary = Flags.croatia;
 
 int numOfTeamsValue = 2;
 int pointsToWin = 50;
@@ -52,6 +56,17 @@ class _StartGameState extends State<StartGame> {
     textFieldControllers.forEach(
       (controller) => controller.dispose(),
     );
+  }
+
+// Called when tapping on the 'Rječnik' buttons
+  void updateDictionary(Flags chosenFlag) {
+    chosenFlag == Flags.croatia
+        ? currentDictionary = [...croatianDictionary]
+        : currentDictionary = [...englishDictionary];
+
+    setState(() {
+      chosenDictionary = chosenFlag;
+    });
   }
 
 // Called when tapping on the 'Timovi' buttons
@@ -149,20 +164,42 @@ class _StartGameState extends State<StartGame> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  GameTitle(dictionaryString),
+                  HorizontalScroll(
+                    [],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      createFlagButton(
+                        countryName: dictionaryCroatianString,
+                        flagImage: croatiaImage,
+                        selectedCountry: Flags.croatia,
+                        updateValue: () => updateDictionary(Flags.croatia),
+                      ),
+                      createFlagButton(
+                        countryName: dictionaryEnglishString,
+                        flagImage: unitedKingdomImage,
+                        selectedCountry: Flags.unitedKingdom,
+                        updateValue: () =>
+                            updateDictionary(Flags.unitedKingdom),
+                      ),
+                    ],
+                  ),
                   GameTitle(teamsString),
                   HorizontalScroll(
                     [
                       createNumberOfTeamsButton(
-                        2,
-                        () => updateNumberOfTeams(2),
+                        chosenNumberOfTeams: 2,
+                        updateValue: () => updateNumberOfTeams(2),
                       ),
                       createNumberOfTeamsButton(
-                        3,
-                        () => updateNumberOfTeams(3),
+                        chosenNumberOfTeams: 3,
+                        updateValue: () => updateNumberOfTeams(3),
                       ),
                       createNumberOfTeamsButton(
-                        4,
-                        () => updateNumberOfTeams(4),
+                        chosenNumberOfTeams: 4,
+                        updateValue: () => updateNumberOfTeams(4),
                       ),
                     ],
                   ),
@@ -170,20 +207,20 @@ class _StartGameState extends State<StartGame> {
                   HorizontalScroll(
                     [
                       createNumberOfPointsButton(
-                        25,
-                        () => updateNumberOfPoints(25),
+                        chosenNumberOfPoints: 25,
+                        updateValue: () => updateNumberOfPoints(25),
                       ),
                       createNumberOfPointsButton(
-                        50,
-                        () => updateNumberOfPoints(50),
+                        chosenNumberOfPoints: 50,
+                        updateValue: () => updateNumberOfPoints(50),
                       ),
                       createNumberOfPointsButton(
-                        75,
-                        () => updateNumberOfPoints(75),
+                        chosenNumberOfPoints: 75,
+                        updateValue: () => updateNumberOfPoints(75),
                       ),
                       createNumberOfPointsButton(
-                        100,
-                        () => updateNumberOfPoints(100),
+                        chosenNumberOfPoints: 100,
+                        updateValue: () => updateNumberOfPoints(100),
                       ),
                     ],
                   ),
@@ -191,20 +228,20 @@ class _StartGameState extends State<StartGame> {
                   HorizontalScroll(
                     [
                       createLengthOfRoundButton(
-                        20,
-                        () => updateLengthOfRound(20),
+                        chosenLengthOfRound: 20,
+                        updateValue: () => updateLengthOfRound(20),
                       ),
                       createLengthOfRoundButton(
-                        45,
-                        () => updateLengthOfRound(45),
+                        chosenLengthOfRound: 45,
+                        updateValue: () => updateLengthOfRound(45),
                       ),
                       createLengthOfRoundButton(
-                        60,
-                        () => updateLengthOfRound(60),
+                        chosenLengthOfRound: 60,
+                        updateValue: () => updateLengthOfRound(60),
                       ),
                       createLengthOfRoundButton(
-                        90,
-                        () => updateLengthOfRound(90),
+                        chosenLengthOfRound: 90,
+                        updateValue: () => updateLengthOfRound(90),
                       ),
                     ],
                   ),

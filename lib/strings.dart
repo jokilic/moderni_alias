@@ -12,6 +12,9 @@ const String quickStartButtonString = 'Brza igra';
 const String howToPlayButtonString = 'Kako igrati Alias?';
 
 // Start Game
+const String dictionaryString = 'Rječnik';
+const String dictionaryCroatianString = 'Hrvatski';
+const String dictionaryEnglishString = 'Engleski';
 const String teamsString = 'Timovi';
 const String numberOfPointsString = 'Broj bodova';
 const String lengthOfRoundString = 'Duljina runde';
@@ -182,6 +185,8 @@ const String screenshotsWebsite = 'https://previewed.app';
 - Images -
 ---------- */
 const String backgroundImage = 'assets/background.jpg';
+const String croatiaImage = 'assets/croatia.svg';
+const String unitedKingdomImage = 'assets/united_kingdom.svg';
 const String correctImage = 'assets/correct.svg';
 const String wrongImage = 'assets/wrong.svg';
 const String clickImage = 'assets/click.svg';

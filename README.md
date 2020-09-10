@@ -13,10 +13,11 @@ The game is simple, light (7.25MB) and doesn't use any permissions.
 ## Things I still want to do:
 
 - [ ] Increase number of words in the dictionary
-- [ ] Introduce English dictionary and flags to choose desired dictionary during game
 - [ ] Refactor 'theme' property
 - [ ] Currently entered team names get deleted when validation fails
 - [ ] Add a checkbox if special dictionary should be used and a tooltip explaining it
+- [x] Introduce English dictionary and flags to choose desired dictionary during game
+- [x] Add a hero section to the GeneralInfo screen and the HowToPlay screen
 - [x] Update Flutter packages & Readme.md
 - [x] Lock the orientation to portrait only
 - [x] Shorten and amplify the sound when the user presses the 'wrong' button

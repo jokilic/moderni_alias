@@ -4,8 +4,10 @@ import '../../../colors.dart';
 import './generic_button.dart';
 import '../start_game_screen.dart';
 
-Widget createNumberOfPointsButton(
-    int chosenNumberOfPoints, Function updateValue) {
+Widget createNumberOfPointsButton({
+  int chosenNumberOfPoints,
+  Function updateValue,
+}) {
   return GenericButton(
     backgroundColor:
         pointsToWin == chosenNumberOfPoints ? whiteColor : Colors.transparent,

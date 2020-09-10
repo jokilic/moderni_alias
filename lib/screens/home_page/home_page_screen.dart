@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/background_image.dart';
 import './components/info_button.dart';
-import './components/home_title.dart';
+import '../../components/hero_title.dart';
 import './components/home_page_buttons.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   InfoButton(),
-                  HomeTitle(),
+                  HeroTitle(),
                 ],
               ),
               HomePageButtons(),

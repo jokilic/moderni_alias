@@ -5,18 +5,33 @@ import './dictionary/croatian/nouns.dart';
 import './dictionary/croatian/verbs.dart';
 // import './dictionary/croatian/special.dart';
 
+import './dictionary/english/adjectives.dart';
+import './dictionary/english/nouns.dart';
+import './dictionary/english/verbs.dart';
+
+import '../screens/start_game/start_game_screen.dart';
+import '../components/flag_button.dart';
+
 String currentWord = '';
 
-const List<String> dictionary = [
+const List<String> croatianDictionary = [
   ...imenice,
   ...glagoli,
   ...pridjevi,
   // ...specijalne,
 ];
 
-List<String> currentDictionary = [...dictionary];
+const List<String> englishDictionary = [
+  ...nouns,
+  ...verbs,
+  ...adjectives,
+];
 
-List<String> refillCurrentDictionary() => currentDictionary = [...dictionary];
+List<String> currentDictionary = [...croatianDictionary];
+
+List<String> refillCurrentDictionary() => chosenDictionary == Flags.croatia
+    ? currentDictionary = [...croatianDictionary]
+    : currentDictionary = [...englishDictionary];
 
 String setRandomWord(currentDictionary) {
   if (currentDictionary.length == 2) refillCurrentDictionary();

@@ -12,3 +12,4 @@ const Color greenColor = Color(0xF166BB6A);
 const Color blueColor = Color(0xF14382B0);
 
 Color countdownTimerFillColor = darkBlueColor;
+Color flagColor = whiteColor;
