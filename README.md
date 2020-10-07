@@ -3,33 +3,32 @@
 # Moderni Alias 🗣️💬
 
 🗣️💬 **Moderni Alias** is a simple game made in **Flutter**. 👨‍💻
-It features extensive Croatian & English dictionaries used for the game. 📖
-The game is simple, light (7MB) and doesn't use any permissions. 🕹️
+
+It features extensive Croatian & English dictionaries used for the game. 📖&nbsp;
+The game is simple, light (7MB) and doesn't use any permissions. 🕹️&nbsp;
 
 ### Game can be downloaded from [HERE](https://play.google.com/store/apps/details?id=com.josipkilic.modernialias).
 &nbsp;
 
 ![Multi](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/multi.png)
 
-**What is Alias?** 🤔
+**What is Alias?** 🤔&nbsp;
 Alias is a fun word-guessing game which is played by two or more teams.
 The main objective of the game is to explain the current word to other team members, but using words of similar or opposite meaning, associations or anything similar, so your team guesses as much words is possible before time runs out.
-
-**Moderni Alias** is a game you will gladly play in fun companies, during fun times and during less fun times.
 &nbsp;
 
-**Normal game** 🎮
+**Normal game** 🎮&nbsp;
 You're playing a classic game of Alias with multiple teams.
 You pick the number of competing teams, length of the round and number of points to win.
 The teams interchange, and the team that first guesses the predetermined number of words is the winner of the game and can enjoy in a sea of colorful confetti.
 
-**Fast game** 🕹️
+**Fast game** 🕹️&nbsp;
 You don't have time for teams, points or round lengths, but you got a craving for some word guessing?
 Play a fast game in which you jump in immediately.
 After one minute, you will see your score followed by loads of colorful confetti.
 
 
-**About Moderni Alias** 🧩
+**About Moderni Alias** 🧩&nbsp;
 The game currently has around 7000 words, waiting to be guessed.
 With each new update, the word count will increase.
 The goal is to have 10 000.
