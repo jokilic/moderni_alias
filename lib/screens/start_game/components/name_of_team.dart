@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../colors.dart';
 
 class NameOfTeam extends StatelessWidget {
-  final String hintText;
-  final FocusNode focusNode;
-  final Function onFieldSubmitted;
-  final TextEditingController textFieldController;
+  final String? hintText;
+  final FocusNode? focusNode;
+  final Function? onFieldSubmitted;
+  final TextEditingController? textFieldController;
 
   NameOfTeam({
     this.hintText,
@@ -22,7 +22,7 @@ class NameOfTeam extends StatelessWidget {
       child: TextFormField(
         controller: textFieldController,
         focusNode: focusNode,
-        onFieldSubmitted: onFieldSubmitted,
+        onFieldSubmitted: onFieldSubmitted as void Function(String)?,
         style: Theme.of(context).textTheme.bodyText1,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
@@ -30,7 +30,7 @@ class NameOfTeam extends StatelessWidget {
           focusedBorder: buildInputBorder(),
           enabledBorder: buildInputBorder(),
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+          hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: whiteColor.withOpacity(0.6),
               ),
         ),

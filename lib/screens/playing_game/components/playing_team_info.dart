@@ -5,8 +5,8 @@ import '../../../strings.dart';
 import '../playing_game_screen.dart';
 
 class PlayingTeamInfo extends StatelessWidget {
-  final Function showScores;
-  final Function exitGame;
+  final Function? showScores;
+  final Function? exitGame;
 
   PlayingTeamInfo({this.showScores, this.exitGame});
 
@@ -25,7 +25,7 @@ class PlayingTeamInfo extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
-                  currentlyPlayingTeam.name,
+                  currentlyPlayingTeam.name!,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline2,
                 ),
@@ -41,7 +41,7 @@ class PlayingTeamInfo extends StatelessWidget {
                 color: whiteColor,
                 size: 30.0,
               ),
-              onPressed: exitGame,
+              onPressed: exitGame as void Function()?,
             ),
           ),
           Positioned(
@@ -53,7 +53,7 @@ class PlayingTeamInfo extends StatelessWidget {
                 color: whiteColor,
                 size: 30.0,
               ),
-              onPressed: showScores,
+              onPressed: showScores as void Function()?,
             ),
           ),
         ],

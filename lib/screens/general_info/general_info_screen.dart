@@ -39,7 +39,7 @@ class GeneralInfo extends StatelessWidget {
                             text: howSecondString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -51,7 +51,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: howFifthString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -65,13 +65,13 @@ class GeneralInfo extends StatelessWidget {
                             text: howSeventhString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: howEightString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -82,7 +82,7 @@ class GeneralInfo extends StatelessWidget {
                             text: howNinthString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -100,7 +100,7 @@ class GeneralInfo extends StatelessWidget {
                             text: whoSecondString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -110,7 +110,7 @@ class GeneralInfo extends StatelessWidget {
                             text: whoFourthString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -135,7 +135,7 @@ class GeneralInfo extends StatelessWidget {
                             text: fontSecondString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -148,7 +148,7 @@ class GeneralInfo extends StatelessWidget {
                             text: fontFifthString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -157,7 +157,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: fontSeventhString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -190,7 +190,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: appIconSecondString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -204,7 +204,7 @@ class GeneralInfo extends StatelessWidget {
                             text: appIconFourthString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -224,7 +224,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: otherIconsSecondString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -249,7 +249,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: wrongCorrectSoundsSecondString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -262,7 +262,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: wrongCorrectSoundsFourthString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),
@@ -272,7 +272,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: wrongCorrectSoundsSixthString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),
@@ -293,7 +293,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: countdownSoundsSecondString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),
@@ -318,7 +318,7 @@ class GeneralInfo extends StatelessWidget {
                             text: screenshotsSecondString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -328,7 +328,7 @@ class GeneralInfo extends StatelessWidget {
                             text: screenshotsFourthString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
@@ -337,7 +337,7 @@ class GeneralInfo extends StatelessWidget {
                           TextSpan(
                             text: screenshotsSixthString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       fontWeight: FontWeight.bold,
                                       color: blueColor,
                                     ),

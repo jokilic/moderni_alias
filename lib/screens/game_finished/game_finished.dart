@@ -26,10 +26,10 @@ class _GameFinishedState extends State<GameFinished> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final routeArguments =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
 
-    final String winningTeam = routeArguments['winningTeam'];
-    final String points = routeArguments['points'];
+    final String? winningTeam = routeArguments['winningTeam'];
+    final String? points = routeArguments['points'];
 
     return WillPopScope(
       onWillPop: () => exitGame(context),
@@ -84,7 +84,7 @@ class _GameFinishedState extends State<GameFinished> {
                               text: winningTeam,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2
+                                  .headline2!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -94,7 +94,7 @@ class _GameFinishedState extends State<GameFinished> {
                               text: points,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline2
+                                  .headline2!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),

@@ -31,11 +31,11 @@ Future<bool> exitGame(BuildContext context) {
                         onPressed: () {
                           gamePlaying = false;
                           simpleGamePlaying = false;
-                          if (soundTimer != null) soundTimer.cancel();
-                          if (greenTimer != null) greenTimer.cancel();
-                          if (yellowTimer != null) yellowTimer.cancel();
-                          if (redTimer != null) redTimer.cancel();
-                          if (quickSoundTimer != null) quickSoundTimer.cancel();
+                          if (soundTimer != null) soundTimer!.cancel();
+                          if (greenTimer != null) greenTimer!.cancel();
+                          if (yellowTimer != null) yellowTimer!.cancel();
+                          if (redTimer != null) redTimer!.cancel();
+                          if (quickSoundTimer != null) quickSoundTimer!.cancel();
                           countdownAudioPlayer.stop();
                           countdownQuickAudioPlayer.stop();
                           countdownTimerFillColor = darkBlueColor;
@@ -67,6 +67,6 @@ Future<bool> exitGame(BuildContext context) {
             ),
           );
         },
-      ) ??
-      false;
+      ) as Future<bool>? ??
+      false as Future<bool>;
 }

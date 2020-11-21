@@ -17,20 +17,20 @@ import '../../models/team.dart';
 
 List<Team> teams = [];
 bool gamePlaying = false;
-Team currentlyPlayingTeam;
+late Team currentlyPlayingTeam;
 int currentlyPlayingIndex = 0;
 int wrongAnswers = 0;
 int correctAnswers = 0;
 int currentScore = 0;
-int lengthOfRound;
-Map<String, String> routeArguments = {};
-double greenSeconds;
-double yellowSeconds;
-double redSeconds;
-Timer greenTimer;
-Timer yellowTimer;
-Timer redTimer;
-Timer soundTimer;
+int? lengthOfRound;
+Map<String, String?> routeArguments = {};
+late double greenSeconds;
+late double yellowSeconds;
+late double redSeconds;
+Timer? greenTimer;
+Timer? yellowTimer;
+Timer? redTimer;
+Timer? soundTimer;
 final AudioPlayer buttonAudioPlayer = AudioPlayer();
 final AudioPlayer countdownAudioPlayer = AudioPlayer();
 final AudioCache buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
@@ -50,20 +50,20 @@ class PlayingGame extends StatefulWidget {
 }
 
 class _PlayingGameState extends State<PlayingGame> {
-  String pointsToWin;
-  String lengthOfRoundString;
-  List<String> routeTeams;
+  String? pointsToWin;
+  String? lengthOfRoundString;
+  late List<String?> routeTeams;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     final routeArguments =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
 
     pointsToWin = routeArguments['pointsToWin'];
     lengthOfRoundString = routeArguments['lengthOfRound'];
-    lengthOfRound = int.parse(lengthOfRoundString);
+    lengthOfRound = int.parse(lengthOfRoundString!);
     routeTeams = [
       routeArguments['team1'],
       routeArguments['team2'],
@@ -82,7 +82,7 @@ class _PlayingGameState extends State<PlayingGame> {
   }
 
   Timer makeTimer(double chosenSeconds, Color chosenColor) {
-    return Timer(Duration(seconds: lengthOfRound - chosenSeconds.round()), () {
+    return Timer(Duration(seconds: lengthOfRound! - chosenSeconds.round()), () {
       setState(() {
         countdownTimerFillColor = chosenColor;
       });
@@ -90,11 +90,11 @@ class _PlayingGameState extends State<PlayingGame> {
   }
 
   void startCountdown() {
-    greenSeconds = lengthOfRound * 0.6;
-    yellowSeconds = lengthOfRound * 0.4;
-    redSeconds = lengthOfRound * 0.15;
+    greenSeconds = lengthOfRound! * 0.6;
+    yellowSeconds = lengthOfRound! * 0.4;
+    redSeconds = lengthOfRound! * 0.15;
 
-    soundTimer = Timer(Duration(seconds: lengthOfRound - 5),
+    soundTimer = Timer(Duration(seconds: lengthOfRound! - 5),
         () => countdownPlayer.play('timer.ogg'));
 
     greenTimer = makeTimer(greenSeconds, greenColor);
@@ -134,13 +134,13 @@ class _PlayingGameState extends State<PlayingGame> {
     void endOfRound() {
       gamePlaying = false;
       countdownTimerFillColor = darkBlueColor;
-      soundTimer.cancel();
-      greenTimer.cancel();
-      yellowTimer.cancel();
-      redTimer.cancel();
+      soundTimer!.cancel();
+      greenTimer!.cancel();
+      yellowTimer!.cancel();
+      redTimer!.cancel();
 
       teams[currentlyPlayingIndex].points += correctAnswers - wrongAnswers;
-      if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin)) {
+      if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin!)) {
         routeArguments = {
           'winningTeam': teams[currentlyPlayingIndex].name,
           'points': teams[currentlyPlayingIndex].points.toString(),

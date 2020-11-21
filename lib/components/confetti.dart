@@ -7,7 +7,7 @@ class Confetti extends StatefulWidget {
 }
 
 class _ConfettiState extends State<Confetti> {
-  ConfettiController confettiController;
+  late ConfettiController confettiController;
 
   @override
   void initState() {

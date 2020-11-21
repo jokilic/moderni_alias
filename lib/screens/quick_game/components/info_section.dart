@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../colors.dart';
 
 class InfoSection extends StatelessWidget {
-  final Function exitGame;
-  final int correctAnswers;
-  final int wrongAnswers;
+  final Function? exitGame;
+  final int? correctAnswers;
+  final int? wrongAnswers;
 
   InfoSection({
     this.exitGame,
@@ -29,7 +29,7 @@ class InfoSection extends StatelessWidget {
                 color: whiteColor,
                 size: 30.0,
               ),
-              onPressed: exitGame,
+              onPressed: exitGame as void Function()?,
             ),
           ),
           Positioned(
@@ -39,14 +39,14 @@ class InfoSection extends StatelessWidget {
               children: <Widget>[
                 Text(
                   wrongAnswers.toString(),
-                  style: Theme.of(context).textTheme.headline2.copyWith(
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
                         color: whiteColor,
                       ),
                 ),
                 SizedBox(width: 10.0),
                 Text(
                   correctAnswers.toString(),
-                  style: Theme.of(context).textTheme.headline2.copyWith(
+                  style: Theme.of(context).textTheme.headline2!.copyWith(
                         color: blueColor,
                       ),
                 ),

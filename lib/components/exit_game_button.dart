@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../colors.dart';
 
 class ExitGameButton extends StatelessWidget {
-  final String text;
-  final Function onPressed;
+  final String? text;
+  final Function? onPressed;
 
   ExitGameButton({this.text, this.onPressed});
 
@@ -17,14 +17,14 @@ class ExitGameButton extends StatelessWidget {
           vertical: 16.0,
         ),
         child: Text(
-          text.toUpperCase(),
+          text!.toUpperCase(),
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      onPressed: onPressed,
+      onPressed: onPressed as void Function()?,
       textColor: whiteColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),

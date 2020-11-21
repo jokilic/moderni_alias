@@ -1,5 +1,5 @@
 class Team {
-  String name;
+  String? name;
   int points;
 
   Team({this.name, this.points = 0});

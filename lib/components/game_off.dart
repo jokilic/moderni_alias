@@ -6,7 +6,7 @@ import '../colors.dart';
 import '../strings.dart';
 
 class GameOff extends StatelessWidget {
-  final Function onTap;
+  final Function? onTap;
 
   GameOff({this.onTap});
 
@@ -15,7 +15,7 @@ class GameOff extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[

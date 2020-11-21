@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../colors.dart';
 
 class GenericButton extends StatelessWidget {
-  final Function onTap;
-  final int number;
-  final Color color;
-  final Color backgroundColor;
-  final double horizontalPadding;
-  final double fontSize;
-  final double size;
+  final Function? onTap;
+  final int? number;
+  final Color? color;
+  final Color? backgroundColor;
+  final double? horizontalPadding;
+  final double? fontSize;
+  final double? size;
 
   GenericButton({
     this.onTap,
@@ -25,16 +25,16 @@ class GenericButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
+        horizontal: horizontalPadding!,
         vertical: 36.0,
       ),
       child: InkWell(
-        onTap: onTap,
+        onTap: onTap as void Function()?,
         child: Container(
           child: Center(
             child: Text(
               number.toString(),
-              style: Theme.of(context).textTheme.headline3.copyWith(
+              style: Theme.of(context).textTheme.headline3!.copyWith(
                     fontSize: fontSize,
                     color: color,
                   ),

@@ -16,13 +16,13 @@ import '../quick_game_finished/quick_game_finished.dart';
 int wrongAnswers = 0;
 int correctAnswers = 0;
 int lengthOfRound = 60;
-double quickGreenSeconds;
-double quickYellowSeconds;
-double quickRedSeconds;
-Timer quickGreenTimer;
-Timer quickYellowTimer;
-Timer quickRedTimer;
-Timer quickSoundTimer;
+late double quickGreenSeconds;
+late double quickYellowSeconds;
+late double quickRedSeconds;
+Timer? quickGreenTimer;
+Timer? quickYellowTimer;
+Timer? quickRedTimer;
+Timer? quickSoundTimer;
 bool simpleGamePlaying = false;
 Map<String, String> routeArguments = {};
 final AudioPlayer buttonQuickAudioPlayer = AudioPlayer();
@@ -97,7 +97,7 @@ class _QuickGameState extends State<QuickGame> {
     void endOfGame() {
       simpleGamePlaying = false;
       countdownTimerFillColor = darkBlueColor;
-      quickSoundTimer.cancel();
+      quickSoundTimer!.cancel();
 
       routeArguments = {
         'correctAnswers': correctAnswers.toString(),

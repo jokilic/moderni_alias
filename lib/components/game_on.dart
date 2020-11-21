@@ -5,8 +5,8 @@ import '../colors.dart';
 import '../models/dictionary.dart';
 
 class GameOn extends StatelessWidget {
-  final int length;
-  final Function onComplete;
+  final int? length;
+  final Function? onComplete;
 
   GameOn({this.length, this.onComplete});
 
@@ -20,10 +20,10 @@ class GameOn extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           CircularCountDownTimer(
-            duration: length,
+            duration: length!,
             width: size.width * 0.9,
             height: size.height * 0.6,
-            onComplete: onComplete,
+            onComplete: onComplete!,
             color: darkBlueColor,
             fillColor: countdownTimerFillColor,
             strokeWidth: 36.0,
@@ -34,9 +34,9 @@ class GameOn extends StatelessWidget {
           Container(
             width: size.width,
             child: Text(
-              currentWord.toUpperCase(),
+              currentWord!.toUpperCase(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline1.copyWith(
+              style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontWeight: FontWeight.bold,
                     letterSpacing: 8.0,
                   ),

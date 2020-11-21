@@ -19,7 +19,7 @@ int numOfTeamsValue = 2;
 int pointsToWin = 50;
 int lengthOfRound = 60;
 
-int validationCounter;
+late int validationCounter;
 bool validated = true;
 
 List<FocusNode> focusNodes = [];

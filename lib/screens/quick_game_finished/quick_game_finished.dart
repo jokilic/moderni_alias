@@ -20,10 +20,10 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final routeArguments =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
 
-    final String correctAnswers = routeArguments['correctAnswers'];
-    final String wrongAnswers = routeArguments['wrongAnswers'];
+    final String? correctAnswers = routeArguments['correctAnswers'];
+    final String? wrongAnswers = routeArguments['wrongAnswers'];
 
     Future<bool> exitGame(BuildContext context) async {
       Navigator.popUntil(
@@ -79,7 +79,7 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                           TextSpan(
                             text: correctAnswers,
                             style:
-                                Theme.of(context).textTheme.headline2.copyWith(
+                                Theme.of(context).textTheme.headline2!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),
@@ -87,7 +87,7 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                           TextSpan(
                             text: wrongAnswers,
                             style:
-                                Theme.of(context).textTheme.headline2.copyWith(
+                                Theme.of(context).textTheme.headline2!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),

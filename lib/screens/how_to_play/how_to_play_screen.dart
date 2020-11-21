@@ -32,7 +32,7 @@ class HowToPlay extends StatelessWidget {
                         text: whatIsAliasFirstString,
                         style: Theme.of(context)
                             .textTheme
-                            .headline4
+                            .headline4!
                             .copyWith(fontWeight: FontWeight.bold),
                         children: <TextSpan>[
                           TextSpan(
@@ -74,7 +74,7 @@ class HowToPlay extends StatelessWidget {
                           TextSpan(
                             text: wordCorrectExplanationSecondString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       color: greenColor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -96,7 +96,7 @@ class HowToPlay extends StatelessWidget {
                           TextSpan(
                             text: wordWrongExplanationSecondString,
                             style:
-                                Theme.of(context).textTheme.headline4.copyWith(
+                                Theme.of(context).textTheme.headline4!.copyWith(
                                       color: redColor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -128,7 +128,7 @@ class HowToPlay extends StatelessWidget {
                             text: howToQuickAliasExplanationSecondString,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline4
+                                .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(

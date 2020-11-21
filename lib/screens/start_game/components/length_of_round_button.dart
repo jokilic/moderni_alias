@@ -5,8 +5,8 @@ import './generic_button.dart';
 import '../start_game_screen.dart';
 
 Widget createLengthOfRoundButton({
-  int chosenLengthOfRound,
-  Function updateValue,
+  int? chosenLengthOfRound,
+  Function? updateValue,
 }) {
   return GenericButton(
     backgroundColor:

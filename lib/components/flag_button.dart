@@ -10,11 +10,11 @@ enum Flags {
 }
 
 class FlagButton extends StatelessWidget {
-  final String countryName;
-  final String flagImage;
-  final Color color;
-  final Color backgroundColor;
-  final Function onTap;
+  final String? countryName;
+  final String? flagImage;
+  final Color? color;
+  final Color? backgroundColor;
+  final Function? onTap;
 
   FlagButton({
     this.countryName,
@@ -32,7 +32,7 @@ class FlagButton extends StatelessWidget {
         bottom: 16.0,
       ),
       child: InkWell(
-        onTap: onTap,
+        onTap: onTap as void Function()?,
         child: Column(
           children: [
             Stack(
@@ -44,17 +44,17 @@ class FlagButton extends StatelessWidget {
                   width: 80.0,
                 ),
                 SvgPicture.asset(
-                  flagImage,
+                  flagImage!,
                   width: 90.0,
-                  color: color,
+                  color: color!,
                 ),
               ],
             ),
             Text(
-              countryName,
+              countryName!,
               style: Theme.of(context)
                   .textTheme
-                  .headline4
+                  .headline4!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ],
@@ -65,10 +65,10 @@ class FlagButton extends StatelessWidget {
 }
 
 Widget createFlagButton({
-  String countryName,
-  Flags selectedCountry,
-  String flagImage,
-  Function updateValue,
+  String? countryName,
+  Flags? selectedCountry,
+  String? flagImage,
+  Function? updateValue,
 }) {
   return FlagButton(
     countryName: countryName,
