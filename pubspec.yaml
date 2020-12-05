@@ -3,7 +3,7 @@ description: Ovo je moja Alias aplikacija.
 
 publish_to: 'none'
 
-version: 1.2.0+4
+version: 1.2.1+5
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
@@ -12,11 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.3
-  flutter_svg: ^0.18.1
-  url_launcher: ^5.5.2
-  circular_countdown_timer: ^0.0.4
-  audioplayers: ^0.16.0
+  flutter_svg: ^0.19.1
+  audioplayers: ^0.17.0
+  circular_countdown_timer: ^0.0.8
   confetti: ^0.5.4+1
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +37,6 @@ flutter:
   fonts:
     - family: Sen
       fonts:
-        - asset: fonts\Sen\Sen-Regular.ttf
-        - asset: fonts\Sen\Sen-Bold.ttf
+        - asset: fonts/Sen/Sen-Regular.ttf
+        - asset: fonts/Sen/Sen-Bold.ttf
           weight: 700
