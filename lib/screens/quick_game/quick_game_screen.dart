@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:audioplayers/audio_cache.dart';
 
 import '../../colors.dart';
 import '../../models/dictionary.dart';
@@ -27,10 +26,8 @@ bool simpleGamePlaying = false;
 Map<String, String> routeArguments = {};
 final AudioPlayer buttonQuickAudioPlayer = AudioPlayer();
 final AudioPlayer countdownQuickAudioPlayer = AudioPlayer();
-final AudioCache buttonQuickPlayer =
-    AudioCache(fixedPlayer: buttonQuickAudioPlayer);
-final AudioCache countdownQuickPlayer =
-    AudioCache(fixedPlayer: countdownQuickAudioPlayer);
+final AudioCache buttonQuickPlayer = AudioCache(fixedPlayer: buttonQuickAudioPlayer);
+final AudioCache countdownQuickPlayer = AudioCache(fixedPlayer: countdownQuickAudioPlayer);
 
 enum ChosenButton {
   Correct,
@@ -58,8 +55,7 @@ class _QuickGameState extends State<QuickGame> {
     quickYellowSeconds = lengthOfRound * 0.4;
     quickRedSeconds = lengthOfRound * 0.15;
 
-    quickSoundTimer = Timer(Duration(seconds: lengthOfRound - 5),
-        () => countdownQuickPlayer.play('timer.ogg'));
+    quickSoundTimer = Timer(Duration(seconds: lengthOfRound - 5), () => countdownQuickPlayer.play('timer.ogg'));
 
     quickGreenTimer = makeTimer(quickGreenSeconds, greenColor);
     quickYellowTimer = makeTimer(quickYellowSeconds, yellowColor);

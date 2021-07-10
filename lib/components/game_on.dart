@@ -24,7 +24,7 @@ class GameOn extends StatelessWidget {
             width: size.width * 0.9,
             height: size.height * 0.6,
             onComplete: onComplete,
-            color: darkBlueColor,
+            ringColor: darkBlueColor,
             fillColor: countdownTimerFillColor,
             strokeWidth: 36.0,
             textStyle: TextStyle(
@@ -32,14 +32,16 @@ class GameOn extends StatelessWidget {
             ),
           ),
           Container(
-            width: size.width,
-            child: Text(
-              currentWord.toUpperCase(),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 8.0,
-                  ),
+            width: size.width - 40.0,
+            child: FittedBox(
+              child: Text(
+                currentWord.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline1.copyWith(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 8.0,
+                    ),
+              ),
             ),
           ),
         ],

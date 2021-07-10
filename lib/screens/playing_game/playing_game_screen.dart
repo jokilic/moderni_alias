@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:audioplayers/audio_cache.dart';
 
 import '../../colors.dart';
 import '../../components/background_image.dart';
@@ -34,8 +33,7 @@ Timer soundTimer;
 final AudioPlayer buttonAudioPlayer = AudioPlayer();
 final AudioPlayer countdownAudioPlayer = AudioPlayer();
 final AudioCache buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
-final AudioCache countdownPlayer =
-    AudioCache(fixedPlayer: countdownAudioPlayer);
+final AudioCache countdownPlayer = AudioCache(fixedPlayer: countdownAudioPlayer);
 
 enum ChosenButton {
   Correct,
@@ -58,8 +56,7 @@ class _PlayingGameState extends State<PlayingGame> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final routeArguments =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final routeArguments = ModalRoute.of(context).settings.arguments as Map<String, String>;
 
     pointsToWin = routeArguments['pointsToWin'];
     lengthOfRoundString = routeArguments['lengthOfRound'];
@@ -94,8 +91,7 @@ class _PlayingGameState extends State<PlayingGame> {
     yellowSeconds = lengthOfRound * 0.4;
     redSeconds = lengthOfRound * 0.15;
 
-    soundTimer = Timer(Duration(seconds: lengthOfRound - 5),
-        () => countdownPlayer.play('timer.ogg'));
+    soundTimer = Timer(Duration(seconds: lengthOfRound - 5), () => countdownPlayer.play('timer.ogg'));
 
     greenTimer = makeTimer(greenSeconds, greenColor);
     yellowTimer = makeTimer(yellowSeconds, yellowColor);
