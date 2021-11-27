@@ -19,11 +19,10 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final routeArguments =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final routeArguments = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
 
-    final String correctAnswers = routeArguments['correctAnswers'];
-    final String wrongAnswers = routeArguments['wrongAnswers'];
+    final String correctAnswers = routeArguments['correctAnswers'] ?? '0';
+    final String wrongAnswers = routeArguments['wrongAnswers'] ?? '0';
 
     Future<bool> exitGame(BuildContext context) async {
       Navigator.popUntil(
@@ -78,18 +77,16 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                         children: <TextSpan>[
                           TextSpan(
                             text: correctAnswers,
-                            style:
-                                Theme.of(context).textTheme.headline2.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: Theme.of(context).textTheme.headline2!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           TextSpan(text: quickGameFinishedSecondString),
                           TextSpan(
                             text: wrongAnswers,
-                            style:
-                                Theme.of(context).textTheme.headline2.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: Theme.of(context).textTheme.headline2!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           TextSpan(
                             text: quickGameFinishedThirdString,

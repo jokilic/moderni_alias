@@ -15,7 +15,9 @@ class SmallTitle extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.headline3.copyWith(fontSize: 26.0),
+        style: Theme.of(context).textTheme.headline3!.copyWith(
+              fontSize: 26.0,
+            ),
       ),
     );
   }

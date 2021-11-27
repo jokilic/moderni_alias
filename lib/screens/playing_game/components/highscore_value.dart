@@ -4,7 +4,10 @@ class HighscoreValue extends StatelessWidget {
   final String teamName;
   final int points;
 
-  HighscoreValue({this.teamName, this.points});
+  HighscoreValue({
+    required this.teamName,
+    required this.points,
+  });
 
   @override
   Widget build(BuildContext context) {

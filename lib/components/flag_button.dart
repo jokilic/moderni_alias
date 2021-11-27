@@ -14,14 +14,14 @@ class FlagButton extends StatelessWidget {
   final String flagImage;
   final Color color;
   final Color backgroundColor;
-  final Function onTap;
+  final Function() onTap;
 
   FlagButton({
-    this.countryName,
-    this.flagImage,
-    this.color,
-    this.backgroundColor,
-    this.onTap,
+    required this.countryName,
+    required this.flagImage,
+    required this.color,
+    required this.backgroundColor,
+    required this.onTap,
   });
 
   @override
@@ -52,10 +52,7 @@ class FlagButton extends StatelessWidget {
             ),
             Text(
               countryName,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4
-                  .copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -65,15 +62,14 @@ class FlagButton extends StatelessWidget {
 }
 
 Widget createFlagButton({
-  String countryName,
-  Flags selectedCountry,
-  String flagImage,
-  Function updateValue,
+  required String countryName,
+  required Flags selectedCountry,
+  required String flagImage,
+  required Function() updateValue,
 }) {
   return FlagButton(
     countryName: countryName,
-    backgroundColor:
-        chosenDictionary == selectedCountry ? whiteColor : Colors.transparent,
+    backgroundColor: chosenDictionary == selectedCountry ? whiteColor : Colors.transparent,
     color: chosenDictionary == selectedCountry ? darkBlueColor : whiteColor,
     flagImage: flagImage,
     onTap: updateValue,

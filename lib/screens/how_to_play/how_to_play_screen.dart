@@ -30,20 +30,13 @@ class HowToPlay extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: whatIsAliasFirstString,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4
-                            .copyWith(fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                         children: <TextSpan>[
-                          TextSpan(
-                              text: whatIsAliasSecondString,
-                              style: Theme.of(context).textTheme.headline4),
+                          TextSpan(text: whatIsAliasSecondString, style: Theme.of(context).textTheme.headline4),
                           TextSpan(
                             text: whatIsAliasThirdString,
                           ),
-                          TextSpan(
-                              text: whatIsAliasFourthString,
-                              style: Theme.of(context).textTheme.headline4),
+                          TextSpan(text: whatIsAliasFourthString, style: Theme.of(context).textTheme.headline4),
                           TextSpan(
                             text: whatIsAliasFifthString,
                           ),
@@ -73,11 +66,10 @@ class HowToPlay extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: wordCorrectExplanationSecondString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      color: greenColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  color: greenColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           TextSpan(
                             text: wordCorrectExplanationThirdString,
@@ -95,11 +87,10 @@ class HowToPlay extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: wordWrongExplanationSecondString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      color: redColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  color: redColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           TextSpan(
                             text: wordWrongExplanationThirdString,
@@ -126,10 +117,7 @@ class HowToPlay extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: howToQuickAliasExplanationSecondString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: howToQuickAliasExplanationThirdString,

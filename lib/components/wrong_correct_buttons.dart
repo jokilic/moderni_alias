@@ -4,10 +4,13 @@ import '../strings.dart';
 import './game_button.dart';
 
 class WrongCorrectButtons extends StatelessWidget {
-  final Function wrongChosen;
-  final Function correctChosen;
+  final Function() wrongChosen;
+  final Function() correctChosen;
 
-  WrongCorrectButtons({this.wrongChosen, this.correctChosen});
+  WrongCorrectButtons({
+    required this.wrongChosen,
+    required this.correctChosen,
+  });
 
   @override
   Widget build(BuildContext context) {

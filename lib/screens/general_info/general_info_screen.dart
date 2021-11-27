@@ -37,10 +37,7 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: howSecondString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: howThirdString,
@@ -50,40 +47,30 @@ class GeneralInfo extends StatelessWidget {
                           ),
                           TextSpan(
                             text: howFifthString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(flutterWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(flutterWebsite),
                           ),
                           TextSpan(
                             text: howSixthString,
                           ),
                           TextSpan(
                             text: howSeventhString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: howEightString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(moderniAliasWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(moderniAliasWebsite),
                           ),
                           TextSpan(
                             text: howNinthString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -98,20 +85,14 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: whoSecondString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: whoThirdString,
                           ),
                           TextSpan(
                             text: whoFourthString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: whoFifthString,
@@ -133,10 +114,7 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: fontSecondString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: fontThirdString,
@@ -146,23 +124,18 @@ class GeneralInfo extends StatelessWidget {
                           ),
                           TextSpan(
                             text: fontFifthString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: fontSixthString,
                           ),
                           TextSpan(
                             text: fontSeventhString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(senIconWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(senIconWebsite),
                           ),
                           TextSpan(
                             text: fontEigthString,
@@ -189,23 +162,18 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: appIconSecondString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(flaticonWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
                           ),
                           TextSpan(
                             text: appIconThirdString,
                           ),
                           TextSpan(
                             text: appIconFourthString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: appIconFifthString,
@@ -223,13 +191,11 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: otherIconsSecondString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(flaticonWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
                           ),
                           TextSpan(
                             text: otherIconsThirdString,
@@ -248,33 +214,29 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: wrongCorrectSoundsSecondString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(googleSoundsWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(googleSoundsWebsite),
                           ),
                           TextSpan(
                             text: wrongCorrectSoundsThirdString,
                           ),
                           TextSpan(
                             text: wrongCorrectSoundsFourthString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           TextSpan(
                             text: wrongCorrectSoundsFifthString,
                           ),
                           TextSpan(
                             text: wrongCorrectSoundsSixthString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           TextSpan(
                             text: wrongCorrectSoundsSeventhString,
@@ -292,13 +254,11 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: countdownSoundsSecondString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(freeSoundWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(freeSoundWebsite),
                           ),
                           TextSpan(
                             text: countdownSoundsThirdString,
@@ -316,33 +276,25 @@ class GeneralInfo extends StatelessWidget {
                         children: <TextSpan>[
                           TextSpan(
                             text: screenshotsSecondString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: screenshotsThirdString,
                           ),
                           TextSpan(
                             text: screenshotsFourthString,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: screenshotsFifthString,
                           ),
                           TextSpan(
                             text: screenshotsSixthString,
-                            style:
-                                Theme.of(context).textTheme.headline4.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: blueColor,
-                                    ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => launch(screenshotsWebsite),
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(screenshotsWebsite),
                           ),
                           TextSpan(
                             text: screenshotsSeventhString,

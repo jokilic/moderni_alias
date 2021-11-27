@@ -38,7 +38,9 @@ class ModerniAlias extends StatelessWidget {
       },
       theme: ThemeData(
         primaryColor: darkBlueColor,
-        accentColor: blueColor,
+        colorScheme: ColorScheme.dark(
+          background: darkBlueColor,
+        ),
         canvasColor: Colors.transparent,
         scaffoldBackgroundColor: darkBlueColor,
         fontFamily: 'Sen',

@@ -5,14 +5,14 @@ import '../../../colors.dart';
 class NameOfTeam extends StatelessWidget {
   final String hintText;
   final FocusNode focusNode;
-  final Function onFieldSubmitted;
+  final Function(String value) onFieldSubmitted;
   final TextEditingController textFieldController;
 
   NameOfTeam({
-    this.hintText,
-    this.focusNode,
-    this.onFieldSubmitted,
-    this.textFieldController,
+    required this.hintText,
+    required this.focusNode,
+    required this.onFieldSubmitted,
+    required this.textFieldController,
   });
 
   @override
@@ -30,7 +30,7 @@ class NameOfTeam extends StatelessWidget {
           focusedBorder: buildInputBorder(),
           enabledBorder: buildInputBorder(),
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+          hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: whiteColor.withOpacity(0.6),
               ),
         ),

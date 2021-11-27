@@ -6,9 +6,11 @@ import '../colors.dart';
 import '../strings.dart';
 
 class GameOff extends StatelessWidget {
-  final Function onTap;
+  final Function() onTap;
 
-  GameOff({this.onTap});
+  GameOff({
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -2,5 +2,8 @@ class Team {
   String name;
   int points;
 
-  Team({this.name, this.points = 0});
+  Team({
+    required this.name,
+    this.points = 0,
+  });
 }
