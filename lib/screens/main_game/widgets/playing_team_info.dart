@@ -20,7 +20,7 @@ class PlayingTeamInfo extends StatelessWidget {
           children: [
             Align(
               child: Column(
-                children: <Widget>[
+                children: [
                   Text(
                     currentlyPlayingPlaceholder.toUpperCase(),
                     style: Theme.of(context).textTheme.bodyText2,

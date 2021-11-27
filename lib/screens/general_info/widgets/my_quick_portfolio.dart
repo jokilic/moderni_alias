@@ -1,59 +1,61 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
 import '../../../widgets/play_button.dart';
-
-final AudioCache boomBabyPlayer = AudioCache();
+import '../general_info_controller.dart';
 
 class MyQuickPortfolio extends StatelessWidget {
+  final generalInfoController = Get.find<GeneralInfoController>();
+
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         width: double.infinity,
         child: Column(
-          children: <Widget>[
+          children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: EdgeInsets.only(bottom: 16.h),
               child: GestureDetector(
-                onLongPress: () => boomBabyPlayer.play('boom.wav'),
-                child: const CircleAvatar(
+                onLongPress: generalInfoController.playBoomBaby,
+                child: CircleAvatar(
                   backgroundColor: whiteColor,
-                  radius: 85,
+                  radius: 85.r,
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(josipImage),
-                    radius: 82,
+                    backgroundImage: const AssetImage(josipImage),
+                    radius: 82.r,
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.all(8.r),
               child: PlayButton(
-                text: aboutMeWebsiteString.toUpperCase(),
-                horizontalPadding: 16,
+                text: 'aboutMeWebsiteString'.tr.toUpperCase(),
+                horizontalPadding: 16.w,
                 onPressed: () => launch(josipKilicWebsite),
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: [
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8.r),
                   child: PlayButton(
-                    text: aboutMeGitHubString.toUpperCase(),
-                    horizontalPadding: 16,
+                    text: 'aboutMeGitHubString'.tr.toUpperCase(),
+                    horizontalPadding: 16.w,
                     onPressed: () => launch(josipGithubWebsite),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8.r),
                   child: PlayButton(
-                    text: aboutMeEmailString.toUpperCase(),
-                    horizontalPadding: 16,
+                    text: 'aboutMeEmailString'.tr.toUpperCase(),
+                    horizontalPadding: 16.w,
                     onPressed: () => launch(josipKilicEmail),
                   ),
                 ),

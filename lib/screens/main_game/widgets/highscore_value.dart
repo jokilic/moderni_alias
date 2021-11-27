@@ -19,7 +19,7 @@ class HighscoreValue extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 6),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             SizedBox(
               width: size.width * 0.5,
               child: Text(

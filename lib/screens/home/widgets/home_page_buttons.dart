@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import './how_to_play_button.dart';
-import '../../../constants/strings.dart';
 import '../../../widgets/play_button.dart';
 import '../../quick_game/quick_game_screen.dart';
 import '../../start_game/start_game_screen.dart';
@@ -13,22 +13,22 @@ class HomePageButtons extends StatelessWidget {
         child: Column(
           children: [
             PlayButton(
-              text: startButtonString.toUpperCase(),
-              horizontalPadding: 44,
+              text: 'startButtonString'.tr.toUpperCase(),
+              horizontalPadding: 44.w,
               onPressed: () => Get.toNamed(
                 StartGameScreen.routeName,
               ),
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: 25.h),
             PlayButton(
-              text: quickStartButtonString.toUpperCase(),
+              text: 'quickStartButtonString'.tr.toUpperCase(),
               onPressed: () => Get.toNamed(
                 QuickGameScreen.routeName,
               ),
             ),
-            const SizedBox(height: 25),
+            SizedBox(height: 25.h),
             HowToPlayButton(),
-            const SizedBox(height: 50),
+            SizedBox(height: 50.h),
           ],
         ),
       );

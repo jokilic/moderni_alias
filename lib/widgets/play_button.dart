@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
 
@@ -11,8 +12,8 @@ class PlayButton extends StatelessWidget {
   const PlayButton({
     required this.text,
     required this.onPressed,
-    this.horizontalPadding = 50.0,
-    this.verticalPadding = 20.0,
+    this.horizontalPadding = 50,
+    this.verticalPadding = 20,
   });
 
   @override
@@ -20,16 +21,16 @@ class PlayButton extends StatelessWidget {
         onPressed: onPressed,
         textColor: whiteColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-          side: const BorderSide(
+          borderRadius: BorderRadius.circular(50.r),
+          side: BorderSide(
             color: whiteColor,
-            width: 2,
+            width: 2.w,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding,
-            vertical: verticalPadding,
+            horizontal: horizontalPadding.w,
+            vertical: verticalPadding.h,
           ),
           child: Text(
             text,

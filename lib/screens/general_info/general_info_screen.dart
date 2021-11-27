@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import './widgets/my_quick_portfolio.dart';
@@ -20,293 +22,310 @@ class GeneralInfoScreen extends StatelessWidget {
           child: SafeArea(
             child: SizedBox(
               height: double.infinity,
-              child: SingleChildScrollView(
+              child: ListView(
                 physics: const BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const SizedBox(height: 50),
-                    HeroTitle(),
-                    const SizedBox(height: 40),
-                    const GameTitle(howTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: howFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: howSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: howThirdString,
-                            ),
-                            const TextSpan(
-                              text: howFourthString,
-                            ),
-                            TextSpan(
-                              text: howFifthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(flutterWebsite),
-                            ),
-                            const TextSpan(
-                              text: howSixthString,
-                            ),
-                            TextSpan(
-                              text: howSeventhString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: howEightString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(moderniAliasWebsite),
-                            ),
-                            TextSpan(
-                              text: howNinthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+                children: [
+                  SizedBox(height: 50.h),
+                  HeroTitle(),
+                  SizedBox(height: 40.h),
+                  GameTitle('howTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'howFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'howSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'howThirdString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'howFourthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'howFifthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(flutterWebsite),
+                          ),
+                          TextSpan(
+                            text: 'howSixthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'howSeventhString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'howEightString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(moderniAliasWebsite),
+                          ),
+                          TextSpan(
+                            text: 'howNinthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ],
                       ),
                     ),
-                    const GameTitle(whoTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: whoFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: whoSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: whoThirdString,
-                            ),
-                            TextSpan(
-                              text: whoFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: whoFifthString,
-                            ),
-                            const TextSpan(
-                              text: whoSixthString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  GameTitle('whoTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'whoFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'whoSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'whoThirdString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'whoFourthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'whoFifthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'whoSixthString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    MyQuickPortfolio(),
-                    const GameTitle(fontTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: fontFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: fontSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: fontThirdString,
-                            ),
-                            const TextSpan(
-                              text: fontFourthString,
-                            ),
-                            TextSpan(
-                              text: fontFifthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: fontSixthString,
-                            ),
-                            TextSpan(
-                              text: fontSeventhString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(senIconWebsite),
-                            ),
-                            const TextSpan(
-                              text: fontEigthString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  MyQuickPortfolio(),
+                  GameTitle('fontTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'fontFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'fontSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'fontThirdString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'fontFourthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'fontFifthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'fontSixthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'fontSeventhString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(senIconWebsite),
+                          ),
+                          TextSpan(
+                            text: 'fontEigthString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    const GameTitle(iconsTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: iconsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
+                  ),
+                  GameTitle('iitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'iconsFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                     ),
-                    const SmallTitle(appIconTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: appIconFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: appIconSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
-                            ),
-                            const TextSpan(
-                              text: appIconThirdString,
-                            ),
-                            TextSpan(
-                              text: appIconFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: appIconFifthString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  SmallTitle('appIconTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'appIconFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'appIconSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
+                          ),
+                          TextSpan(
+                            text: 'appIconThirdString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'appIconFourthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'appIconFifthString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    const SmallTitle(otherIconsTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: otherIconsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: otherIconsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
-                            ),
-                            const TextSpan(
-                              text: otherIconsThirdString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  SmallTitle('otherIitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'otherIconsFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'otherIconsSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
+                          ),
+                          TextSpan(
+                            text: 'otherIhirdString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    const GameTitle(soundsTitleString),
-                    const SmallTitle(wrongCorrectSoundsTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: wrongCorrectSoundsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: wrongCorrectSoundsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(googleSoundsWebsite),
-                            ),
-                            const TextSpan(
-                              text: wrongCorrectSoundsThirdString,
-                            ),
-                            TextSpan(
-                              text: wrongCorrectSoundsFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            const TextSpan(
-                              text: wrongCorrectSoundsFifthString,
-                            ),
-                            TextSpan(
-                              text: wrongCorrectSoundsSixthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            const TextSpan(
-                              text: wrongCorrectSoundsSeventhString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  GameTitle('soundsTitleString'.tr),
+                  SmallTitle('wrongCorrectSoundsTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'wrongCorrectSoundsFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'wrongCorrectSoundsSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(googleSoundsWebsite),
+                          ),
+                          TextSpan(
+                            text: 'wrongCorrectSoundsThirdString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'wrongCorrectSoundsFourthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'wrongCorrectSoundsFifthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'wrongCorrectSoundsSixthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'wrongCorrectSoundsSeventhString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    const SmallTitle(countdownSoundsTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: countdownSoundsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: countdownSoundsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(freeSoundWebsite),
-                            ),
-                            const TextSpan(
-                              text: countdownSoundsThirdString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  SmallTitle('countdownSoundsTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'countdownSoundsFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'countdownSoundsSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(freeSoundWebsite),
+                          ),
+                          TextSpan(
+                            text: 'countdownSoundsThirdString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    const GameTitle(screenshotsTitleString),
-                    StandardText(
-                      RichText(
-                        text: TextSpan(
-                          text: screenshotsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: screenshotsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: screenshotsThirdString,
-                            ),
-                            TextSpan(
-                              text: screenshotsFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: screenshotsFifthString,
-                            ),
-                            TextSpan(
-                              text: screenshotsSixthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(screenshotsWebsite),
-                            ),
-                            const TextSpan(
-                              text: screenshotsSeventhString,
-                            ),
-                          ],
-                        ),
+                  ),
+                  GameTitle('screenshotsTitleString'.tr),
+                  StandardText(
+                    RichText(
+                      text: TextSpan(
+                        text: 'screenshotsFirstString'.tr,
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(
+                            text: 'screenshotsSecondString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'screenshotsThirdString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'screenshotsFourthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'screenshotsFifthString'.tr,
+                          ),
+                          TextSpan(
+                            text: 'screenshotsSixthString'.tr,
+                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: blueColor,
+                                ),
+                            recognizer: TapGestureRecognizer()..onTap = () => launch(screenshotsWebsite),
+                          ),
+                          TextSpan(
+                            text: 'screenshotsSeventhString'.tr,
+                          ),
+                        ],
                       ),
                     ),
-                    const SmallTitle(enjoyTitleString),
-                    const SizedBox(height: 50),
-                  ],
-                ),
+                  ),
+                  SmallTitle('enjoyTitleString'.tr),
+                  SizedBox(height: 50.h),
+                ],
               ),
             ),
           ),

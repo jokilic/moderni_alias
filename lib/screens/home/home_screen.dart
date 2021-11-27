@@ -14,9 +14,9 @@ class HomeScreen extends StatelessWidget {
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+              children: [
                 Column(
-                  children: <Widget>[
+                  children: [
                     InfoButton(),
                     HeroTitle(),
                   ],

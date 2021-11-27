@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/strings.dart';
 import '../../how_to_play/how_to_play_screen.dart';
 
 class HowToPlayButton extends StatelessWidget {
@@ -13,13 +13,13 @@ class HowToPlayButton extends StatelessWidget {
         ),
         color: Colors.black45,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(50.r),
         ),
-        child: const Padding(
-          padding: EdgeInsets.all(12),
+        child: Padding(
+          padding: EdgeInsets.all(12.r),
           child: Text(
-            howToPlayButtonString,
-            style: TextStyle(
+            'howToPlayButtonString'.tr,
+            style: const TextStyle(
               fontSize: 13,
               color: whiteColor,
             ),

@@ -18,7 +18,7 @@ class InfoSection extends StatelessWidget {
         height: 50,
         margin: const EdgeInsets.only(top: 24),
         child: Stack(
-          children: <Widget>[
+          children: [
             Positioned(
               left: -10,
               top: -10,
@@ -35,7 +35,7 @@ class InfoSection extends StatelessWidget {
               right: 20,
               top: -10,
               child: Row(
-                children: <Widget>[
+                children: [
                   Text(
                     wrongAnswers.toString(),
                     style: Theme.of(context).textTheme.headline2!.copyWith(

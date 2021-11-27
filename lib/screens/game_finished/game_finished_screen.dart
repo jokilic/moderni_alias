@@ -35,7 +35,7 @@ class _GameFinishedScreenState extends State<GameFinishedScreen> {
       onWillPop: () => exitGame(context),
       child: BackgroundImage(
         child: Stack(
-          children: <Widget>[
+          children: [
             Positioned(
               top: 200,
               left: size.width / 2,
@@ -67,7 +67,7 @@ class _GameFinishedScreenState extends State<GameFinishedScreen> {
                   height: 500,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                    children: [
                       SvgPicture.asset(
                         clapImage,
                         height: 220,

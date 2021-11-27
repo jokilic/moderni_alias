@@ -164,7 +164,7 @@ class _MainGameScreenState extends State<MainGameScreen> {
           child: SafeArea(
             child: Stack(
               alignment: Alignment.center,
-              children: <Widget>[
+              children: [
                 Positioned(
                   top: 0,
                   width: size.width,

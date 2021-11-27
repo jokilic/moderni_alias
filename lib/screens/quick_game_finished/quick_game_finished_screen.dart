@@ -37,7 +37,7 @@ class _QuickGameFinishedScreenState extends State<QuickGameFinishedScreen> {
       onWillPop: () => exitGame(context),
       child: BackgroundImage(
         child: Stack(
-          children: <Widget>[
+          children: [
             Positioned(
               top: 200,
               left: size.width / 2,
@@ -64,7 +64,7 @@ class _QuickGameFinishedScreenState extends State<QuickGameFinishedScreen> {
                 height: size.height,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: [
                     SvgPicture.asset(
                       clapImage,
                       height: 220,
@@ -97,7 +97,7 @@ class _QuickGameFinishedScreenState extends State<QuickGameFinishedScreen> {
                     ),
                     const SizedBox(height: 50),
                     Column(
-                      children: <Widget>[
+                      children: [
                         PlayButton(
                           text: quickGameFinishedPlayAgainString.toUpperCase(),
                           onPressed: () => Get.offNamed(

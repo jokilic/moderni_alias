@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import './exit_game_button.dart';
@@ -9,37 +10,36 @@ import '../screens/main_game/main_game_screen.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 
 Future<bool> exitGame(BuildContext context) async {
-  await showModalBottomSheet(
-    context: context,
-    builder: (context) => Container(
+  await Get.bottomSheet(
+    Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 36,
+      padding: EdgeInsets.symmetric(
+        horizontal: 24.w,
+        vertical: 36.h,
       ),
-      decoration: const BoxDecoration(
-        image: DecorationImage(
+      decoration: BoxDecoration(
+        image: const DecorationImage(
           image: AssetImage(
             backgroundImage,
           ),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24),
+          top: Radius.circular(24.r),
         ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: [
           Text(
             exitModalQuestionString,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText1,
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
               ExitGameButton(
                 text: exitModalQuestionYes,
                 onPressed: () {
@@ -60,7 +60,7 @@ Future<bool> exitGame(BuildContext context) async {
                   );
                 },
               ),
-              const SizedBox(width: 24),
+              SizedBox(width: 24.h),
               ExitGameButton(
                 text: exitModalQuestionNo,
                 onPressed: Get.back,

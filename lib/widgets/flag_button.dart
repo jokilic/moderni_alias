@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
@@ -26,9 +27,9 @@ class FlagButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(
-          top: 24,
-          bottom: 16,
+        padding: EdgeInsets.only(
+          top: 24.h,
+          bottom: 16.h,
         ),
         child: InkWell(
           onTap: onTap,
@@ -39,19 +40,21 @@ class FlagButton extends StatelessWidget {
                 children: [
                   Container(
                     color: backgroundColor,
-                    height: 75,
-                    width: 80,
+                    height: 75.h,
+                    width: 80.w,
                   ),
                   SvgPicture.asset(
                     flagImage,
-                    width: 90,
+                    width: 90.w,
                     color: color,
                   ),
                 ],
               ),
               Text(
                 countryName,
-                style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ],
           ),

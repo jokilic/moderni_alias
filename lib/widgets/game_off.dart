@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
@@ -13,41 +14,37 @@ class GameOff extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          CircularCountDownTimer(
-            duration: 0,
-            width: size.width * 0.9,
-            height: size.height * 0.6,
-            ringColor: darkBlueColor,
-            fillColor: countdownTimerFillColor,
-            strokeWidth: 36,
-            textStyle: const TextStyle(
-              color: Colors.transparent,
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: onTap,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CircularCountDownTimer(
+              duration: 0,
+              width: 0.9.sw,
+              height: 0.6.sh,
+              ringColor: darkBlueColor,
+              fillColor: countdownTimerFillColor,
+              strokeWidth: 36.w,
+              textStyle: const TextStyle(
+                color: Colors.transparent,
+              ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SvgPicture.asset(
-                clickImage,
-                height: 136,
-              ),
-              Text(
-                startGameOnPressString,
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  clickImage,
+                  height: 136.h,
+                ),
+                Text(
+                  startGameOnPressString,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }

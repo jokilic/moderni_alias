@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'bindings/game_finished_binding.dart';
+import 'bindings/general_info_binding.dart';
 import 'bindings/main_game_binding.dart';
 import 'bindings/quick_game_binding.dart';
 import 'bindings/quick_game_finished_binding.dart';
@@ -27,6 +28,7 @@ final routes = [
   GetPage(
     name: GeneralInfoScreen.routeName,
     page: () => GeneralInfoScreen(),
+    binding: GeneralInfoBinding(),
   ),
   GetPage(
     name: HowToPlayScreen.routeName,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GameTitle extends StatelessWidget {
   final String title;
@@ -7,9 +8,9 @@ class GameTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(
-          top: 24,
-          left: 24,
+        padding: EdgeInsets.only(
+          top: 24.h,
+          left: 24.w,
         ),
         child: Text(
           title,

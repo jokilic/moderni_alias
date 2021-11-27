@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import './game_button.dart';
 import '../constants/strings.dart';
@@ -15,18 +16,18 @@ class WrongCorrectButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: [
           GameButton(
             svgIconPath: wrongImage,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24.r),
             ),
             onTap: wrongChosen,
           ),
           GameButton(
             svgIconPath: correctImage,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(24),
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(24.r),
             ),
             onTap: correctChosen,
           ),

@@ -109,7 +109,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
           child: SafeArea(
             child: Stack(
               alignment: Alignment.center,
-              children: <Widget>[
+              children: [
                 Positioned(
                   top: 0,
                   width: size.width,
