@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../colors.dart';
-import '../../components/background_image.dart';
-import '../../components/game_title.dart';
-import '../../components/hero_title.dart';
-import '../../components/small_title.dart';
-import '../../components/standard_text.dart';
-import '../../strings.dart';
+import '../../constants/colors.dart';
+import '../../constants/strings.dart';
+import '../../widgets/background_image.dart';
+import '../../widgets/game_title.dart';
+import '../../widgets/hero_title.dart';
+import '../../widgets/small_title.dart';
+import '../../widgets/standard_text.dart';
 
-class HowToPlay extends StatelessWidget {
-  static const routeName = '/how-to-play';
+class HowToPlayScreen extends StatelessWidget {
+  static const routeName = '/how-to-play-screen';
 
   @override
   Widget build(BuildContext context) => Scaffold(

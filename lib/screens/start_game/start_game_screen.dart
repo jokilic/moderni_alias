@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-import './components/horizontal_row.dart';
-import './components/length_of_round_button.dart';
-import './components/name_of_team.dart';
-import './components/number_of_points.dart';
-import './components/number_of_teams_button.dart';
-import '../../components/background_image.dart';
-import '../../components/flag_button.dart';
-import '../../components/game_title.dart';
-import '../../components/play_button.dart';
+import './widgets/horizontal_row.dart';
+import './widgets/length_of_round_button.dart';
+import './widgets/name_of_team.dart';
+import './widgets/number_of_points.dart';
+import './widgets/number_of_teams_button.dart';
+import '../../constants/strings.dart';
 import '../../models/dictionary.dart';
-import '../../strings.dart';
-import '../playing_game/playing_game_screen.dart';
+import '../../widgets/background_image.dart';
+import '../../widgets/flag_button.dart';
+import '../../widgets/game_title.dart';
+import '../../widgets/play_button.dart';
+import '../main_game/main_game_screen.dart';
 
 Flags chosenDictionary = Flags.croatia;
 
@@ -29,14 +29,14 @@ List<String> teamNames = [];
 
 Map<String, String> routeArguments = {};
 
-class StartGame extends StatefulWidget {
-  static const routeName = '/start-game';
+class StartGameScreen extends StatefulWidget {
+  static const routeName = '/start-game-screen';
 
   @override
-  _StartGameState createState() => _StartGameState();
+  _StartGameScreenState createState() => _StartGameScreenState();
 }
 
-class _StartGameState extends State<StartGame> {
+class _StartGameScreenState extends State<StartGameScreen> {
   @override
   void initState() {
     super.initState();
@@ -133,7 +133,7 @@ class _StartGameState extends State<StartGame> {
 
       Navigator.pushNamed(
         context,
-        PlayingGame.routeName,
+        MainGameScreen.routeName,
         arguments: routeArguments,
       );
     }

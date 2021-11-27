@@ -8,8 +8,8 @@ import './dictionary/croatian/verbs.dart';
 import './dictionary/english/adjectives.dart';
 import './dictionary/english/nouns.dart';
 import './dictionary/english/verbs.dart';
-import '../components/flag_button.dart';
 import '../screens/start_game/start_game_screen.dart';
+import '../widgets/flag_button.dart';
 
 String? currentWord = '';
 

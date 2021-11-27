@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-import './components/info_section.dart';
-import '../../colors.dart';
-import '../../components/background_image.dart';
-import '../../components/exit_game.dart';
-import '../../components/game_off.dart';
-import '../../components/game_on.dart';
-import '../../components/wrong_correct_buttons.dart';
+import './widgets/info_section.dart';
+import '../../constants/colors.dart';
 import '../../models/dictionary.dart';
-import '../quick_game_finished/quick_game_finished.dart';
+import '../../widgets/background_image.dart';
+import '../../widgets/exit_game.dart';
+import '../../widgets/game_off.dart';
+import '../../widgets/game_on.dart';
+import '../../widgets/wrong_correct_buttons.dart';
+import '../quick_game_finished/quick_game_finished_screen.dart';
 
 int wrongAnswers = 0;
 int correctAnswers = 0;
@@ -35,14 +35,14 @@ enum ChosenButton {
   wrong,
 }
 
-class QuickGame extends StatefulWidget {
-  static const routeName = '/quick-game';
+class QuickGameScreen extends StatefulWidget {
+  static const routeName = '/quick-game-screen';
 
   @override
-  _QuickGameState createState() => _QuickGameState();
+  _QuickGameScreenState createState() => _QuickGameScreenState();
 }
 
-class _QuickGameState extends State<QuickGame> {
+class _QuickGameScreenState extends State<QuickGameScreen> {
   Timer makeTimer(double chosenSeconds, Color chosenColor) => Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
         () => setState(() => countdownTimerFillColor = chosenColor),
@@ -100,7 +100,7 @@ class _QuickGameState extends State<QuickGame> {
 
       Navigator.pushNamed(
         context,
-        QuickGameFinished.routeName,
+        QuickGameFinishedScreen.routeName,
         arguments: routeArguments,
       );
     }
