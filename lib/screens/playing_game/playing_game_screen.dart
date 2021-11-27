@@ -139,7 +139,7 @@ class _PlayingGameState extends State<PlayingGame> {
       teams[currentlyPlayingIndex].points += correctAnswers - wrongAnswers;
       if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin)) {
         routeArguments = {
-          'winningTeam': teams[currentlyPlayingIndex].name,
+          'winningTeam': teams[currentlyPlayingIndex].name ?? '',
           'points': teams[currentlyPlayingIndex].points.toString(),
         };
 

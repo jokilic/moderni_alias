@@ -11,7 +11,7 @@ import './dictionary/english/verbs.dart';
 import '../components/flag_button.dart';
 import '../screens/start_game/start_game_screen.dart';
 
-String currentWord = '';
+String? currentWord = '';
 
 const List<String> croatianDictionary = [
   ...imenice,
@@ -42,4 +42,4 @@ String setRandomWord(currentDictionary) {
   return currentWord = currentDictionary[Random().nextInt(currentDictionary.length)];
 }
 
-String get getRandomWord => setRandomWord(currentDictionary);
+String? get getRandomWord => setRandomWord(currentDictionary);

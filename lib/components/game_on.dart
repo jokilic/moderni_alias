@@ -36,7 +36,7 @@ class GameOn extends StatelessWidget {
           width: size.width - 40.0,
           child: FittedBox(
             child: Text(
-              currentWord.toUpperCase(),
+              currentWord?.toUpperCase() ?? '',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1!.copyWith(
                     fontWeight: FontWeight.bold,

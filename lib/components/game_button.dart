@@ -5,7 +5,6 @@ import '../colors.dart';
 
 class GameButton extends StatelessWidget {
   final String svgIconPath;
-
   final BorderRadius borderRadius;
   final Function() onTap;
 
