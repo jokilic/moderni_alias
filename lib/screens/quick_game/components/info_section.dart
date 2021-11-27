@@ -7,54 +7,52 @@ class InfoSection extends StatelessWidget {
   final int correctAnswers;
   final int wrongAnswers;
 
-  InfoSection({
+  const InfoSection({
     required this.exitGame,
     required this.correctAnswers,
     required this.wrongAnswers,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50.0,
-      margin: EdgeInsets.only(top: 24.0),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            left: -10,
-            top: -10,
-            child: FlatButton(
-              child: Icon(
-                Icons.close,
-                color: whiteColor,
-                size: 30.0,
+  Widget build(BuildContext context) => Container(
+        height: 50,
+        margin: const EdgeInsets.only(top: 24),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              left: -10,
+              top: -10,
+              child: FlatButton(
+                onPressed: exitGame,
+                child: const Icon(
+                  Icons.close,
+                  color: whiteColor,
+                  size: 30,
+                ),
               ),
-              onPressed: exitGame,
             ),
-          ),
-          Positioned(
-            right: 20,
-            top: -10,
-            child: Row(
-              children: <Widget>[
-                Text(
-                  wrongAnswers.toString(),
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: whiteColor,
-                      ),
-                ),
-                SizedBox(width: 10.0),
-                Text(
-                  correctAnswers.toString(),
-                  style: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: blueColor,
-                      ),
-                ),
-              ],
+            Positioned(
+              right: 20,
+              top: -10,
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    wrongAnswers.toString(),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: whiteColor,
+                        ),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    correctAnswers.toString(),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: blueColor,
+                        ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }

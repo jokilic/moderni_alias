@@ -6,36 +6,34 @@ class ExitGameButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
 
-  ExitGameButton({
+  const ExitGameButton({
     required this.text,
     required this.onPressed,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 36.0,
-          vertical: 16.0,
-        ),
-        child: Text(
-          text.toUpperCase(),
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) => FlatButton(
+        onPressed: onPressed,
+        textColor: whiteColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+          side: const BorderSide(
+            color: whiteColor,
+            width: 2,
           ),
         ),
-      ),
-      onPressed: onPressed,
-      textColor: whiteColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50.0),
-        side: BorderSide(
-          color: whiteColor,
-          width: 2.0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 36,
+            vertical: 16,
+          ),
+          child: Text(
+            text.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

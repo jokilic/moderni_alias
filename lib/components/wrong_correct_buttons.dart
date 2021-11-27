@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
 
-import '../strings.dart';
 import './game_button.dart';
+import '../strings.dart';
 
 class WrongCorrectButtons extends StatelessWidget {
   final Function() wrongChosen;
   final Function() correctChosen;
 
-  WrongCorrectButtons({
+  const WrongCorrectButtons({
     required this.wrongChosen,
     required this.correctChosen,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        GameButton(
-          svgIconPath: wrongImage,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24.0),
+  Widget build(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          GameButton(
+            svgIconPath: wrongImage,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+            ),
+            onTap: wrongChosen,
           ),
-          onTap: wrongChosen,
-        ),
-        GameButton(
-          svgIconPath: correctImage,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(24.0),
+          GameButton(
+            svgIconPath: correctImage,
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(24),
+            ),
+            onTap: correctChosen,
           ),
-          onTap: correctChosen,
-        ),
-      ],
-    );
-  }
+        ],
+      );
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../strings.dart';
 import '../../components/background_image.dart';
 import '../../components/confetti.dart';
+import '../../strings.dart';
 import '../home_page/home_page_screen.dart';
 
 class GameFinished extends StatefulWidget {
@@ -24,11 +24,11 @@ class _GameFinishedState extends State<GameFinished> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final routeArguments = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
 
-    final String winningTeam = routeArguments['winningTeam'] ?? 'nitko';
-    final String points = routeArguments['points'] ?? 'nula';
+    final winningTeam = routeArguments['winningTeam'] ?? 'nitko';
+    final points = routeArguments['points'] ?? 'nula';
 
     return WillPopScope(
       onWillPop: () => exitGame(context),
@@ -36,12 +36,12 @@ class _GameFinishedState extends State<GameFinished> {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: 200.0,
+              top: 200,
               left: size.width / 2,
               child: Confetti(),
             ),
             Positioned(
-              bottom: 200.0,
+              bottom: 200,
               left: size.width / 2,
               child: Confetti(),
             ),
@@ -56,13 +56,12 @@ class _GameFinishedState extends State<GameFinished> {
               child: Confetti(),
             ),
             Align(
-              alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () => Navigator.popUntil(
                   context,
                   ModalRoute.withName(HomePage.routeName),
                 ),
-                child: Container(
+                child: SizedBox(
                   width: size.width * 0.8,
                   height: 500,
                   child: Column(
@@ -70,9 +69,9 @@ class _GameFinishedState extends State<GameFinished> {
                     children: <Widget>[
                       SvgPicture.asset(
                         clapImage,
-                        height: 220.0,
+                        height: 220,
                       ),
-                      SizedBox(height: 30.0),
+                      const SizedBox(height: 30),
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
@@ -85,14 +84,14 @@ class _GameFinishedState extends State<GameFinished> {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            TextSpan(text: winnerSecondString),
+                            const TextSpan(text: winnerSecondString),
                             TextSpan(
                               text: points,
                               style: Theme.of(context).textTheme.headline2!.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: winnerThirdString,
                             ),
                           ],

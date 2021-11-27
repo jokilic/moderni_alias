@@ -8,7 +8,7 @@ class PlayButton extends StatelessWidget {
   final double verticalPadding;
   final Function() onPressed;
 
-  PlayButton({
+  const PlayButton({
     required this.text,
     required this.onPressed,
     this.horizontalPadding = 50.0,
@@ -16,31 +16,29 @@ class PlayButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: verticalPadding,
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) => FlatButton(
+        onPressed: onPressed,
+        textColor: whiteColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+          side: const BorderSide(
             color: whiteColor,
+            width: 2,
           ),
         ),
-      ),
-      onPressed: onPressed,
-      textColor: whiteColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50.0),
-        side: BorderSide(
-          color: whiteColor,
-          width: 2.0,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding,
+            vertical: verticalPadding,
+          ),
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: whiteColor,
+            ),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

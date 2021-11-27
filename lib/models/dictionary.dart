@@ -8,9 +8,8 @@ import './dictionary/croatian/verbs.dart';
 import './dictionary/english/adjectives.dart';
 import './dictionary/english/nouns.dart';
 import './dictionary/english/verbs.dart';
-
-import '../screens/start_game/start_game_screen.dart';
 import '../components/flag_button.dart';
+import '../screens/start_game/start_game_screen.dart';
 
 String currentWord = '';
 
@@ -34,11 +33,13 @@ List<String> refillCurrentDictionary() => chosenDictionary == Flags.croatia
     : currentDictionary = [...englishDictionary];
 
 String setRandomWord(currentDictionary) {
-  if (currentDictionary.length == 2) refillCurrentDictionary();
+  if (currentDictionary.length == 2) {
+    refillCurrentDictionary();
+  }
 
   currentDictionary.remove(currentWord);
-  return currentWord =
-      currentDictionary[Random().nextInt(currentDictionary.length)];
+
+  return currentWord = currentDictionary[Random().nextInt(currentDictionary.length)];
 }
 
 String get getRandomWord => setRandomWord(currentDictionary);

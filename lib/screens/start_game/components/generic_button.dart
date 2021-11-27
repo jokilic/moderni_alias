@@ -22,38 +22,34 @@ class GenericButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: 36.0,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          child: Center(
-            child: Text(
-              number.toString(),
-              style: Theme.of(context).textTheme.headline3!.copyWith(
-                    fontSize: fontSize,
-                    color: color,
-                  ),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: 36,
+        ),
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              border: Border.all(
+                color: whiteColor,
+                width: 4,
+              ),
+              borderRadius: BorderRadius.circular(24),
             ),
-          ),
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            border: Border.all(
-              color: whiteColor,
-              width: 4,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(24.0),
+            child: Center(
+              child: Text(
+                number.toString(),
+                style: Theme.of(context).textTheme.headline3!.copyWith(
+                      fontSize: fontSize,
+                      color: color,
+                    ),
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

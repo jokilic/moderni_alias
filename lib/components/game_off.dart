@@ -1,6 +1,6 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 import '../colors.dart';
 import '../strings.dart';
@@ -8,13 +8,13 @@ import '../strings.dart';
 class GameOff extends StatelessWidget {
   final Function() onTap;
 
-  GameOff({
+  const GameOff({
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return GestureDetector(
       onTap: onTap,
@@ -27,15 +27,17 @@ class GameOff extends StatelessWidget {
             height: size.height * 0.6,
             ringColor: darkBlueColor,
             fillColor: countdownTimerFillColor,
-            strokeWidth: 36.0,
-            textStyle: TextStyle(color: Colors.transparent),
+            strokeWidth: 36,
+            textStyle: const TextStyle(
+              color: Colors.transparent,
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SvgPicture.asset(
                 clickImage,
-                height: 136.0,
+                height: 136,
               ),
               Text(
                 startGameOnPressString,
