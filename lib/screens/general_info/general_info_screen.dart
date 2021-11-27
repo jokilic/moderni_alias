@@ -21,6 +21,7 @@ class GeneralInfoScreen extends StatelessWidget {
             child: SizedBox(
               height: double.infinity,
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[

@@ -158,6 +158,7 @@ class _StartGameScreenState extends State<StartGameScreen> {
             child: SizedBox(
               height: double.infinity,
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -243,10 +244,10 @@ class _StartGameScreenState extends State<StartGameScreen> {
                     ),
                     const GameTitle(teamNamesString),
                     ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: numOfTeamsValue,
                       itemBuilder: (context, index) => createNameOfTeamTextField(index),
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16),

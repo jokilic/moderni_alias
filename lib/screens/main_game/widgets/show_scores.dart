@@ -33,6 +33,7 @@ void showScores(BuildContext context) => Get.bottomSheet(
             ),
             const SizedBox(height: 24),
             ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: teams.length,
               itemBuilder: (context, index) => HighscoreValue(
                 teamName: teams[index].name,

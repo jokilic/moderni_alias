@@ -8,6 +8,7 @@ class HorizontalScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Align(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
