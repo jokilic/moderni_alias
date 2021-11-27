@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './highscore_value.dart';
 import '../../../constants/strings.dart';
 import '../main_game_screen.dart';
 
-void showScores(BuildContext context) => showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
+void showScores(BuildContext context) => Get.bottomSheet(
+      Container(
         width: double.infinity,
         padding: const EdgeInsets.only(
           top: 36,
