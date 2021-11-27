@@ -28,7 +28,7 @@ class PlayingTeamInfo extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
-                  currentlyPlayingTeam.name,
+                  currentlyPlayingTeam.name ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline2,
                 ),

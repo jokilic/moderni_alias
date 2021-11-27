@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HighscoreValue extends StatelessWidget {
-  final String teamName;
-  final int points;
+  final String? teamName;
+  final int? points;
 
   HighscoreValue({
     required this.teamName,
@@ -25,7 +25,7 @@ class HighscoreValue extends StatelessWidget {
             Container(
               width: size.width * 0.5,
               child: Text(
-                teamName,
+                teamName ?? '',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
