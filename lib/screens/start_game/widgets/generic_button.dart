@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 
@@ -25,7 +26,7 @@ class GenericButton extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding,
-          vertical: 36,
+          vertical: 36.h,
         ),
         child: InkWell(
           onTap: onTap,
@@ -36,9 +37,9 @@ class GenericButton extends StatelessWidget {
               color: backgroundColor,
               border: Border.all(
                 color: whiteColor,
-                width: 4,
+                width: 4.w,
               ),
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24.r),
             ),
             child: Center(
               child: Text(

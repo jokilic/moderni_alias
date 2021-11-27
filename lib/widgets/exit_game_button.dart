@@ -30,8 +30,8 @@ class ExitGameButton extends StatelessWidget {
           ),
           child: Text(
             text.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: 18.r,
               fontWeight: FontWeight.bold,
             ),
           ),

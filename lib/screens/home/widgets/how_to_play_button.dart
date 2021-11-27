@@ -19,8 +19,8 @@ class HowToPlayButton extends StatelessWidget {
           padding: EdgeInsets.all(12.r),
           child: Text(
             'howToPlayButtonString'.tr,
-            style: const TextStyle(
-              fontSize: 13,
+            style: TextStyle(
+              fontSize: 13.r,
               color: whiteColor,
             ),
           ),

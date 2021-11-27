@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import './generic_button.dart';
 import '../../../constants/colors.dart';
@@ -11,9 +12,9 @@ Widget createNumberOfTeamsButton({
     GenericButton(
       backgroundColor: numOfTeamsValue == chosenNumberOfTeams ? whiteColor : Colors.transparent,
       color: numOfTeamsValue == chosenNumberOfTeams ? darkBlueColor : whiteColor,
-      fontSize: 36,
-      horizontalPadding: 20,
+      fontSize: 36.r,
+      horizontalPadding: 20.w,
       number: chosenNumberOfTeams,
       onTap: updateValue,
-      size: 90,
+      size: 90.r,
     );

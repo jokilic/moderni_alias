@@ -34,8 +34,8 @@ class PlayButton extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: 18.r,
               fontWeight: FontWeight.bold,
               color: whiteColor,
             ),
