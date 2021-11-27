@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './exit_game_button.dart';
 import '../constants/colors.dart';
@@ -52,16 +53,17 @@ Future<bool> exitGame(BuildContext context) async {
                   countdownAudioPlayer.stop();
                   countdownQuickAudioPlayer.stop();
                   countdownTimerFillColor = darkBlueColor;
-                  Navigator.popUntil(
-                    context,
-                    ModalRoute.withName(HomeScreen.routeName),
+
+                  Get.offNamedUntil(
+                    HomeScreen.routeName,
+                    (route) => false,
                   );
                 },
               ),
               const SizedBox(width: 24),
               ExitGameButton(
                 text: exitModalQuestionNo,
-                onPressed: () => Navigator.pop(context),
+                onPressed: Get.back,
               ),
             ],
           ),

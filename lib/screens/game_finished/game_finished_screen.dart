@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
 import '../../widgets/background_image.dart';
@@ -15,9 +16,9 @@ class GameFinishedScreen extends StatefulWidget {
 
 class _GameFinishedScreenState extends State<GameFinishedScreen> {
   Future<bool> exitGame(BuildContext context) async {
-    Navigator.popUntil(
-      context,
-      ModalRoute.withName(HomeScreen.routeName),
+    await Get.offNamedUntil(
+      HomeScreen.routeName,
+      (route) => false,
     );
     return true;
   }
@@ -57,9 +58,9 @@ class _GameFinishedScreenState extends State<GameFinishedScreen> {
             ),
             Align(
               child: GestureDetector(
-                onTap: () => Navigator.popUntil(
-                  context,
-                  ModalRoute.withName(HomeScreen.routeName),
+                onTap: () => Get.offNamedUntil(
+                  HomeScreen.routeName,
+                  (route) => false,
                 ),
                 child: SizedBox(
                   width: size.width * 0.8,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './how_to_play_button.dart';
 import '../../../constants/strings.dart';
@@ -14,16 +15,14 @@ class HomePageButtons extends StatelessWidget {
             PlayButton(
               text: startButtonString.toUpperCase(),
               horizontalPadding: 44,
-              onPressed: () => Navigator.pushNamed(
-                context,
+              onPressed: () => Get.toNamed(
                 StartGameScreen.routeName,
               ),
             ),
             const SizedBox(height: 25),
             PlayButton(
               text: quickStartButtonString.toUpperCase(),
-              onPressed: () => Navigator.pushNamed(
-                context,
+              onPressed: () => Get.toNamed(
                 QuickGameScreen.routeName,
               ),
             ),

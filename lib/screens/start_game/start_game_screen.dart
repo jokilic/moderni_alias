@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './widgets/horizontal_row.dart';
 import './widgets/length_of_round_button.dart';
@@ -131,11 +132,7 @@ class _StartGameScreenState extends State<StartGameScreen> {
     if (validated) {
       FocusScope.of(context).unfocus();
 
-      Navigator.pushNamed(
-        context,
-        MainGameScreen.routeName,
-        arguments: routeArguments,
-      );
+      Get.toNamed(MainGameScreen.routeName);
     }
   }
 

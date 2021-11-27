@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './widgets/info_section.dart';
 import '../../constants/colors.dart';
@@ -98,11 +99,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         'wrongAnswers': wrongAnswers.toString(),
       };
 
-      Navigator.pushNamed(
-        context,
-        QuickGameFinishedScreen.routeName,
-        arguments: routeArguments,
-      );
+      Get.toNamed(QuickGameFinishedScreen.routeName);
     }
 
     return WillPopScope(

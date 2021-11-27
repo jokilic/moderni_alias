@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import '../../general_info/general_info_screen.dart';
@@ -14,8 +15,7 @@ class InfoButton extends StatelessWidget {
           icon: const Icon(Icons.info_outline),
           color: whiteColor,
           iconSize: 36,
-          onPressed: () => Navigator.pushNamed(
-            context,
+          onPressed: () => Get.toNamed(
             GeneralInfoScreen.routeName,
           ),
         ),

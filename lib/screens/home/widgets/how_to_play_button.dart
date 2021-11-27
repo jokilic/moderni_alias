@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
@@ -7,8 +8,7 @@ import '../../how_to_play/how_to_play_screen.dart';
 class HowToPlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FlatButton(
-        onPressed: () => Navigator.pushNamed(
-          context,
+        onPressed: () => Get.toNamed(
           HowToPlayScreen.routeName,
         ),
         color: Colors.black45,

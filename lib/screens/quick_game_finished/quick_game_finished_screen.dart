@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
 import '../../widgets/background_image.dart';
@@ -25,9 +26,9 @@ class _QuickGameFinishedScreenState extends State<QuickGameFinishedScreen> {
     final wrongAnswers = routeArguments['wrongAnswers'] ?? '0';
 
     Future<bool> exitGame(BuildContext context) async {
-      Navigator.popUntil(
-        context,
-        ModalRoute.withName(HomeScreen.routeName),
+      await Get.offNamedUntil(
+        HomeScreen.routeName,
+        (route) => false,
       );
       return true;
     }
@@ -99,17 +100,16 @@ class _QuickGameFinishedScreenState extends State<QuickGameFinishedScreen> {
                       children: <Widget>[
                         PlayButton(
                           text: quickGameFinishedPlayAgainString.toUpperCase(),
-                          onPressed: () => Navigator.pushReplacementNamed(
-                            context,
+                          onPressed: () => Get.offNamed(
                             QuickGameScreen.routeName,
                           ),
                         ),
                         const SizedBox(height: 20),
                         PlayButton(
                           text: quickGameFinishedExitString.toUpperCase(),
-                          onPressed: () => Navigator.popUntil(
-                            context,
-                            ModalRoute.withName(HomeScreen.routeName),
+                          onPressed: () => Get.offNamedUntil(
+                            HomeScreen.routeName,
+                            (route) => false,
                           ),
                         ),
                       ],

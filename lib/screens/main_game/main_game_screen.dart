@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import './widgets/playing_team_info.dart';
 import './widgets/show_scores.dart';
@@ -143,11 +144,7 @@ class _MainGameScreenState extends State<MainGameScreen> {
           'points': teams[currentlyPlayingIndex].points.toString(),
         };
 
-        Navigator.pushNamed(
-          context,
-          GameFinishedScreen.routeName,
-          arguments: routeArguments,
-        );
+        Get.toNamed(GameFinishedScreen.routeName);
       }
 
       if (currentlyPlayingIndex < teams.length - 1) {
