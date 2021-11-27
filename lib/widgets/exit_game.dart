@@ -3,13 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import './exit_game_button.dart';
-import '../constants/colors.dart';
 import '../constants/strings.dart';
-import '../screens/home/home_screen.dart';
-import '../screens/main_game/main_game_screen.dart';
-import '../screens/quick_game/quick_game_screen.dart';
 
-Future<bool> exitGame(BuildContext context) async {
+Future<bool> exitGameModal({required BuildContext context, required Function() exitGameCallback}) async {
   await Get.bottomSheet(
     Container(
       width: double.infinity,
@@ -42,23 +38,7 @@ Future<bool> exitGame(BuildContext context) async {
             children: [
               ExitGameButton(
                 text: exitModalQuestionYes,
-                onPressed: () {
-                  gamePlaying = false;
-                  simpleGamePlaying = false;
-                  soundTimer?.cancel();
-                  greenTimer?.cancel();
-                  yellowTimer?.cancel();
-                  redTimer?.cancel();
-                  quickSoundTimer?.cancel();
-                  countdownAudioPlayer.stop();
-                  countdownQuickAudioPlayer.stop();
-                  countdownTimerFillColor = darkBlueColor;
-
-                  Get.offNamedUntil(
-                    HomeScreen.routeName,
-                    (route) => false,
-                  );
-                },
+                onPressed: exitGameCallback,
               ),
               SizedBox(width: 24.h),
               ExitGameButton(

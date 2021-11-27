@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -8,119 +9,101 @@ import '../../widgets/confetti.dart';
 import '../../widgets/play_button.dart';
 import '../home/home_screen.dart';
 import '../quick_game/quick_game_screen.dart';
+import 'quick_game_finished_controller.dart';
 
-class QuickGameFinishedScreen extends StatefulWidget {
+class QuickGameFinishedScreen extends StatelessWidget {
   static const routeName = '/quick-game-finished-screen';
 
+  final quickGameFinishedController = Get.find<QuickGameFinishedController>();
+
   @override
-  _QuickGameFinishedScreenState createState() => _QuickGameFinishedScreenState();
-}
-
-class _QuickGameFinishedScreenState extends State<QuickGameFinishedScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final routeArguments = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
-
-    final correctAnswers = routeArguments['correctAnswers'] ?? '0';
-    final wrongAnswers = routeArguments['wrongAnswers'] ?? '0';
-
-    Future<bool> exitGame(BuildContext context) async {
-      await Get.offNamedUntil(
-        HomeScreen.routeName,
-        (route) => false,
-      );
-      return true;
-    }
-
-    return WillPopScope(
-      onWillPop: () => exitGame(context),
-      child: BackgroundImage(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 200,
-              left: size.width / 2,
-              child: Confetti(),
-            ),
-            Positioned(
-              bottom: 200,
-              left: size.width / 2,
-              child: Confetti(),
-            ),
-            Positioned(
-              top: size.height / 2,
-              left: 50,
-              child: Confetti(),
-            ),
-            Positioned(
-              top: size.height / 2,
-              right: 50,
-              child: Confetti(),
-            ),
-            Center(
-              child: SizedBox(
-                width: size.width * 0.8,
-                height: size.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      clapImage,
-                      height: 220,
-                    ),
-                    const SizedBox(height: 30),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: quickGameFinishedFirstString,
-                        style: Theme.of(context).textTheme.bodyText1,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: correctAnswers,
-                            style: Theme.of(context).textTheme.headline2!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+  Widget build(BuildContext context) => WillPopScope(
+        onWillPop: quickGameFinishedController.exitGame,
+        child: BackgroundImage(
+          child: Stack(
+            children: [
+              Positioned(
+                top: 200.h,
+                left: 0.5.sh,
+                child: Confetti(),
+              ),
+              Positioned(
+                bottom: 200.h,
+                left: 0.5.sh,
+                child: Confetti(),
+              ),
+              Positioned(
+                top: 0.5.sh,
+                left: 50.w,
+                child: Confetti(),
+              ),
+              Positioned(
+                top: 0.5.sh,
+                right: 50.w,
+                child: Confetti(),
+              ),
+              Center(
+                child: SizedBox(
+                  height: 1.sh,
+                  width: 0.8.sw,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        clapImage,
+                        height: 220.h,
+                      ),
+                      SizedBox(height: 30.h),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text: 'quickGameFinishedFirstString'.tr,
+                          style: Theme.of(context).textTheme.bodyText1,
+                          children: [
+                            TextSpan(
+                              text: quickGameFinishedController.finalCorrectAnswers.toString(),
+                              style: Theme.of(context).textTheme.headline2!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            TextSpan(text: 'quickGameFinishedSecondString'.tr),
+                            TextSpan(
+                              text: quickGameFinishedController.finalWrongAnswers.toString(),
+                              style: Theme.of(context).textTheme.headline2!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            TextSpan(
+                              text: 'quickGameFinishedThirdString'.tr,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 50.h),
+                      Column(
+                        children: [
+                          PlayButton(
+                            text: 'quickGameFinishedPlayAgainString'.tr.toUpperCase(),
+                            onPressed: () => Get.offNamed(
+                              QuickGameScreen.routeName,
+                            ),
                           ),
-                          const TextSpan(text: quickGameFinishedSecondString),
-                          TextSpan(
-                            text: wrongAnswers,
-                            style: Theme.of(context).textTheme.headline2!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          const TextSpan(
-                            text: quickGameFinishedThirdString,
+                          SizedBox(height: 20.h),
+                          PlayButton(
+                            text: 'quickGameFinishedExitString'.tr.toUpperCase(),
+                            onPressed: () => Get.offNamedUntil(
+                              HomeScreen.routeName,
+                              (route) => false,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 50),
-                    Column(
-                      children: [
-                        PlayButton(
-                          text: quickGameFinishedPlayAgainString.toUpperCase(),
-                          onPressed: () => Get.offNamed(
-                            QuickGameScreen.routeName,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        PlayButton(
-                          text: quickGameFinishedExitString.toUpperCase(),
-                          onPressed: () => Get.offNamedUntil(
-                            HomeScreen.routeName,
-                            (route) => false,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

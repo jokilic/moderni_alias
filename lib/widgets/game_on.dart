@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
-import '../models/dictionary.dart';
 
 class GameOn extends StatelessWidget {
+  final String currentWord;
+  final Color fillColor;
   final int length;
   final Function() onComplete;
 
   const GameOn({
+    required this.currentWord,
+    required this.fillColor,
     required this.length,
     required this.onComplete,
   });
@@ -24,7 +27,7 @@ class GameOn extends StatelessWidget {
             height: 0.6.sh,
             onComplete: onComplete,
             ringColor: darkBlueColor,
-            fillColor: countdownTimerFillColor,
+            fillColor: fillColor,
             strokeWidth: 36.w,
             textStyle: const TextStyle(
               color: Colors.transparent,
@@ -34,7 +37,7 @@ class GameOn extends StatelessWidget {
             width: 1.sw - 40.w,
             child: FittedBox(
               child: Text(
-                currentWord?.toUpperCase() ?? '',
+                currentWord.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontWeight: FontWeight.bold,

@@ -48,6 +48,7 @@ The goal is to have 10 000.
 - [ ] Refactor 'theme' property
 - [ ] Currently entered team names get deleted when validation fails
 - [ ] Add a checkbox if special dictionary should be used and a tooltip explaining it
+- [ ] Refactor code and use GetX
 - [x] Introduce English dictionary and flags to choose desired dictionary during game
 - [x] Add a hero section to the GeneralInfo screen and the HowToPlay screen
 - [x] Update Flutter packages & Readme.md

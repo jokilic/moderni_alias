@@ -6,8 +6,8 @@ import './widgets/length_of_round_button.dart';
 import './widgets/name_of_team.dart';
 import './widgets/number_of_points.dart';
 import './widgets/number_of_teams_button.dart';
+import '../../constants/enums.dart';
 import '../../constants/strings.dart';
-import '../../models/dictionary.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/flag_button.dart';
 import '../../widgets/game_title.dart';
@@ -56,9 +56,9 @@ class _StartGameScreenState extends State<StartGameScreen> {
 
 // Called when tapping on the 'Rječnik' buttons
   void updateDictionary(Flags chosenFlag) {
-    chosenFlag == Flags.croatia
-        ? currentDictionary = [...croatianDictionary]
-        : currentDictionary = [...englishDictionary];
+    // chosenFlag == Flags.croatia
+    //     ? currentDictionary = [...croatianDictionary]
+    //     : currentDictionary = [...englishDictionary];
 
     setState(() {
       chosenDictionary = chosenFlag;

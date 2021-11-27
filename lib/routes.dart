@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 
 import 'bindings/game_finished_binding.dart';
 import 'bindings/general_info_binding.dart';
-import 'bindings/main_game_binding.dart';
-import 'bindings/quick_game_binding.dart';
 import 'bindings/quick_game_finished_binding.dart';
 import 'bindings/start_game_binding.dart';
 import 'screens/game_finished/game_finished_screen.dart';
@@ -37,12 +35,10 @@ final routes = [
   GetPage(
     name: MainGameScreen.routeName,
     page: () => MainGameScreen(),
-    binding: MainGameBinding(),
   ),
   GetPage(
     name: QuickGameScreen.routeName,
     page: () => QuickGameScreen(),
-    binding: QuickGameBinding(),
   ),
   GetPage(
     name: QuickGameFinishedScreen.routeName,

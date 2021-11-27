@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import './highscore_value.dart';
 import '../../../constants/strings.dart';
-import '../main_game_screen.dart';
+import '../../../models/team.dart';
 
-void showScores(BuildContext context) => Get.bottomSheet(
+void showScores({required BuildContext context, required List<Team> teams}) => Get.bottomSheet(
       Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(
-          top: 36,
-          bottom: 24,
+        padding: EdgeInsets.only(
+          top: 36.h,
+          bottom: 24.h,
         ),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
+        decoration: BoxDecoration(
+          image: const DecorationImage(
             image: AssetImage(
               backgroundImage,
             ),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24.r),
           ),
         ),
         child: Column(
@@ -31,7 +31,7 @@ void showScores(BuildContext context) => Get.bottomSheet(
               scoresModalString,
               style: Theme.of(context).textTheme.headline2,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: teams.length,

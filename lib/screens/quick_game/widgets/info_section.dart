@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 
@@ -15,25 +16,25 @@ class InfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 50,
-        margin: const EdgeInsets.only(top: 24),
+        height: 50.h,
+        margin: EdgeInsets.only(top: 24.h),
         child: Stack(
           children: [
             Positioned(
-              left: -10,
-              top: -10,
+              left: -10.w,
+              top: -10.h,
               child: FlatButton(
                 onPressed: exitGame,
-                child: const Icon(
+                child: Icon(
                   Icons.close,
                   color: whiteColor,
-                  size: 30,
+                  size: 30.r,
                 ),
               ),
             ),
             Positioned(
-              right: 20,
-              top: -10,
+              right: 20.w,
+              top: -10.h,
               child: Row(
                 children: [
                   Text(
@@ -42,7 +43,7 @@ class InfoSection extends StatelessWidget {
                           color: whiteColor,
                         ),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10.h),
                   Text(
                     correctAnswers.toString(),
                     style: Theme.of(context).textTheme.headline2!.copyWith(

@@ -3,12 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
+import '../constants/enums.dart';
 import '../screens/start_game/start_game_screen.dart';
-
-enum Flags {
-  croatia,
-  unitedKingdom,
-}
 
 class FlagButton extends StatelessWidget {
   final String countryName;

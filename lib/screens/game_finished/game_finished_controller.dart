@@ -1,23 +1,26 @@
 import 'package:get/get.dart';
 
+import '../../models/team.dart';
+import '../../services/game_service.dart';
+
 class GameFinishedController extends GetxController {
   /// ------------------------
   /// VARIABLES
   /// ------------------------
 
-  final RxString _someString = ''.obs;
+  final _winningTeam = Team(name: '').obs;
 
   /// ------------------------
   /// GETTERS
   /// ------------------------
 
-  String get someString => _someString.value;
+  Team get winningTeam => _winningTeam.value;
 
   /// ------------------------
   /// SETTERS
   /// ------------------------
 
-  set someString(String value) => _someString.value = value;
+  set winningTeam(Team value) => _winningTeam.value = value;
 
   /// ------------------------
   /// INIT
@@ -26,5 +29,8 @@ class GameFinishedController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    /// Winning team from [GameService] gets assigned to relevant variable
+    winningTeam = Get.find<GameService>().currentlyPlayingTeam;
   }
 }
