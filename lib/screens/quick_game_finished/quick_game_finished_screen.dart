@@ -4,21 +4,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
+import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
+import '../../widgets/exit_game.dart';
 import '../../widgets/play_button.dart';
-import '../home/home_screen.dart';
 import '../quick_game/quick_game_screen.dart';
-import 'quick_game_finished_controller.dart';
 
 class QuickGameFinishedScreen extends StatelessWidget {
   static const routeName = '/quick-game-finished-screen';
 
-  final quickGameFinishedController = Get.find<QuickGameFinishedController>();
+  final gameService = Get.find<GameService>();
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-        onWillPop: quickGameFinishedController.exitGame,
+        onWillPop: () => exitGameModal(
+          context: context,
+          exitGameCallback: gameService.exitToMainMenu,
+        ),
         child: BackgroundImage(
           child: Stack(
             children: [
@@ -61,14 +64,14 @@ class QuickGameFinishedScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText1,
                           children: [
                             TextSpan(
-                              text: quickGameFinishedController.finalCorrectAnswers.toString(),
+                              text: gameService.correctAnswers.toString(),
                               style: Theme.of(context).textTheme.headline2!.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
                             TextSpan(text: 'quickGameFinishedSecondString'.tr),
                             TextSpan(
-                              text: quickGameFinishedController.finalWrongAnswers.toString(),
+                              text: gameService.wrongAnswers.toString(),
                               style: Theme.of(context).textTheme.headline2!.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -91,10 +94,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                           SizedBox(height: 20.h),
                           PlayButton(
                             text: 'quickGameFinishedExitString'.tr.toUpperCase(),
-                            onPressed: () => Get.offNamedUntil(
-                              HomeScreen.routeName,
-                              (route) => false,
-                            ),
+                            onPressed: gameService.exitToMainMenu,
                           ),
                         ],
                       ),

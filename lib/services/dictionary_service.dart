@@ -82,7 +82,7 @@ class DictionaryService extends GetxService {
   }
 
   /// If there are no more words in the [currentDictionary], refill it
-  List<String> refillCurrentDictionary() => Get.find<GameService>().chosenDictionary == Flags.croatia
+  List<String> refillCurrentDictionary() => Get.find<GameService>().chosenDictionary == Flag.croatia
       ? currentDictionary = [...croatianDictionary]
       : currentDictionary = [...englishDictionary];
 

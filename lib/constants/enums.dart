@@ -9,7 +9,7 @@ enum Answer {
   wrong,
 }
 
-enum Flags {
+enum Flag {
   croatia,
   unitedKingdom,
 }

@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
-import '../screens/start_game/start_game_screen.dart';
 
 class FlagButton extends StatelessWidget {
   final String countryName;
@@ -60,14 +59,15 @@ class FlagButton extends StatelessWidget {
 
 Widget createFlagButton({
   required String countryName,
-  required Flags selectedCountry,
+  required Flag selectedCountry,
   required String flagImage,
   required Function() updateValue,
+  required bool isActive,
 }) =>
     FlagButton(
       countryName: countryName,
-      backgroundColor: chosenDictionary == selectedCountry ? whiteColor : Colors.transparent,
-      color: chosenDictionary == selectedCountry ? darkBlueColor : whiteColor,
+      backgroundColor: isActive ? whiteColor : Colors.transparent,
+      color: isActive ? darkBlueColor : whiteColor,
       flagImage: flagImage,
       onTap: updateValue,
     );

@@ -28,7 +28,7 @@ Future<bool> exitGameModal({required BuildContext context, required Function() e
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            exitModalQuestionString,
+            'exitModalQuestionString'.tr,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyText1,
           ),
@@ -37,12 +37,12 @@ Future<bool> exitGameModal({required BuildContext context, required Function() e
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ExitGameButton(
-                text: exitModalQuestionYes,
+                text: 'exitModalQuestionYes'.tr,
                 onPressed: exitGameCallback,
               ),
               SizedBox(width: 24.h),
               ExitGameButton(
-                text: exitModalQuestionNo,
+                text: 'exitModalQuestionNo'.tr,
                 onPressed: Get.back,
               ),
             ],
@@ -51,5 +51,5 @@ Future<bool> exitGameModal({required BuildContext context, required Function() e
       ),
     ),
   );
-  return true;
+  return false;
 }

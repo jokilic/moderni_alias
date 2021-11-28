@@ -5,24 +5,25 @@ import 'package:get/get.dart';
 import './widgets/playing_team_info.dart';
 import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
+import '../../services/dictionary_service.dart';
 import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/wrong_correct_buttons.dart';
-import '../home/home_screen.dart';
 
 class MainGameScreen extends StatelessWidget {
   static const routeName = '/main-game-screen';
 
+  final dictionaryService = Get.find<DictionaryService>();
   final gameService = Get.find<GameService>();
 
   @override
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () => exitGameModal(
           context: context,
-          exitGameCallback: () {},
+          exitGameCallback: gameService.exitToMainMenu,
         ),
         child: Scaffold(
           body: BackgroundImage(
@@ -37,25 +38,7 @@ class MainGameScreen extends StatelessWidget {
                       currentlyPlayingTeam: gameService.currentlyPlayingTeam,
                       exitGame: () => exitGameModal(
                         context: context,
-                        exitGameCallback: () {
-                          // TODO: Logic in some game controller
-
-                          // gamePlaying = false;
-                          // simpleGamePlaying = false;
-                          // soundTimer?.cancel();
-                          // greenTimer?.cancel();
-                          // yellowTimer?.cancel();
-                          // redTimer?.cancel();
-                          // quickSoundTimer?.cancel();
-                          // countdownAudioPlayer.stop();
-                          // countdownQuickAudioPlayer.stop();
-                          // countdownTimerFillColor = darkBlueColor;
-
-                          Get.offNamedUntil(
-                            HomeScreen.routeName,
-                            (route) => false,
-                          );
-                        },
+                        exitGameCallback: gameService.exitToMainMenu,
                       ),
                       showScores: () => showScores(
                         context: context,
@@ -68,8 +51,8 @@ class MainGameScreen extends StatelessWidget {
                       top: -75.h,
                       bottom: 0,
                       child: GameOn(
-                        currentWord: '',
-                        fillColor: Colors.indigo,
+                        currentWord: dictionaryService.currentWord,
+                        fillColor: gameService.countdownTimerFillColor,
                         length: gameService.lengthOfRound,
                         onComplete: () => gameService.endOfRound(
                           currentGame: Game.normal,
@@ -81,7 +64,9 @@ class MainGameScreen extends StatelessWidget {
                       top: -75.h,
                       bottom: 0,
                       child: GameOff(
-                        onTap: gameService.startRound,
+                        onTap: () => gameService.startRound(
+                          chosenGame: Game.normal,
+                        ),
                       ),
                     ),
                   Positioned(

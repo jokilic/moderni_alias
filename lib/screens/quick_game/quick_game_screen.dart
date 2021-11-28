@@ -22,7 +22,7 @@ class QuickGameScreen extends StatelessWidget {
   Widget build(BuildContext context) => WillPopScope(
         onWillPop: () => exitGameModal(
           context: context,
-          exitGameCallback: () {},
+          exitGameCallback: gameService.exitToMainMenu,
         ),
         child: Scaffold(
           body: BackgroundImage(
@@ -37,7 +37,7 @@ class QuickGameScreen extends StatelessWidget {
                       child: InfoSection(
                         exitGame: () => exitGameModal(
                           context: context,
-                          exitGameCallback: () {},
+                          exitGameCallback: gameService.exitToMainMenu,
                         ),
                         correctAnswers: gameService.correctAnswers,
                         wrongAnswers: gameService.wrongAnswers,
@@ -61,7 +61,9 @@ class QuickGameScreen extends StatelessWidget {
                         top: -75.h,
                         bottom: 0,
                         child: GameOff(
-                          onTap: gameService.startRound,
+                          onTap: () => gameService.startRound(
+                            chosenGame: Game.quick,
+                          ),
                         ),
                       ),
                     Positioned(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HighscoreValue extends StatelessWidget {
-  final String? teamName;
-  final int? points;
+  final String teamName;
+  final int points;
 
   const HighscoreValue({
     required this.teamName,
@@ -10,34 +11,30 @@ class HighscoreValue extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: size.width * 0.5,
-              child: Text(
-                teamName ?? '',
-                style: Theme.of(context).textTheme.bodyText1,
+  Widget build(BuildContext context) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.r),
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 6.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 0.5.sw,
+                child: Text(
+                  teamName,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
               ),
-            ),
-            SizedBox(
-              width: size.width * 0.1,
-              child: Text(
-                points.toString(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1,
+              SizedBox(
+                width: 0.1.sw,
+                child: Text(
+                  points.toString(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

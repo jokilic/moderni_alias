@@ -8,6 +8,7 @@ import '../constants/colors.dart';
 import '../constants/enums.dart';
 import '../models/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
+import '../screens/home/home_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'dictionary_service.dart';
 
@@ -17,13 +18,13 @@ class GameService extends GetxService {
   /// ------------------------
 
   final _currentGame = Game.none.obs;
-  final _chosenDictionary = Flags.croatia.obs;
+  final _chosenDictionary = Flag.croatia.obs;
   final _countdownTimerFillColor = darkBlueColor.obs;
 
   final _correctAnswers = 0.obs;
   final _wrongAnswers = 0.obs;
   final _lengthOfRound = 60.obs;
-  final _pointsToWin = 0.obs;
+  final _pointsToWin = 50.obs;
 
   final _teams = <Team>[].obs;
   final _currentlyPlayingTeam = Team(name: '').obs;
@@ -48,7 +49,7 @@ class GameService extends GetxService {
   /// ------------------------
 
   Game get currentGame => _currentGame.value;
-  Flags get chosenDictionary => _chosenDictionary.value;
+  Flag get chosenDictionary => _chosenDictionary.value;
   Color get countdownTimerFillColor => _countdownTimerFillColor.value;
 
   int get correctAnswers => _correctAnswers.value;
@@ -79,7 +80,7 @@ class GameService extends GetxService {
   /// ------------------------
 
   set currentGame(Game value) => _currentGame.value = value;
-  set chosenDictionary(Flags value) => _chosenDictionary.value = value;
+  set chosenDictionary(Flag value) => _chosenDictionary.value = value;
   set countdownTimerFillColor(Color value) => _countdownTimerFillColor.value = value;
 
   set correctAnswers(int value) => _correctAnswers.value = value;
@@ -138,17 +139,14 @@ class GameService extends GetxService {
       );
 
   /// Reset variables and start the round
-  void startRound() {
-    final gameService = Get.find<GameService>();
-
+  void startRound({required Game chosenGame}) {
     correctAnswers = 0;
     wrongAnswers = 0;
 
-    Get.find<DictionaryService>().getRandomWord;
+    currentGame = chosenGame;
+    countdownTimerFillColor = blueColor;
 
-    gameService
-      ..currentGame = currentGame
-      ..countdownTimerFillColor = blueColor;
+    Get.find<DictionaryService>().getRandomWord;
 
     startCountdown();
   }
@@ -168,13 +166,13 @@ class GameService extends GetxService {
     /// Check if there's a winner and act accordingly
     if (currentlyPlayingTeam.points >= pointsToWin) {
       Get.toNamed(GameFinishedScreen.routeName);
+    } else {
+      /// Let the next team play
+      final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
+      currentTeamIndex < teams.length - 1
+          ? currentlyPlayingTeam = teams[currentTeamIndex + 1]
+          : currentlyPlayingTeam = teams[0];
     }
-
-    /// Let the next team play
-    final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
-    currentTeamIndex < teams.length - 1
-        ? currentlyPlayingTeam = teams[currentTeamIndex + 1]
-        : currentlyPlayingTeam = teams[0];
   }
 
   /// Goes to the confetti screen and shows info about the round
@@ -234,5 +232,48 @@ class GameService extends GetxService {
 
       Get.find<DictionaryService>().getRandomWord;
     }
+  }
+
+  /// Called when the user exits the game
+  void exitToMainMenu() {
+    currentGame = Game.none;
+
+    teams.clear();
+
+    soundTimer.cancel();
+    greenTimer.cancel();
+    yellowTimer.cancel();
+    redTimer.cancel();
+
+    countdownAudioPlayer.stop();
+
+    countdownTimerFillColor = darkBlueColor;
+
+    Get.offNamedUntil(
+      HomeScreen.routeName,
+      (route) => false,
+    );
+  }
+
+  /// Called when the user taps on the flag in StartGame
+  void updateDictionary(Flag chosenFlag) {
+    chosenDictionary = chosenFlag;
+    Get.find<DictionaryService>().refillCurrentDictionary();
+  }
+
+  /// Called when the user taps on the points in StartGame
+  set updatePointsToWin(int chosenPoints) => pointsToWin = chosenPoints;
+
+  /// Called when the user taps on the length of round in StartGame
+  set updateLengthOfRound(int chosenLength) => lengthOfRound = chosenLength;
+
+  /// Called when the user writes on the text field and adds a team name
+  void teamNameUpdated({required int index, required String value}) => teams[index].name = value;
+
+  /// Called when the user taps on the number of teams in StartGame
+  void updateNumberOfTeams({required int chosenNumber}) {
+    teams
+      ..clear()
+      ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '')]);
   }
 }

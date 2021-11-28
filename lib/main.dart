@@ -7,6 +7,7 @@ import 'bindings/global_binding.dart';
 import 'localization.dart';
 import 'routes.dart';
 import 'screens/home/home_screen.dart';
+import 'services/logger_service.dart';
 import 'theme.dart';
 
 Future<void> main() async {
@@ -30,6 +31,10 @@ class ModerniAlias extends StatelessWidget {
           fallbackLocale: Localization.fallbackLocale,
           translations: Localization(),
           defaultTransition: Transition.fadeIn,
+          logWriterCallback: loggingWithLogger,
         ),
       );
+
+  void loggingWithLogger(String text, {bool isError = false}) =>
+      isError ? Get.find<LoggerService>().logger.e(text) : Get.find<LoggerService>().logger.d(text);
 }
