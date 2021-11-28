@@ -18,50 +18,6 @@ import '../../widgets/play_button.dart';
 class StartGameScreen extends StatelessWidget {
   static const routeName = '/start-game-screen';
 
-// Called when tapping on the 'Igraj' button
-  // void validateSetGo() {
-  //   teamNames.clear();
-  //   textFieldControllers.map((controller) => teamNames.add(controller.text)).toList();
-
-  //   validateTextFields(textFieldControllers);
-
-  //   routeArguments = {
-  //     'pointsToWin': pointsToWin.toString(),
-  //     'lengthOfRound': lengthOfRound.toString(),
-  //     'numOfTeams': numOfTeamsValue.toString(),
-  //     'team1': teamNames[0],
-  //     'team2': teamNames[1],
-  //   };
-
-  //   if (numOfTeamsValue == 3) {
-  //     routeArguments['team3'] = teamNames[2];
-  //   }
-  //   if (numOfTeamsValue == 4) {
-  //     routeArguments['team4'] = teamNames[3];
-  //   }
-
-  //   if (validated) {
-  //     FocusScope.of(context).unfocus();
-
-  //     Get.toNamed(MainGameScreen.routeName);
-  //   }
-  // }
-
-// Validate if all TextFields have values
-  // void validateTextFields(textFieldControllers) {
-  //   validationCounter = 0;
-  //   textFieldControllers.forEach((controller) {
-  //     if (controller.text.isEmpty) {
-  //       validationCounter++;
-  //     }
-  //   });
-
-  //   focusNodes.clear();
-  //   textFieldControllers.clear();
-
-  //   validationCounter > 0 ? validated = false : validated = true;
-  // }
-
   final gameService = Get.find<GameService>();
 
   @override
@@ -183,25 +139,24 @@ class StartGameScreen extends StatelessWidget {
                       ),
                       shrinkWrap: true,
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.all(16.r),
-                    //   child: Container(
-                    //     child: !validated
-                    //         ? Center(
-                    //             child: Text(
-                    //               'teamNamesMissingString'.tr,
-                    //               style: Theme.of(context).textTheme.bodyText1,
-                    //             ),
-                    //           )
-                    //         : const Text(''),
-                    //   ),
-                    // ),
+                    Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: Container(
+                        child: !gameService.teamsValidated
+                            ? Center(
+                                child: Text(
+                                  'teamNamesMissingString'.tr,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              )
+                            : const Text(''),
+                      ),
+                    ),
                     Container(
                       alignment: Alignment.center,
                       child: PlayButton(
                         text: 'playTheGameString'.tr.toUpperCase(),
-                        onPressed: () {},
-                        // onPressed: () => setState(validateSetGo),
+                        onPressed: gameService.validateStartGame,
                       ),
                     ),
                     SizedBox(height: 50.h),

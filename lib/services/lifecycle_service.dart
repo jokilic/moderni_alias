@@ -1,17 +1,19 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 
+import 'logger_service.dart';
+
 class LifecycleService extends SuperController {
-  @override
-  void onDetached() => log('onDetached');
+  final logger = Get.find<LoggerService>();
 
   @override
-  void onInactive() => log('onInactive');
+  void onDetached() => logger.d('onDetached');
 
   @override
-  void onPaused() => log('onPaused');
+  void onInactive() => logger.d('onInactive');
 
   @override
-  void onResumed() => log('onResumed');
+  void onPaused() => logger.d('onPaused');
+
+  @override
+  void onResumed() => logger.d('onResumed');
 }

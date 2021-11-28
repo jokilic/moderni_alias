@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import 'bindings/game_finished_binding.dart';
 import 'bindings/general_info_binding.dart';
-import 'bindings/start_game_binding.dart';
 import 'screens/game_finished/game_finished_screen.dart';
 import 'screens/general_info/general_info_screen.dart';
 import 'screens/home/home_screen.dart';
@@ -46,6 +45,5 @@ final routes = [
   GetPage(
     name: StartGameScreen.routeName,
     page: () => StartGameScreen(),
-    binding: StartGameBinding(),
   ),
 ];

@@ -9,10 +9,18 @@ import '../constants/enums.dart';
 import '../models/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/main_game/main_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'dictionary_service.dart';
+import 'logger_service.dart';
 
 class GameService extends GetxService {
+  /// ------------------------
+  /// LOGGER
+  /// ------------------------
+
+  final logger = Get.find<LoggerService>();
+
   /// ------------------------
   /// VARIABLES
   /// ------------------------
@@ -26,8 +34,10 @@ class GameService extends GetxService {
   final _lengthOfRound = 60.obs;
   final _pointsToWin = 50.obs;
 
-  final _teams = <Team>[].obs;
+  final _teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')].obs;
   final _currentlyPlayingTeam = Team(name: '').obs;
+
+  final _teamsValidated = true.obs;
 
   final _greenSeconds = 0.0.obs;
   final _yellowSeconds = 0.0.obs;
@@ -60,6 +70,8 @@ class GameService extends GetxService {
   List<Team> get teams => _teams;
   Team get currentlyPlayingTeam => _currentlyPlayingTeam.value;
 
+  bool get teamsValidated => _teamsValidated.value;
+
   double get greenSeconds => _greenSeconds.value;
   double get yellowSeconds => _yellowSeconds.value;
   double get redSeconds => _redSeconds.value;
@@ -90,6 +102,8 @@ class GameService extends GetxService {
 
   set teams(List<Team> value) => _teams.assignAll(value);
   set currentlyPlayingTeam(Team value) => _currentlyPlayingTeam.value = value;
+
+  set teamsValidated(bool value) => _teamsValidated.value = value;
 
   set greenSeconds(double value) => _greenSeconds.value = value;
   set yellowSeconds(double value) => _yellowSeconds.value = value;
@@ -275,5 +289,20 @@ class GameService extends GetxService {
     teams
       ..clear()
       ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '')]);
+  }
+
+  /// Called when the user taps the 'Play' button
+  void validateStartGame() {
+    teamsValidated = true;
+
+    teams.map((team) {
+      if (team.name.isEmpty) {
+        teamsValidated = false;
+      }
+    }).toList();
+
+    if (teamsValidated) {
+      Get.toNamed(MainGameScreen.routeName);
+    }
   }
 }
