@@ -3,11 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import './how_to_play_button.dart';
+import '../../../services/game_service.dart';
 import '../../../widgets/play_button.dart';
-import '../../quick_game/quick_game_screen.dart';
 import '../../start_game/start_game_screen.dart';
 
 class HomePageButtons extends StatelessWidget {
+  final gameService = Get.find<GameService>();
+
   @override
   Widget build(BuildContext context) => Center(
         child: Column(
@@ -22,9 +24,7 @@ class HomePageButtons extends StatelessWidget {
             SizedBox(height: 25.h),
             PlayButton(
               text: 'quickStartButtonString'.tr.toUpperCase(),
-              onPressed: () => Get.toNamed(
-                QuickGameScreen.routeName,
-              ),
+              onPressed: gameService.startQuickGame,
             ),
             SizedBox(height: 25.h),
             HowToPlayButton(),

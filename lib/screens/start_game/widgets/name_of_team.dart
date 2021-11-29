@@ -5,16 +5,10 @@ import '../../../constants/colors.dart';
 class NameOfTeam extends StatelessWidget {
   final String hintText;
   final Function(String value) onChanged;
-  // final Function(String value) onFieldSubmitted;
-  // final FocusNode focusNode;
-  // final TextEditingController textFieldController;
 
   const NameOfTeam({
     required this.hintText,
     required this.onChanged,
-    // required this.onFieldSubmitted,
-    // required this.focusNode,
-    // required this.textFieldController,
   });
 
   @override
@@ -23,10 +17,8 @@ class NameOfTeam extends StatelessWidget {
           horizontal: 36,
           vertical: 12,
         ),
-        child: TextFormField(
-          // controller: textFieldController,
-          // focusNode: focusNode,
-          // onFieldSubmitted: onFieldSubmitted,
+        child: TextField(
+          textInputAction: TextInputAction.next,
           onChanged: onChanged,
           style: Theme.of(context).textTheme.bodyText1,
           textAlign: TextAlign.center,

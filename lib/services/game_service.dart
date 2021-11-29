@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import '../models/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/main_game/main_game_screen.dart';
+import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'dictionary_service.dart';
 import 'logger_service.dart';
@@ -25,6 +27,8 @@ class GameService extends GetxService {
   /// VARIABLES
   /// ------------------------
 
+  late final Random _random;
+
   final _currentGame = Game.none.obs;
   final _chosenDictionary = Flag.croatia.obs;
   final _countdownTimerFillColor = darkBlueColor.obs;
@@ -38,6 +42,7 @@ class GameService extends GetxService {
   final _currentlyPlayingTeam = Team(name: '').obs;
 
   final _teamsValidated = true.obs;
+  final _gameStarted = true.obs;
 
   final _greenSeconds = 0.0.obs;
   final _yellowSeconds = 0.0.obs;
@@ -58,6 +63,8 @@ class GameService extends GetxService {
   /// GETTERS
   /// ------------------------
 
+  Random get random => _random;
+
   Game get currentGame => _currentGame.value;
   Flag get chosenDictionary => _chosenDictionary.value;
   Color get countdownTimerFillColor => _countdownTimerFillColor.value;
@@ -71,6 +78,7 @@ class GameService extends GetxService {
   Team get currentlyPlayingTeam => _currentlyPlayingTeam.value;
 
   bool get teamsValidated => _teamsValidated.value;
+  bool get gameStarted => _gameStarted.value;
 
   double get greenSeconds => _greenSeconds.value;
   double get yellowSeconds => _yellowSeconds.value;
@@ -91,6 +99,8 @@ class GameService extends GetxService {
   /// SETTERS
   /// ------------------------
 
+  set random(Random value) => _random = value;
+
   set currentGame(Game value) => _currentGame.value = value;
   set chosenDictionary(Flag value) => _chosenDictionary.value = value;
   set countdownTimerFillColor(Color value) => _countdownTimerFillColor.value = value;
@@ -104,6 +114,7 @@ class GameService extends GetxService {
   set currentlyPlayingTeam(Team value) => _currentlyPlayingTeam.value = value;
 
   set teamsValidated(bool value) => _teamsValidated.value = value;
+  set gameStarted(bool value) => _gameStarted.value = value;
 
   set greenSeconds(double value) => _greenSeconds.value = value;
   set yellowSeconds(double value) => _yellowSeconds.value = value;
@@ -130,15 +141,14 @@ class GameService extends GetxService {
     initValues();
   }
 
-  /// TODO: Add teams from StartScreen
-  /// Randomize starting team
-
   /// ------------------------
   /// METHODS
   /// ------------------------
 
   /// Initializes relevant variables
   void initValues() {
+    random = Random();
+
     buttonAudioPlayer = AudioPlayer();
     countdownAudioPlayer = AudioPlayer();
 
@@ -154,6 +164,8 @@ class GameService extends GetxService {
 
   /// Reset variables and start the round
   void startRound({required Game chosenGame}) {
+    gameStarted = true;
+
     correctAnswers = 0;
     wrongAnswers = 0;
 
@@ -165,6 +177,21 @@ class GameService extends GetxService {
     startCountdown();
   }
 
+  /// Called when the validation passes
+  /// Starts main game
+  void startMainGame() {
+    gameStarted = false;
+    currentlyPlayingTeam = teams[random.nextInt(teams.length)];
+    Get.toNamed(MainGameScreen.routeName);
+  }
+
+  /// Starts quick game
+  void startQuickGame() {
+    gameStarted = false;
+    lengthOfRound = 60;
+    Get.toNamed(QuickGameScreen.routeName);
+  }
+
   /// Round has ended (time has run out)
   void endOfRound({required Game currentGame}) => currentGame == Game.normal ? checkGameWinner() : finishQuickGame();
 
@@ -173,9 +200,6 @@ class GameService extends GetxService {
   /// If winner, show the confetti screen
   void checkGameWinner() {
     gameOnHold();
-
-    /// Append the difference of correct and wrong answers to the relevant team
-    currentlyPlayingTeam.points += correctAnswers - wrongAnswers;
 
     /// Check if there's a winner and act accordingly
     if (currentlyPlayingTeam.points >= pointsToWin) {
@@ -236,28 +260,47 @@ class GameService extends GetxService {
   /// Increments the relevant variable and generate a new random word
   void answerChosen({required Answer chosenButton}) {
     if (currentGame != Game.none) {
-      if (chosenButton == Answer.correct) {
-        buttonPlayer.play('correct.ogg');
-        correctAnswers++;
-      } else {
-        buttonPlayer.play('wrong.ogg');
-        wrongAnswers++;
-      }
+      playAnswerSound(chosenButton: chosenButton);
+    } else {
+      /// TODO: Sad sound if the user presses on the answer buttons
+      /// and the game hasn't started.
+      ///
+      /// Maybe even me saying 'Stisni gore...'
 
-      Get.find<DictionaryService>().getRandomWord;
+      // buttonPlayer.play(fileName);
     }
+
+    if (currentGame == Game.quick) {
+      chosenButton == Answer.correct ? correctAnswers++ : wrongAnswers++;
+    }
+
+    if (currentGame == Game.normal) {
+      chosenButton == Answer.correct
+          ? _currentlyPlayingTeam.value.points += 1
+          : _currentlyPlayingTeam.value.points -= 1;
+
+      _currentlyPlayingTeam.refresh();
+    }
+
+    Get.find<DictionaryService>().getRandomWord;
   }
+
+  /// Plays proper sound while pressing on the answers
+  void playAnswerSound({required Answer chosenButton}) =>
+      chosenButton == Answer.correct ? buttonPlayer.play('correct.ogg') : buttonPlayer.play('wrong.ogg');
 
   /// Called when the user exits the game
   void exitToMainMenu() {
     currentGame = Game.none;
 
-    teams.clear();
+    teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
 
-    soundTimer.cancel();
-    greenTimer.cancel();
-    yellowTimer.cancel();
-    redTimer.cancel();
+    if (gameStarted) {
+      soundTimer.cancel();
+      greenTimer.cancel();
+      yellowTimer.cancel();
+      redTimer.cancel();
+    }
 
     countdownAudioPlayer.stop();
 
@@ -292,7 +335,7 @@ class GameService extends GetxService {
   }
 
   /// Called when the user taps the 'Play' button
-  void validateStartGame() {
+  void validateMainGame() {
     teamsValidated = true;
 
     teams.map((team) {
@@ -302,7 +345,7 @@ class GameService extends GetxService {
     }).toList();
 
     if (teamsValidated) {
-      Get.toNamed(MainGameScreen.routeName);
+      startMainGame();
     }
   }
 }

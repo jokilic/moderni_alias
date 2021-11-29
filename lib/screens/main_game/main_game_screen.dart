@@ -28,60 +28,62 @@ class MainGameScreen extends StatelessWidget {
         child: Scaffold(
           body: BackgroundImage(
             child: SafeArea(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: 0,
-                    width: 1.sw,
-                    child: PlayingTeamInfo(
-                      currentlyPlayingTeam: gameService.currentlyPlayingTeam,
-                      exitGame: () => exitGameModal(
-                        context: context,
-                        exitGameCallback: gameService.exitToMainMenu,
-                      ),
-                      showScores: () => showScores(
-                        context: context,
-                        teams: gameService.teams,
-                      ),
-                    ),
-                  ),
-                  if (gameService.currentGame == Game.normal)
+              child: Obx(
+                () => Stack(
+                  alignment: Alignment.center,
+                  children: [
                     Positioned(
-                      top: -75.h,
-                      bottom: 0,
-                      child: GameOn(
-                        currentWord: dictionaryService.currentWord,
-                        fillColor: gameService.countdownTimerFillColor,
-                        length: gameService.lengthOfRound,
-                        onComplete: () => gameService.endOfRound(
-                          currentGame: Game.normal,
+                      top: 0,
+                      width: 1.sw,
+                      child: PlayingTeamInfo(
+                        currentlyPlayingTeam: gameService.currentlyPlayingTeam,
+                        exitGame: () => exitGameModal(
+                          context: context,
+                          exitGameCallback: gameService.exitToMainMenu,
                         ),
-                      ),
-                    )
-                  else
-                    Positioned(
-                      top: -75.h,
-                      bottom: 0,
-                      child: GameOff(
-                        onTap: () => gameService.startRound(
-                          chosenGame: Game.normal,
+                        showScores: () => showScores(
+                          context: context,
+                          teams: gameService.teams,
                         ),
                       ),
                     ),
-                  Positioned(
-                    bottom: 0,
-                    width: 1.sw,
-                    child: WrongCorrectButtons(
-                      wrongChosen: () => gameService.answerChosen(
-                        chosenButton: Answer.correct,
+                    if (gameService.currentGame == Game.normal)
+                      Positioned(
+                        top: -75.h,
+                        bottom: 0,
+                        child: GameOn(
+                          currentWord: dictionaryService.currentWord,
+                          fillColor: gameService.countdownTimerFillColor,
+                          length: gameService.lengthOfRound,
+                          onComplete: () => gameService.endOfRound(
+                            currentGame: Game.normal,
+                          ),
+                        ),
+                      )
+                    else
+                      Positioned(
+                        top: -75.h,
+                        bottom: 0,
+                        child: GameOff(
+                          onTap: () => gameService.startRound(
+                            chosenGame: Game.normal,
+                          ),
+                        ),
                       ),
-                      correctChosen: () => gameService.answerChosen(
-                        chosenButton: Answer.correct,
+                    Positioned(
+                      bottom: 0,
+                      width: 1.sw,
+                      child: WrongCorrectButtons(
+                        wrongChosen: () => gameService.answerChosen(
+                          chosenButton: Answer.wrong,
+                        ),
+                        correctChosen: () => gameService.answerChosen(
+                          chosenButton: Answer.correct,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

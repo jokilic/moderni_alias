@@ -156,7 +156,7 @@ class StartGameScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       child: PlayButton(
                         text: 'playTheGameString'.tr.toUpperCase(),
-                        onPressed: gameService.validateStartGame,
+                        onPressed: gameService.validateMainGame,
                       ),
                     ),
                     SizedBox(height: 50.h),
