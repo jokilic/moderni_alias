@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 
@@ -13,9 +14,9 @@ class NameOfTeam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 36,
-          vertical: 12,
+        padding: EdgeInsets.symmetric(
+          horizontal: 36.w,
+          vertical: 12.h,
         ),
         child: TextField(
           textInputAction: TextInputAction.next,
@@ -32,16 +33,16 @@ class NameOfTeam extends StatelessWidget {
                 ),
           ),
           cursorColor: whiteColor,
-          cursorRadius: const Radius.circular(16),
-          cursorWidth: 4,
+          cursorRadius: Radius.circular(16.r),
+          cursorWidth: 4.w,
         ),
       );
 }
 
 // Make Input Border
-UnderlineInputBorder buildInputBorder() => const UnderlineInputBorder(
+UnderlineInputBorder buildInputBorder() => UnderlineInputBorder(
       borderSide: BorderSide(
         color: whiteColor,
-        width: 2,
+        width: 2.w,
       ),
     );

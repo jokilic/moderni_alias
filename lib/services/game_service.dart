@@ -139,6 +139,11 @@ class GameService extends GetxService {
   void onInit() {
     super.onInit();
     initValues();
+
+    /// Check screen size
+    logger
+      ..wtf(Get.height)
+      ..wtf(Get.width);
   }
 
   /// ------------------------
