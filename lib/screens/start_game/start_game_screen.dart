@@ -27,140 +27,149 @@ class StartGameScreen extends StatelessWidget {
             child: SizedBox(
               height: double.infinity,
               child: Obx(
-                () => ListView(
+                () => SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  children: [
-                    GameTitle('dictionaryString'.tr),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        createFlagButton(
-                          countryName: 'dictionaryCroatianString'.tr,
-                          flagImage: croatiaImage,
-                          selectedCountry: Flag.croatia,
-                          updateValue: () => gameService.updateDictionary(Flag.croatia),
-                          isActive: gameService.chosenDictionary == Flag.croatia,
-                        ),
-                        createFlagButton(
-                          countryName: 'dictionaryEnglishString'.tr,
-                          flagImage: unitedKingdomImage,
-                          selectedCountry: Flag.unitedKingdom,
-                          updateValue: () => gameService.updateDictionary(Flag.unitedKingdom),
-                          isActive: gameService.chosenDictionary == Flag.unitedKingdom,
-                        ),
-                      ],
-                    ),
-                    GameTitle('teamsString'.tr),
-                    HorizontalScroll(
-                      [
-                        createNumberOfTeamsButton(
-                          chosenNumberOfTeams: 2,
-                          updateValue: () => gameService.updateNumberOfTeams(
-                            chosenNumber: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GameTitle('dictionaryString'.tr),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          createFlagButton(
+                            countryName: 'dictionaryCroatianString'.tr,
+                            flagImage: croatiaImage,
+                            selectedCountry: Flag.croatia,
+                            updateValue: () => gameService.updateDictionary(Flag.croatia),
+                            isActive: gameService.chosenDictionary == Flag.croatia,
                           ),
-                          isActive: gameService.teams.length == 2,
-                        ),
-                        createNumberOfTeamsButton(
-                          chosenNumberOfTeams: 3,
-                          updateValue: () => gameService.updateNumberOfTeams(
-                            chosenNumber: 3,
+                          createFlagButton(
+                            countryName: 'dictionaryEnglishString'.tr,
+                            flagImage: unitedKingdomImage,
+                            selectedCountry: Flag.unitedKingdom,
+                            updateValue: () => gameService.updateDictionary(Flag.unitedKingdom),
+                            isActive: gameService.chosenDictionary == Flag.unitedKingdom,
                           ),
-                          isActive: gameService.teams.length == 3,
-                        ),
-                        createNumberOfTeamsButton(
-                          chosenNumberOfTeams: 4,
-                          updateValue: () => gameService.updateNumberOfTeams(
-                            chosenNumber: 4,
+                        ],
+                      ),
+                      GameTitle('teamsString'.tr),
+                      HorizontalScroll(
+                        [
+                          createNumberOfTeamsButton(
+                            chosenNumberOfTeams: 2,
+                            updateValue: () => gameService.updateNumberOfTeams(
+                              chosenNumber: 2,
+                            ),
+                            isActive: gameService.teams.length == 2,
                           ),
-                          isActive: gameService.teams.length == 4,
-                        ),
-                      ],
-                    ),
-                    GameTitle('numberOfPointsString'.tr),
-                    HorizontalScroll(
-                      [
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 25,
-                          updateValue: () => gameService.updatePointsToWin = 25,
-                          isActive: gameService.pointsToWin == 25,
-                        ),
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 50,
-                          updateValue: () => gameService.updatePointsToWin = 50,
-                          isActive: gameService.pointsToWin == 50,
-                        ),
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 75,
-                          updateValue: () => gameService.updatePointsToWin = 75,
-                          isActive: gameService.pointsToWin == 75,
-                        ),
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 100,
-                          updateValue: () => gameService.updatePointsToWin = 100,
-                          isActive: gameService.pointsToWin == 100,
-                        ),
-                      ],
-                    ),
-                    GameTitle('lengthOfRoundString'.tr),
-                    HorizontalScroll(
-                      [
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 20,
-                          updateValue: () => gameService.updateLengthOfRound = 20,
-                          isActive: gameService.lengthOfRound == 20,
-                        ),
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 45,
-                          updateValue: () => gameService.updateLengthOfRound = 45,
-                          isActive: gameService.lengthOfRound == 45,
-                        ),
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 60,
-                          updateValue: () => gameService.updateLengthOfRound = 60,
-                          isActive: gameService.lengthOfRound == 60,
-                        ),
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 90,
-                          updateValue: () => gameService.updateLengthOfRound = 90,
-                          isActive: gameService.lengthOfRound == 90,
-                        ),
-                      ],
-                    ),
-                    GameTitle('teamNamesString'.tr),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: gameService.teams.length,
-                      itemBuilder: (context, index) => NameOfTeam(
-                        hintText: 'teamNameString'.tr,
-                        onChanged: (value) => gameService.teamNameUpdated(
-                          index: index,
-                          value: value,
+                          createNumberOfTeamsButton(
+                            chosenNumberOfTeams: 3,
+                            updateValue: () => gameService.updateNumberOfTeams(
+                              chosenNumber: 3,
+                            ),
+                            isActive: gameService.teams.length == 3,
+                          ),
+                          createNumberOfTeamsButton(
+                            chosenNumberOfTeams: 4,
+                            updateValue: () => gameService.updateNumberOfTeams(
+                              chosenNumber: 4,
+                            ),
+                            isActive: gameService.teams.length == 4,
+                          ),
+                        ],
+                      ),
+                      GameTitle('numberOfPointsString'.tr),
+                      HorizontalScroll(
+                        [
+                          createNumberOfPointsButton(
+                            chosenNumberOfPoints: 25,
+                            updateValue: () => gameService.updatePointsToWin = 25,
+                            isActive: gameService.pointsToWin == 25,
+                          ),
+                          createNumberOfPointsButton(
+                            chosenNumberOfPoints: 50,
+                            updateValue: () => gameService.updatePointsToWin = 50,
+                            isActive: gameService.pointsToWin == 50,
+                          ),
+                          createNumberOfPointsButton(
+                            chosenNumberOfPoints: 75,
+                            updateValue: () => gameService.updatePointsToWin = 75,
+                            isActive: gameService.pointsToWin == 75,
+                          ),
+                          createNumberOfPointsButton(
+                            chosenNumberOfPoints: 100,
+                            updateValue: () => gameService.updatePointsToWin = 100,
+                            isActive: gameService.pointsToWin == 100,
+                          ),
+                        ],
+                      ),
+                      GameTitle('lengthOfRoundString'.tr),
+                      HorizontalScroll(
+                        [
+                          createLengthOfRoundButton(
+                            chosenLengthOfRound: 20,
+                            updateValue: () => gameService.updateLengthOfRound = 20,
+                            isActive: gameService.lengthOfRound == 20,
+                          ),
+                          createLengthOfRoundButton(
+                            chosenLengthOfRound: 45,
+                            updateValue: () => gameService.updateLengthOfRound = 45,
+                            isActive: gameService.lengthOfRound == 45,
+                          ),
+                          createLengthOfRoundButton(
+                            chosenLengthOfRound: 60,
+                            updateValue: () => gameService.updateLengthOfRound = 60,
+                            isActive: gameService.lengthOfRound == 60,
+                          ),
+                          createLengthOfRoundButton(
+                            chosenLengthOfRound: 90,
+                            updateValue: () => gameService.updateLengthOfRound = 90,
+                            isActive: gameService.lengthOfRound == 90,
+                          ),
+                        ],
+                      ),
+                      GameTitle('teamNamesString'.tr),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: gameService.teams.length,
+                        itemBuilder: (context, index) {
+                          final team = gameService.teams[index];
+
+                          return NameOfTeam(
+                            hintText: 'teamNameString'.tr,
+                            textInputAction:
+                                index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
+                            onChanged: (value) => gameService.teamNameUpdated(
+                              team: team,
+                              value: value,
+                            ),
+                          );
+                        },
+                        shrinkWrap: true,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(16.r),
+                        child: Container(
+                          child: !gameService.teamsValidated
+                              ? Center(
+                                  child: Text(
+                                    'teamNamesMissingString'.tr,
+                                    style: Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                )
+                              : const Text(''),
                         ),
                       ),
-                      shrinkWrap: true,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(16.r),
-                      child: Container(
-                        child: !gameService.teamsValidated
-                            ? Center(
-                                child: Text(
-                                  'teamNamesMissingString'.tr,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              )
-                            : const Text(''),
+                      Container(
+                        alignment: Alignment.center,
+                        child: PlayButton(
+                          text: 'playTheGameString'.tr.toUpperCase(),
+                          onPressed: gameService.validateMainGame,
+                        ),
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: PlayButton(
-                        text: 'playTheGameString'.tr.toUpperCase(),
-                        onPressed: gameService.validateMainGame,
-                      ),
-                    ),
-                    SizedBox(height: 50.h),
-                  ],
+                      SizedBox(height: 50.h),
+                    ],
+                  ),
                 ),
               ),
             ),

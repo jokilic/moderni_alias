@@ -6,10 +6,12 @@ import '../../../constants/colors.dart';
 class NameOfTeam extends StatelessWidget {
   final String hintText;
   final Function(String value) onChanged;
+  final TextInputAction textInputAction;
 
   const NameOfTeam({
     required this.hintText,
     required this.onChanged,
+    required this.textInputAction,
   });
 
   @override
@@ -19,7 +21,7 @@ class NameOfTeam extends StatelessWidget {
           vertical: 12.h,
         ),
         child: TextField(
-          textInputAction: TextInputAction.next,
+          textInputAction: textInputAction,
           onChanged: onChanged,
           style: Theme.of(context).textTheme.bodyText1,
           textAlign: TextAlign.center,

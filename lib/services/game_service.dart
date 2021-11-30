@@ -330,7 +330,7 @@ class GameService extends GetxService {
   set updateLengthOfRound(int chosenLength) => lengthOfRound = chosenLength;
 
   /// Called when the user writes on the text field and adds a team name
-  void teamNameUpdated({required int index, required String value}) => teams[index].name = value;
+  void teamNameUpdated({required Team team, required String value}) => team.name = value;
 
   /// Called when the user taps on the number of teams in StartGame
   void updateNumberOfTeams({required int chosenNumber}) {
