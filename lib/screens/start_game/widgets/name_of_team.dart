@@ -12,7 +12,8 @@ class NameOfTeam extends StatelessWidget {
     required this.hintText,
     required this.onChanged,
     required this.textInputAction,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Padding(

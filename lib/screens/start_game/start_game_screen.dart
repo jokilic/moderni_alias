@@ -136,6 +136,7 @@ class StartGameScreen extends StatelessWidget {
                           final team = gameService.teams[index];
 
                           return NameOfTeam(
+                            key: UniqueKey(),
                             hintText: 'teamNameString'.tr,
                             textInputAction:
                                 index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
