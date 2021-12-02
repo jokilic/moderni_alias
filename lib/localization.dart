@@ -32,6 +32,7 @@ class Localization extends Translations {
     'teamNamesString': 'Imena timova',
     'teamNameString': 'Ime tima',
     'teamNamesMissingString': 'Imena timova ti fale...',
+    'teamNamesSameString': 'Imena timova su ista...',
     'playTheGameString': 'Igraj',
 
     /// Playing Game
@@ -189,6 +190,7 @@ class Localization extends Translations {
     'teamNamesString': 'Imena timova',
     'teamNameString': 'Ime tima',
     'teamNamesMissingString': 'Imena timova ti fale...',
+    'teamNamesSameString': 'Imena timova su ista...',
     'playTheGameString': 'Igraj',
 
     /// Playing Game

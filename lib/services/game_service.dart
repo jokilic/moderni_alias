@@ -41,6 +41,7 @@ class GameService extends GetxService {
   final _teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')].obs;
   final _currentlyPlayingTeam = Team(name: '').obs;
 
+  final _validationMessage = ''.obs;
   final _teamsValidated = true.obs;
   final _gameStarted = true.obs;
 
@@ -77,6 +78,7 @@ class GameService extends GetxService {
   List<Team> get teams => _teams;
   Team get currentlyPlayingTeam => _currentlyPlayingTeam.value;
 
+  String get validationMessage => _validationMessage.value;
   bool get teamsValidated => _teamsValidated.value;
   bool get gameStarted => _gameStarted.value;
 
@@ -113,6 +115,7 @@ class GameService extends GetxService {
   set teams(List<Team> value) => _teams.assignAll(value);
   set currentlyPlayingTeam(Team value) => _currentlyPlayingTeam.value = value;
 
+  set validationMessage(String value) => _validationMessage.value = value;
   set teamsValidated(bool value) => _teamsValidated.value = value;
   set gameStarted(bool value) => _gameStarted.value = value;
 
@@ -343,9 +346,22 @@ class GameService extends GetxService {
   void validateMainGame() {
     teamsValidated = true;
 
+    /// Check if any of the teams has an empty name
     teams.map((team) {
       if (team.name.isEmpty) {
+        validationMessage = 'teamNamesMissingString'.tr;
         teamsValidated = false;
+      }
+    }).toList();
+
+    /// Check if any of team names are same
+    final duplicateTeamsList = <Team>[];
+    teams.map((team) {
+      if (duplicateTeamsList.contains(team)) {
+        validationMessage = 'teamNamesSameString'.tr;
+        teamsValidated = false;
+      } else {
+        duplicateTeamsList.add(team);
       }
     }).toList();
 

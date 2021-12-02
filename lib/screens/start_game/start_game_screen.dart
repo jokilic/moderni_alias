@@ -136,7 +136,7 @@ class StartGameScreen extends StatelessWidget {
                           final team = gameService.teams[index];
 
                           return NameOfTeam(
-                            key: UniqueKey(),
+                            key: ValueKey(team),
                             hintText: 'teamNameString'.tr,
                             textInputAction:
                                 index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
@@ -154,7 +154,7 @@ class StartGameScreen extends StatelessWidget {
                           child: !gameService.teamsValidated
                               ? Center(
                                   child: Text(
-                                    'teamNamesMissingString'.tr,
+                                    gameService.validationMessage,
                                     style: Theme.of(context).textTheme.bodyText1,
                                   ),
                                 )
