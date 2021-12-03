@@ -24,7 +24,7 @@ class ModerniAlias extends StatelessWidget {
         designSize: const Size(485, 1035),
         builder: () => GetMaterialApp(
           title: 'appNameString'.tr,
-          theme: theme,
+          theme: theme(context),
           initialRoute: HomeScreen.routeName,
           initialBinding: GlobalBinding(),
           getPages: routes,

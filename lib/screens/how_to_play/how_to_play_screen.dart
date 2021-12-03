@@ -29,7 +29,7 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'whatIsAliasFirstString'.tr,
-                        style: ModerniAliasTextStyles.howToPlayBold,
+                        style: ModerniAliasTextStyles.howToPlay,
                         children: [
                           TextSpan(
                             text: 'whatIsAliasSecondString'.tr,
