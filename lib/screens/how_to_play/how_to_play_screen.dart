@@ -74,7 +74,7 @@ class HowToPlayScreen extends StatelessWidget {
                           TextSpan(
                             text: 'wordCorrectExplanationSecondString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: greenColor,
+                                  color: ModerniAliasColors.greenColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
@@ -95,7 +95,7 @@ class HowToPlayScreen extends StatelessWidget {
                           TextSpan(
                             text: 'wordWrongExplanationSecondString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: redColor,
+                                  color: ModerniAliasColors.redColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),

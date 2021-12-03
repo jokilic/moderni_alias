@@ -15,7 +15,7 @@ class BackgroundImage extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              backgroundImage,
+              ModerniAliasImages.backgroundImage,
             ),
             fit: BoxFit.cover,
           ),

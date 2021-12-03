@@ -51,9 +51,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'howFifthString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(flutterWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.flutterWebsite),
                           ),
                           TextSpan(
                             text: 'howSixthString'.tr,
@@ -68,9 +69,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'howEightString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(moderniAliasWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.moderniAliasWebsite),
                           ),
                           TextSpan(
                             text: 'howNinthString'.tr,
@@ -147,9 +149,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'fontSeventhString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(senIconWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.senIconWebsite),
                           ),
                           TextSpan(
                             text: 'fontEigthString'.tr,
@@ -178,9 +181,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'appIconSecondString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                           ),
                           TextSpan(
                             text: 'appIconThirdString'.tr,
@@ -209,9 +213,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'otherIconsSecondString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                           ),
                           TextSpan(
                             text: 'otherIhirdString'.tr,
@@ -232,9 +237,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'wrongCorrectSoundsSecondString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(googleSoundsWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.googleSoundsWebsite),
                           ),
                           TextSpan(
                             text: 'wrongCorrectSoundsThirdString'.tr,
@@ -272,9 +278,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'countdownSoundsSecondString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(freeSoundWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.freeSoundWebsite),
                           ),
                           TextSpan(
                             text: 'countdownSoundsThirdString'.tr,
@@ -312,9 +319,10 @@ class GeneralInfoScreen extends StatelessWidget {
                             text: 'screenshotsSixthString'.tr,
                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: blueColor,
+                                  color: ModerniAliasColors.blueColor,
                                 ),
-                            recognizer: TapGestureRecognizer()..onTap = () => launch(screenshotsWebsite),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => launch(ModerniAliasWebsites.screenshotsWebsite),
                           ),
                           TextSpan(
                             text: 'screenshotsSeventhString'.tr,

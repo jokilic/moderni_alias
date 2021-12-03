@@ -25,7 +25,7 @@ class GameOff extends StatelessWidget {
               duration: 0,
               width: 0.9.sw,
               height: 0.6.sh,
-              ringColor: darkBlueColor,
+              ringColor: ModerniAliasColors.blueColor,
               fillColor: Get.find<GameService>().countdownTimerFillColor,
               strokeWidth: 36.w,
               textStyle: const TextStyle(
@@ -36,11 +36,11 @@ class GameOff extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  clickImage,
+                  ModerniAliasImages.clickImage,
                   height: 136.h,
                 ),
                 Text(
-                  startGameOnPressString,
+                  'startGameOnPressString'.tr,
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.center,
                 ),

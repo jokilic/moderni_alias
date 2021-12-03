@@ -31,7 +31,7 @@ class GameService extends GetxService {
 
   final _currentGame = Game.none.obs;
   final _chosenDictionary = Flag.croatia.obs;
-  final _countdownTimerFillColor = darkBlueColor.obs;
+  final _countdownTimerFillColor = ModerniAliasColors.blueColor.obs;
 
   final _correctAnswers = 0.obs;
   final _wrongAnswers = 0.obs;
@@ -173,7 +173,7 @@ class GameService extends GetxService {
     wrongAnswers = 0;
 
     currentGame = chosenGame;
-    countdownTimerFillColor = blueColor;
+    countdownTimerFillColor = ModerniAliasColors.blueColor;
 
     Get.find<DictionaryService>().getRandomWord;
 
@@ -225,7 +225,7 @@ class GameService extends GetxService {
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameOnHold() => Get.find<GameService>()
     ..currentGame = Game.none
-    ..countdownTimerFillColor = darkBlueColor
+    ..countdownTimerFillColor = ModerniAliasColors.blueColor
     ..soundTimer.cancel()
     ..greenTimer.cancel()
     ..yellowTimer.cancel()
@@ -247,15 +247,15 @@ class GameService extends GetxService {
     /// Initialize timers that change colors
     greenTimer = makeTimer(
       chosenSeconds: greenSeconds,
-      chosenColor: greenColor,
+      chosenColor: ModerniAliasColors.greenColor,
     );
     yellowTimer = makeTimer(
       chosenSeconds: yellowSeconds,
-      chosenColor: yellowColor,
+      chosenColor: ModerniAliasColors.yellowColor,
     );
     redTimer = makeTimer(
       chosenSeconds: redSeconds,
-      chosenColor: redColor,
+      chosenColor: ModerniAliasColors.redColor,
     );
   }
 
@@ -307,7 +307,7 @@ class GameService extends GetxService {
 
     countdownAudioPlayer.stop();
 
-    countdownTimerFillColor = darkBlueColor;
+    countdownTimerFillColor = ModerniAliasColors.blueColor;
 
     Get.offNamedUntil(
       HomeScreen.routeName,

@@ -43,7 +43,7 @@ class PlayingTeamInfo extends StatelessWidget {
                 onPressed: exitGame,
                 child: Icon(
                   Icons.close,
-                  color: whiteColor,
+                  color: ModerniAliasColors.whiteColor,
                   size: 30.r,
                 ),
               ),
@@ -55,7 +55,7 @@ class PlayingTeamInfo extends StatelessWidget {
                 onPressed: showScores,
                 child: Icon(
                   Icons.format_list_numbered,
-                  color: whiteColor,
+                  color: ModerniAliasColors.whiteColor,
                   size: 30.r,
                 ),
               ),

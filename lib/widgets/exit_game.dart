@@ -16,7 +16,7 @@ Future<bool> exitGameModal({required BuildContext context, required Function() e
       decoration: BoxDecoration(
         image: const DecorationImage(
           image: AssetImage(
-            backgroundImage,
+            ModerniAliasImages.backgroundImage,
           ),
           fit: BoxFit.cover,
         ),

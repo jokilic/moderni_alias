@@ -53,7 +53,7 @@ class GameFinishedScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          clapImage,
+                          ModerniAliasImages.clapImage,
                           height: 220.h,
                         ),
                         SizedBox(height: 30.h),

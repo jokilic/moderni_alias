@@ -18,14 +18,14 @@ class WrongCorrectButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GameButton(
-            svgIconPath: wrongImage,
+            svgIconPath: ModerniAliasImages.wrongImage,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24.r),
             ),
             onTap: wrongChosen,
           ),
           GameButton(
-            svgIconPath: correctImage,
+            svgIconPath: ModerniAliasImages.correctImage,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(24.r),
             ),

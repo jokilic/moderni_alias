@@ -10,8 +10,8 @@ Widget createLengthOfRoundButton({
   required bool isActive,
 }) =>
     GenericButton(
-      backgroundColor: isActive ? whiteColor : Colors.transparent,
-      color: isActive ? darkBlueColor : whiteColor,
+      backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
+      color: isActive ? ModerniAliasColors.darkblueColor : ModerniAliasColors.whiteColor,
       fontSize: 24.r,
       horizontalPadding: 12.w,
       number: chosenLengthOfRound,

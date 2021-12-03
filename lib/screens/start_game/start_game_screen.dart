@@ -38,14 +38,14 @@ class StartGameScreen extends StatelessWidget {
                         children: [
                           createFlagButton(
                             countryName: 'dictionaryCroatianString'.tr,
-                            flagImage: croatiaImage,
+                            flagImage: ModerniAliasImages.croatiaImage,
                             selectedCountry: Flag.croatia,
                             updateValue: () => gameService.updateDictionary(Flag.croatia),
                             isActive: gameService.chosenDictionary == Flag.croatia,
                           ),
                           createFlagButton(
                             countryName: 'dictionaryEnglishString'.tr,
-                            flagImage: unitedKingdomImage,
+                            flagImage: ModerniAliasImages.unitedKingdomImage,
                             selectedCountry: Flag.unitedKingdom,
                             updateValue: () => gameService.updateDictionary(Flag.unitedKingdom),
                             isActive: gameService.chosenDictionary == Flag.unitedKingdom,

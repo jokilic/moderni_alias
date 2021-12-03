@@ -15,7 +15,7 @@ class HeroTitle extends StatelessWidget {
               alignment: Alignment.topLeft,
               padding: EdgeInsets.only(left: 32.w),
               child: SvgPicture.asset(
-                conversationUpImage,
+                ModerniAliasImages.conversationUpImage,
                 width: 70.w,
               ),
             ),
@@ -41,7 +41,7 @@ class HeroTitle extends StatelessWidget {
               alignment: Alignment.bottomRight,
               padding: EdgeInsets.only(right: 32.w),
               child: SvgPicture.asset(
-                conversationDownImage,
+                ModerniAliasImages.conversationDownImage,
                 width: 70.w,
               ),
             ),

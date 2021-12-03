@@ -26,7 +26,7 @@ class GameOn extends StatelessWidget {
             width: 0.9.sw,
             height: 0.6.sh,
             onComplete: onComplete,
-            ringColor: darkBlueColor,
+            ringColor: ModerniAliasColors.blueColor,
             fillColor: fillColor,
             strokeWidth: 36.w,
             textStyle: const TextStyle(

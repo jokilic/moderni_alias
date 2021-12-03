@@ -22,10 +22,10 @@ class MyQuickPortfolio extends StatelessWidget {
               child: GestureDetector(
                 onLongPress: generalInfoController.playBoomBaby,
                 child: CircleAvatar(
-                  backgroundColor: whiteColor,
+                  backgroundColor: ModerniAliasColors.whiteColor,
                   radius: 85.r,
                   child: CircleAvatar(
-                    backgroundImage: const AssetImage(josipImage),
+                    backgroundImage: const AssetImage(ModerniAliasImages.josipImage),
                     radius: 82.r,
                   ),
                 ),
@@ -36,7 +36,7 @@ class MyQuickPortfolio extends StatelessWidget {
               child: PlayButton(
                 text: 'aboutMeWebsiteString'.tr.toUpperCase(),
                 horizontalPadding: 16.w,
-                onPressed: () => launch(josipKilicWebsite),
+                onPressed: () => launch(ModerniAliasWebsites.josipKilicWebsite),
               ),
             ),
             SizedBox(height: 8.h),
@@ -48,7 +48,7 @@ class MyQuickPortfolio extends StatelessWidget {
                   child: PlayButton(
                     text: 'aboutMeGitHubString'.tr.toUpperCase(),
                     horizontalPadding: 16.w,
-                    onPressed: () => launch(josipGithubWebsite),
+                    onPressed: () => launch(ModerniAliasWebsites.josipGithubWebsite),
                   ),
                 ),
                 Padding(
@@ -56,7 +56,7 @@ class MyQuickPortfolio extends StatelessWidget {
                   child: PlayButton(
                     text: 'aboutMeEmailString'.tr.toUpperCase(),
                     horizontalPadding: 16.w,
-                    onPressed: () => launch(josipKilicEmail),
+                    onPressed: () => launch(ModerniAliasWebsites.josipKilicEmail),
                   ),
                 ),
               ],

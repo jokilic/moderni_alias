@@ -36,7 +36,7 @@ class GenericButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: backgroundColor,
               border: Border.all(
-                color: whiteColor,
+                color: ModerniAliasColors.whiteColor,
                 width: 4.w,
               ),
               borderRadius: BorderRadius.circular(24.r),

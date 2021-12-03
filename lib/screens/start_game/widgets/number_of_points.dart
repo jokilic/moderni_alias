@@ -10,8 +10,8 @@ Widget createNumberOfPointsButton({
   required bool isActive,
 }) =>
     GenericButton(
-      backgroundColor: isActive ? whiteColor : Colors.transparent,
-      color: isActive ? darkBlueColor : whiteColor,
+      backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
+      color: isActive ? ModerniAliasColors.blueColor : ModerniAliasColors.whiteColor,
       fontSize: 24.r,
       horizontalPadding: 12.w,
       number: chosenNumberOfPoints,

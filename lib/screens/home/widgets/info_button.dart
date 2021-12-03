@@ -12,7 +12,7 @@ class InfoButton extends StatelessWidget {
         alignment: Alignment.topRight,
         child: IconButton(
           icon: const Icon(Icons.info_outline),
-          color: whiteColor,
+          color: ModerniAliasColors.whiteColor,
           iconSize: 36.r,
           onPressed: () => Get.toNamed(
             GeneralInfoScreen.routeName,

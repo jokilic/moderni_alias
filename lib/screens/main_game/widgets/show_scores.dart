@@ -16,7 +16,7 @@ void showScores({required BuildContext context, required List<Team> teams}) => G
         decoration: BoxDecoration(
           image: const DecorationImage(
             image: AssetImage(
-              backgroundImage,
+              ModerniAliasImages.backgroundImage,
             ),
             fit: BoxFit.cover,
           ),
@@ -28,7 +28,7 @@ void showScores({required BuildContext context, required List<Team> teams}) => G
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              scoresModalString,
+              'scoresModalString'.tr,
               style: Theme.of(context).textTheme.headline2,
             ),
             SizedBox(height: 24.h),

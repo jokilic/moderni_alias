@@ -27,7 +27,7 @@ class InfoSection extends StatelessWidget {
                 onPressed: exitGame,
                 child: Icon(
                   Icons.close,
-                  color: whiteColor,
+                  color: ModerniAliasColors.whiteColor,
                   size: 30.r,
                 ),
               ),
@@ -40,14 +40,14 @@ class InfoSection extends StatelessWidget {
                   Text(
                     wrongAnswers.toString(),
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          color: whiteColor,
+                          color: ModerniAliasColors.whiteColor,
                         ),
                   ),
                   SizedBox(width: 10.h),
                   Text(
                     correctAnswers.toString(),
                     style: Theme.of(context).textTheme.headline2!.copyWith(
-                          color: blueColor,
+                          color: ModerniAliasColors.blueColor,
                         ),
                   ),
                 ],
