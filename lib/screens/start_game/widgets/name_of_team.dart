@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/text_styles.dart';
 
 class NameOfTeam extends StatelessWidget {
   final String hintText;
@@ -31,9 +32,7 @@ class NameOfTeam extends StatelessWidget {
             focusedBorder: buildInputBorder(),
             enabledBorder: buildInputBorder(),
             hintText: hintText,
-            hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  color: ModerniAliasColors.whiteColor.withOpacity(0.6),
-                ),
+            hintStyle: ModerniAliasTextStyles.nameOfTeamHint,
           ),
           cursorColor: ModerniAliasColors.whiteColor,
           cursorRadius: Radius.circular(16.r),

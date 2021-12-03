@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/text_styles.dart';
 
 class InfoSection extends StatelessWidget {
   final Function() exitGame;
@@ -39,16 +40,12 @@ class InfoSection extends StatelessWidget {
                 children: [
                   Text(
                     wrongAnswers.toString(),
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                          color: ModerniAliasColors.whiteColor,
-                        ),
+                    style: ModerniAliasTextStyles.quickWrongScore,
                   ),
                   SizedBox(width: 10.h),
                   Text(
                     correctAnswers.toString(),
-                    style: Theme.of(context).textTheme.headline2!.copyWith(
-                          color: ModerniAliasColors.blueColor,
-                        ),
+                    style: ModerniAliasTextStyles.quickCorrectScore,
                   ),
                 ],
               ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/text_styles.dart';
 
-class GenericButton extends StatelessWidget {
+class GameButton extends StatelessWidget {
   final Function() onTap;
   final int number;
   final Color color;
@@ -12,7 +13,7 @@ class GenericButton extends StatelessWidget {
   final double fontSize;
   final double size;
 
-  const GenericButton({
+  const GameButton({
     required this.onTap,
     required this.number,
     required this.color,
@@ -44,10 +45,10 @@ class GenericButton extends StatelessWidget {
             child: Center(
               child: Text(
                 number.toString(),
-                style: Theme.of(context).textTheme.headline3!.copyWith(
-                      fontSize: fontSize,
-                      color: color,
-                    ),
+                style: ModerniAliasTextStyles.gameButton.copyWith(
+                  fontSize: fontSize,
+                  color: color,
+                ),
               ),
             ),
           ),

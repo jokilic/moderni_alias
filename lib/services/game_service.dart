@@ -362,6 +362,7 @@ class GameService extends GetxService {
     }).toList();
 
     if (teamsValidated) {
+      validationMessage = '';
       startMainGame();
     }
   }

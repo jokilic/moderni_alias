@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../constants/colors.dart';
 import '../../general_info/general_info_screen.dart';
 
 class InfoButton extends StatelessWidget {
@@ -12,7 +11,7 @@ class InfoButton extends StatelessWidget {
         alignment: Alignment.topRight,
         child: IconButton(
           icon: const Icon(Icons.info_outline),
-          color: ModerniAliasColors.whiteColor,
+          // color: ModerniAliasColors.whiteColor,
           iconSize: 36.r,
           onPressed: () => Get.toNamed(
             GeneralInfoScreen.routeName,

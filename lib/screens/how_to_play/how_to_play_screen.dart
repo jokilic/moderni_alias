@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
@@ -29,27 +29,25 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'whatIsAliasFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: ModerniAliasTextStyles.howToPlayBold,
                         children: [
                           TextSpan(
                             text: 'whatIsAliasSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4,
+                            style: ModerniAliasTextStyles.howToPlay,
                           ),
                           TextSpan(
                             text: 'whatIsAliasThirdString'.tr,
                           ),
                           TextSpan(
                             text: 'whatIsAliasFourthString'.tr,
-                            style: Theme.of(context).textTheme.headline4,
+                            style: ModerniAliasTextStyles.howToPlay,
                           ),
                           TextSpan(
                             text: 'whatIsAliasFifthString'.tr,
                           ),
                           TextSpan(
                             text: 'whatIsAliasSixthString'.tr,
-                            style: Theme.of(context).textTheme.headline4,
+                            style: ModerniAliasTextStyles.howToPlay,
                           ),
                         ],
                       ),
@@ -60,7 +58,7 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'howToPlayExplanationString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.howToPlay,
                       ),
                     ),
                   ),
@@ -69,14 +67,11 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'wordCorrectExplanationFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.howToPlay,
                         children: [
                           TextSpan(
                             text: 'wordCorrectExplanationSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: ModerniAliasColors.greenColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.howToPlayBoldGreen,
                           ),
                           TextSpan(
                             text: 'wordCorrectExplanationThirdString'.tr,
@@ -90,14 +85,11 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'wordWrongExplanationFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.howToPlay,
                         children: [
                           TextSpan(
                             text: 'wordWrongExplanationSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: ModerniAliasColors.redColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.howToPlayBoldRed,
                           ),
                           TextSpan(
                             text: 'wordWrongExplanationThirdString'.tr,
@@ -111,7 +103,7 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'roundFinishedExplanationString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.howToPlay,
                       ),
                     ),
                   ),
@@ -120,13 +112,11 @@ class HowToPlayScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'howToQuickAliasExplanationFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.howToPlay,
                         children: [
                           TextSpan(
                             text: 'howToQuickAliasExplanationSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.howToPlayBold,
                           ),
                           TextSpan(
                             text: 'howToQuickAliasExplanationThirdString'.tr,

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
+import '../../constants/text_styles.dart';
 import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
@@ -61,20 +62,16 @@ class QuickGameFinishedScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           text: 'quickGameFinishedFirstString'.tr,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: ModerniAliasTextStyles.quickGameFinished,
                           children: [
                             TextSpan(
                               text: gameService.correctAnswers.toString(),
-                              style: Theme.of(context).textTheme.headline2!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: ModerniAliasTextStyles.quickGameFinishedBold,
                             ),
                             TextSpan(text: 'quickGameFinishedSecondString'.tr),
                             TextSpan(
                               text: gameService.wrongAnswers.toString(),
-                              style: Theme.of(context).textTheme.headline2!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: ModerniAliasTextStyles.quickGameFinishedBold,
                             ),
                             TextSpan(
                               text: 'quickGameFinishedThirdString'.tr,

@@ -9,6 +9,7 @@ import './widgets/number_of_points.dart';
 import './widgets/number_of_teams_button.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
+import '../../constants/text_styles.dart';
 import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/flag_button.dart';
@@ -150,15 +151,11 @@ class StartGameScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16.r),
-                        child: Container(
-                          child: !gameService.teamsValidated
-                              ? Center(
-                                  child: Text(
-                                    gameService.validationMessage,
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                )
-                              : const Text(''),
+                        child: Center(
+                          child: Text(
+                            gameService.validationMessage,
+                            style: ModerniAliasTextStyles.validation,
+                          ),
                         ),
                       ),
                       Container(

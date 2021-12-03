@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../constants/text_styles.dart';
+
 class HighscoreValue extends StatelessWidget {
   final String teamName;
   final int points;
@@ -22,7 +24,7 @@ class HighscoreValue extends StatelessWidget {
                 width: 0.5.sw,
                 child: Text(
                   teamName,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: ModerniAliasTextStyles.highscore,
                 ),
               ),
               SizedBox(
@@ -30,7 +32,7 @@ class HighscoreValue extends StatelessWidget {
                 child: Text(
                   points.toString(),
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: ModerniAliasTextStyles.highscore,
                 ),
               ),
             ],

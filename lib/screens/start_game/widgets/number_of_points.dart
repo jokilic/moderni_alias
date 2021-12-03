@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import './generic_button.dart';
 import '../../../constants/colors.dart';
+import 'game_button.dart';
 
 Widget createNumberOfPointsButton({
   required int chosenNumberOfPoints,
   required Function() updateValue,
   required bool isActive,
 }) =>
-    GenericButton(
+    GameButton(
       backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
       color: isActive ? ModerniAliasColors.blueColor : ModerniAliasColors.whiteColor,
       fontSize: 24.r,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import './highscore_value.dart';
 import '../../../constants/strings.dart';
+import '../../../constants/text_styles.dart';
 import '../../../models/team.dart';
 
 void showScores({required BuildContext context, required List<Team> teams}) => Get.bottomSheet(
@@ -29,7 +30,7 @@ void showScores({required BuildContext context, required List<Team> teams}) => G
           children: [
             Text(
               'scoresModalString'.tr,
-              style: Theme.of(context).textTheme.headline2,
+              style: ModerniAliasTextStyles.scoresTitle,
             ),
             SizedBox(height: 24.h),
             ListView.builder(

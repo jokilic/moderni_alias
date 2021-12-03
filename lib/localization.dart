@@ -194,7 +194,7 @@ class Localization extends Translations {
     'playTheGameString': 'Igraj',
 
     /// Playing Game
-    'currentlyPlayingPlaceholder': 'Trenutno igra',
+    'currentlyPlayingTitle': 'Trenutno igra',
     'exitModalQuestionString': 'Želiš li izaći iz trenutne igre?',
     'exitModalQuestionYes': 'Da',
     'exitModalQuestionNo': 'Ne',

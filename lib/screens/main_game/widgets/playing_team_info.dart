@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/text_styles.dart';
 import '../../../models/team.dart';
 
 class PlayingTeamInfo extends StatelessWidget {
@@ -25,13 +26,13 @@ class PlayingTeamInfo extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'currentlyPlayingPlaceholder'.tr.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodyText2,
+                    'currentlyPlayingTitle'.tr.toUpperCase(),
+                    style: ModerniAliasTextStyles.playingTeamTitle,
                   ),
                   Text(
                     currentlyPlayingTeam.name,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: ModerniAliasTextStyles.playingTeam,
                   ),
                 ],
               ),

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import './widgets/my_quick_portfolio.dart';
-import '../../constants/colors.dart';
 import '../../constants/strings.dart';
+import '../../constants/text_styles.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
@@ -33,13 +33,11 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'howFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'howSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'howThirdString'.tr,
@@ -49,10 +47,7 @@ class GeneralInfoScreen extends StatelessWidget {
                           ),
                           TextSpan(
                             text: 'howFifthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.flutterWebsite),
                           ),
@@ -61,24 +56,17 @@ class GeneralInfoScreen extends StatelessWidget {
                           ),
                           TextSpan(
                             text: 'howSeventhString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'howEightString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.moderniAliasWebsite),
                           ),
                           TextSpan(
                             text: 'howNinthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                         ],
                       ),
@@ -89,22 +77,18 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'whoFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'whoSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'whoThirdString'.tr,
                           ),
                           TextSpan(
                             text: 'whoFourthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'whoFifthString'.tr,
@@ -122,13 +106,11 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'fontFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'fontSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'fontThirdString'.tr,
@@ -138,19 +120,14 @@ class GeneralInfoScreen extends StatelessWidget {
                           ),
                           TextSpan(
                             text: 'fontFifthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'fontSixthString'.tr,
                           ),
                           TextSpan(
                             text: 'fontSeventhString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.senIconWebsite),
                           ),
@@ -166,7 +143,7 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'iconsFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                       ),
                     ),
                   ),
@@ -175,14 +152,11 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'appIconFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'appIconSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                           ),
@@ -191,9 +165,7 @@ class GeneralInfoScreen extends StatelessWidget {
                           ),
                           TextSpan(
                             text: 'appIconFourthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'appIconFifthString'.tr,
@@ -207,14 +179,11 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'otherIconsFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'otherIconsSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                           ),
@@ -231,14 +200,11 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'wrongCorrectSoundsFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'wrongCorrectSoundsSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.googleSoundsWebsite),
                           ),
@@ -247,18 +213,14 @@ class GeneralInfoScreen extends StatelessWidget {
                           ),
                           TextSpan(
                             text: 'wrongCorrectSoundsFourthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'wrongCorrectSoundsFifthString'.tr,
                           ),
                           TextSpan(
                             text: 'wrongCorrectSoundsSixthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'wrongCorrectSoundsSeventhString'.tr,
@@ -272,14 +234,11 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'countdownSoundsFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'countdownSoundsSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.freeSoundWebsite),
                           ),
@@ -295,32 +254,25 @@ class GeneralInfoScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'screenshotsFirstString'.tr,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: ModerniAliasTextStyles.generalInfo,
                         children: [
                           TextSpan(
                             text: 'screenshotsSecondString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'screenshotsThirdString'.tr,
                           ),
                           TextSpan(
                             text: 'screenshotsFourthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBold,
                           ),
                           TextSpan(
                             text: 'screenshotsFifthString'.tr,
                           ),
                           TextSpan(
                             text: 'screenshotsSixthString'.tr,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: ModerniAliasColors.blueColor,
-                                ),
+                            style: ModerniAliasTextStyles.generalInfoBoldBlue,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => launch(ModerniAliasWebsites.screenshotsWebsite),
                           ),

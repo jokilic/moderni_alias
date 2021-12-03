@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
+import '../../constants/text_styles.dart';
 import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
@@ -61,20 +62,16 @@ class GameFinishedScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             text: 'winnerFirstString'.tr,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: ModerniAliasTextStyles.winnerFirst,
                             children: [
                               TextSpan(
                                 text: gameService.currentlyPlayingTeam.name,
-                                style: Theme.of(context).textTheme.headline2!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                style: ModerniAliasTextStyles.winnerTeam,
                               ),
                               TextSpan(text: 'winnerSecondString'.tr),
                               TextSpan(
                                 text: gameService.currentlyPlayingTeam.points.toString(),
-                                style: Theme.of(context).textTheme.headline2!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                style: ModerniAliasTextStyles.winnerPoints,
                               ),
                               TextSpan(text: 'winnerThirdString'.tr),
                             ],
