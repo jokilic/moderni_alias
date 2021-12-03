@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import './exit_game_button.dart';
 import '../constants/strings.dart';
+import '../constants/text_styles.dart';
 
 Future<bool> exitGameModal({required BuildContext context, required Function() exitGameCallback}) async {
   await Get.bottomSheet(
@@ -30,7 +31,7 @@ Future<bool> exitGameModal({required BuildContext context, required Function() e
           Text(
             'exitModalQuestionString'.tr,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: ModerniAliasTextStyles.exitModal,
           ),
           SizedBox(height: 24.h),
           Row(

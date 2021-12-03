@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants/text_styles.dart';
+
 class SmallTitle extends StatelessWidget {
   final String title;
 
@@ -11,9 +13,7 @@ class SmallTitle extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline3!.copyWith(
-                fontSize: 26.r,
-              ),
+          style: ModerniAliasTextStyles.smallTitle,
         ),
       );
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
+import '../constants/text_styles.dart';
 
 class GameOn extends StatelessWidget {
   final String currentWord;
@@ -29,9 +30,7 @@ class GameOn extends StatelessWidget {
             ringColor: ModerniAliasColors.blueColor,
             fillColor: fillColor,
             strokeWidth: 36.w,
-            textStyle: const TextStyle(
-              color: Colors.transparent,
-            ),
+            textStyle: ModerniAliasTextStyles.gameCircularCountdown,
           ),
           SizedBox(
             width: 1.sw - 40.w,
@@ -39,10 +38,7 @@ class GameOn extends StatelessWidget {
               child: Text(
                 currentWord.toUpperCase(),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 8.w,
-                    ),
+                style: ModerniAliasTextStyles.gameCurrentWord,
               ),
             ),
           ),

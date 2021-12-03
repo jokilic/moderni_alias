@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
+import '../constants/text_styles.dart';
 
 class ExitGameButton extends StatelessWidget {
   final String text;
@@ -30,10 +31,7 @@ class ExitGameButton extends StatelessWidget {
           ),
           child: Text(
             text.toUpperCase(),
-            style: TextStyle(
-              fontSize: 18.r,
-              fontWeight: FontWeight.bold,
-            ),
+            style: ModerniAliasTextStyles.exitButton,
           ),
         ),
       );

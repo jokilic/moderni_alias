@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:modernialias/constants/text_styles.dart';
 
 import '../constants/colors.dart';
 import '../constants/strings.dart';
@@ -28,9 +29,7 @@ class GameOff extends StatelessWidget {
               ringColor: ModerniAliasColors.blueColor,
               fillColor: Get.find<GameService>().countdownTimerFillColor,
               strokeWidth: 36.w,
-              textStyle: const TextStyle(
-                color: Colors.transparent,
-              ),
+              textStyle: ModerniAliasTextStyles.gameCircularCountdown,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +40,7 @@ class GameOff extends StatelessWidget {
                 ),
                 Text(
                   'startGameOnPressString'.tr,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: ModerniAliasTextStyles.gameOffStart,
                   textAlign: TextAlign.center,
                 ),
               ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants/text_styles.dart';
+
 class GameTitle extends StatelessWidget {
   final String title;
 
@@ -14,7 +16,7 @@ class GameTitle extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline2,
+          style: ModerniAliasTextStyles.gameTitle,
         ),
       );
 }

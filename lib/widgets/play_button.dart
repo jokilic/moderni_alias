@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
+import '../constants/text_styles.dart';
 
 class PlayButton extends StatelessWidget {
   final String text;
@@ -34,11 +35,7 @@ class PlayButton extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 18.r,
-              fontWeight: FontWeight.bold,
-              color: ModerniAliasColors.whiteColor,
-            ),
+            style: ModerniAliasTextStyles.playButton,
           ),
         ),
       );

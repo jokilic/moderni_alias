@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
+import '../constants/text_styles.dart';
 
 class FlagButton extends StatelessWidget {
   final String countryName;
@@ -47,9 +48,7 @@ class FlagButton extends StatelessWidget {
               ),
               Text(
                 countryName,
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: ModerniAliasTextStyles.flagName,
               ),
             ],
           ),

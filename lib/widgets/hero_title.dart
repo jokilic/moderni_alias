@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../constants/strings.dart';
+import '../constants/text_styles.dart';
 
 class HeroTitle extends StatelessWidget {
   @override
@@ -25,13 +26,11 @@ class HeroTitle extends StatelessWidget {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'appNameFirstString'.tr,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: ModerniAliasTextStyles.appNameFirst,
                   children: [
                     TextSpan(
                       text: 'appNameSecondString'.tr,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: ModerniAliasTextStyles.appNameSecond,
                     ),
                   ],
                 ),

@@ -223,13 +223,14 @@ class GameService extends GetxService {
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
-  void gameOnHold() => Get.find<GameService>()
-    ..currentGame = Game.none
-    ..countdownTimerFillColor = ModerniAliasColors.blueColor
-    ..soundTimer.cancel()
-    ..greenTimer.cancel()
-    ..yellowTimer.cancel()
-    ..redTimer.cancel();
+  void gameOnHold() {
+    currentGame = Game.none;
+    countdownTimerFillColor = ModerniAliasColors.blueColor;
+    soundTimer.cancel();
+    greenTimer.cancel();
+    yellowTimer.cancel();
+    redTimer.cancel();
+  }
 
   /// Sets the variables and starts the time countdown
   void startCountdown() {

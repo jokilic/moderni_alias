@@ -12,7 +12,6 @@ class _ConfettiState extends State<Confetti> {
   @override
   void initState() {
     super.initState();
-
     confettiController = ConfettiController(
       duration: const Duration(seconds: 10),
     );
@@ -21,14 +20,12 @@ class _ConfettiState extends State<Confetti> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     confettiController.play();
   }
 
   @override
   void dispose() {
     super.dispose();
-
     confettiController.dispose();
   }
 
