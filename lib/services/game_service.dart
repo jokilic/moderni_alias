@@ -206,6 +206,7 @@ class GameService extends GetxService {
   void startMainGame() {
     countdownTimerFillColor = Colors.transparent;
     gameStarted = false;
+    currentGame = Game.none;
     currentlyPlayingTeam = teams[random.nextInt(teams.length)];
     Get.toNamed(MainGameScreen.routeName);
   }
@@ -313,8 +314,6 @@ class GameService extends GetxService {
 
   /// Called when the user exits the game
   void exitToMainMenu() {
-    currentGame = Game.none;
-
     teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
 
     if (gameStarted) {
@@ -325,8 +324,6 @@ class GameService extends GetxService {
     }
 
     countdownAudioPlayer.stop();
-
-    countdownTimerFillColor = Colors.transparent;
 
     Get.offNamedUntil(
       HomeScreen.routeName,
@@ -360,14 +357,6 @@ class GameService extends GetxService {
   void validateMainGame() {
     teamsValidated = true;
 
-    /// Check if any of the teams has an empty name
-    teams.map((team) {
-      if (team.name.isEmpty) {
-        validationMessage = 'teamNamesMissingString'.tr;
-        teamsValidated = false;
-      }
-    }).toList();
-
     /// Check if any of team names are same
     final duplicateTeamsList = <Team>[];
     teams.map((team) {
@@ -376,6 +365,14 @@ class GameService extends GetxService {
         teamsValidated = false;
       } else {
         duplicateTeamsList.add(team);
+      }
+    }).toList();
+
+    /// Check if any of the teams has an empty name
+    teams.map((team) {
+      if (team.name.isEmpty) {
+        validationMessage = 'teamNamesMissingString'.tr;
+        teamsValidated = false;
       }
     }).toList();
 
