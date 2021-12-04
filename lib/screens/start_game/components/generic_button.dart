@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../colors.dart';
 
 class GenericButton extends StatelessWidget {
-  final Function onTap;
+  final Function() onTap;
   final int number;
   final Color color;
   final Color backgroundColor;
@@ -11,14 +11,14 @@ class GenericButton extends StatelessWidget {
   final double fontSize;
   final double size;
 
-  GenericButton({
-    this.onTap,
-    this.number,
-    this.color,
-    this.backgroundColor,
-    this.horizontalPadding,
-    this.fontSize,
-    this.size,
+  const GenericButton({
+    required this.onTap,
+    required this.number,
+    required this.color,
+    required this.backgroundColor,
+    required this.horizontalPadding,
+    required this.fontSize,
+    required this.size,
   });
 
   @override
@@ -34,7 +34,7 @@ class GenericButton extends StatelessWidget {
           child: Center(
             child: Text(
               number.toString(),
-              style: Theme.of(context).textTheme.headline3.copyWith(
+              style: Theme.of(context).textTheme.headline3!.copyWith(
                     fontSize: fontSize,
                     color: color,
                   ),

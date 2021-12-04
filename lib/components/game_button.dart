@@ -5,14 +5,13 @@ import '../colors.dart';
 
 class GameButton extends StatelessWidget {
   final String svgIconPath;
-
   final BorderRadius borderRadius;
-  final Function onTap;
+  final Function() onTap;
 
   GameButton({
-    this.svgIconPath,
-    this.borderRadius,
-    this.onTap,
+    required this.svgIconPath,
+    required this.borderRadius,
+    required this.onTap,
   });
 
   @override

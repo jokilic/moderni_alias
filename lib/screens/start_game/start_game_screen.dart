@@ -19,7 +19,7 @@ int numOfTeamsValue = 2;
 int pointsToWin = 50;
 int lengthOfRound = 60;
 
-int validationCounter;
+late int validationCounter;
 bool validated = true;
 
 List<FocusNode> focusNodes = [];
@@ -97,14 +97,12 @@ class _StartGameState extends State<StartGame> {
   NameOfTeam createNameOfTeamTextField(int index) {
     if (focusNodes.length <= index) focusNodes.add(FocusNode());
 
-    if (textFieldControllers.length <= index)
-      textFieldControllers.add(TextEditingController());
+    if (textFieldControllers.length <= index) textFieldControllers.add(TextEditingController());
 
     return NameOfTeam(
       hintText: teamNameString,
       focusNode: focusNodes[index],
-      onFieldSubmitted: (_) =>
-          FocusScope.of(context).requestFocus(focusNodes[index + 1]),
+      onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodes[index + 1]),
       textFieldController: textFieldControllers[index],
     );
   }
@@ -181,8 +179,7 @@ class _StartGameState extends State<StartGame> {
                         countryName: dictionaryEnglishString,
                         flagImage: unitedKingdomImage,
                         selectedCountry: Flags.unitedKingdom,
-                        updateValue: () =>
-                            updateDictionary(Flags.unitedKingdom),
+                        updateValue: () => updateDictionary(Flags.unitedKingdom),
                       ),
                     ],
                   ),
@@ -248,8 +245,7 @@ class _StartGameState extends State<StartGame> {
                   GameTitle(teamNamesString),
                   ListView.builder(
                     itemCount: numOfTeamsValue,
-                    itemBuilder: (context, index) =>
-                        createNameOfTeamTextField(index),
+                    itemBuilder: (context, index) => createNameOfTeamTextField(index),
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                   ),

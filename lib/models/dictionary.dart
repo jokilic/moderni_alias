@@ -12,7 +12,7 @@ import './dictionary/english/verbs.dart';
 import '../screens/start_game/start_game_screen.dart';
 import '../components/flag_button.dart';
 
-String currentWord = '';
+String? currentWord = '';
 
 const List<String> croatianDictionary = [
   ...imenice,
@@ -33,7 +33,7 @@ List<String> refillCurrentDictionary() => chosenDictionary == Flags.croatia
     ? currentDictionary = [...croatianDictionary]
     : currentDictionary = [...englishDictionary];
 
-String setRandomWord(currentDictionary) {
+String? setRandomWord(currentDictionary) {
   if (currentDictionary.length == 2) refillCurrentDictionary();
 
   currentDictionary.remove(currentWord);
@@ -41,4 +41,4 @@ String setRandomWord(currentDictionary) {
       currentDictionary[Random().nextInt(currentDictionary.length)];
 }
 
-String get getRandomWord => setRandomWord(currentDictionary);
+String? get getRandomWord => setRandomWord(currentDictionary);

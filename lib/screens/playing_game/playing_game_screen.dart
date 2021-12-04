@@ -16,20 +16,20 @@ import '../../models/team.dart';
 
 List<Team> teams = [];
 bool gamePlaying = false;
-Team currentlyPlayingTeam;
+late Team currentlyPlayingTeam;
 int currentlyPlayingIndex = 0;
 int wrongAnswers = 0;
 int correctAnswers = 0;
 int currentScore = 0;
-int lengthOfRound;
+late int lengthOfRound;
 Map<String, String> routeArguments = {};
-double greenSeconds;
-double yellowSeconds;
-double redSeconds;
-Timer greenTimer;
-Timer yellowTimer;
-Timer redTimer;
-Timer soundTimer;
+late double greenSeconds;
+late double yellowSeconds;
+late double redSeconds;
+Timer? greenTimer;
+Timer? yellowTimer;
+Timer? redTimer;
+Timer? soundTimer;
 final AudioPlayer buttonAudioPlayer = AudioPlayer();
 final AudioPlayer countdownAudioPlayer = AudioPlayer();
 final AudioCache buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
@@ -48,29 +48,29 @@ class PlayingGame extends StatefulWidget {
 }
 
 class _PlayingGameState extends State<PlayingGame> {
-  String pointsToWin;
-  String lengthOfRoundString;
-  List<String> routeTeams;
+  late String pointsToWin;
+  late String lengthOfRoundString;
+  late List<String> routeTeams;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final routeArguments = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final routeArguments = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
 
-    pointsToWin = routeArguments['pointsToWin'];
-    lengthOfRoundString = routeArguments['lengthOfRound'];
+    pointsToWin = routeArguments['pointsToWin'] ?? '0';
+    lengthOfRoundString = routeArguments['lengthOfRound'] ?? '0';
     lengthOfRound = int.parse(lengthOfRoundString);
     routeTeams = [
-      routeArguments['team1'],
-      routeArguments['team2'],
-      routeArguments['team3'],
-      routeArguments['team4'],
+      routeArguments['team1'] ?? '',
+      routeArguments['team2'] ?? '',
+      routeArguments['team3'] ?? '',
+      routeArguments['team4'] ?? '',
     ];
 
     teams.clear();
     int teamIndex = 0;
-    routeTeams.removeWhere((value) => value == null);
+    routeTeams.removeWhere((value) => value == '');
     routeTeams.forEach((team) {
       teams.add(Team(name: routeTeams[teamIndex]));
       teamIndex++;
@@ -130,15 +130,15 @@ class _PlayingGameState extends State<PlayingGame> {
     void endOfRound() {
       gamePlaying = false;
       countdownTimerFillColor = darkBlueColor;
-      soundTimer.cancel();
-      greenTimer.cancel();
-      yellowTimer.cancel();
-      redTimer.cancel();
+      soundTimer?.cancel();
+      greenTimer?.cancel();
+      yellowTimer?.cancel();
+      redTimer?.cancel();
 
       teams[currentlyPlayingIndex].points += correctAnswers - wrongAnswers;
       if (teams[currentlyPlayingIndex].points >= int.parse(pointsToWin)) {
         routeArguments = {
-          'winningTeam': teams[currentlyPlayingIndex].name,
+          'winningTeam': teams[currentlyPlayingIndex].name ?? '',
           'points': teams[currentlyPlayingIndex].points.toString(),
         };
 

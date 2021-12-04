@@ -5,10 +5,13 @@ import '../../../strings.dart';
 import '../playing_game_screen.dart';
 
 class PlayingTeamInfo extends StatelessWidget {
-  final Function showScores;
-  final Function exitGame;
+  final Function() showScores;
+  final Function() exitGame;
 
-  PlayingTeamInfo({this.showScores, this.exitGame});
+  PlayingTeamInfo({
+    required this.showScores,
+    required this.exitGame,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class PlayingTeamInfo extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
-                  currentlyPlayingTeam.name,
+                  currentlyPlayingTeam.name ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline2,
                 ),

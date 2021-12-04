@@ -6,9 +6,12 @@ import '../models/dictionary.dart';
 
 class GameOn extends StatelessWidget {
   final int length;
-  final Function onComplete;
+  final Function() onComplete;
 
-  GameOn({this.length, this.onComplete});
+  GameOn({
+    required this.length,
+    required this.onComplete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +38,9 @@ class GameOn extends StatelessWidget {
             width: size.width - 40.0,
             child: FittedBox(
               child: Text(
-                currentWord.toUpperCase(),
+                currentWord?.toUpperCase() ?? '',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline1.copyWith(
+                style: Theme.of(context).textTheme.headline1!.copyWith(
                       fontWeight: FontWeight.bold,
                       letterSpacing: 8.0,
                     ),

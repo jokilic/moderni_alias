@@ -4,9 +4,12 @@ import '../colors.dart';
 
 class ExitGameButton extends StatelessWidget {
   final String text;
-  final Function onPressed;
+  final Function() onPressed;
 
-  ExitGameButton({this.text, this.onPressed});
+  ExitGameButton({
+    required this.text,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {

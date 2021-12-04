@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../strings.dart';
 
 class BackgroundImage extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
-  BackgroundImage({this.child});
+  BackgroundImage({required this.child});
 
   @override
   Widget build(BuildContext context) {

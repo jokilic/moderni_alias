@@ -6,13 +6,13 @@ class PlayButton extends StatelessWidget {
   final String text;
   final double horizontalPadding;
   final double verticalPadding;
-  final Function onPressed;
+  final Function() onPressed;
 
   PlayButton({
-    this.text,
+    required this.text,
+    required this.onPressed,
     this.horizontalPadding = 50.0,
     this.verticalPadding = 20.0,
-    this.onPressed,
   });
 
   @override

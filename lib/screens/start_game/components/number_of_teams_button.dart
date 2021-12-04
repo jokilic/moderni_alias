@@ -5,13 +5,11 @@ import './generic_button.dart';
 import '../start_game_screen.dart';
 
 Widget createNumberOfTeamsButton({
-  int chosenNumberOfTeams,
-  Function updateValue,
+  required int chosenNumberOfTeams,
+  required Function() updateValue,
 }) {
   return GenericButton(
-    backgroundColor: numOfTeamsValue == chosenNumberOfTeams
-        ? whiteColor
-        : Colors.transparent,
+    backgroundColor: numOfTeamsValue == chosenNumberOfTeams ? whiteColor : Colors.transparent,
     color: numOfTeamsValue == chosenNumberOfTeams ? darkBlueColor : whiteColor,
     fontSize: 36.0,
     horizontalPadding: 20.0,
