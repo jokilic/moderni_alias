@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 import '../../how_to_play/how_to_play_screen.dart';
 
@@ -12,6 +13,7 @@ class HowToPlayButton extends StatelessWidget {
           HowToPlayScreen.routeName,
         ),
         style: TextButton.styleFrom(
+          primary: ModerniAliasColors.whiteColor,
           padding: EdgeInsets.symmetric(
             horizontal: 12.w,
             vertical: 2.h,

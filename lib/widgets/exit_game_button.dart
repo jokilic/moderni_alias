@@ -17,6 +17,7 @@ class ExitGameButton extends StatelessWidget {
   Widget build(BuildContext context) => TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
+          primary: ModerniAliasColors.whiteColor,
           padding: EdgeInsets.symmetric(
             horizontal: 12.w,
             vertical: 2.h,

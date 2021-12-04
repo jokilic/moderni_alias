@@ -18,7 +18,7 @@ class QuickGameInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: 50.h,
-        margin: EdgeInsets.only(top: 4.h),
+        margin: EdgeInsets.only(top: 24.h),
         child: Stack(
           children: [
             Positioned(

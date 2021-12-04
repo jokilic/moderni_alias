@@ -26,7 +26,6 @@ dependencies:
   flutter_staggered_animations: ^1.0.0 # Used for animating widgets
   flutter_svg: ^1.0.0 # SVG rendering library
   get: ^4.5.1 # State management, dependency injection, etc.
-  google_fonts: ^2.1.0 # Include fonts from fonts.google.com
   logger: ^1.1.0 # Small, easy to use and extensible logger which prints beautiful logs
   url_launcher: ^6.0.17 # Used to launch URLs in native browser
 
@@ -57,3 +56,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: Sen
+      fonts:
+        - asset: fonts/Sen/Sen-Regular.ttf
+        - asset: fonts/Sen/Sen-Bold.ttf
+          weight: 700
