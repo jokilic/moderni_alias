@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../colors.dart';
-import '../../components/background_image.dart';
-import '../../components/game_title.dart';
-import '../../components/hero_title.dart';
-import '../../components/small_title.dart';
-import '../../components/standard_text.dart';
-import '../../strings.dart';
+import '../../constants/text_styles.dart';
+import '../../widgets/animated_column.dart';
+import '../../widgets/background_image.dart';
+import '../../widgets/game_title.dart';
+import '../../widgets/hero_title.dart';
+import '../../widgets/small_title.dart';
+import '../../widgets/standard_text.dart';
 
-class HowToPlay extends StatelessWidget {
-  static const routeName = '/how-to-play';
+class HowToPlayScreen extends StatelessWidget {
+  static const routeName = '/how-to-play-screen';
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -18,115 +20,116 @@ class HowToPlay extends StatelessWidget {
             child: SizedBox(
               height: double.infinity,
               child: SingleChildScrollView(
-                child: Column(
+                physics: const BouncingScrollPhysics(),
+                child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const SizedBox(height: 50),
+                  children: [
+                    SizedBox(height: 50.h),
                     HeroTitle(),
-                    const SizedBox(height: 40),
-                    const GameTitle(whatIsAliasTitleString),
+                    SizedBox(height: 40.h),
+                    GameTitle('whatIsAliasTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: whatIsAliasFirstString,
-                          style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                          children: <TextSpan>[
-                            TextSpan(text: whatIsAliasSecondString, style: Theme.of(context).textTheme.headline4),
-                            const TextSpan(
-                              text: whatIsAliasThirdString,
-                            ),
-                            TextSpan(text: whatIsAliasFourthString, style: Theme.of(context).textTheme.headline4),
-                            const TextSpan(
-                              text: whatIsAliasFifthString,
+                          text: 'whatIsAliasFirstString'.tr,
+                          style: ModerniAliasTextStyles.howToPlayBold,
+                          children: [
+                            TextSpan(
+                              text: 'whatIsAliasSecondString'.tr,
+                              style: ModerniAliasTextStyles.howToPlay,
                             ),
                             TextSpan(
-                              text: whatIsAliasSixthString,
-                              style: Theme.of(context).textTheme.headline4,
+                              text: 'whatIsAliasThirdString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'whatIsAliasFourthString'.tr,
+                              style: ModerniAliasTextStyles.howToPlay,
+                            ),
+                            TextSpan(
+                              text: 'whatIsAliasFifthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'whatIsAliasSixthString'.tr,
+                              style: ModerniAliasTextStyles.howToPlay,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const GameTitle(howToPlayTitleString),
+                    GameTitle('howToPlayTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: howToPlayExplanationString,
-                          style: Theme.of(context).textTheme.headline4,
+                          text: 'howToPlayExplanationString'.tr,
+                          style: ModerniAliasTextStyles.howToPlay,
                         ),
                       ),
                     ),
-                    const SmallTitle(wordCorrectTitleString),
+                    SmallTitle('wordCorrectTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: wordCorrectExplanationFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'wordCorrectExplanationFirstString'.tr,
+                          style: ModerniAliasTextStyles.howToPlay,
+                          children: [
                             TextSpan(
-                              text: wordCorrectExplanationSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    color: greenColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              text: 'wordCorrectExplanationSecondString'.tr,
+                              style: ModerniAliasTextStyles.howToPlayBoldGreen,
                             ),
-                            const TextSpan(
-                              text: wordCorrectExplanationThirdString,
+                            TextSpan(
+                              text: 'wordCorrectExplanationThirdString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SmallTitle(wordWrongTitleString),
+                    SmallTitle('wordWrongTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: wordWrongExplanationFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'wordWrongExplanationFirstString'.tr,
+                          style: ModerniAliasTextStyles.howToPlay,
+                          children: [
                             TextSpan(
-                              text: wordWrongExplanationSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    color: redColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              text: 'wordWrongExplanationSecondString'.tr,
+                              style: ModerniAliasTextStyles.howToPlayBoldRed,
                             ),
-                            const TextSpan(
-                              text: wordWrongExplanationThirdString,
+                            TextSpan(
+                              text: 'wordWrongExplanationThirdString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SmallTitle(roundFinishedTitleString),
+                    SmallTitle('roundFinishedTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: roundFinishedExplanationString,
-                          style: Theme.of(context).textTheme.headline4,
+                          text: 'roundFinishedExplanationString'.tr,
+                          style: ModerniAliasTextStyles.howToPlay,
                         ),
                       ),
                     ),
-                    const GameTitle(howToQuickAliasTitleString),
+                    GameTitle('howToQuickAliasTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: howToQuickAliasExplanationFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'howToQuickAliasExplanationFirstString'.tr,
+                          style: ModerniAliasTextStyles.howToPlay,
+                          children: [
                             TextSpan(
-                              text: howToQuickAliasExplanationSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+                              text: 'howToQuickAliasExplanationSecondString'.tr,
+                              style: ModerniAliasTextStyles.howToPlayBold,
                             ),
-                            const TextSpan(
-                              text: howToQuickAliasExplanationThirdString,
+                            TextSpan(
+                              text: 'howToQuickAliasExplanationThirdString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SmallTitle(enjoyTitleString),
-                    const SizedBox(height: 50),
+                    SmallTitle('enjoyTitleString'.tr),
+                    SizedBox(height: 50.h),
                   ],
                 ),
               ),

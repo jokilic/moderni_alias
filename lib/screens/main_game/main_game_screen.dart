@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import './widgets/info_section.dart';
+import './widgets/playing_team_info.dart';
+import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/game_service.dart';
@@ -12,8 +13,8 @@ import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 
-class QuickGameScreen extends StatelessWidget {
-  static const routeName = '/quick-game-screen';
+class MainGameScreen extends StatelessWidget {
+  static const routeName = '/main-game-screen';
 
   final dictionaryService = Get.find<DictionaryService>();
   final gameService = Get.find<GameService>();
@@ -34,16 +35,19 @@ class QuickGameScreen extends StatelessWidget {
                     Positioned(
                       top: 0,
                       width: 1.sw,
-                      child: InfoSection(
+                      child: PlayingTeamInfo(
+                        currentlyPlayingTeam: gameService.currentlyPlayingTeam,
                         exitGame: () => exitGameModal(
                           context: context,
                           exitGameCallback: gameService.exitToMainMenu,
                         ),
-                        correctAnswers: gameService.correctAnswers,
-                        wrongAnswers: gameService.wrongAnswers,
+                        showScores: () => showScores(
+                          context: context,
+                          teams: gameService.teams,
+                        ),
                       ),
                     ),
-                    if (gameService.currentGame == Game.quick)
+                    if (gameService.currentGame == Game.normal)
                       Positioned(
                         top: -75.h,
                         bottom: 0,
@@ -52,7 +56,7 @@ class QuickGameScreen extends StatelessWidget {
                           fillColor: gameService.countdownTimerFillColor,
                           length: gameService.lengthOfRound,
                           onComplete: () => gameService.endOfRound(
-                            currentGame: Game.quick,
+                            currentGame: Game.normal,
                           ),
                         ),
                       )
@@ -62,7 +66,7 @@ class QuickGameScreen extends StatelessWidget {
                         bottom: 0,
                         child: GameOff(
                           onTap: () => gameService.startRound(
-                            chosenGame: Game.quick,
+                            chosenGame: Game.normal,
                           ),
                         ),
                       ),
@@ -70,11 +74,11 @@ class QuickGameScreen extends StatelessWidget {
                       bottom: 0,
                       width: 1.sw,
                       child: WrongCorrectButtons(
-                        correctChosen: () => gameService.answerChosen(
-                          chosenButton: Answer.correct,
-                        ),
                         wrongChosen: () => gameService.answerChosen(
                           chosenButton: Answer.wrong,
+                        ),
+                        correctChosen: () => gameService.answerChosen(
+                          chosenButton: Answer.correct,
                         ),
                       ),
                     ),

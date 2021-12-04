@@ -1,17 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import './components/my_quick_portfolio.dart';
-import '../../colors.dart';
-import '../../components/background_image.dart';
-import '../../components/game_title.dart';
-import '../../components/hero_title.dart';
-import '../../components/small_title.dart';
-import '../../components/standard_text.dart';
-import '../../strings.dart';
+import './widgets/my_quick_portfolio.dart';
+import '../../constants/strings.dart';
+import '../../constants/text_styles.dart';
+import '../../widgets/animated_column.dart';
+import '../../widgets/background_image.dart';
+import '../../widgets/game_title.dart';
+import '../../widgets/hero_title.dart';
+import '../../widgets/small_title.dart';
+import '../../widgets/standard_text.dart';
 
-class GeneralInfo extends StatelessWidget {
+class GeneralInfoScreen extends StatelessWidget {
   static const routeName = '/general-info';
 
   @override
@@ -21,289 +24,277 @@ class GeneralInfo extends StatelessWidget {
             child: SizedBox(
               height: double.infinity,
               child: SingleChildScrollView(
-                child: Column(
+                physics: const BouncingScrollPhysics(),
+                child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const SizedBox(height: 50),
+                  children: [
+                    SizedBox(height: 50.h),
                     HeroTitle(),
-                    const SizedBox(height: 40),
-                    const GameTitle(howTitleString),
+                    SizedBox(height: 40.h),
+                    GameTitle('howTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: howFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'howFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: howSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: howThirdString,
-                            ),
-                            const TextSpan(
-                              text: howFourthString,
+                              text: 'howSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: howFifthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(flutterWebsite),
-                            ),
-                            const TextSpan(
-                              text: howSixthString,
+                              text: 'howThirdString'.tr,
                             ),
                             TextSpan(
-                              text: howSeventhString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+                              text: 'howFourthString'.tr,
                             ),
                             TextSpan(
-                              text: howEightString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(moderniAliasWebsite),
+                              text: 'howFifthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.flutterWebsite),
                             ),
                             TextSpan(
-                              text: howNinthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+                              text: 'howSixthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'howSeventhString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
+                            ),
+                            TextSpan(
+                              text: 'howEightString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.moderniAliasWebsite),
+                            ),
+                            TextSpan(
+                              text: 'howNinthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const GameTitle(whoTitleString),
+                    GameTitle('whoTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: whoFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'whoFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: whoSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: whoThirdString,
+                              text: 'whoSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: whoFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+                              text: 'whoThirdString'.tr,
                             ),
-                            const TextSpan(
-                              text: whoFifthString,
+                            TextSpan(
+                              text: 'whoFourthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
-                            const TextSpan(
-                              text: whoSixthString,
+                            TextSpan(
+                              text: 'whoFifthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'whoSixthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'whoSeventhString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
+                            ),
+                            TextSpan(
+                              text: 'whoEighthString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
                     MyQuickPortfolio(),
-                    const GameTitle(fontTitleString),
+                    GameTitle('fontTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: fontFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'fontFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: fontSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: fontThirdString,
-                            ),
-                            const TextSpan(
-                              text: fontFourthString,
+                              text: 'fontSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: fontFifthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: fontSixthString,
+                              text: 'fontThirdString'.tr,
                             ),
                             TextSpan(
-                              text: fontSeventhString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(senIconWebsite),
+                              text: 'fontFourthString'.tr,
                             ),
-                            const TextSpan(
-                              text: fontEigthString,
+                            TextSpan(
+                              text: 'fontFifthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
+                            ),
+                            TextSpan(
+                              text: 'fontSixthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'fontSeventhString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.senIconWebsite),
+                            ),
+                            TextSpan(
+                              text: 'fontEigthString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const GameTitle(iconsTitleString),
+                    GameTitle('iconsTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: iconsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
+                          text: 'iconsFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
                         ),
                       ),
                     ),
-                    const SmallTitle(appIconTitleString),
+                    SmallTitle('appIconTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: appIconFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'appIconFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: appIconSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
-                            ),
-                            const TextSpan(
-                              text: appIconThirdString,
+                              text: 'appIconSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                             ),
                             TextSpan(
-                              text: appIconFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+                              text: 'appIconThirdString'.tr,
                             ),
-                            const TextSpan(
-                              text: appIconFifthString,
+                            TextSpan(
+                              text: 'appIconFourthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
+                            ),
+                            TextSpan(
+                              text: 'appIconFifthString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SmallTitle(otherIconsTitleString),
+                    SmallTitle('otherIconsTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: otherIconsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'otherIconsFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: otherIconsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(flaticonWebsite),
+                              text: 'otherIconsSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                             ),
-                            const TextSpan(
-                              text: otherIconsThirdString,
+                            TextSpan(
+                              text: 'otherIconsThirdString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const GameTitle(soundsTitleString),
-                    const SmallTitle(wrongCorrectSoundsTitleString),
+                    GameTitle('soundsTitleString'.tr),
+                    SmallTitle('wrongCorrectSoundsTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: wrongCorrectSoundsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'wrongCorrectSoundsFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: wrongCorrectSoundsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(googleSoundsWebsite),
-                            ),
-                            const TextSpan(
-                              text: wrongCorrectSoundsThirdString,
+                              text: 'wrongCorrectSoundsSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.googleSoundsWebsite),
                             ),
                             TextSpan(
-                              text: wrongCorrectSoundsFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            const TextSpan(
-                              text: wrongCorrectSoundsFifthString,
+                              text: 'wrongCorrectSoundsThirdString'.tr,
                             ),
                             TextSpan(
-                              text: wrongCorrectSoundsSixthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              text: 'wrongCorrectSoundsFourthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
-                            const TextSpan(
-                              text: wrongCorrectSoundsSeventhString,
+                            TextSpan(
+                              text: 'wrongCorrectSoundsFifthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'wrongCorrectSoundsSixthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
+                            ),
+                            TextSpan(
+                              text: 'wrongCorrectSoundsSeventhString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SmallTitle(countdownSoundsTitleString),
+                    SmallTitle('countdownSoundsTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: countdownSoundsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'countdownSoundsFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: countdownSoundsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(freeSoundWebsite),
+                              text: 'countdownSoundsSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.freeSoundWebsite),
                             ),
-                            const TextSpan(
-                              text: countdownSoundsThirdString,
+                            TextSpan(
+                              text: 'countdownSoundsThirdString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const GameTitle(screenshotsTitleString),
+                    GameTitle('screenshotsTitleString'.tr),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: screenshotsFirstString,
-                          style: Theme.of(context).textTheme.headline4,
-                          children: <TextSpan>[
+                          text: 'screenshotsFirstString'.tr,
+                          style: ModerniAliasTextStyles.generalInfo,
+                          children: [
                             TextSpan(
-                              text: screenshotsSecondString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: screenshotsThirdString,
+                              text: 'screenshotsSecondString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: screenshotsFourthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            const TextSpan(
-                              text: screenshotsFifthString,
+                              text: 'screenshotsThirdString'.tr,
                             ),
                             TextSpan(
-                              text: screenshotsSixthString,
-                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () => launch(screenshotsWebsite),
+                              text: 'screenshotsFourthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBold,
                             ),
-                            const TextSpan(
-                              text: screenshotsSeventhString,
+                            TextSpan(
+                              text: 'screenshotsFifthString'.tr,
+                            ),
+                            TextSpan(
+                              text: 'screenshotsSixthString'.tr,
+                              style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launch(ModerniAliasWebsites.screenshotsWebsite),
+                            ),
+                            TextSpan(
+                              text: 'screenshotsSeventhString'.tr,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SmallTitle(enjoyTitleString),
-                    const SizedBox(height: 50),
+                    SmallTitle('enjoyTitleString'.tr),
+                    SizedBox(height: 50.h),
                   ],
                 ),
               ),

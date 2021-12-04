@@ -1,0 +1,54 @@
+import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+
+class LoggerService extends GetxService {
+  /// ------------------------
+  /// VARIABLES
+  /// ------------------------
+
+  late final Logger _logger;
+
+  /// ------------------------
+  /// GETTERS
+  /// ------------------------
+
+  Logger get logger => _logger;
+
+  /// ------------------------
+  /// SETTERS
+  /// ------------------------
+
+  set logger(Logger value) => _logger = value;
+
+  /// ------------------------
+  /// INIT
+  /// ------------------------
+
+  @override
+  void onInit() {
+    super.onInit();
+    logger = Logger();
+  }
+
+  /// ------------------------
+  /// METHODS
+  /// ------------------------
+
+  /// Verbose log, grey color
+  void v(value) => logger.v(value);
+
+  /// 🐛 Debug log, blue color
+  void d(value) => logger.d(value);
+
+  /// 💡 Info log, light blue color
+  void i(value) => logger.i(value);
+
+  /// ⚠️ Warning log, orange color
+  void w(value) => logger.w(value);
+
+  /// ⛔ Error log, red color
+  void e(value) => logger.e(value);
+
+  /// 👾 What a terrible failure error, purple color
+  void wtf(value) => logger.wtf(value);
+}
