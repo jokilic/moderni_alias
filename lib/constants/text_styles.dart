@@ -29,6 +29,7 @@ class ModerniAliasTextStyles {
   static final gameCircularCountdown = GoogleFonts.sen(
     textStyle: const TextStyle(
       color: Colors.transparent,
+      fontWeight: FontWeight.normal,
     ),
   );
   static final gameOffStart = GoogleFonts.sen(
@@ -56,11 +57,13 @@ class ModerniAliasTextStyles {
   static final appNameFirst = GoogleFonts.sen(
     textStyle: TextStyle(
       color: ModerniAliasColors.whiteColor,
-      fontSize: 50.sp,
+      fontSize: 60.sp,
+      fontWeight: FontWeight.normal,
     ),
   );
   static final appNameSecond = GoogleFonts.sen(
-    textStyle: const TextStyle(
+    textStyle: TextStyle(
+      fontSize: 40.sp,
       fontWeight: FontWeight.bold,
     ),
   );
@@ -74,7 +77,7 @@ class ModerniAliasTextStyles {
   static final smallTitle = GoogleFonts.sen(
     textStyle: TextStyle(
       color: ModerniAliasColors.whiteColor,
-      fontSize: 30.sp,
+      fontSize: 24.sp,
       fontWeight: FontWeight.bold,
     ),
   );
@@ -103,6 +106,7 @@ class ModerniAliasTextStyles {
     textStyle: TextStyle(
       color: ModerniAliasColors.whiteColor,
       fontSize: 20.sp,
+      fontWeight: FontWeight.normal,
       height: 1.4.h,
     ),
   );
@@ -116,7 +120,7 @@ class ModerniAliasTextStyles {
   );
   static final generalInfoBoldBlue = GoogleFonts.sen(
     textStyle: TextStyle(
-      color: ModerniAliasColors.whiteColor,
+      color: ModerniAliasColors.blueColor,
       fontSize: 20.sp,
       fontWeight: FontWeight.bold,
       height: 1.4.h,
@@ -126,6 +130,7 @@ class ModerniAliasTextStyles {
     textStyle: TextStyle(
       color: ModerniAliasColors.whiteColor,
       fontSize: 20.sp,
+      fontWeight: FontWeight.normal,
       height: 1.4.h,
     ),
   );
@@ -164,6 +169,7 @@ class ModerniAliasTextStyles {
     textStyle: TextStyle(
       color: ModerniAliasColors.whiteColor,
       fontSize: 14.sp,
+      fontWeight: FontWeight.normal,
     ),
   );
   static final playingTeam = GoogleFonts.sen(
@@ -231,8 +237,16 @@ class ModerniAliasTextStyles {
   );
   static final howToPlayButton = GoogleFonts.sen(
     textStyle: TextStyle(
-      fontSize: 13.sp,
       color: ModerniAliasColors.whiteColor,
+      fontSize: 13.sp,
+      fontWeight: FontWeight.normal,
+    ),
+  );
+  static final teamNameTextField = GoogleFonts.sen(
+    textStyle: TextStyle(
+      color: ModerniAliasColors.whiteColor,
+      fontSize: 22.sp,
+      fontWeight: FontWeight.bold,
     ),
   );
 }

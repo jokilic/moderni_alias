@@ -96,6 +96,13 @@ class GeneralInfoScreen extends StatelessWidget {
                           TextSpan(
                             text: 'whoSixthString'.tr,
                           ),
+                          TextSpan(
+                            text: 'whoSeventhString'.tr,
+                            style: ModerniAliasTextStyles.generalInfoBold,
+                          ),
+                          TextSpan(
+                            text: 'whoEighthString'.tr,
+                          ),
                         ],
                       ),
                     ),
@@ -138,7 +145,7 @@ class GeneralInfoScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GameTitle('iitleString'.tr),
+                  GameTitle('iconsTitleString'.tr),
                   StandardText(
                     RichText(
                       text: TextSpan(
@@ -174,7 +181,7 @@ class GeneralInfoScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SmallTitle('otherIitleString'.tr),
+                  SmallTitle('otherIconsTitleString'.tr),
                   StandardText(
                     RichText(
                       text: TextSpan(
@@ -188,7 +195,7 @@ class GeneralInfoScreen extends StatelessWidget {
                               ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
                           ),
                           TextSpan(
-                            text: 'otherIhirdString'.tr,
+                            text: 'otherIconsThirdString'.tr,
                           ),
                         ],
                       ),

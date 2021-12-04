@@ -2,7 +2,6 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../constants/colors.dart';
 import '../constants/text_styles.dart';
 
 class GameOn extends StatelessWidget {
@@ -27,7 +26,7 @@ class GameOn extends StatelessWidget {
             width: 0.9.sw,
             height: 0.6.sh,
             onComplete: onComplete,
-            ringColor: ModerniAliasColors.blueColor,
+            ringColor: Colors.transparent,
             fillColor: fillColor,
             strokeWidth: 36.w,
             textStyle: ModerniAliasTextStyles.gameCircularCountdown,

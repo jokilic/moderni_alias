@@ -79,7 +79,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 50.h),
+                      SizedBox(height: 72.h),
                       Column(
                         children: [
                           PlayButton(

@@ -25,7 +25,7 @@ class NameOfTeam extends StatelessWidget {
         child: TextField(
           textInputAction: textInputAction,
           onChanged: onChanged,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: ModerniAliasTextStyles.teamNameTextField,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             border: InputBorder.none,

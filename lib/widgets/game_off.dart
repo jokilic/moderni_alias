@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../constants/colors.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
 import '../services/game_service.dart';
@@ -26,7 +25,7 @@ class GameOff extends StatelessWidget {
               duration: 0,
               width: 0.9.sw,
               height: 0.6.sh,
-              ringColor: ModerniAliasColors.blueColor,
+              ringColor: Colors.transparent,
               fillColor: Get.find<GameService>().countdownTimerFillColor,
               strokeWidth: 36.w,
               textStyle: ModerniAliasTextStyles.gameCircularCountdown,

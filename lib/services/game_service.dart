@@ -183,6 +183,7 @@ class GameService extends GetxService {
   /// Called when the validation passes
   /// Starts main game
   void startMainGame() {
+    countdownTimerFillColor = Colors.transparent;
     gameStarted = false;
     currentlyPlayingTeam = teams[random.nextInt(teams.length)];
     Get.toNamed(MainGameScreen.routeName);
@@ -190,6 +191,7 @@ class GameService extends GetxService {
 
   /// Starts quick game
   void startQuickGame() {
+    countdownTimerFillColor = Colors.transparent;
     gameStarted = false;
     lengthOfRound = 60;
     Get.toNamed(QuickGameScreen.routeName);
@@ -225,7 +227,7 @@ class GameService extends GetxService {
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameOnHold() {
     currentGame = Game.none;
-    countdownTimerFillColor = ModerniAliasColors.blueColor;
+    countdownTimerFillColor = Colors.transparent;
     soundTimer.cancel();
     greenTimer.cancel();
     yellowTimer.cancel();
@@ -308,7 +310,7 @@ class GameService extends GetxService {
 
     countdownAudioPlayer.stop();
 
-    countdownTimerFillColor = ModerniAliasColors.blueColor;
+    countdownTimerFillColor = Colors.transparent;
 
     Get.offNamedUntil(
       HomeScreen.routeName,

@@ -36,7 +36,7 @@ class Localization extends Translations {
     'playTheGameString': 'Igraj',
 
     /// Playing Game
-    'currentlyPlayingPlaceholder': 'Trenutno igra',
+    'currentlyPlayingTitle': 'Trenutno igra',
     'exitModalQuestionString': 'Želiš li izaći iz trenutne igre?',
     'exitModalQuestionYes': 'Da',
     'exitModalQuestionNo': 'Ne',
@@ -74,8 +74,10 @@ class Localization extends Translations {
     'whoThirdString': ' i dolazim iz ',
     'whoFourthString': 'Hrvatske',
     'whoFifthString': '.\n\n',
-    'whoSixthString':
-        'Volim izrađivati mobilne aplikacije i volim development općenito.\nOdlučio sam napraviti Moderni Alias jer sam htio vježbati izradu aplikacija, naučiti neke nove koncepte i ideje.\nTakođer sam htio iznenaditi prijatelje koji vole igrati Alias.',
+    'whoSixthString': 'Volim izrađivati mobilne aplikacije i volim development općenito.\n\nOdlučio sam napraviti ',
+    'whoSeventhString': 'Moderni Alias',
+    'whoEighthString':
+        ' jer sam htio vježbati izradu aplikacija, naučiti neke nove koncepte i ideje.\nTakođer sam htio iznenaditi prijatelje koji vole igrati Alias.',
 
     'aboutMeTitleString': 'Više o meni',
     'aboutMeWebsiteString': 'josipkilic.com',

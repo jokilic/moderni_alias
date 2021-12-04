@@ -21,7 +21,7 @@ Future<void> main() async {
 class ModerniAlias extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
-        designSize: const Size(485, 1035),
+        designSize: const Size(390, 844),
         builder: () => GetMaterialApp(
           title: 'appNameString'.tr,
           theme: theme(context),
