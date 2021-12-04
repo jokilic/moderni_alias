@@ -18,25 +18,24 @@ class PlayButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => FlatButton(
+  Widget build(BuildContext context) => TextButton(
         onPressed: onPressed,
-        textColor: ModerniAliasColors.whiteColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
-          side: BorderSide(
-            color: ModerniAliasColors.whiteColor,
-            width: 2.w,
-          ),
-        ),
-        child: Padding(
+        style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding.w,
             vertical: verticalPadding.h,
           ),
-          child: Text(
-            text,
-            style: ModerniAliasTextStyles.playButton,
+          side: BorderSide(
+            color: ModerniAliasColors.whiteColor,
+            width: 2.w,
           ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.r),
+          ),
+        ),
+        child: Text(
+          text,
+          style: ModerniAliasTextStyles.playButton,
         ),
       );
 }

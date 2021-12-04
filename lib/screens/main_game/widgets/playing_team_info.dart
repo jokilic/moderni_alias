@@ -40,11 +40,11 @@ class PlayingTeamInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: -10.w,
+              left: 4.w,
               top: -10.h,
-              child: FlatButton(
+              child: IconButton(
                 onPressed: exitGame,
-                child: Icon(
+                icon: Icon(
                   Icons.close,
                   color: ModerniAliasColors.whiteColor,
                   size: 30.r,
@@ -52,11 +52,11 @@ class PlayingTeamInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: -10.w,
+              right: 4.w,
               top: -10.h,
-              child: FlatButton(
+              child: IconButton(
                 onPressed: showScores,
-                child: Icon(
+                icon: Icon(
                   Icons.format_list_numbered,
                   color: ModerniAliasColors.whiteColor,
                   size: 30.r,

@@ -14,14 +14,19 @@ class ExitGameButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => FlatButton(
+  Widget build(BuildContext context) => TextButton(
         onPressed: onPressed,
-        textColor: ModerniAliasColors.whiteColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.symmetric(
+            horizontal: 12.w,
+            vertical: 2.h,
+          ),
           side: BorderSide(
             color: ModerniAliasColors.whiteColor,
             width: 2.w,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.r),
           ),
         ),
         child: Padding(

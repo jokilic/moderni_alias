@@ -7,13 +7,19 @@ import '../../how_to_play/how_to_play_screen.dart';
 
 class HowToPlayButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => FlatButton(
+  Widget build(BuildContext context) => TextButton(
         onPressed: () => Get.toNamed(
           HowToPlayScreen.routeName,
         ),
-        color: Colors.black45,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.symmetric(
+            horizontal: 12.w,
+            vertical: 2.h,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.r),
+          ),
+          backgroundColor: Colors.black45,
         ),
         child: Padding(
           padding: EdgeInsets.all(12.r),

@@ -22,11 +22,11 @@ class InfoSection extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              left: -10.w,
+              left: 4.w,
               top: -10.h,
-              child: FlatButton(
+              child: IconButton(
                 onPressed: exitGame,
-                child: Icon(
+                icon: Icon(
                   Icons.close,
                   color: ModerniAliasColors.whiteColor,
                   size: 30.r,

@@ -7,6 +7,7 @@ import 'colors.dart';
 class ModerniAliasTextStyles {
   static final exitButton = GoogleFonts.sen(
     textStyle: TextStyle(
+      color: ModerniAliasColors.whiteColor,
       fontSize: 18.sp,
       fontWeight: FontWeight.bold,
     ),
