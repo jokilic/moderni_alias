@@ -40,8 +40,7 @@ class PlayingTeamInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 4.w,
-              top: -10.h,
+              left: 12.w,
               child: IconButton(
                 onPressed: exitGame,
                 icon: Icon(
@@ -52,8 +51,7 @@ class PlayingTeamInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 4.w,
-              top: -10.h,
+              right: 12.w,
               child: IconButton(
                 onPressed: showScores,
                 icon: Icon(

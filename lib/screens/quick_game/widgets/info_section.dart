@@ -18,12 +18,11 @@ class InfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: 50.h,
-        margin: EdgeInsets.only(top: 24.h),
+        margin: EdgeInsets.only(top: 4.h),
         child: Stack(
           children: [
             Positioned(
-              left: 4.w,
-              top: -10.h,
+              left: 12.w,
               child: IconButton(
                 onPressed: exitGame,
                 icon: Icon(
@@ -35,7 +34,6 @@ class InfoSection extends StatelessWidget {
             ),
             Positioned(
               right: 20.w,
-              top: -10.h,
               child: Row(
                 children: [
                   Text(

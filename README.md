@@ -45,9 +45,9 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] Try building for Web
 - [ ] Add english app language
 - [ ] Add some sound if the user presses on the answer buttons while the game is idle
+- [x] Try building for Web
 - [x] Replace deprecated `FlatButton`
 - [x] Refactor 'theme' property
 - [x] Currently entered team names get deleted when validation fails
