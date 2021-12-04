@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/colors.dart';
 import '../constants/enums.dart';
 import '../constants/text_styles.dart';
+import 'animated_column.dart';
 
 class FlagButton extends StatelessWidget {
   final String countryName;
@@ -29,7 +30,7 @@ class FlagButton extends StatelessWidget {
         ),
         child: InkWell(
           onTap: onTap,
-          child: Column(
+          child: AnimatedColumn(
             children: [
               Stack(
                 alignment: Alignment.center,

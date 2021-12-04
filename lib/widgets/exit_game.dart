@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import './exit_game_button.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
+import 'animated_column.dart';
 
 Future<bool> exitGameModal({required BuildContext context, required Function() exitGameCallback}) async {
   await Get.bottomSheet(
@@ -25,7 +26,8 @@ Future<bool> exitGameModal({required BuildContext context, required Function() e
           top: Radius.circular(24.r),
         ),
       ),
-      child: Column(
+      child: AnimatedColumn(
+        fastAnimations: true,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(

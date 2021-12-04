@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
 import '../services/game_service.dart';
+import 'animated_column.dart';
 
 class GameOff extends StatelessWidget {
   final Function() onTap;
@@ -30,7 +31,8 @@ class GameOff extends StatelessWidget {
               strokeWidth: 36.w,
               textStyle: ModerniAliasTextStyles.gameCircularCountdown,
             ),
-            Column(
+            AnimatedColumn(
+              fastAnimations: true,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(

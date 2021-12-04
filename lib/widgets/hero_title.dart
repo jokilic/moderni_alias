@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
+import 'animated_column.dart';
 
 class HeroTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.only(top: 16.h),
-        child: Column(
+        child: AnimatedColumn(
           children: [
             Container(
               alignment: Alignment.topLeft,

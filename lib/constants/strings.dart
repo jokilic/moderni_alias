@@ -31,3 +31,13 @@ class ModerniAliasImages {
   static const conversationDownImage = 'assets/conversation-down.svg';
   static const josipImage = 'assets/josip.jpg';
 }
+
+/* ----------
+- Durations -
+---------- */
+
+class ModerniAliasDurations {
+  static const animation = Duration(milliseconds: 400);
+  static const slowAnimation = Duration(milliseconds: 800);
+  static const fastAnimation = Duration(milliseconds: 200);
+}

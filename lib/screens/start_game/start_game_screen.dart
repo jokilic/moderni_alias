@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import './widgets/horizontal_row.dart';
@@ -11,6 +12,8 @@ import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
 import '../../services/game_service.dart';
+import '../../widgets/animated_column.dart';
+import '../../widgets/animated_list_view.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/flag_button.dart';
 import '../../widgets/game_title.dart';
@@ -30,7 +33,7 @@ class StartGameScreen extends StatelessWidget {
               child: Obx(
                 () => SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  child: Column(
+                  child: AnimatedColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GameTitle('dictionaryString'.tr),
@@ -130,24 +133,30 @@ class StartGameScreen extends StatelessWidget {
                         ],
                       ),
                       GameTitle('teamNamesString'.tr),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: gameService.teams.length,
-                        itemBuilder: (context, index) {
-                          final team = gameService.teams[index];
+                      AnimationLimiter(
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: gameService.teams.length,
+                          itemBuilder: (context, index) {
+                            final team = gameService.teams[index];
 
-                          return NameOfTeam(
-                            key: ValueKey(team),
-                            hintText: 'teamNameString'.tr,
-                            textInputAction:
-                                index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
-                            onChanged: (value) => gameService.teamNameUpdated(
-                              team: team,
-                              value: value,
-                            ),
-                          );
-                        },
-                        shrinkWrap: true,
+                            return AnimatedListView(
+                              fastAnimations: true,
+                              index: index,
+                              child: NameOfTeam(
+                                key: ValueKey(team),
+                                hintText: 'teamNameString'.tr,
+                                textInputAction:
+                                    index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
+                                onChanged: (value) => gameService.teamNameUpdated(
+                                  team: team,
+                                  value: value,
+                                ),
+                              ),
+                            );
+                          },
+                          shrinkWrap: true,
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16.r),

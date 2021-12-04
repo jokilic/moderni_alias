@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/team.dart';
+import '../../../widgets/animated_column.dart';
 
 class PlayingTeamInfo extends StatelessWidget {
   final Team currentlyPlayingTeam;
@@ -23,7 +24,8 @@ class PlayingTeamInfo extends StatelessWidget {
         child: Stack(
           children: [
             Align(
-              child: Column(
+              child: AnimatedColumn(
+                fastAnimations: true,
                 children: [
                   Text(
                     'currentlyPlayingTitle'.tr.toUpperCase(),

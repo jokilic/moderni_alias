@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
 import '../../services/game_service.dart';
+import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
 import '../../widgets/exit_game.dart';
@@ -50,7 +51,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                 child: SizedBox(
                   height: 1.sh,
                   width: 0.8.sw,
-                  child: Column(
+                  child: AnimatedColumn(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
@@ -80,7 +81,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 72.h),
-                      Column(
+                      AnimatedColumn(
                         children: [
                           PlayButton(
                             text: 'quickGameFinishedPlayAgainString'.tr.toUpperCase(),

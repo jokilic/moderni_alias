@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import './highscore_value.dart';
 import '../../../constants/strings.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/team.dart';
+import '../../../widgets/animated_column.dart';
+import '../../../widgets/animated_list_view.dart';
 
 void showScores({required BuildContext context, required List<Team> teams}) => Get.bottomSheet(
       Container(
@@ -25,7 +28,8 @@ void showScores({required BuildContext context, required List<Team> teams}) => G
             top: Radius.circular(24.r),
           ),
         ),
-        child: Column(
+        child: AnimatedColumn(
+          fastAnimations: true,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
@@ -33,14 +37,20 @@ void showScores({required BuildContext context, required List<Team> teams}) => G
               style: ModerniAliasTextStyles.scoresTitle,
             ),
             SizedBox(height: 24.h),
-            ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: teams.length,
-              itemBuilder: (context, index) => HighscoreValue(
-                teamName: teams[index].name,
-                points: teams[index].points,
+            AnimationLimiter(
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: teams.length,
+                itemBuilder: (context, index) => AnimatedListView(
+                  fastAnimations: true,
+                  index: index,
+                  child: HighscoreValue(
+                    teamName: teams[index].name,
+                    points: teams[index].points,
+                  ),
+                ),
+                shrinkWrap: true,
               ),
-              shrinkWrap: true,
             ),
           ],
         ),

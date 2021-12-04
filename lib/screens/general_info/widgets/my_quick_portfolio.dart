@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
+import '../../../widgets/animated_column.dart';
 import '../../../widgets/play_button.dart';
 import '../general_info_controller.dart';
 
@@ -15,7 +16,7 @@ class MyQuickPortfolio extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.all(16.r),
         width: double.infinity,
-        child: Column(
+        child: AnimatedColumn(
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: 16.h),
