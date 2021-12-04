@@ -45,10 +45,13 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] Refactor 'theme' property
-- [ ] Currently entered team names get deleted when validation fails
-- [ ] Add a checkbox if special dictionary should be used and a tooltip explaining it
-- [ ] Refactor code and use GetX
+- [ ] Try building for Web
+- [ ] Add english app language
+- [ ] Add some sound if the user presses on the answer buttons while the game is idle
+- [x] Replace deprecated `FlatButton`
+- [x] Refactor 'theme' property
+- [x] Currently entered team names get deleted when validation fails
+- [x] Refactor code and use GetX
 - [x] Introduce English dictionary and flags to choose desired dictionary during game
 - [x] Add a hero section to the GeneralInfo screen and the HowToPlay screen
 - [x] Update Flutter packages & Readme.md

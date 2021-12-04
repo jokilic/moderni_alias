@@ -11,7 +11,6 @@ class Localization extends Translations {
         'hr': hr,
       };
 
-  /// TODO: Implement proper english language
   final en = {
     /// Home Page
     'appNameString': 'ModerniAlias',
@@ -234,8 +233,10 @@ class Localization extends Translations {
     'whoThirdString': ' i dolazim iz ',
     'whoFourthString': 'Hrvatske',
     'whoFifthString': '.\n\n',
-    'whoSixthString':
-        'Volim izrađivati mobilne aplikacije i volim development općenito.\nOdlučio sam napraviti Moderni Alias jer sam htio vježbati izradu aplikacija, naučiti neke nove koncepte i ideje.\nTakođer sam htio iznenaditi prijatelje koji vole igrati Alias.',
+    'whoSixthString': 'Volim izrađivati mobilne aplikacije i volim development općenito.\n\nOdlučio sam napraviti ',
+    'whoSeventhString': 'Moderni Alias',
+    'whoEighthString':
+        ' jer sam htio vježbati izradu aplikacija, naučiti neke nove koncepte i ideje.\nTakođer sam htio iznenaditi prijatelje koji vole igrati Alias.',
 
     'aboutMeTitleString': 'Više o meni',
     'aboutMeWebsiteString': 'josipkilic.com',

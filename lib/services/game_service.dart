@@ -268,11 +268,6 @@ class GameService extends GetxService {
     if (currentGame != Game.none) {
       playAnswerSound(chosenButton: chosenButton);
     } else {
-      /// TODO: Sad sound if the user presses on the answer buttons
-      /// and the game hasn't started.
-      ///
-      /// Maybe even me saying 'Stisni gore...'
-
       // buttonPlayer.play(fileName);
     }
 
