@@ -27,7 +27,14 @@ class LoggerService extends GetxService {
   @override
   void onInit() {
     super.onInit();
-    logger = Logger();
+    logger = Logger(
+      printer: PrettyPrinter(
+        methodCount: 0,
+        errorMethodCount: 3,
+        lineLength: 50,
+        noBoxingByDefault: true,
+      ),
+    );
   }
 
   /// ------------------------
