@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 class GameTitle extends StatelessWidget {
   final String title;
 
-  GameTitle(this.title);
+  const GameTitle(this.title);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 24.0,
-        left: 24.0,
-      ),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headline2,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(
+          top: 24,
+          left: 24,
+        ),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      );
 }

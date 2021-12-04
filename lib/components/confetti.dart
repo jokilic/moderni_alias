@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
+import 'package:flutter/material.dart';
 
 class Confetti extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _ConfettiState extends State<Confetti> {
     super.initState();
 
     confettiController = ConfettiController(
-      duration: Duration(seconds: 10),
+      duration: const Duration(seconds: 10),
     );
   }
 
@@ -33,11 +33,9 @@ class _ConfettiState extends State<Confetti> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ConfettiWidget(
-      confettiController: confettiController,
-      blastDirectionality: BlastDirectionality.explosive,
-      shouldLoop: true,
-    );
-  }
+  Widget build(BuildContext context) => ConfettiWidget(
+        confettiController: confettiController,
+        blastDirectionality: BlastDirectionality.explosive,
+        shouldLoop: true,
+      );
 }

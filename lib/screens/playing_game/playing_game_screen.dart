@@ -1,18 +1,19 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
 
-import '../../colors.dart';
-import '../../components/background_image.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
+
 import './components/playing_team_info.dart';
 import './components/show_scores.dart';
+import '../../colors.dart';
+import '../../components/background_image.dart';
 import '../../components/exit_game.dart';
 import '../../components/game_off.dart';
 import '../../components/game_on.dart';
 import '../../components/wrong_correct_buttons.dart';
-import '../game_finished/game_finished.dart';
 import '../../models/dictionary.dart';
 import '../../models/team.dart';
+import '../game_finished/game_finished.dart';
 
 List<Team> teams = [];
 bool gamePlaying = false;
@@ -36,8 +37,8 @@ final AudioCache buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
 final AudioCache countdownPlayer = AudioCache(fixedPlayer: countdownAudioPlayer);
 
 enum ChosenButton {
-  Correct,
-  Wrong,
+  correct,
+  wrong,
 }
 
 class PlayingGame extends StatefulWidget {
@@ -69,29 +70,29 @@ class _PlayingGameState extends State<PlayingGame> {
     ];
 
     teams.clear();
-    int teamIndex = 0;
+    var teamIndex = 0;
     routeTeams.removeWhere((value) => value == '');
-    routeTeams.forEach((team) {
+    routeTeams.map((team) {
       teams.add(Team(name: routeTeams[teamIndex]));
       teamIndex++;
-    });
+    }).toList();
     currentlyPlayingTeam = teams[currentlyPlayingIndex];
   }
 
-  Timer makeTimer(double chosenSeconds, Color chosenColor) {
-    return Timer(Duration(seconds: lengthOfRound - chosenSeconds.round()), () {
-      setState(() {
-        countdownTimerFillColor = chosenColor;
-      });
-    });
-  }
+  Timer makeTimer(double chosenSeconds, Color chosenColor) => Timer(
+        Duration(seconds: lengthOfRound - chosenSeconds.round()),
+        () => setState(() => countdownTimerFillColor = chosenColor),
+      );
 
   void startCountdown() {
     greenSeconds = lengthOfRound * 0.6;
     yellowSeconds = lengthOfRound * 0.4;
     redSeconds = lengthOfRound * 0.15;
 
-    soundTimer = Timer(Duration(seconds: lengthOfRound - 5), () => countdownPlayer.play('timer.ogg'));
+    soundTimer = Timer(
+      Duration(seconds: lengthOfRound - 5),
+      () => countdownPlayer.play('timer.ogg'),
+    );
 
     greenTimer = makeTimer(greenSeconds, greenColor);
     yellowTimer = makeTimer(yellowSeconds, yellowColor);
@@ -100,7 +101,7 @@ class _PlayingGameState extends State<PlayingGame> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     void startGame() {
       correctAnswers = 0;
@@ -115,7 +116,7 @@ class _PlayingGameState extends State<PlayingGame> {
 
     void answerChosen(ChosenButton chosenButton) {
       if (gamePlaying) {
-        if (chosenButton == ChosenButton.Correct) {
+        if (chosenButton == ChosenButton.correct) {
           buttonPlayer.play('correct.ogg');
           correctAnswers++;
         } else {
@@ -168,35 +169,36 @@ class _PlayingGameState extends State<PlayingGame> {
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned(
-                  top: 0.0,
+                  top: 0,
                   width: size.width,
                   child: PlayingTeamInfo(
                     exitGame: () => exitGame(context),
                     showScores: () => showScores(context),
                   ),
                 ),
-                gamePlaying
-                    ? Positioned(
-                        top: -75.0,
-                        bottom: 0.0,
-                        child: GameOn(
-                          length: lengthOfRound,
-                          onComplete: endOfRound,
-                        ),
-                      )
-                    : Positioned(
-                        top: -75.0,
-                        bottom: 0.0,
-                        child: GameOff(
-                          onTap: startGame,
-                        ),
-                      ),
+                if (gamePlaying)
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: GameOn(
+                      length: lengthOfRound,
+                      onComplete: endOfRound,
+                    ),
+                  )
+                else
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: GameOff(
+                      onTap: startGame,
+                    ),
+                  ),
                 Positioned(
-                  bottom: 0.0,
+                  bottom: 0,
                   width: size.width,
                   child: WrongCorrectButtons(
-                    wrongChosen: () => answerChosen(ChosenButton.Wrong),
-                    correctChosen: () => answerChosen(ChosenButton.Correct),
+                    wrongChosen: () => answerChosen(ChosenButton.wrong),
+                    correctChosen: () => answerChosen(ChosenButton.correct),
                   ),
                 ),
               ],

@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
 
-import '../../colors.dart';
-import '../../models/dictionary.dart';
-import '../../components/background_image.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
+
 import './components/info_section.dart';
+import '../../colors.dart';
+import '../../components/background_image.dart';
 import '../../components/exit_game.dart';
 import '../../components/game_off.dart';
 import '../../components/game_on.dart';
 import '../../components/wrong_correct_buttons.dart';
+import '../../models/dictionary.dart';
 import '../quick_game_finished/quick_game_finished.dart';
 
 int wrongAnswers = 0;
@@ -30,8 +31,8 @@ final AudioCache buttonQuickPlayer = AudioCache(fixedPlayer: buttonQuickAudioPla
 final AudioCache countdownQuickPlayer = AudioCache(fixedPlayer: countdownQuickAudioPlayer);
 
 enum ChosenButton {
-  Correct,
-  Wrong,
+  correct,
+  wrong,
 }
 
 class QuickGame extends StatefulWidget {
@@ -42,13 +43,10 @@ class QuickGame extends StatefulWidget {
 }
 
 class _QuickGameState extends State<QuickGame> {
-  Timer makeTimer(double chosenSeconds, Color chosenColor) {
-    return Timer(Duration(seconds: lengthOfRound - chosenSeconds.round()), () {
-      setState(() {
-        countdownTimerFillColor = chosenColor;
-      });
-    });
-  }
+  Timer makeTimer(double chosenSeconds, Color chosenColor) => Timer(
+        Duration(seconds: lengthOfRound - chosenSeconds.round()),
+        () => setState(() => countdownTimerFillColor = chosenColor),
+      );
 
   void startCountdown() {
     quickGreenSeconds = lengthOfRound * 0.6;
@@ -64,7 +62,7 @@ class _QuickGameState extends State<QuickGame> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     void startGame() {
       correctAnswers = 0;
@@ -78,7 +76,7 @@ class _QuickGameState extends State<QuickGame> {
 
     void answerChosen(ChosenButton chosenButton) {
       if (simpleGamePlaying) {
-        if (chosenButton == ChosenButton.Correct) {
+        if (chosenButton == ChosenButton.correct) {
           buttonQuickPlayer.play('correct.ogg');
           correctAnswers++;
         } else {
@@ -116,7 +114,7 @@ class _QuickGameState extends State<QuickGame> {
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned(
-                  top: 0.0,
+                  top: 0,
                   width: size.width,
                   child: InfoSection(
                     exitGame: () => exitGame(context),
@@ -124,28 +122,29 @@ class _QuickGameState extends State<QuickGame> {
                     wrongAnswers: wrongAnswers,
                   ),
                 ),
-                simpleGamePlaying
-                    ? Positioned(
-                        top: -75.0,
-                        bottom: 0.0,
-                        child: GameOn(
-                          length: lengthOfRound,
-                          onComplete: endOfGame,
-                        ),
-                      )
-                    : Positioned(
-                        top: -75.0,
-                        bottom: 0.0,
-                        child: GameOff(
-                          onTap: startGame,
-                        ),
-                      ),
+                if (simpleGamePlaying)
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: GameOn(
+                      length: lengthOfRound,
+                      onComplete: endOfGame,
+                    ),
+                  )
+                else
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: GameOff(
+                      onTap: startGame,
+                    ),
+                  ),
                 Positioned(
-                  bottom: 0.0,
+                  bottom: 0,
                   width: size.width,
                   child: WrongCorrectButtons(
-                    wrongChosen: () => answerChosen(ChosenButton.Wrong),
-                    correctChosen: () => answerChosen(ChosenButton.Correct),
+                    wrongChosen: () => answerChosen(ChosenButton.wrong),
+                    correctChosen: () => answerChosen(ChosenButton.correct),
                   ),
                 ),
               ],

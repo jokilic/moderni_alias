@@ -8,30 +8,28 @@ class GameButton extends StatelessWidget {
   final BorderRadius borderRadius;
   final Function() onTap;
 
-  GameButton({
+  const GameButton({
     required this.svgIconPath,
     required this.borderRadius,
     required this.onTap,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.all(50.0),
-          child: SvgPicture.asset(
-            svgIconPath,
-            color: whiteColor,
-          ),
-          height: 150.0,
-          decoration: BoxDecoration(
-            color: whiteColor.withOpacity(0.05),
-            borderRadius: borderRadius,
+  Widget build(BuildContext context) => Expanded(
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.all(50),
+            height: 150,
+            decoration: BoxDecoration(
+              color: whiteColor.withOpacity(0.05),
+              borderRadius: borderRadius,
+            ),
+            child: SvgPicture.asset(
+              svgIconPath,
+              color: whiteColor,
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

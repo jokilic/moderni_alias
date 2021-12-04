@@ -16,7 +16,7 @@ class FlagButton extends StatelessWidget {
   final Color backgroundColor;
   final Function() onTap;
 
-  FlagButton({
+  const FlagButton({
     required this.countryName,
     required this.flagImage,
     required this.color,
@@ -25,40 +25,38 @@ class FlagButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 24.0,
-        bottom: 16.0,
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  color: backgroundColor,
-                  height: 75.0,
-                  width: 80.0,
-                ),
-                SvgPicture.asset(
-                  flagImage,
-                  width: 90.0,
-                  color: color,
-                ),
-              ],
-            ),
-            Text(
-              countryName,
-              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ],
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(
+          top: 24,
+          bottom: 16,
         ),
-      ),
-    );
-  }
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    color: backgroundColor,
+                    height: 75,
+                    width: 80,
+                  ),
+                  SvgPicture.asset(
+                    flagImage,
+                    width: 90,
+                    color: color,
+                  ),
+                ],
+              ),
+              Text(
+                countryName,
+                style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
 Widget createFlagButton({
@@ -66,12 +64,11 @@ Widget createFlagButton({
   required Flags selectedCountry,
   required String flagImage,
   required Function() updateValue,
-}) {
-  return FlagButton(
-    countryName: countryName,
-    backgroundColor: chosenDictionary == selectedCountry ? whiteColor : Colors.transparent,
-    color: chosenDictionary == selectedCountry ? darkBlueColor : whiteColor,
-    flagImage: flagImage,
-    onTap: updateValue,
-  );
-}
+}) =>
+    FlagButton(
+      countryName: countryName,
+      backgroundColor: chosenDictionary == selectedCountry ? whiteColor : Colors.transparent,
+      color: chosenDictionary == selectedCountry ? darkBlueColor : whiteColor,
+      flagImage: flagImage,
+      onTap: updateValue,
+    );

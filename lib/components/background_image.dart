@@ -5,21 +5,21 @@ import '../strings.dart';
 class BackgroundImage extends StatelessWidget {
   final Widget? child;
 
-  BackgroundImage({required this.child});
+  const BackgroundImage({
+    required this.child,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            backgroundImage,
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              backgroundImage,
+            ),
+            fit: BoxFit.cover,
           ),
-          fit: BoxFit.cover,
         ),
-      ),
-      child: child,
-    );
-  }
+        child: child,
+      );
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../strings.dart';
 import '../../components/background_image.dart';
 import '../../components/confetti.dart';
 import '../../components/play_button.dart';
+import '../../strings.dart';
 import '../home_page/home_page_screen.dart';
 import '../quick_game/quick_game_screen.dart';
 
@@ -18,11 +18,11 @@ class QuickGameFinished extends StatefulWidget {
 class _QuickGameFinishedState extends State<QuickGameFinished> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final routeArguments = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
 
-    final String correctAnswers = routeArguments['correctAnswers'] ?? '0';
-    final String wrongAnswers = routeArguments['wrongAnswers'] ?? '0';
+    final correctAnswers = routeArguments['correctAnswers'] ?? '0';
+    final wrongAnswers = routeArguments['wrongAnswers'] ?? '0';
 
     Future<bool> exitGame(BuildContext context) async {
       Navigator.popUntil(
@@ -38,12 +38,12 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: 200.0,
+              top: 200,
               left: size.width / 2,
               child: Confetti(),
             ),
             Positioned(
-              bottom: 200.0,
+              bottom: 200,
               left: size.width / 2,
               child: Confetti(),
             ),
@@ -58,7 +58,7 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
               child: Confetti(),
             ),
             Center(
-              child: Container(
+              child: SizedBox(
                 width: size.width * 0.8,
                 height: size.height,
                 child: Column(
@@ -66,9 +66,9 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                   children: <Widget>[
                     SvgPicture.asset(
                       clapImage,
-                      height: 220.0,
+                      height: 220,
                     ),
-                    SizedBox(height: 30.0),
+                    const SizedBox(height: 30),
                     RichText(
                       textAlign: TextAlign.center,
                       text: TextSpan(
@@ -81,20 +81,20 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          TextSpan(text: quickGameFinishedSecondString),
+                          const TextSpan(text: quickGameFinishedSecondString),
                           TextSpan(
                             text: wrongAnswers,
                             style: Theme.of(context).textTheme.headline2!.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: quickGameFinishedThirdString,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 50.0),
+                    const SizedBox(height: 50),
                     Column(
                       children: <Widget>[
                         PlayButton(
@@ -104,7 +104,7 @@ class _QuickGameFinishedState extends State<QuickGameFinished> {
                             QuickGame.routeName,
                           ),
                         ),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20),
                         PlayButton(
                           text: quickGameFinishedExitString.toUpperCase(),
                           onPressed: () => Navigator.popUntil(
