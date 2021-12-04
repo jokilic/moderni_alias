@@ -11,8 +11,15 @@ import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
 import 'game_service.dart';
+import 'logger_service.dart';
 
 class DictionaryService extends GetxService {
+  /// ------------------------
+  /// LOGGER
+  /// ------------------------
+
+  final logger = Get.find<LoggerService>();
+
   /// ------------------------
   /// VARIABLES
   /// ------------------------
@@ -68,12 +75,17 @@ class DictionaryService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+
+    initWorkers();
     initValues();
   }
 
   /// ------------------------
   /// METHODS
   /// ------------------------
+
+  /// Initializes workers which log when a variable has changed
+  void initWorkers() => ever(_currentWord, (value) => logger.v('currentWord - $value'));
 
   /// Initializes dictionary and Random
   void initValues() {

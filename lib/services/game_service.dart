@@ -141,12 +141,33 @@ class GameService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+
+    initWorkers();
     initValues();
   }
 
   /// ------------------------
   /// METHODS
   /// ------------------------
+
+  /// Initializes workers which log when a variable has changed
+  void initWorkers() {
+    ever(_currentGame, (value) => logger.v('currentGame - $value'));
+    ever(_chosenDictionary, (value) => logger.v('chosenDictionary - $value'));
+    ever(_countdownTimerFillColor, (value) => logger.v('countdownTimerFillColor - $value'));
+    ever(_correctAnswers, (value) => logger.v('correctAnswers - $value'));
+    ever(_wrongAnswers, (value) => logger.v('wrongAnswers - $value'));
+    ever(_lengthOfRound, (value) => logger.v('lengthOfRound - $value'));
+    ever(_pointsToWin, (value) => logger.v('pointsToWin - $value'));
+    ever(_teams, (value) => logger.v('teams - $value'));
+    ever(_currentlyPlayingTeam, (value) => logger.v('currentlyPlayingTeam - $value'));
+    ever(_validationMessage, (value) => logger.v('validationMessage - $value'));
+    ever(_teamsValidated, (value) => logger.v('teamsValidated - $value'));
+    ever(_gameStarted, (value) => logger.v('gameStarted - $value'));
+    ever(_greenSeconds, (value) => logger.v('greenSeconds - $value'));
+    ever(_yellowSeconds, (value) => logger.v('yellowSeconds - $value'));
+    ever(_redSeconds, (value) => logger.v('redSeconds - $value'));
+  }
 
   /// Initializes relevant variables
   void initValues() {

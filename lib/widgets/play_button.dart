@@ -21,6 +21,7 @@ class PlayButton extends StatelessWidget {
   Widget build(BuildContext context) => TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
+          primary: ModerniAliasColors.whiteColor,
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPadding.w,
             vertical: verticalPadding.h,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import './widgets/playing_team_info.dart';
 import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
 import '../../services/dictionary_service.dart';
@@ -12,6 +11,7 @@ import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/wrong_correct_buttons.dart';
+import 'widgets/main_game_info_section.dart';
 
 class MainGameScreen extends StatelessWidget {
   static const routeName = '/main-game-screen';
@@ -35,7 +35,7 @@ class MainGameScreen extends StatelessWidget {
                     Positioned(
                       top: 0,
                       width: 1.sw,
-                      child: PlayingTeamInfo(
+                      child: MainGameInfoSection(
                         currentlyPlayingTeam: gameService.currentlyPlayingTeam,
                         exitGame: () => exitGameModal(
                           context: context,

@@ -7,12 +7,12 @@ import '../../../constants/text_styles.dart';
 import '../../../models/team.dart';
 import '../../../widgets/animated_column.dart';
 
-class PlayingTeamInfo extends StatelessWidget {
+class MainGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;
   final Function() showScores;
   final Function() exitGame;
 
-  const PlayingTeamInfo({
+  const MainGameInfoSection({
     required this.currentlyPlayingTeam,
     required this.showScores,
     required this.exitGame,
@@ -40,8 +40,7 @@ class PlayingTeamInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 4.w,
-              top: -10.h,
+              left: 12.w,
               child: IconButton(
                 onPressed: exitGame,
                 icon: Icon(
@@ -52,8 +51,7 @@ class PlayingTeamInfo extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 4.w,
-              top: -10.h,
+              right: 12.w,
               child: IconButton(
                 onPressed: showScores,
                 icon: Icon(

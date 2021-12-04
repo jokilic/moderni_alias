@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 
-class InfoSection extends StatelessWidget {
+class QuickGameInfoSection extends StatelessWidget {
   final Function() exitGame;
   final int correctAnswers;
   final int wrongAnswers;
 
-  const InfoSection({
+  const QuickGameInfoSection({
     required this.exitGame,
     required this.correctAnswers,
     required this.wrongAnswers,
@@ -22,8 +22,7 @@ class InfoSection extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              left: 4.w,
-              top: -10.h,
+              left: 12.w,
               child: IconButton(
                 onPressed: exitGame,
                 icon: Icon(
@@ -35,7 +34,6 @@ class InfoSection extends StatelessWidget {
             ),
             Positioned(
               right: 20.w,
-              top: -10.h,
               child: Row(
                 children: [
                   Text(
