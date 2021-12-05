@@ -22,6 +22,7 @@ class GameOn extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           CircularCountDownTimer(
+            strokeCap: StrokeCap.round,
             duration: length,
             width: 0.9.sw,
             height: 0.6.sh,
