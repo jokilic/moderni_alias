@@ -45,8 +45,8 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] Add english app language
 - [ ] Add some sound if the user presses on the answer buttons while the game is idle
+- [x] Add english app language
 - [x] Try building for Web
 - [x] Replace deprecated `FlatButton`
 - [x] Refactor 'theme' property
