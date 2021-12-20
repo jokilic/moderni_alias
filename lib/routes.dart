@@ -14,36 +14,36 @@ import 'screens/start_game/start_game_screen.dart';
 final routes = [
   GetPage(
     name: HomeScreen.routeName,
-    page: () => HomeScreen(),
+    page: HomeScreen.new,
   ),
   GetPage(
     name: GameFinishedScreen.routeName,
-    page: () => GameFinishedScreen(),
+    page: GameFinishedScreen.new,
     binding: GameFinishedBinding(),
   ),
   GetPage(
     name: GeneralInfoScreen.routeName,
-    page: () => GeneralInfoScreen(),
+    page: GeneralInfoScreen.new,
     binding: GeneralInfoBinding(),
   ),
   GetPage(
     name: HowToPlayScreen.routeName,
-    page: () => HowToPlayScreen(),
+    page: HowToPlayScreen.new,
   ),
   GetPage(
     name: MainGameScreen.routeName,
-    page: () => MainGameScreen(),
+    page: MainGameScreen.new,
   ),
   GetPage(
     name: QuickGameScreen.routeName,
-    page: () => QuickGameScreen(),
+    page: QuickGameScreen.new,
   ),
   GetPage(
     name: QuickGameFinishedScreen.routeName,
-    page: () => QuickGameFinishedScreen(),
+    page: QuickGameFinishedScreen.new,
   ),
   GetPage(
     name: StartGameScreen.routeName,
-    page: () => StartGameScreen(),
+    page: StartGameScreen.new,
   ),
 ];

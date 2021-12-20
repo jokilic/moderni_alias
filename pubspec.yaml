@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 2.0.1+8
 
 environment:
-  sdk: '>=2.14.0 <3.0.0'
+  sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -22,10 +22,10 @@ dependencies:
   circular_countdown_timer: ^0.2.0 # Used for showing the timer
   confetti: ^0.6.0 # Used when winning the game
   cupertino_icons: ^1.0.4 # Apple styled icons
-  flutter_screenutil: ^5.0.1 # Used for adapting screen and font size
+  flutter_screenutil: ^5.0.1+2 # Used for adapting screen and font size
   flutter_staggered_animations: ^1.0.0 # Used for animating widgets
   flutter_svg: ^1.0.0 # SVG rendering library
-  get: ^4.5.1 # State management, dependency injection, etc.
+  get: ^4.6.1 # State management, dependency injection, etc.
   logger: ^1.1.0 # Small, easy to use and extensible logger which prints beautiful logs
   url_launcher: ^6.0.17 # Used to launch URLs in native browser
 
