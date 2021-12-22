@@ -24,7 +24,7 @@ class ModerniAlias extends StatelessWidget {
         designSize: const Size(390, 844),
         builder: () => GetMaterialApp(
           title: 'appNameString'.tr,
-          theme: theme(context),
+          theme: theme,
           initialRoute: HomeScreen.routeName,
           initialBinding: GlobalBinding(),
           getPages: routes,
@@ -36,6 +36,5 @@ class ModerniAlias extends StatelessWidget {
         ),
       );
 
-  void loggingWithLogger(String text, {bool isError = false}) =>
-      isError ? Get.find<LoggerService>().logger.e(text) : Get.find<LoggerService>().logger.d(text);
+  void loggingWithLogger(String text, {bool isError = false}) => isError ? Get.find<LoggerService>().logger.e(text) : Get.find<LoggerService>().logger.d(text);
 }
