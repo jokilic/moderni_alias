@@ -213,6 +213,7 @@ class GameService extends GetxService {
 
   /// Starts quick game
   void startQuickGame() {
+    currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     gameStarted = false;
     lengthOfRound = 60;
@@ -234,9 +235,7 @@ class GameService extends GetxService {
     } else {
       /// Let the next team play
       final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
-      currentTeamIndex < teams.length - 1
-          ? currentlyPlayingTeam = teams[currentTeamIndex + 1]
-          : currentlyPlayingTeam = teams[0];
+      currentTeamIndex < teams.length - 1 ? currentlyPlayingTeam = teams[currentTeamIndex + 1] : currentlyPlayingTeam = teams[0];
     }
   }
 
@@ -248,12 +247,12 @@ class GameService extends GetxService {
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameOnHold() {
-    currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     soundTimer.cancel();
     greenTimer.cancel();
     yellowTimer.cancel();
     redTimer.cancel();
+    countdownAudioPlayer.stop();
   }
 
   /// Sets the variables and starts the time countdown
@@ -298,9 +297,7 @@ class GameService extends GetxService {
     }
 
     if (currentGame == Game.normal) {
-      chosenButton == Answer.correct
-          ? _currentlyPlayingTeam.value.points += 1
-          : _currentlyPlayingTeam.value.points -= 1;
+      chosenButton == Answer.correct ? _currentlyPlayingTeam.value.points += 1 : _currentlyPlayingTeam.value.points -= 1;
 
       _currentlyPlayingTeam.refresh();
     }
@@ -309,21 +306,13 @@ class GameService extends GetxService {
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenButton}) =>
-      chosenButton == Answer.correct ? buttonPlayer.play('correct.ogg') : buttonPlayer.play('wrong.ogg');
+  void playAnswerSound({required Answer chosenButton}) => chosenButton == Answer.correct ? buttonPlayer.play('correct.ogg') : buttonPlayer.play('wrong.ogg');
 
   /// Called when the user exits the game
   void exitToMainMenu() {
     teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
 
-    if (gameStarted) {
-      soundTimer.cancel();
-      greenTimer.cancel();
-      yellowTimer.cancel();
-      redTimer.cancel();
-    }
-
-    countdownAudioPlayer.stop();
+    gameOnHold();
 
     Get.offNamedUntil(
       HomeScreen.routeName,
