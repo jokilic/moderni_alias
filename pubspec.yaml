@@ -3,10 +3,10 @@ description: Ovo je moja Alias aplikacija.
 
 publish_to: 'none'
 
-version: 2.0.2+9
+version: 2.0.3+10
 
 environment:
-  sdk: '>=2.15.0 <3.0.0'
+  sdk: '>=2.15.1 <3.0.0'
 
 dependencies:
   flutter:
