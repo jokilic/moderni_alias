@@ -99,13 +99,16 @@ class DictionaryService extends GetxService {
       Get.find<GameService>().chosenDictionary == Flag.croatia ? currentDictionary = [...croatianDictionary] : currentDictionary = [...englishDictionary];
 
   /// Remove used word from the dictionary and give a new random word
-  String setRandomWord(currentDictionary) {
+  String setRandomWord(List<String> currentDictionary) {
+    /// If there are no more words in the dictionary, refill it
     if (currentDictionary.length == 2) {
       refillCurrentDictionary();
     }
 
+    /// Remove currently guessed word from the dictionary
     currentDictionary.remove(currentWord);
 
+    /// Return randomized word from the dictionary
     return currentWord = currentDictionary[random.nextInt(currentDictionary.length)];
   }
 }

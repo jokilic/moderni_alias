@@ -254,7 +254,6 @@ class GameService extends GetxService {
     greenTimer.cancel();
     yellowTimer.cancel();
     redTimer.cancel();
-    countdownAudioPlayer.stop();
   }
 
   /// Sets the variables and starts the time countdown
@@ -315,6 +314,7 @@ class GameService extends GetxService {
     teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
 
     gameOnHold();
+    countdownAudioPlayer.stop();
 
     Get.offNamedUntil(
       HomeScreen.routeName,
