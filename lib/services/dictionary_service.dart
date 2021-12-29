@@ -76,7 +76,8 @@ class DictionaryService extends GetxService {
   void onInit() {
     super.onInit();
 
-    initWorkers();
+    //initWorkers();
+
     initValues();
   }
 
@@ -94,9 +95,8 @@ class DictionaryService extends GetxService {
   }
 
   /// If there are no more words in the [currentDictionary], refill it
-  List<String> refillCurrentDictionary() => Get.find<GameService>().chosenDictionary == Flag.croatia
-      ? currentDictionary = [...croatianDictionary]
-      : currentDictionary = [...englishDictionary];
+  List<String> refillCurrentDictionary() =>
+      Get.find<GameService>().chosenDictionary == Flag.croatia ? currentDictionary = [...croatianDictionary] : currentDictionary = [...englishDictionary];
 
   /// Remove used word from the dictionary and give a new random word
   String setRandomWord(currentDictionary) {

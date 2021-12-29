@@ -37,7 +37,7 @@ class GameFinishedController extends GetxController {
   void onInit() {
     super.onInit();
 
-    initWorkers();
+    // initWorkers();
 
     /// Winning team from [GameService] gets assigned to relevant variable
     winningTeam = Get.find<GameService>().currentlyPlayingTeam;

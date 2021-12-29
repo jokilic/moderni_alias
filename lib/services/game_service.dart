@@ -142,7 +142,8 @@ class GameService extends GetxService {
   void onInit() {
     super.onInit();
 
-    initWorkers();
+    // initWorkers();
+
     initValues();
   }
 
@@ -247,6 +248,7 @@ class GameService extends GetxService {
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameOnHold() {
+    currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     soundTimer.cancel();
     greenTimer.cancel();
