@@ -9,9 +9,7 @@ import '../../services/game_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../../widgets/exit_game.dart';
 import '../../widgets/play_button.dart';
-import '../quick_game/quick_game_screen.dart';
 
 class QuickGameFinishedScreen extends StatelessWidget {
   static const routeName = '/quick-game-finished-screen';
@@ -20,10 +18,10 @@ class QuickGameFinishedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () => exitGameModal(
-          context: context,
-          exitGameCallback: gameService.exitToMainMenu,
-        ),
+        onWillPop: () async {
+          gameService.exitToMainMenu();
+          return true;
+        },
         child: BackgroundImage(
           child: Stack(
             children: [
@@ -85,9 +83,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                         children: [
                           PlayButton(
                             text: 'quickGameFinishedPlayAgainString'.tr.toUpperCase(),
-                            onPressed: () => Get.offNamed(
-                              QuickGameScreen.routeName,
-                            ),
+                            onPressed: gameService.startQuickGame,
                           ),
                           SizedBox(height: 20.h),
                           PlayButton(

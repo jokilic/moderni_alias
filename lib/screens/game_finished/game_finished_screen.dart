@@ -9,7 +9,6 @@ import '../../services/game_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../../widgets/exit_game.dart';
 
 class GameFinishedScreen extends StatelessWidget {
   static const routeName = '/game-finished';
@@ -18,10 +17,10 @@ class GameFinishedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-        onWillPop: () => exitGameModal(
-          context: context,
-          exitGameCallback: gameService.exitToMainMenu,
-        ),
+        onWillPop: () async {
+          gameService.exitToMainMenu();
+          return true;
+        },
         child: BackgroundImage(
           child: Stack(
             children: [
