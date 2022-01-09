@@ -72,9 +72,11 @@ class QuickGameScreen extends StatelessWidget {
                       child: WrongCorrectButtons(
                         correctChosen: () => gameService.answerChosen(
                           chosenButton: Answer.correct,
+                          context: context,
                         ),
                         wrongChosen: () => gameService.answerChosen(
                           chosenButton: Answer.wrong,
+                          context: context,
                         ),
                       ),
                     ),

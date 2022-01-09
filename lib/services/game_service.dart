@@ -11,6 +11,7 @@ import '../models/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/main_game/main_game_screen.dart';
+import '../screens/main_game/widgets/show_scores.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'dictionary_service.dart';
@@ -297,12 +298,28 @@ class GameService extends GetxService {
 
   /// Gets called when the user has tapped on the 'Wrong' or 'Correct' button
   /// Increments the relevant variable and generate a new random word
-  void answerChosen({required Answer chosenButton}) {
-    if (currentGame != Game.none) {
-      playAnswerSound(chosenButton: chosenButton);
-    } else {
-      // buttonPlayer.play(fileName);
+  void answerChosen({required Answer chosenButton, required BuildContext context}) {
+    /// Game is not running, handle tapping answer
+    if (currentGame == Game.none) {
+      /// Player is playing quick game, don't do anything
+      if (teams.first.name.isEmpty) {
+        return;
+      }
+
+      /// Player is playing main game, show scores
+      showScores(
+        context: context,
+        teams: teams,
+      );
+      return;
     }
+
+    /// Game is running
+    /// 1. Play proper sound
+    /// 2. Add an answer to the proper team
+    /// 3. Get another random word
+
+    playAnswerSound(chosenButton: chosenButton);
 
     if (currentGame == Game.quick) {
       chosenButton == Answer.correct ? correctAnswers++ : wrongAnswers++;

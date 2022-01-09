@@ -76,9 +76,11 @@ class MainGameScreen extends StatelessWidget {
                       child: WrongCorrectButtons(
                         wrongChosen: () => gameService.answerChosen(
                           chosenButton: Answer.wrong,
+                          context: context,
                         ),
                         correctChosen: () => gameService.answerChosen(
                           chosenButton: Answer.correct,
+                          context: context,
                         ),
                       ),
                     ),
