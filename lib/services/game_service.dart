@@ -49,10 +49,10 @@ class GameService extends GetxService {
   final _yellowSeconds = 0.0.obs;
   final _redSeconds = 0.0.obs;
 
-  late Timer _greenTimer;
-  late Timer _yellowTimer;
-  late Timer _redTimer;
-  late Timer _soundTimer;
+  Timer? _greenTimer;
+  Timer? _yellowTimer;
+  Timer? _redTimer;
+  Timer? _soundTimer;
 
   late AudioPlayer _buttonAudioPlayer;
   late AudioPlayer _countdownAudioPlayer;
@@ -86,10 +86,10 @@ class GameService extends GetxService {
   double get yellowSeconds => _yellowSeconds.value;
   double get redSeconds => _redSeconds.value;
 
-  Timer get greenTimer => _greenTimer;
-  Timer get yellowTimer => _yellowTimer;
-  Timer get redTimer => _redTimer;
-  Timer get soundTimer => _soundTimer;
+  Timer? get greenTimer => _greenTimer;
+  Timer? get yellowTimer => _yellowTimer;
+  Timer? get redTimer => _redTimer;
+  Timer? get soundTimer => _soundTimer;
 
   AudioPlayer get buttonAudioPlayer => _buttonAudioPlayer;
   AudioPlayer get countdownAudioPlayer => _countdownAudioPlayer;
@@ -123,10 +123,10 @@ class GameService extends GetxService {
   set yellowSeconds(double value) => _yellowSeconds.value = value;
   set redSeconds(double value) => _redSeconds.value = value;
 
-  set greenTimer(Timer value) => _greenTimer = value;
-  set yellowTimer(Timer value) => _yellowTimer = value;
-  set redTimer(Timer value) => _redTimer = value;
-  set soundTimer(Timer value) => _soundTimer = value;
+  set greenTimer(Timer? value) => _greenTimer = value;
+  set yellowTimer(Timer? value) => _yellowTimer = value;
+  set redTimer(Timer? value) => _redTimer = value;
+  set soundTimer(Timer? value) => _soundTimer = value;
 
   set buttonAudioPlayer(AudioPlayer value) => _buttonAudioPlayer = value;
   set countdownAudioPlayer(AudioPlayer value) => _countdownAudioPlayer = value;
@@ -250,10 +250,11 @@ class GameService extends GetxService {
   void gameOnHold() {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
-    soundTimer.cancel();
-    greenTimer.cancel();
-    yellowTimer.cancel();
-    redTimer.cancel();
+
+    soundTimer?.cancel();
+    greenTimer?.cancel();
+    yellowTimer?.cancel();
+    redTimer?.cancel();
   }
 
   /// Sets the variables and starts the time countdown
