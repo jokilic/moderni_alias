@@ -54,11 +54,11 @@ class GameService extends GetxService {
   Timer? _redTimer;
   Timer? _soundTimer;
 
-  late AudioPlayer _buttonAudioPlayer;
-  late AudioPlayer _countdownAudioPlayer;
+  AudioPlayer? _buttonAudioPlayer;
+  AudioPlayer? _countdownAudioPlayer;
 
-  late AudioCache _buttonPlayer;
-  late AudioCache _countdownPlayer;
+  AudioCache? _buttonPlayer;
+  AudioCache? _countdownPlayer;
 
   /// ------------------------
   /// GETTERS
@@ -91,11 +91,11 @@ class GameService extends GetxService {
   Timer? get redTimer => _redTimer;
   Timer? get soundTimer => _soundTimer;
 
-  AudioPlayer get buttonAudioPlayer => _buttonAudioPlayer;
-  AudioPlayer get countdownAudioPlayer => _countdownAudioPlayer;
+  AudioPlayer? get buttonAudioPlayer => _buttonAudioPlayer;
+  AudioPlayer? get countdownAudioPlayer => _countdownAudioPlayer;
 
-  AudioCache get buttonPlayer => _buttonPlayer;
-  AudioCache get countdownPlayer => _countdownPlayer;
+  AudioCache? get buttonPlayer => _buttonPlayer;
+  AudioCache? get countdownPlayer => _countdownPlayer;
 
   /// ------------------------
   /// SETTERS
@@ -128,11 +128,11 @@ class GameService extends GetxService {
   set redTimer(Timer? value) => _redTimer = value;
   set soundTimer(Timer? value) => _soundTimer = value;
 
-  set buttonAudioPlayer(AudioPlayer value) => _buttonAudioPlayer = value;
-  set countdownAudioPlayer(AudioPlayer value) => _countdownAudioPlayer = value;
+  set buttonAudioPlayer(AudioPlayer? value) => _buttonAudioPlayer = value;
+  set countdownAudioPlayer(AudioPlayer? value) => _countdownAudioPlayer = value;
 
-  set buttonPlayer(AudioCache value) => _buttonPlayer = value;
-  set countdownPlayer(AudioCache value) => _countdownPlayer = value;
+  set buttonPlayer(AudioCache? value) => _buttonPlayer = value;
+  set countdownPlayer(AudioCache? value) => _countdownPlayer = value;
 
   /// ------------------------
   /// INIT
@@ -205,9 +205,9 @@ class GameService extends GetxService {
   /// Called when the validation passes
   /// Starts main game
   void startMainGame() {
+    currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     gameStarted = false;
-    currentGame = Game.none;
     currentlyPlayingTeam = teams[random.nextInt(teams.length)];
     Get.toNamed(MainGameScreen.routeName);
   }
@@ -242,13 +242,23 @@ class GameService extends GetxService {
 
   /// Goes to the confetti screen and shows info about the round
   void finishQuickGame() {
-    gameOnHold();
+    gameFinished();
     Get.toNamed(QuickGameFinishedScreen.routeName);
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameOnHold() {
     currentGame = Game.none;
+    countdownTimerFillColor = Colors.transparent;
+
+    soundTimer?.cancel();
+    greenTimer?.cancel();
+    yellowTimer?.cancel();
+    redTimer?.cancel();
+  }
+
+  /// Gets called when the game is fully over (going to main menu)
+  void gameFinished() {
     countdownTimerFillColor = Colors.transparent;
 
     soundTimer?.cancel();
@@ -267,7 +277,7 @@ class GameService extends GetxService {
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
-      () => countdownPlayer.play('timer.ogg'),
+      () => countdownPlayer?.play('timer.ogg'),
     );
 
     /// Initialize timers that change colors
@@ -308,14 +318,14 @@ class GameService extends GetxService {
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenButton}) => chosenButton == Answer.correct ? buttonPlayer.play('correct.ogg') : buttonPlayer.play('wrong.ogg');
+  void playAnswerSound({required Answer chosenButton}) => chosenButton == Answer.correct ? buttonPlayer?.play('correct.ogg') : buttonPlayer?.play('wrong.ogg');
 
   /// Called when the user exits the game
   void exitToMainMenu() {
     teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
 
-    gameOnHold();
-    countdownAudioPlayer.stop();
+    gameFinished();
+    countdownAudioPlayer?.stop();
 
     Get.offNamedUntil(
       HomeScreen.routeName,

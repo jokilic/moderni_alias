@@ -135,6 +135,7 @@ class StartGameScreen extends StatelessWidget {
                       GameTitle('teamNamesString'.tr),
                       AnimationLimiter(
                         child: ListView.builder(
+                          shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: gameService.teams.length,
                           itemBuilder: (context, index) {
@@ -146,8 +147,7 @@ class StartGameScreen extends StatelessWidget {
                               child: NameOfTeam(
                                 key: ValueKey(team),
                                 hintText: 'teamNameString'.tr,
-                                textInputAction:
-                                    index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
+                                textInputAction: index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
                                 onChanged: (value) => gameService.teamNameUpdated(
                                   team: team,
                                   value: value,
@@ -155,7 +155,6 @@ class StartGameScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          shrinkWrap: true,
                         ),
                       ),
                       Padding(
