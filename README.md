@@ -45,7 +45,10 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] Add some sound if the user presses on the answer buttons while the game is idle
+- [x] When the game is on hold, tapping the main buttons will open a score modal
+- [x] When in GameFinishedScreen, back button returns to main menu
+- [x] When quitting game, try to avoid the short seeing of Tap here icon
+- [x] Unable to exit game if it's just entered, not started
 - [x] Add english app language
 - [x] Try building for Web
 - [x] Replace deprecated `FlatButton`
