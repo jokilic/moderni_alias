@@ -51,8 +51,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'howFifthString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.flutterWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.flutterWebsite)),
                             ),
                             TextSpan(
                               text: 'howSixthString'.tr,
@@ -64,8 +63,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'howEightString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.moderniAliasWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.moderniAliasWebsite)),
                             ),
                             TextSpan(
                               text: 'howNinthString'.tr,
@@ -138,8 +136,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'fontSeventhString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.senIconWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.senIconWebsite)),
                             ),
                             TextSpan(
                               text: 'fontEigthString'.tr,
@@ -167,8 +164,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'appIconSecondString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.flaticonWebsite)),
                             ),
                             TextSpan(
                               text: 'appIconThirdString'.tr,
@@ -194,8 +190,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'otherIconsSecondString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.flaticonWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.flaticonWebsite)),
                             ),
                             TextSpan(
                               text: 'otherIconsThirdString'.tr,
@@ -215,8 +210,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'wrongCorrectSoundsSecondString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.googleSoundsWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.googleSoundsWebsite)),
                             ),
                             TextSpan(
                               text: 'wrongCorrectSoundsThirdString'.tr,
@@ -249,8 +243,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'countdownSoundsSecondString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.freeSoundWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.freeSoundWebsite)),
                             ),
                             TextSpan(
                               text: 'countdownSoundsThirdString'.tr,
@@ -283,8 +276,7 @@ class GeneralInfoScreen extends StatelessWidget {
                             TextSpan(
                               text: 'screenshotsSixthString'.tr,
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launch(ModerniAliasWebsites.screenshotsWebsite),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrl(Uri.parse(ModerniAliasWebsites.screenshotsWebsite)),
                             ),
                             TextSpan(
                               text: 'screenshotsSeventhString'.tr,

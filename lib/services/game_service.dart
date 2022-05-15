@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
@@ -55,11 +55,9 @@ class GameService extends GetxService {
   Timer? _redTimer;
   Timer? _soundTimer;
 
-  AudioPlayer? _buttonAudioPlayer;
-  AudioPlayer? _countdownAudioPlayer;
-
-  AudioCache? _buttonPlayer;
-  AudioCache? _countdownPlayer;
+  late final AudioPlayer _correctPlayer;
+  late final AudioPlayer _wrongPlayer;
+  late final AudioPlayer _countdownPlayer;
 
   /// ------------------------
   /// GETTERS
@@ -92,11 +90,9 @@ class GameService extends GetxService {
   Timer? get redTimer => _redTimer;
   Timer? get soundTimer => _soundTimer;
 
-  AudioPlayer? get buttonAudioPlayer => _buttonAudioPlayer;
-  AudioPlayer? get countdownAudioPlayer => _countdownAudioPlayer;
-
-  AudioCache? get buttonPlayer => _buttonPlayer;
-  AudioCache? get countdownPlayer => _countdownPlayer;
+  AudioPlayer get correctPlayer => _correctPlayer;
+  AudioPlayer get wrongPlayer => _wrongPlayer;
+  AudioPlayer get countdownPlayer => _countdownPlayer;
 
   /// ------------------------
   /// SETTERS
@@ -129,11 +125,9 @@ class GameService extends GetxService {
   set redTimer(Timer? value) => _redTimer = value;
   set soundTimer(Timer? value) => _soundTimer = value;
 
-  set buttonAudioPlayer(AudioPlayer? value) => _buttonAudioPlayer = value;
-  set countdownAudioPlayer(AudioPlayer? value) => _countdownAudioPlayer = value;
-
-  set buttonPlayer(AudioCache? value) => _buttonPlayer = value;
-  set countdownPlayer(AudioCache? value) => _countdownPlayer = value;
+  set correctPlayer(AudioPlayer value) => _correctPlayer = value;
+  set wrongPlayer(AudioPlayer value) => _wrongPlayer = value;
+  set countdownPlayer(AudioPlayer value) => _countdownPlayer = value;
 
   /// ------------------------
   /// INIT
@@ -142,9 +136,6 @@ class GameService extends GetxService {
   @override
   void onInit() {
     super.onInit();
-
-    // initWorkers();
-
     initValues();
   }
 
@@ -152,34 +143,13 @@ class GameService extends GetxService {
   /// METHODS
   /// ------------------------
 
-  /// Initializes workers which log when a variable has changed
-  void initWorkers() {
-    ever(_currentGame, (value) => logger.v('currentGame - $value'));
-    ever(_chosenDictionary, (value) => logger.v('chosenDictionary - $value'));
-    ever(_countdownTimerFillColor, (value) => logger.v('countdownTimerFillColor - $value'));
-    ever(_correctAnswers, (value) => logger.v('correctAnswers - $value'));
-    ever(_wrongAnswers, (value) => logger.v('wrongAnswers - $value'));
-    ever(_lengthOfRound, (value) => logger.v('lengthOfRound - $value'));
-    ever(_pointsToWin, (value) => logger.v('pointsToWin - $value'));
-    ever(_teams, (value) => logger.v('teams - $value'));
-    ever(_currentlyPlayingTeam, (value) => logger.v('currentlyPlayingTeam - $value'));
-    ever(_validationMessage, (value) => logger.v('validationMessage - $value'));
-    ever(_teamsValidated, (value) => logger.v('teamsValidated - $value'));
-    ever(_gameStarted, (value) => logger.v('gameStarted - $value'));
-    ever(_greenSeconds, (value) => logger.v('greenSeconds - $value'));
-    ever(_yellowSeconds, (value) => logger.v('yellowSeconds - $value'));
-    ever(_redSeconds, (value) => logger.v('redSeconds - $value'));
-  }
-
   /// Initializes relevant variables
   void initValues() {
     random = Random();
 
-    buttonAudioPlayer = AudioPlayer();
-    countdownAudioPlayer = AudioPlayer();
-
-    buttonPlayer = AudioCache(fixedPlayer: buttonAudioPlayer);
-    countdownPlayer = AudioCache(fixedPlayer: countdownAudioPlayer);
+    correctPlayer = AudioPlayer()..setAsset('assets/correct.ogg', preload: false);
+    wrongPlayer = AudioPlayer()..setAsset('assets/wrong.ogg', preload: false);
+    countdownPlayer = AudioPlayer()..setAsset('assets/timer.ogg', preload: false);
   }
 
   /// Returns a Timer with the specified length and color
@@ -278,7 +248,9 @@ class GameService extends GetxService {
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
-      () => countdownPlayer?.play('timer.ogg'),
+      () => countdownPlayer
+        ..load()
+        ..play(),
     );
 
     /// Initialize timers that change colors
@@ -335,14 +307,24 @@ class GameService extends GetxService {
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenButton}) => chosenButton == Answer.correct ? buttonPlayer?.play('correct.ogg') : buttonPlayer?.play('wrong.ogg');
+  void playAnswerSound({required Answer chosenButton}) {
+    if (chosenButton == Answer.correct) {
+      correctPlayer
+        ..load()
+        ..play();
+    } else {
+      wrongPlayer
+        ..load()
+        ..play();
+    }
+  }
 
   /// Called when the user exits the game
   void exitToMainMenu() {
     teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
 
     gameFinished();
-    countdownAudioPlayer?.stop();
+    countdownPlayer.stop();
 
     Get.offNamedUntil(
       HomeScreen.routeName,

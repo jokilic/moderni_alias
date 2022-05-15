@@ -1,24 +1,14 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 
 class GeneralInfoController extends GetxController {
   /// ------------------------
   /// VARIABLES
   /// ------------------------
 
-  late final AudioCache _audioCache;
-
-  /// ------------------------
-  /// GETTERS
-  /// ------------------------
-
-  AudioCache get audioCache => _audioCache;
-
-  /// ------------------------
-  /// SETTERS
-  /// ------------------------
-
-  set audioCache(AudioCache value) => _audioCache = value;
+  late final AudioPlayer _audioPlayer;
+  AudioPlayer get audioPlayer => _audioPlayer;
+  set audioPlayer(AudioPlayer value) => _audioPlayer = value;
 
   /// ------------------------
   /// INIT
@@ -27,12 +17,14 @@ class GeneralInfoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    audioCache = AudioCache();
+    audioPlayer = AudioPlayer()..setAsset('assets/boom.wav', preload: false);
   }
 
   /// ------------------------
   /// METHODS
   /// ------------------------
 
-  void playBoomBaby() => audioCache.play('boom.wav');
+  void playBoomBaby() => audioPlayer
+    ..load()
+    ..play();
 }
