@@ -58,6 +58,11 @@ class ModerniAliasTextStyles {
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
+  static final appVersion = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Sen',
+  );
   static final playButton = TextStyle(
     color: ModerniAliasColors.whiteColor,
     fontSize: 18.sp,

@@ -29,7 +29,7 @@ class GeneralInfoScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 50.h),
-                    HeroTitle(),
+                    const HeroTitle(showAppVersion: true),
                     SizedBox(height: 40.h),
                     GameTitle('howTitleString'.tr),
                     StandardText(

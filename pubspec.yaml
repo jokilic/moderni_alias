@@ -26,6 +26,7 @@ dependencies:
   get: ^4.6.3 # State management, dependency injection, etc.
   just_audio: ^0.9.21 # Used to play audio files
   logger: ^1.1.0 # Small, easy to use and extensible logger which prints beautiful logs
+  package_info_plus: ^1.4.2 # To get the app version and show on the relevant screen
   url_launcher: ^6.1.2 # Used to launch URLs in native browser
 
 dev_dependencies:

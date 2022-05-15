@@ -25,7 +25,7 @@ class HowToPlayScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 50.h),
-                    HeroTitle(),
+                    const HeroTitle(),
                     SizedBox(height: 40.h),
                     GameTitle('whatIsAliasTitleString'.tr),
                     StandardText(

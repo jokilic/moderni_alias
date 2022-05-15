@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
                 AnimatedColumn(
                   children: [
                     InfoButton(),
-                    HeroTitle(),
+                    const HeroTitle(),
                   ],
                 ),
                 HomePageButtons(),
