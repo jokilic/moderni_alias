@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../screens/game_finished/game_finished_controller.dart';
+import 'game_finished_controller.dart';
 
 class GameFinishedBinding extends Bindings {
   @override

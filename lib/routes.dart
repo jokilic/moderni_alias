@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import 'bindings/game_finished_binding.dart';
-import 'bindings/general_info_binding.dart';
+import 'screens/game_finished/game_finished_binding.dart';
 import 'screens/game_finished/game_finished_screen.dart';
+import 'screens/general_info/general_info_binding.dart';
 import 'screens/general_info/general_info_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/how_to_play/how_to_play_screen.dart';
@@ -10,6 +10,8 @@ import 'screens/main_game/main_game_screen.dart';
 import 'screens/quick_game/quick_game_screen.dart';
 import 'screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'screens/start_game/start_game_screen.dart';
+import 'screens/stats/stats_binding.dart';
+import 'screens/stats/stats_screen.dart';
 
 final routes = [
   GetPage(
@@ -45,5 +47,10 @@ final routes = [
   GetPage(
     name: StartGameScreen.routeName,
     page: StartGameScreen.new,
+  ),
+  GetPage(
+    name: StatsScreen.routeName,
+    page: StatsScreen.new,
+    binding: StatsBinding(),
   ),
 ];

@@ -19,6 +19,7 @@ class Localization extends Translations {
 
     'startButtonString': 'Normal game',
     'quickStartButtonString': 'Quick game',
+    'statsButtonString': 'Stats',
     'howToPlayButtonString': 'How to play Alias?',
 
     /// Start Game
@@ -75,8 +76,7 @@ class Localization extends Translations {
     'whoFifthString': '.\n\n',
     'whoSixthString': "I love developing mobile apps and I love development in general.\n\nI've decided to create ",
     'whoSeventhString': 'Moderni Alias',
-    'whoEighthString':
-        " because I wanted to practice my app developing skills, learn new concepts and ideas.\nI've also wanted to surprise my friends who love to play Alias.",
+    'whoEighthString': " because I wanted to practice my app developing skills, learn new concepts and ideas.\nI've also wanted to surprise my friends who love to play Alias.",
 
     'aboutMeTitleString': 'More about me',
     'aboutMeWebsiteString': 'josipkilic.com',
@@ -122,8 +122,7 @@ class Localization extends Translations {
     'countdownSoundsTitleString': 'Countdown sounds',
     'countdownSoundsFirstString': 'I found the countdown sounds on ',
     'countdownSoundsSecondString': 'Freesound',
-    'countdownSoundsThirdString':
-        '.\nI downloaded two sounds, cut them a bit, connected them together and got this sound.',
+    'countdownSoundsThirdString': '.\nI downloaded two sounds, cut them a bit, connected them together and got this sound.',
 
     'screenshotsTitleString': 'Screenshots?',
     'screenshotsFirstString': "Screenshots you're seeing on ",
@@ -146,8 +145,7 @@ class Localization extends Translations {
     'whatIsAliasFirstString': 'Alias',
     'whatIsAliasSecondString': ' is a fun explaining game which is played by ',
     'whatIsAliasThirdString': 'two or more teams of players',
-    'whatIsAliasFourthString':
-        '. The players explain terms using words of a similar or opposite meaning, associations or similar, so the members of your team guess ',
+    'whatIsAliasFourthString': '. The players explain terms using words of a similar or opposite meaning, associations or similar, so the members of your team guess ',
     'whatIsAliasFifthString': 'many terms before time runs out',
     'whatIsAliasSixthString': '.',
 
@@ -158,16 +156,14 @@ class Localization extends Translations {
     'wordCorrectExplanationSecondString': 'checkmark',
     'wordCorrectExplanationThirdString': '. Team has won a point and guesses the next word.',
 
-    'wordWrongExplanationFirstString':
-        "If the team is guessing the current word and it's clear they are not going to guess it, the one explaining taps the button with an ",
+    'wordWrongExplanationFirstString': "If the team is guessing the current word and it's clear they are not going to guess it, the one explaining taps the button with an ",
     'wordWrongExplanationSecondString': 'X icon',
     'wordWrongExplanationThirdString': '. Team has lost a point and guesses the next word.',
 
     'roundFinishedExplanationString':
         "Round has finished and now it's time for the other team.\nOne of the members of the other team explains the words while other team members guess.\n\nTeams are changing while one of them has enough points to win.",
 
-    'howToQuickAliasExplanationFirstString':
-        'Quick Alias is played without teams, without additional rules. Length of the game is ',
+    'howToQuickAliasExplanationFirstString': 'Quick Alias is played without teams, without additional rules. Length of the game is ',
     'howToQuickAliasExplanationSecondString': '60 seconds',
     'howToQuickAliasExplanationThirdString':
         ' and starts right away.\nWhen the time is finished, you can see the correct and wrong answers.\n\nIf you want, you can play a new game or return to the main menu.',
@@ -237,8 +233,7 @@ class Localization extends Translations {
     'whoFifthString': '.\n\n',
     'whoSixthString': 'Volim izrađivati mobilne aplikacije i volim development općenito.\n\nOdlučio sam napraviti ',
     'whoSeventhString': 'Moderni Alias',
-    'whoEighthString':
-        ' jer sam htio vježbati izradu aplikacija, naučiti neke nove koncepte i ideje.\nTakođer sam htio iznenaditi prijatelje koji vole igrati Alias.',
+    'whoEighthString': ' jer sam htio vježbati izradu aplikacija, naučiti neke nove koncepte i ideje.\nTakođer sam htio iznenaditi prijatelje koji vole igrati Alias.',
 
     'aboutMeTitleString': 'Više o meni',
     'aboutMeWebsiteString': 'josipkilic.com',
@@ -319,8 +314,7 @@ class Localization extends Translations {
     'wordCorrectExplanationSecondString': 'kvačicom',
     'wordCorrectExplanationThirdString': '. Tim je dobio bod i pogađa sljedeću riječ.',
 
-    'wordWrongExplanationFirstString':
-        'Ako tim pogađa trenutnu riječ, a jasno je da ju neće pogoditi, onaj koji objašnjava odabire tipku sa ',
+    'wordWrongExplanationFirstString': 'Ako tim pogađa trenutnu riječ, a jasno je da ju neće pogoditi, onaj koji objašnjava odabire tipku sa ',
     'wordWrongExplanationSecondString': 'iksićem',
     'wordWrongExplanationThirdString': '. Tim je dobio jedan bod manje i pogađa sljedeću riječ.',
 

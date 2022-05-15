@@ -203,6 +203,8 @@ class GameService extends GetxService {
 
     /// Check if there's a winner and act accordingly
     if (currentlyPlayingTeam.points >= pointsToWin) {
+      /// TODO: Update stats here
+
       Get.toNamed(GameFinishedScreen.routeName);
     } else {
       /// Let the next team play
@@ -214,6 +216,9 @@ class GameService extends GetxService {
   /// Goes to the confetti screen and shows info about the round
   void finishQuickGame() {
     gameFinished();
+
+    /// TODO: Update stats here
+
     Get.toNamed(QuickGameFinishedScreen.routeName);
   }
 
@@ -381,5 +386,10 @@ class GameService extends GetxService {
       validationMessage = '';
       startMainGame();
     }
+  }
+
+  /// Game is finished, update stats and store them in [Hive]
+  void updateHiveStats() {
+    /// TODO: Implement this
   }
 }

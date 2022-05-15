@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import './widgets/home_page_buttons.dart';
 import './widgets/info_button.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
+import 'widgets/stats_button.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -18,7 +20,17 @@ class HomeScreen extends StatelessWidget {
               children: [
                 AnimatedColumn(
                   children: [
-                    InfoButton(),
+                    Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          StatsButton(),
+                          SizedBox(width: 8.w),
+                          InfoButton(),
+                        ],
+                      ),
+                    ),
                     const HeroTitle(),
                   ],
                 ),

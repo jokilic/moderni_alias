@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'bindings/global_binding.dart';
+import 'global_binding.dart';
 import 'localization.dart';
 import 'routes.dart';
 import 'screens/home/home_screen.dart';
