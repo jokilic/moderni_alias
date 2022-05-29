@@ -37,7 +37,10 @@ class MyQuickPortfolio extends StatelessWidget {
               child: PlayButton(
                 text: 'aboutMeWebsiteString'.tr.toUpperCase(),
                 horizontalPadding: 16.w,
-                onPressed: () => launchUrl(Uri.parse(ModerniAliasWebsites.josipKilicWebsite)),
+                onPressed: () => launchUrl(
+                  Uri.parse(ModerniAliasWebsites.josipKilicWebsite),
+                  mode: LaunchMode.externalApplication,
+                ),
               ),
             ),
             SizedBox(height: 8.h),
@@ -49,7 +52,10 @@ class MyQuickPortfolio extends StatelessWidget {
                   child: PlayButton(
                     text: 'aboutMeGitHubString'.tr.toUpperCase(),
                     horizontalPadding: 16.w,
-                    onPressed: () => launchUrl(Uri.parse(ModerniAliasWebsites.josipGithubWebsite)),
+                    onPressed: () => launchUrl(
+                      Uri.parse(ModerniAliasWebsites.josipGithubWebsite),
+                      mode: LaunchMode.externalApplication,
+                    ),
                   ),
                 ),
                 Padding(
@@ -57,7 +63,10 @@ class MyQuickPortfolio extends StatelessWidget {
                   child: PlayButton(
                     text: 'aboutMeEmailString'.tr.toUpperCase(),
                     horizontalPadding: 16.w,
-                    onPressed: () => launchUrl(Uri.parse(ModerniAliasWebsites.josipKilicEmail)),
+                    onPressed: () => launchUrl(
+                      Uri.parse(ModerniAliasWebsites.josipKilicEmail),
+                      mode: LaunchMode.externalApplication,
+                    ),
                   ),
                 ),
               ],
