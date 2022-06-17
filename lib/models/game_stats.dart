@@ -22,6 +22,9 @@ class GameStats extends HiveObject {
   @HiveField(6)
   final int wrongAnswersNormalGames;
 
+  @HiveField(7)
+  final int playedNormalGameRounds;
+
   GameStats({
     required this.playedQuickGames,
     required this.playedNormalGames,
@@ -29,6 +32,7 @@ class GameStats extends HiveObject {
     required this.wrongAnswersQuickGames,
     required this.correctAnswersNormalGames,
     required this.wrongAnswersNormalGames,
+    required this.playedNormalGameRounds,
   });
 
   GameStats copyWith({
@@ -38,6 +42,7 @@ class GameStats extends HiveObject {
     int? wrongAnswersQuickGames,
     int? correctAnswersNormalGames,
     int? wrongAnswersNormalGames,
+    int? playedNormalGameRounds,
   }) =>
       GameStats(
         playedQuickGames: playedQuickGames ?? this.playedQuickGames,
@@ -46,9 +51,10 @@ class GameStats extends HiveObject {
         wrongAnswersQuickGames: wrongAnswersQuickGames ?? this.wrongAnswersQuickGames,
         correctAnswersNormalGames: correctAnswersNormalGames ?? this.correctAnswersNormalGames,
         wrongAnswersNormalGames: wrongAnswersNormalGames ?? this.wrongAnswersNormalGames,
+        playedNormalGameRounds: playedNormalGameRounds ?? this.playedNormalGameRounds,
       );
 
   @override
   String toString() =>
-      'GameStats(playedQuickGames: $playedQuickGames, playedNormalGames: $playedNormalGames, correctAnswersQuickGames: $correctAnswersQuickGames, wrongAnswersQuickGames: $wrongAnswersQuickGames, correctAnswersNormalGames: $correctAnswersNormalGames, wrongAnswersNormalGames: $wrongAnswersNormalGames)';
+      'GameStats(playedQuickGames: $playedQuickGames, playedNormalGames: $playedNormalGames, correctAnswersQuickGames: $correctAnswersQuickGames, wrongAnswersQuickGames: $wrongAnswersQuickGames, correctAnswersNormalGames: $correctAnswersNormalGames, wrongAnswersNormalGames: $wrongAnswersNormalGames, playedNormalGameRounds: $playedNormalGameRounds)';
 }

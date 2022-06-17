@@ -23,13 +23,14 @@ class GameStatsAdapter extends TypeAdapter<GameStats> {
       wrongAnswersQuickGames: fields[4] as int,
       correctAnswersNormalGames: fields[5] as int,
       wrongAnswersNormalGames: fields[6] as int,
+      playedNormalGameRounds: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, GameStats obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(1)
       ..write(obj.playedQuickGames)
       ..writeByte(2)
@@ -41,7 +42,9 @@ class GameStatsAdapter extends TypeAdapter<GameStats> {
       ..writeByte(5)
       ..write(obj.correctAnswersNormalGames)
       ..writeByte(6)
-      ..write(obj.wrongAnswersNormalGames);
+      ..write(obj.wrongAnswersNormalGames)
+      ..writeByte(7)
+      ..write(obj.playedNormalGameRounds);
   }
 
   @override

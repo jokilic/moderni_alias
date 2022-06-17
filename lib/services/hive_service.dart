@@ -11,6 +11,16 @@ class HiveService extends GetxService {
   /// VARIABLES
   /// ------------------------
 
+  final newGameStats = GameStats(
+    playedQuickGames: 0,
+    playedNormalGames: 0,
+    correctAnswersQuickGames: 0,
+    wrongAnswersQuickGames: 0,
+    correctAnswersNormalGames: 0,
+    wrongAnswersNormalGames: 0,
+    playedNormalGameRounds: 0,
+  );
+
   late final Box<GameStats> _statsBox;
   Box<GameStats> get statsBox => _statsBox;
   set statsBox(Box<GameStats> value) => _statsBox = value;
@@ -47,5 +57,5 @@ class HiveService extends GetxService {
   Future<void> addStatsToBox({required GameStats gameStats}) async => statsBox.put(0, gameStats);
 
   /// Called to get stats value from [Hive]
-  GameStats? getStatsFromBox() => statsBox.get(0);
+  GameStats getStatsFromBox() => statsBox.get(0) ?? newGameStats;
 }
