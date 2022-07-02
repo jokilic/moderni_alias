@@ -41,6 +41,13 @@ class ModerniAliasTextStyles {
     fontFamily: 'Sen',
     letterSpacing: 8.w,
   );
+  static final gameCurrentSecond = TextStyle(
+    color: ModerniAliasColors.whiteColor,
+    fontSize: 120.sp,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Sen',
+    letterSpacing: 8.w,
+  );
   static final gameTitle = TextStyle(
     color: ModerniAliasColors.whiteColor,
     fontSize: 34.sp,

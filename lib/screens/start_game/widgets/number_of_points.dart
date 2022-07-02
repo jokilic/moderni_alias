@@ -11,7 +11,7 @@ Widget createNumberOfPointsButton({
 }) =>
     GameButton(
       backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
-      color: isActive ? ModerniAliasColors.darkblueColor : ModerniAliasColors.whiteColor,
+      color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
       fontSize: 24.r,
       horizontalPadding: 12.w,
       number: chosenNumberOfPoints,

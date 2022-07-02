@@ -58,6 +58,10 @@ class GameService extends GetxService {
   String get validationMessage => _validationMessage.value;
   set validationMessage(String value) => _validationMessage.value = value;
 
+  final _counter3Seconds = 0.obs;
+  int get counter3Seconds => _counter3Seconds.value;
+  set counter3Seconds(int value) => _counter3Seconds.value = value;
+
   /// ------------------------
   /// VARIABLES
   /// ------------------------
@@ -230,21 +234,34 @@ class GameService extends GetxService {
     );
   }
 
+  /// Counts down the 3 seconds before starting new round
+  void start3SecondCountdown() {
+    currentGame = Game.starting;
+    counter3Seconds = 3;
+
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        counter3Seconds -= 1;
+
+        if (counter3Seconds == 0) {
+          timer.cancel();
+        }
+      },
+    );
+  }
+
   /// Gets called when the user has tapped on the 'Wrong' or 'Correct' button
   /// Increments the relevant variable and generate a new random word
   void answerChosen({required Answer chosenButton, required BuildContext context}) {
     /// Game is not running, handle tapping answer
     if (currentGame == Game.none) {
-      /// Player is playing quick game, don't do anything
-      if (teams.first.name.isEmpty) {
-        return;
-      }
+      start3SecondCountdown();
+      return;
+    }
 
-      /// Player is playing main game, show scores
-      showScores(
-        context: context,
-        teams: teams,
-      );
+    /// Game is starting, don't do anything
+    if (currentGame == Game.starting) {
       return;
     }
 

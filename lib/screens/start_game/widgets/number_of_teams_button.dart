@@ -11,7 +11,7 @@ Widget createNumberOfTeamsButton({
 }) =>
     GameButton(
       backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
-      color: isActive ? ModerniAliasColors.darkblueColor : ModerniAliasColors.whiteColor,
+      color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
       fontSize: 36.r,
       horizontalPadding: 20.w,
       number: chosenNumberOfTeams,

@@ -9,6 +9,7 @@ import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
+import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'widgets/quick_game_info_section.dart';
 
@@ -56,14 +57,23 @@ class QuickGameScreen extends StatelessWidget {
                           ),
                         ),
                       )
+                    else if (gameService.currentGame == Game.starting)
+                      Positioned(
+                        top: -75.h,
+                        bottom: 0,
+                        child: GameStarting(
+                          currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
+                          onComplete: () => gameService.startRound(
+                            chosenGame: Game.quick,
+                          ),
+                        ),
+                      )
                     else
                       Positioned(
                         top: -75.h,
                         bottom: 0,
                         child: GameOff(
-                          onTap: () => gameService.startRound(
-                            chosenGame: Game.quick,
-                          ),
+                          onTap: gameService.start3SecondCountdown,
                         ),
                       ),
                     Positioned(

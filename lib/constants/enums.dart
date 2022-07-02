@@ -2,6 +2,7 @@ enum Game {
   none,
   normal,
   quick,
+  starting,
 }
 
 enum Answer {

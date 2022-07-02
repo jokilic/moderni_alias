@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
-import '../services/game_service.dart';
 import 'animated_column.dart';
 
 class GameOff extends StatelessWidget {
@@ -28,7 +27,7 @@ class GameOff extends StatelessWidget {
               width: 0.9.sw,
               height: 0.6.sh,
               ringColor: Colors.transparent,
-              fillColor: Get.find<GameService>().countdownTimerFillColor,
+              fillColor: Colors.transparent,
               strokeWidth: 36.w,
               textStyle: ModerniAliasTextStyles.gameCircularCountdown,
             ),
