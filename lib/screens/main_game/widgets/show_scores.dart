@@ -10,7 +10,12 @@ import '../../../models/team.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_list_view.dart';
 
-void showScores({required BuildContext context, required List<Team> teams}) => Get.bottomSheet(
+void showScores({
+  required BuildContext context,
+  required List<Team> teams,
+  bool dismissible = true,
+}) =>
+    Get.bottomSheet(
       Container(
         width: double.infinity,
         padding: EdgeInsets.only(
@@ -55,4 +60,5 @@ void showScores({required BuildContext context, required List<Team> teams}) => G
           ],
         ),
       ),
+      isDismissible: dismissible,
     );

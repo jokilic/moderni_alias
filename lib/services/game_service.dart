@@ -146,19 +146,29 @@ class GameService extends GetxService {
   /// Check if there's a winner
   /// If no winner, continue the game with the next team
   /// If winner, show the confetti screen
-  void checkGameWinner() {
+  Future<void> checkGameWinner() async {
     gameOnHold();
 
     /// Check if there's a winner and act accordingly
     if (currentlyPlayingTeam.points >= pointsToWin) {
       updateHiveStats(gameType: Game.normal);
-      Get.toNamed(GameFinishedScreen.routeName);
+      await Get.toNamed(GameFinishedScreen.routeName);
     } else {
       updateHiveStats(gameType: Game.none);
 
       /// Let the next team play
       final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
       currentTeamIndex < teams.length - 1 ? currentlyPlayingTeam = teams[currentTeamIndex + 1] : currentlyPlayingTeam = teams[0];
+
+      if (Get.context != null) {
+        showScores(
+          context: Get.context!,
+          teams: teams,
+          dismissible: false,
+        );
+        await Future.delayed(const Duration(seconds: 3));
+        Get.back();
+      }
     }
   }
 
