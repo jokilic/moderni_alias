@@ -14,59 +14,41 @@ import 'game_service.dart';
 import 'logger_service.dart';
 
 class DictionaryService extends GetxService {
+  final logger = Get.find<LoggerService>();
+
   /// ------------------------
-  /// LOGGER
+  /// REACTIVE VARIABLES
   /// ------------------------
 
-  final logger = Get.find<LoggerService>();
+  /// The currently used word in game
+  final _currentWord = ''.obs;
+  String get currentWord => _currentWord.value;
+  set currentWord(String value) => _currentWord.value = value;
 
   /// ------------------------
   /// VARIABLES
   /// ------------------------
 
-  /// The currently used word in game
-  final _currentWord = ''.obs;
+  late final Random random;
 
   /// Dictionary containing croatian words
-  final _croatianDictionary = [
+  final croatianDictionary = [
     ...imenice,
     ...glagoli,
     ...pridjevi,
     ...specijalne,
-  ].obs;
+  ];
 
   /// Dictionary containing english words
-  final _englishDictionary = [
+  final englishDictionary = [
     ...nouns,
     ...verbs,
     ...adjectives,
-  ].obs;
+  ];
 
-  final _currentDictionary = <String>[].obs;
-
-  late final Random _random;
-
-  /// ------------------------
-  /// GETTERS
-  /// ------------------------
-
-  String get currentWord => _currentWord.value;
-  List<String> get croatianDictionary => _croatianDictionary;
-  List<String> get englishDictionary => _englishDictionary;
-  List<String> get currentDictionary => _currentDictionary;
-  Random get random => _random;
+  var currentDictionary = <String>[];
 
   String get getRandomWord => setRandomWord(currentDictionary);
-
-  /// ------------------------
-  /// SETTERS
-  /// ------------------------
-
-  set currentWord(String value) => _currentWord.value = value;
-  set croatianDictionary(List<String> value) => _croatianDictionary.assignAll(value);
-  set englishDictionary(List<String> value) => _englishDictionary.assignAll(value);
-  set currentDictionary(List<String> value) => _currentDictionary.assignAll(value);
-  set random(Random value) => _random = value;
 
   /// ------------------------
   /// INIT
@@ -76,17 +58,12 @@ class DictionaryService extends GetxService {
   void onInit() {
     super.onInit();
 
-    //initWorkers();
-
     initValues();
   }
 
   /// ------------------------
   /// METHODS
   /// ------------------------
-
-  /// Initializes workers which log when a variable has changed
-  void initWorkers() => ever(_currentWord, (value) => logger.v('currentWord - $value'));
 
   /// Initializes dictionary and Random
   void initValues() {

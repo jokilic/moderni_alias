@@ -6,9 +6,7 @@ class GeneralInfoController extends GetxController {
   /// VARIABLES
   /// ------------------------
 
-  late final AudioPlayer _audioPlayer;
-  AudioPlayer get audioPlayer => _audioPlayer;
-  set audioPlayer(AudioPlayer value) => _audioPlayer = value;
+  late final AudioPlayer audioPlayer;
 
   /// ------------------------
   /// INIT

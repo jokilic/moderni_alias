@@ -5,28 +5,14 @@ import '../../services/game_service.dart';
 import '../../services/logger_service.dart';
 
 class GameFinishedController extends GetxController {
-  /// ------------------------
-  /// LOGGER
-  /// ------------------------
-
   final logger = Get.find<LoggerService>();
 
   /// ------------------------
-  /// VARIABLES
+  /// REACTIVE VARIABLES
   /// ------------------------
 
   final _winningTeam = Team(name: '').obs;
-
-  /// ------------------------
-  /// GETTERS
-  /// ------------------------
-
   Team get winningTeam => _winningTeam.value;
-
-  /// ------------------------
-  /// SETTERS
-  /// ------------------------
-
   set winningTeam(Team value) => _winningTeam.value = value;
 
   /// ------------------------

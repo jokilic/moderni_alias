@@ -163,6 +163,7 @@ class StartGameScreen extends StatelessWidget {
                           child: Text(
                             gameService.validationMessage,
                             style: ModerniAliasTextStyles.validation,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),

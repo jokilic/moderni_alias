@@ -6,19 +6,7 @@ class LoggerService extends GetxService {
   /// VARIABLES
   /// ------------------------
 
-  late final Logger _logger;
-
-  /// ------------------------
-  /// GETTERS
-  /// ------------------------
-
-  Logger get logger => _logger;
-
-  /// ------------------------
-  /// SETTERS
-  /// ------------------------
-
-  set logger(Logger value) => _logger = value;
+  late final Logger logger;
 
   /// ------------------------
   /// INIT

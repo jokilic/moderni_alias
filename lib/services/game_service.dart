@@ -20,116 +20,66 @@ import 'hive_service.dart';
 import 'logger_service.dart';
 
 class GameService extends GetxService {
+  final logger = Get.find<LoggerService>();
+
   /// ------------------------
-  /// LOGGER
+  /// REACTIVE VARIABLES
   /// ------------------------
 
-  final logger = Get.find<LoggerService>();
+  final _currentGame = Game.none.obs;
+  Game get currentGame => _currentGame.value;
+  set currentGame(Game value) => _currentGame.value = value;
+
+  final _chosenDictionary = Flag.croatia.obs;
+  Flag get chosenDictionary => _chosenDictionary.value;
+  set chosenDictionary(Flag value) => _chosenDictionary.value = value;
+
+  final _countdownTimerFillColor = ModerniAliasColors.blueColor.obs;
+  Color get countdownTimerFillColor => _countdownTimerFillColor.value;
+  set countdownTimerFillColor(Color value) => _countdownTimerFillColor.value = value;
+
+  final _lengthOfRound = 60.obs;
+  int get lengthOfRound => _lengthOfRound.value;
+  set lengthOfRound(int value) => _lengthOfRound.value = value;
+
+  final _pointsToWin = 50.obs;
+  int get pointsToWin => _pointsToWin.value;
+  set pointsToWin(int value) => _pointsToWin.value = value;
+
+  final _teams = [for (var i = 0; i < 2; i++) Team(name: '')].obs;
+  List<Team> get teams => _teams;
+  set teams(List<Team> value) => _teams.assignAll(value);
+
+  final _currentlyPlayingTeam = Team(name: '').obs;
+  Team get currentlyPlayingTeam => _currentlyPlayingTeam.value;
+  set currentlyPlayingTeam(Team value) => _currentlyPlayingTeam.value = value;
+
+  final _validationMessage = ''.obs;
+  String get validationMessage => _validationMessage.value;
+  set validationMessage(String value) => _validationMessage.value = value;
 
   /// ------------------------
   /// VARIABLES
   /// ------------------------
 
-  late final Random _random;
+  late final Random random;
+  late final AudioPlayer correctPlayer;
+  late final AudioPlayer wrongPlayer;
+  late final AudioPlayer countdownPlayer;
 
-  final _currentGame = Game.none.obs;
-  final _chosenDictionary = Flag.croatia.obs;
-  final _countdownTimerFillColor = ModerniAliasColors.blueColor.obs;
+  Timer? greenTimer;
+  Timer? yellowTimer;
+  Timer? redTimer;
+  Timer? soundTimer;
 
-  final _correctAnswers = 0.obs;
-  final _wrongAnswers = 0.obs;
-  final _lengthOfRound = 60.obs;
-  final _pointsToWin = 50.obs;
+  var correctAnswers = 0;
+  var wrongAnswers = 0;
 
-  final _teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')].obs;
-  final _currentlyPlayingTeam = Team(name: '').obs;
+  var teamsValidated = true;
 
-  final _validationMessage = ''.obs;
-  final _teamsValidated = true.obs;
-  final _gameStarted = true.obs;
-
-  final _greenSeconds = 0.0.obs;
-  final _yellowSeconds = 0.0.obs;
-  final _redSeconds = 0.0.obs;
-
-  Timer? _greenTimer;
-  Timer? _yellowTimer;
-  Timer? _redTimer;
-  Timer? _soundTimer;
-
-  late final AudioPlayer _correctPlayer;
-  late final AudioPlayer _wrongPlayer;
-  late final AudioPlayer _countdownPlayer;
-
-  /// ------------------------
-  /// GETTERS
-  /// ------------------------
-
-  Random get random => _random;
-
-  Game get currentGame => _currentGame.value;
-  Flag get chosenDictionary => _chosenDictionary.value;
-  Color get countdownTimerFillColor => _countdownTimerFillColor.value;
-
-  int get correctAnswers => _correctAnswers.value;
-  int get wrongAnswers => _wrongAnswers.value;
-  int get lengthOfRound => _lengthOfRound.value;
-  int get pointsToWin => _pointsToWin.value;
-
-  List<Team> get teams => _teams;
-  Team get currentlyPlayingTeam => _currentlyPlayingTeam.value;
-
-  String get validationMessage => _validationMessage.value;
-  bool get teamsValidated => _teamsValidated.value;
-  bool get gameStarted => _gameStarted.value;
-
-  double get greenSeconds => _greenSeconds.value;
-  double get yellowSeconds => _yellowSeconds.value;
-  double get redSeconds => _redSeconds.value;
-
-  Timer? get greenTimer => _greenTimer;
-  Timer? get yellowTimer => _yellowTimer;
-  Timer? get redTimer => _redTimer;
-  Timer? get soundTimer => _soundTimer;
-
-  AudioPlayer get correctPlayer => _correctPlayer;
-  AudioPlayer get wrongPlayer => _wrongPlayer;
-  AudioPlayer get countdownPlayer => _countdownPlayer;
-
-  /// ------------------------
-  /// SETTERS
-  /// ------------------------
-
-  set random(Random value) => _random = value;
-
-  set currentGame(Game value) => _currentGame.value = value;
-  set chosenDictionary(Flag value) => _chosenDictionary.value = value;
-  set countdownTimerFillColor(Color value) => _countdownTimerFillColor.value = value;
-
-  set correctAnswers(int value) => _correctAnswers.value = value;
-  set wrongAnswers(int value) => _wrongAnswers.value = value;
-  set lengthOfRound(int value) => _lengthOfRound.value = value;
-  set pointsToWin(int value) => _pointsToWin.value = value;
-
-  set teams(List<Team> value) => _teams.assignAll(value);
-  set currentlyPlayingTeam(Team value) => _currentlyPlayingTeam.value = value;
-
-  set validationMessage(String value) => _validationMessage.value = value;
-  set teamsValidated(bool value) => _teamsValidated.value = value;
-  set gameStarted(bool value) => _gameStarted.value = value;
-
-  set greenSeconds(double value) => _greenSeconds.value = value;
-  set yellowSeconds(double value) => _yellowSeconds.value = value;
-  set redSeconds(double value) => _redSeconds.value = value;
-
-  set greenTimer(Timer? value) => _greenTimer = value;
-  set yellowTimer(Timer? value) => _yellowTimer = value;
-  set redTimer(Timer? value) => _redTimer = value;
-  set soundTimer(Timer? value) => _soundTimer = value;
-
-  set correctPlayer(AudioPlayer value) => _correctPlayer = value;
-  set wrongPlayer(AudioPlayer value) => _wrongPlayer = value;
-  set countdownPlayer(AudioPlayer value) => _countdownPlayer = value;
+  var greenSeconds = 0.0;
+  var yellowSeconds = 0.0;
+  var redSeconds = 0.0;
 
   /// ------------------------
   /// INIT
@@ -157,13 +107,11 @@ class GameService extends GetxService {
   /// Returns a Timer with the specified length and color
   Timer makeTimer({required double chosenSeconds, required Color chosenColor}) => Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => Get.find<GameService>().countdownTimerFillColor = chosenColor,
+        () => countdownTimerFillColor = chosenColor,
       );
 
   /// Reset variables and start the round
   void startRound({required Game chosenGame}) {
-    gameStarted = true;
-
     correctAnswers = 0;
     wrongAnswers = 0;
 
@@ -180,7 +128,6 @@ class GameService extends GetxService {
   void startMainGame() {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
-    gameStarted = false;
     currentlyPlayingTeam = teams[random.nextInt(teams.length)];
     Get.toNamed(MainGameScreen.routeName);
   }
@@ -189,7 +136,6 @@ class GameService extends GetxService {
   void startQuickGame() {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
-    gameStarted = false;
     lengthOfRound = 60;
     Get.toNamed(QuickGameScreen.routeName);
   }
