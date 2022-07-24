@@ -26,7 +26,9 @@ class MyQuickPortfolio extends StatelessWidget {
                   backgroundColor: ModerniAliasColors.whiteColor,
                   radius: 85.r,
                   child: CircleAvatar(
-                    backgroundImage: const AssetImage(ModerniAliasImages.josipImage),
+                    backgroundImage: const AssetImage(
+                      ModerniAliasImages.josipImage,
+                    ),
                     radius: 82.r,
                   ),
                 ),
