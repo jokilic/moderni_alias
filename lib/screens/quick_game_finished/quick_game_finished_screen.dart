@@ -25,25 +25,20 @@ class QuickGameFinishedScreen extends StatelessWidget {
         child: BackgroundImage(
           child: Stack(
             children: [
-              Positioned(
-                top: 200.h,
-                left: 0.5.sh,
+              const Align(
+                alignment: Alignment.topCenter,
+                child: Confetti(
+                  waitDuration: ModerniAliasDurations.verySlowAnimation,
+                ),
+              ),
+              const Align(
                 child: Confetti(),
               ),
-              Positioned(
-                bottom: 200.h,
-                left: 0.5.sh,
-                child: Confetti(),
-              ),
-              Positioned(
-                top: 0.5.sh,
-                left: 50.w,
-                child: Confetti(),
-              ),
-              Positioned(
-                top: 0.5.sh,
-                right: 50.w,
-                child: Confetti(),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: Confetti(
+                  waitDuration: ModerniAliasDurations.slowAnimation,
+                ),
               ),
               Center(
                 child: SizedBox(
