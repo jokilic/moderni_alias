@@ -23,7 +23,7 @@ class ModerniAlias extends StatelessWidget {
   Widget build(BuildContext context) => ScreenUtilInit(
         designSize: const Size(390, 844),
         builder: (_, __) => GetMaterialApp(
-          title: 'appNameString'.tr,
+          onGenerateTitle: (_) => 'appNameString'.tr,
           theme: theme,
           initialRoute: HomeScreen.routeName,
           initialBinding: GlobalBinding(),

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+import 'package:logger_fork/logger_fork.dart';
 
 class LoggerService extends GetxService {
   /// ------------------------

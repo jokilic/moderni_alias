@@ -13,7 +13,7 @@ class HowToPlayButton extends StatelessWidget {
           HowToPlayScreen.routeName,
         ),
         style: TextButton.styleFrom(
-          primary: ModerniAliasColors.whiteColor,
+          foregroundColor: ModerniAliasColors.whiteColor,
           padding: EdgeInsets.symmetric(
             horizontal: 12.w,
             vertical: 2.h,
