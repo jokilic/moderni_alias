@@ -8,6 +8,7 @@ import 'package:just_audio/just_audio.dart';
 import '../constants/colors.dart';
 import '../constants/enums.dart';
 import '../models/game_stats.dart';
+import '../models/played_word.dart';
 import '../models/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
@@ -61,6 +62,10 @@ class GameService extends GetxService {
   final _counter3Seconds = 0.obs;
   int get counter3Seconds => _counter3Seconds.value;
   set counter3Seconds(int value) => _counter3Seconds.value = value;
+
+  final _playedWords = <PlayedWord>[].obs;
+  List<PlayedWord> get playedWords => _playedWords;
+  set playedWords(List<PlayedWord> value) => _playedWords.assignAll(value);
 
   /// ------------------------
   /// VARIABLES
@@ -118,6 +123,7 @@ class GameService extends GetxService {
   void startRound({required Game chosenGame}) {
     correctAnswers = 0;
     wrongAnswers = 0;
+    playedWords.clear();
 
     currentGame = chosenGame;
     countdownTimerFillColor = ModerniAliasColors.blueColor;
@@ -168,6 +174,7 @@ class GameService extends GetxService {
         showScores(
           context: Get.context!,
           teams: teams,
+          playedWords: playedWords,
           dismissible: false,
         );
         await Future.delayed(const Duration(seconds: 3));
@@ -268,10 +275,13 @@ class GameService extends GetxService {
     /// Game is running
     /// 1. Play proper sound
     /// 2. Add an answer to the proper team
-    /// 3. Get another random word
+    /// 3. Add answer to list of `playedWords` (for showing in the end of the round)
+    /// 4. Get another random word
 
+    /// Play proper sound
     playAnswerSound(chosenButton: chosenButton);
 
+    /// Add an answer to the proper team
     if (currentGame == Game.quick) {
       chosenButton == Answer.correct ? correctAnswers++ : wrongAnswers++;
     }
@@ -296,6 +306,15 @@ class GameService extends GetxService {
       _currentlyPlayingTeam.refresh();
     }
 
+    /// Add answer to list of `playedWords` (for showing in the end of the round)
+    playedWords.add(
+      PlayedWord(
+        word: Get.find<DictionaryService>().currentWord,
+        chosenAnswer: chosenButton,
+      ),
+    );
+
+    /// Get another random word
     Get.find<DictionaryService>().getRandomWord;
   }
 

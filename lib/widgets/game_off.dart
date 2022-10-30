@@ -19,6 +19,7 @@ class GameOff extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
+        behavior: HitTestBehavior.translucent,
         child: Stack(
           alignment: Alignment.center,
           children: [

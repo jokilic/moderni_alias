@@ -41,6 +41,7 @@ class Localization extends Translations {
     'exitModalQuestionYes': 'Yes',
     'exitModalQuestionNo': 'No',
     'scoresModalString': 'Current scores',
+    'playedWordsModalString': 'Current words',
     'startGameOnPressString': 'Tap here and start game',
 
     /// Game Finished
@@ -198,6 +199,7 @@ class Localization extends Translations {
     'exitModalQuestionYes': 'Da',
     'exitModalQuestionNo': 'Ne',
     'scoresModalString': 'Trenutni rezultati',
+    'playedWordsModalString': 'Trenutne riječi',
     'startGameOnPressString': 'Stisni ovdje i počni igru',
 
     /// Game Finished

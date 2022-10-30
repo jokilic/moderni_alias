@@ -22,6 +22,7 @@ class MyQuickPortfolio extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 16.h),
               child: GestureDetector(
                 onLongPress: generalInfoController.playBoomBaby,
+                behavior: HitTestBehavior.translucent,
                 child: CircleAvatar(
                   backgroundColor: ModerniAliasColors.whiteColor,
                   radius: 85.r,

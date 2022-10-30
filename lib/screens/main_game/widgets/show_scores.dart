@@ -6,16 +6,21 @@ import 'package:get/get.dart';
 import './highscore_value.dart';
 import '../../../constants/strings.dart';
 import '../../../constants/text_styles.dart';
+import '../../../models/played_word.dart';
 import '../../../models/team.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_list_view.dart';
+import 'played_word_value.dart';
 
 void showScores({
   required BuildContext context,
-  required List<Team> teams,
+  required List<PlayedWord> playedWords,
+  List<Team>? teams,
   bool dismissible = true,
-}) =>
+}) {
+  if (teams != null || playedWords.isNotEmpty) {
     Get.bottomSheet(
+      isDismissible: dismissible,
       Container(
         width: double.infinity,
         padding: EdgeInsets.only(
@@ -33,32 +38,68 @@ void showScores({
             top: Radius.circular(24.r),
           ),
         ),
-        child: AnimatedColumn(
-          fastAnimations: true,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'scoresModalString'.tr,
-              style: ModerniAliasTextStyles.scoresTitle,
-            ),
-            SizedBox(height: 24.h),
-            AnimationLimiter(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: teams.length,
-                itemBuilder: (context, index) => AnimatedListView(
-                  fastAnimations: true,
-                  index: index,
-                  child: HighscoreValue(
-                    teamName: teams[index].name,
-                    points: teams[index].points,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: AnimatedColumn(
+            fastAnimations: true,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ///
+              /// CURRENT SCORES
+              ///
+              if (teams != null) ...[
+                Text(
+                  'scoresModalString'.tr,
+                  style: ModerniAliasTextStyles.scoresTitle,
+                ),
+                SizedBox(height: 24.h),
+                AnimationLimiter(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: teams.length,
+                    itemBuilder: (context, index) => AnimatedListView(
+                      fastAnimations: true,
+                      index: index,
+                      child: HighscoreValue(
+                        teamName: teams[index].name,
+                        points: teams[index].points,
+                      ),
+                    ),
                   ),
                 ),
-                shrinkWrap: true,
-              ),
-            ),
-          ],
+              ],
+
+              ///
+              /// WORDS FROM LAST ROUND
+              ///
+              if (playedWords.isNotEmpty) ...[
+                if (teams != null) SizedBox(height: 40.h),
+                Text(
+                  'playedWordsModalString'.tr,
+                  style: ModerniAliasTextStyles.scoresTitle,
+                ),
+                SizedBox(height: 24.h),
+                AnimationLimiter(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: playedWords.length,
+                    itemBuilder: (context, index) => AnimatedListView(
+                      fastAnimations: true,
+                      index: index,
+                      child: PlayedWordValue(
+                        word: playedWords[index].word,
+                        chosenAnswer: playedWords[index].chosenAnswer,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
         ),
       ),
-      isDismissible: dismissible,
     );
+  }
+}

@@ -5,14 +5,16 @@ import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 
 class QuickGameInfoSection extends StatelessWidget {
-  final Function() exitGame;
   final int correctAnswers;
   final int wrongAnswers;
+  final Function() exitGame;
+  final Function() showScores;
 
   const QuickGameInfoSection({
-    required this.exitGame,
     required this.correctAnswers,
     required this.wrongAnswers,
+    required this.exitGame,
+    required this.showScores,
   });
 
   @override
@@ -34,18 +36,22 @@ class QuickGameInfoSection extends StatelessWidget {
             ),
             Positioned(
               right: 20.w,
-              child: Row(
-                children: [
-                  Text(
-                    wrongAnswers.toString(),
-                    style: ModerniAliasTextStyles.quickWrongScore,
-                  ),
-                  SizedBox(width: 10.h),
-                  Text(
-                    correctAnswers.toString(),
-                    style: ModerniAliasTextStyles.quickCorrectScore,
-                  ),
-                ],
+              child: GestureDetector(
+                onTap: showScores,
+                behavior: HitTestBehavior.translucent,
+                child: Row(
+                  children: [
+                    Text(
+                      wrongAnswers.toString(),
+                      style: ModerniAliasTextStyles.quickWrongScore,
+                    ),
+                    SizedBox(width: 10.h),
+                    Text(
+                      correctAnswers.toString(),
+                      style: ModerniAliasTextStyles.quickCorrectScore,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
