@@ -45,6 +45,7 @@ class MainGameScreen extends StatelessWidget {
                         showScores: () => showScores(
                           context: context,
                           teams: gameService.teams,
+                          playedWords: gameService.playedWords,
                         ),
                       ),
                     ),

@@ -11,6 +11,7 @@ import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
+import '../main_game/widgets/show_scores.dart';
 import 'widgets/quick_game_info_section.dart';
 
 class QuickGameScreen extends StatelessWidget {
@@ -36,12 +37,16 @@ class QuickGameScreen extends StatelessWidget {
                       top: 0,
                       width: 1.sw,
                       child: QuickGameInfoSection(
+                        correctAnswers: gameService.correctAnswers,
+                        wrongAnswers: gameService.wrongAnswers,
                         exitGame: () => exitGameModal(
                           context: context,
                           exitGameCallback: gameService.exitToMainMenu,
                         ),
-                        correctAnswers: gameService.correctAnswers,
-                        wrongAnswers: gameService.wrongAnswers,
+                        showScores: () => showScores(
+                          context: context,
+                          playedWords: gameService.playedWords,
+                        ),
                       ),
                     ),
                     if (gameService.currentGame == Game.quick)

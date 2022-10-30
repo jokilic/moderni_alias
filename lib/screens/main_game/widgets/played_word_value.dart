@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../constants/colors.dart';
+import '../../../constants/enums.dart';
+import '../../../constants/strings.dart';
 import '../../../constants/text_styles.dart';
 
-class HighscoreValue extends StatelessWidget {
-  final String teamName;
-  final int points;
+class PlayedWordValue extends StatelessWidget {
+  final String word;
+  final Answer chosenAnswer;
 
-  const HighscoreValue({
-    required this.teamName,
-    required this.points,
+  const PlayedWordValue({
+    required this.word,
+    required this.chosenAnswer,
   });
 
   @override
@@ -23,17 +27,18 @@ class HighscoreValue extends StatelessWidget {
               SizedBox(
                 width: 0.6.sw,
                 child: Text(
-                  teamName,
+                  word,
                   style: ModerniAliasTextStyles.highscore,
                 ),
               ),
               SizedBox(width: 16.w),
               SizedBox(
                 width: 0.1.sw,
-                child: Text(
-                  points.toString(),
-                  textAlign: TextAlign.center,
-                  style: ModerniAliasTextStyles.highscore,
+                child: SvgPicture.asset(
+                  chosenAnswer == Answer.correct ? ModerniAliasImages.correctImage : ModerniAliasImages.wrongImage,
+                  color: ModerniAliasColors.whiteColor,
+                  width: 24.r,
+                  height: 24.r,
                 ),
               ),
             ],
