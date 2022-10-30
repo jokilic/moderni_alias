@@ -7,9 +7,9 @@ import 'logger_service.dart';
 class HiveService extends GetxService {
   final logger = Get.find<LoggerService>();
 
-  /// ------------------------
+  ///
   /// VARIABLES
-  /// ------------------------
+  ///
 
   final newGameStats = GameStats(
     playedQuickGames: 0,
@@ -25,9 +25,9 @@ class HiveService extends GetxService {
   Box<GameStats> get statsBox => _statsBox;
   set statsBox(Box<GameStats> value) => _statsBox = value;
 
-  /// ------------------------
+  ///
   /// INIT
-  /// ------------------------
+  ///
 
   @override
   Future<void> onInit() async {
@@ -38,9 +38,9 @@ class HiveService extends GetxService {
     statsBox = await Hive.openBox<GameStats>('gameStatsBox');
   }
 
-  /// ------------------------
+  ///
   /// DISPOSE
-  /// ------------------------
+  ///
 
   @override
   Future<void> onClose() async {
@@ -49,9 +49,9 @@ class HiveService extends GetxService {
     super.onClose();
   }
 
-  /// ------------------------
+  ///
   /// METHODS
-  /// ------------------------
+  ///
 
   /// Called to add a new stats value to [Hive]
   Future<void> addStatsToBox({required GameStats gameStats}) async => statsBox.put(0, gameStats);

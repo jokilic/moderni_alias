@@ -4,9 +4,9 @@ import '../../models/game_stats.dart';
 import '../../services/hive_service.dart';
 
 class StatsController extends GetxController {
-  /// ------------------------
+  ///
   /// VARIABLES
-  /// ------------------------
+  ///
 
   late final GameStats gameStats;
 
@@ -30,9 +30,9 @@ class StatsController extends GetxController {
   final _averageCorrectAnswersRounds = 0.obs;
   final _averageWrongAnswersRounds = 0.obs;
 
-  /// ------------------------
+  ///
   /// GETTERS
-  /// ------------------------
+  ///
 
   int get totalNormalGames => _totalNormalGames.value;
   int get totalQuickGames => _totalQuickGames.value;
@@ -47,9 +47,9 @@ class StatsController extends GetxController {
   int get averageCorrectAnswersRounds => _averageCorrectAnswersRounds.value;
   int get averageWrongAnswersRounds => _averageWrongAnswersRounds.value;
 
-  /// ------------------------
+  ///
   /// SETTERS
-  /// ------------------------
+  ///
 
   set totalNormalGames(int value) => _totalNormalGames.value = value;
   set totalQuickGames(int value) => _totalQuickGames.value = value;
@@ -64,9 +64,9 @@ class StatsController extends GetxController {
   set averageCorrectAnswersRounds(int value) => _averageCorrectAnswersRounds.value = value;
   set averageWrongAnswersRounds(int value) => _averageWrongAnswersRounds.value = value;
 
-  /// ------------------------
+  ///
   /// INIT
-  /// ------------------------
+  ///
 
   @override
   void onInit() {
@@ -75,9 +75,9 @@ class StatsController extends GetxController {
     calculateValues();
   }
 
-  /// ------------------------
+  ///
   /// METHODS
-  /// ------------------------
+  ///
 
   /// Calculates all values
   void calculateValues() {

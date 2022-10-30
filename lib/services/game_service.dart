@@ -23,9 +23,9 @@ import 'logger_service.dart';
 class GameService extends GetxService {
   final logger = Get.find<LoggerService>();
 
-  /// ------------------------
+  ///
   /// REACTIVE VARIABLES
-  /// ------------------------
+  ///
 
   final _currentGame = Game.none.obs;
   Game get currentGame => _currentGame.value;
@@ -67,9 +67,9 @@ class GameService extends GetxService {
   List<PlayedWord> get playedWords => _playedWords;
   set playedWords(List<PlayedWord> value) => _playedWords.assignAll(value);
 
-  /// ------------------------
+  ///
   /// VARIABLES
-  /// ------------------------
+  ///
 
   late final Random random;
   late final AudioPlayer correctPlayer;
@@ -90,9 +90,9 @@ class GameService extends GetxService {
   var yellowSeconds = 0.0;
   var redSeconds = 0.0;
 
-  /// ------------------------
+  ///
   /// INIT
-  /// ------------------------
+  ///
 
   @override
   void onInit() {
@@ -100,9 +100,9 @@ class GameService extends GetxService {
     initValues();
   }
 
-  /// ------------------------
+  ///
   /// METHODS
-  /// ------------------------
+  ///
 
   /// Initializes relevant variables
   void initValues() {

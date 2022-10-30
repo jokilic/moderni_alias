@@ -16,18 +16,18 @@ import 'logger_service.dart';
 class DictionaryService extends GetxService {
   final logger = Get.find<LoggerService>();
 
-  /// ------------------------
+  ///
   /// REACTIVE VARIABLES
-  /// ------------------------
+  ///
 
   /// The currently used word in game
   final _currentWord = ''.obs;
   String get currentWord => _currentWord.value;
   set currentWord(String value) => _currentWord.value = value;
 
-  /// ------------------------
+  ///
   /// VARIABLES
-  /// ------------------------
+  ///
 
   late final Random random;
 
@@ -50,9 +50,9 @@ class DictionaryService extends GetxService {
 
   String get getRandomWord => setRandomWord(currentDictionary);
 
-  /// ------------------------
+  ///
   /// INIT
-  /// ------------------------
+  ///
 
   @override
   void onInit() {
@@ -61,9 +61,9 @@ class DictionaryService extends GetxService {
     initValues();
   }
 
-  /// ------------------------
+  ///
   /// METHODS
-  /// ------------------------
+  ///
 
   /// Initializes dictionary and Random
   void initValues() {

@@ -12,11 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
     
-  # ------------------------------------
+  # 
   # Dependencies used throughout the app
   # When adding a dependency, don't forget to add a version number
   # Also, sort the dependencies alphabetically
-  # ------------------------------------
+  # 
 
   circular_countdown_timer: ^0.2.3 # Used for showing the timer
   flutter_screenutil: ^5.6.0 # Used for adapting screen and font size

@@ -2,15 +2,15 @@ import 'package:get/get.dart';
 import 'package:logger_fork/logger_fork.dart';
 
 class LoggerService extends GetxService {
-  /// ------------------------
+  ///
   /// VARIABLES
-  /// ------------------------
+  ///
 
   late final Logger logger;
 
-  /// ------------------------
+  ///
   /// INIT
-  /// ------------------------
+  ///
 
   @override
   void onInit() {
@@ -25,9 +25,9 @@ class LoggerService extends GetxService {
     );
   }
 
-  /// ------------------------
+  ///
   /// METHODS
-  /// ------------------------
+  ///
 
   /// Verbose log, grey color
   void v(value) => logger.v(value);
