@@ -7,9 +7,8 @@ import 'package:just_audio/just_audio.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
-import '../models/game_stats.dart';
-import '../models/played_word.dart';
-import '../models/team.dart';
+import '../models/played_word/played_word.dart';
+import '../models/team/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/main_game/main_game_screen.dart';
@@ -22,6 +21,7 @@ import 'logger_service.dart';
 
 class GameService extends GetxService {
   final logger = Get.find<LoggerService>();
+  final hiveService = Get.find<HiveService>();
 
   ///
   /// REACTIVE VARIABLES
@@ -397,56 +397,20 @@ class GameService extends GetxService {
 
   /// Game is finished, update stats and store them in [Hive]
   void updateHiveStats({required Game gameType}) {
-    final hiveService = Get.find<HiveService>();
-
-    final currentStats = hiveService.getStatsFromBox();
-
-    late GameStats newStats;
-
     /// Normal game was played
     if (gameType == Game.normal) {
-      /// Calculate all correct answers in the game
-      var correctAnswers = 0;
-      teams.map((team) => correctAnswers += team.correctPoints).toList();
+      /// TODO: Add new [NormalGameStats] in Hive
 
-      /// Calculate all wrong answers in the game
-      var wrongAnswers = 0;
-      teams.map((team) => wrongAnswers += team.wrongPoints).toList();
-
-      /// Create updated stats
-      newStats = currentStats.copyWith(
-        playedNormalGames: currentStats.playedNormalGames + 1,
-        correctAnswersNormalGames: currentStats.correctAnswersNormalGames + correctAnswers,
-        wrongAnswersNormalGames: currentStats.wrongAnswersNormalGames + wrongAnswers,
-        playedNormalGameRounds: currentStats.playedNormalGameRounds + 1,
-      );
-
-      /// Store `newStats` in [Hive]
-      hiveService.addStatsToBox(gameStats: newStats);
     }
 
     /// Quick game was played
     if (gameType == Game.quick) {
-      /// Create updated stats
-      newStats = currentStats.copyWith(
-        playedQuickGames: currentStats.playedQuickGames + 1,
-        correctAnswersQuickGames: currentStats.correctAnswersQuickGames + correctAnswers,
-        wrongAnswersQuickGames: currentStats.wrongAnswersQuickGames + wrongAnswers,
-      );
-
-      /// Store `newStats` in [Hive]
-      hiveService.addStatsToBox(gameStats: newStats);
+      /// TODO: Add new [QuickGameStats] in Hive
     }
 
     /// Normal game is played, but the round ended
     if (gameType == Game.none) {
-      /// Create updated stats
-      newStats = currentStats.copyWith(
-        playedNormalGameRounds: currentStats.playedNormalGameRounds + 1,
-      );
-
-      /// Store `newStats` in [Hive]
-      hiveService.addStatsToBox(gameStats: newStats);
+      /// TODO: Update [NormalGameStats] for the currently played game
     }
   }
 }

@@ -1,7 +1,15 @@
-import '../constants/enums.dart';
+import 'package:hive/hive.dart';
 
-class PlayedWord {
+import '../../constants/enums.dart';
+
+part 'played_word.g.dart';
+
+@HiveType(typeId: 5)
+class PlayedWord extends HiveObject {
+  @HiveField(1)
   String word;
+
+  @HiveField(2)
   Answer chosenAnswer;
 
   PlayedWord({

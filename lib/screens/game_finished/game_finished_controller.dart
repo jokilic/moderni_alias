@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../models/team.dart';
+import '../../models/team/team.dart';
 import '../../services/game_service.dart';
 import '../../services/logger_service.dart';
 

@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/game_stats.dart';
+import '../constants/enums.dart';
+import '../models/normal_game_stats/normal_game_stats.dart';
+import '../models/played_word/played_word.dart';
+import '../models/quick_game_stats/quick_game_stats.dart';
+import '../models/round/round.dart';
+import '../models/team/team.dart';
 import 'logger_service.dart';
 
 class HiveService extends GetxService {
@@ -11,19 +16,8 @@ class HiveService extends GetxService {
   /// VARIABLES
   ///
 
-  final newGameStats = GameStats(
-    playedQuickGames: 0,
-    playedNormalGames: 0,
-    correctAnswersQuickGames: 0,
-    wrongAnswersQuickGames: 0,
-    correctAnswersNormalGames: 0,
-    wrongAnswersNormalGames: 0,
-    playedNormalGameRounds: 0,
-  );
-
-  late final Box<GameStats> _statsBox;
-  Box<GameStats> get statsBox => _statsBox;
-  set statsBox(Box<GameStats> value) => _statsBox = value;
+  late final Box<NormalGameStats> normalGameStatsBox;
+  late final Box<QuickGameStats> quickGameStatsBox;
 
   ///
   /// INIT
@@ -34,8 +28,16 @@ class HiveService extends GetxService {
     super.onInit();
 
     await Hive.initFlutter();
-    Hive.registerAdapter(GameStatsAdapter());
-    statsBox = await Hive.openBox<GameStats>('gameStatsBox');
+    Hive
+      ..registerAdapter(NormalGameStatsAdapter())
+      ..registerAdapter(QuickGameStatsAdapter())
+      ..registerAdapter(TeamAdapter())
+      ..registerAdapter(RoundAdapter())
+      ..registerAdapter(PlayedWordAdapter())
+      ..registerAdapter(FlagAdapter());
+
+    normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
+    quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');
   }
 
   ///
@@ -44,8 +46,10 @@ class HiveService extends GetxService {
 
   @override
   Future<void> onClose() async {
-    await statsBox.close();
+    await normalGameStatsBox.close();
+    await quickGameStatsBox.close();
     await Hive.close();
+
     super.onClose();
   }
 
@@ -53,9 +57,15 @@ class HiveService extends GetxService {
   /// METHODS
   ///
 
-  /// Called to add a new stats value to [Hive]
-  Future<void> addStatsToBox({required GameStats gameStats}) async => statsBox.put(0, gameStats);
+  /// Called to add a new [NormalGameStats] value to [Hive]
+  Future<void> addNormalGameStatsToBox({required NormalGameStats normalGameStats}) async => normalGameStatsBox.put(DateTime.now().millisecondsSinceEpoch, normalGameStats);
 
-  /// Called to get stats value from [Hive]
-  GameStats getStatsFromBox() => statsBox.get(0) ?? newGameStats;
+  /// Called to get all [NormalGameStats] values from [Hive]
+  List<NormalGameStats> getNormalGameStatsFromBox() => normalGameStatsBox.values.toList();
+
+  /// Called to add a new [QuickGameStats] value to [Hive]
+  Future<void> addQuickGameStatsToBox({required QuickGameStats quickGameStats}) async => quickGameStatsBox.put(DateTime.now().millisecondsSinceEpoch, quickGameStats);
+
+  /// Called to get all [QuickGameStats] values from [Hive]
+  List<QuickGameStats> getQuickGameStatsFromBox() => quickGameStatsBox.values.toList();
 }

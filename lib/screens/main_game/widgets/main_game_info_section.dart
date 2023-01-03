@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
-import '../../../models/team.dart';
+import '../../../models/team/team.dart';
 import '../../../widgets/animated_column.dart';
 
 class MainGameInfoSection extends StatelessWidget {
