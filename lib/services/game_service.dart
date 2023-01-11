@@ -7,7 +7,10 @@ import 'package:just_audio/just_audio.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
+import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/played_word/played_word.dart';
+import '../models/quick_game_stats/quick_game_stats.dart';
+import '../models/round/round.dart';
 import '../models/team/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
@@ -90,6 +93,9 @@ class GameService extends GetxService {
   var yellowSeconds = 0.0;
   var redSeconds = 0.0;
 
+  NormalGameStats? normalGameStats;
+  QuickGameStats? quickGameStats;
+
   ///
   /// INIT
   ///
@@ -139,6 +145,16 @@ class GameService extends GetxService {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     currentlyPlayingTeam = teams[random.nextInt(teams.length)];
+    normalGameStats = NormalGameStats(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      teams: teams,
+      rounds: [],
+      lengthOfRound: lengthOfRound,
+      pointsToWin: pointsToWin,
+      language: chosenDictionary,
+    );
+
     Get.toNamed(MainGameScreen.routeName);
   }
 
@@ -147,6 +163,13 @@ class GameService extends GetxService {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     lengthOfRound = 60;
+    quickGameStats = QuickGameStats(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      round: Round(playedWords: []),
+      language: chosenDictionary,
+    );
+
     Get.toNamed(QuickGameScreen.routeName);
   }
 
@@ -399,18 +422,40 @@ class GameService extends GetxService {
   void updateHiveStats({required Game gameType}) {
     /// Normal game was played
     if (gameType == Game.normal) {
-      /// TODO: Add new [NormalGameStats] in Hive
-
+      if (normalGameStats != null) {
+        normalGameStats = normalGameStats!.copyWith(
+          endTime: DateTime.now(),
+        );
+        hiveService.addNormalGameStatsToBox(normalGameStats: normalGameStats!);
+        normalGameStats = null;
+      }
     }
 
     /// Quick game was played
     if (gameType == Game.quick) {
-      /// TODO: Add new [QuickGameStats] in Hive
+      if (quickGameStats != null) {
+        quickGameStats = quickGameStats!.copyWith(
+          round: Round(playedWords: playedWords),
+          endTime: DateTime.now(),
+        );
+        hiveService.addQuickGameStatsToBox(quickGameStats: quickGameStats!);
+        quickGameStats = null;
+      }
     }
 
     /// Normal game is played, but the round ended
     if (gameType == Game.none) {
-      /// TODO: Update [NormalGameStats] for the currently played game
+      if (normalGameStats != null) {
+        normalGameStats = normalGameStats!.copyWith(
+          rounds: [
+            ...normalGameStats!.rounds,
+            Round(
+              playedWords: playedWords,
+              playingTeam: currentlyPlayingTeam,
+            ),
+          ],
+        );
+      }
     }
   }
 }

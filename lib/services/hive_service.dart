@@ -34,6 +34,7 @@ class HiveService extends GetxService {
       ..registerAdapter(TeamAdapter())
       ..registerAdapter(RoundAdapter())
       ..registerAdapter(PlayedWordAdapter())
+      ..registerAdapter(AnswerAdapter())
       ..registerAdapter(FlagAdapter());
 
     normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
@@ -58,13 +59,13 @@ class HiveService extends GetxService {
   ///
 
   /// Called to add a new [NormalGameStats] value to [Hive]
-  Future<void> addNormalGameStatsToBox({required NormalGameStats normalGameStats}) async => normalGameStatsBox.put(DateTime.now().millisecondsSinceEpoch, normalGameStats);
+  Future<void> addNormalGameStatsToBox({required NormalGameStats normalGameStats}) async => normalGameStatsBox.put(normalGameStatsBox.values.length + 1, normalGameStats);
 
   /// Called to get all [NormalGameStats] values from [Hive]
   List<NormalGameStats> getNormalGameStatsFromBox() => normalGameStatsBox.values.toList();
 
   /// Called to add a new [QuickGameStats] value to [Hive]
-  Future<void> addQuickGameStatsToBox({required QuickGameStats quickGameStats}) async => quickGameStatsBox.put(DateTime.now().millisecondsSinceEpoch, quickGameStats);
+  Future<void> addQuickGameStatsToBox({required QuickGameStats quickGameStats}) async => quickGameStatsBox.put(quickGameStatsBox.values.length + 1, quickGameStats);
 
   /// Called to get all [QuickGameStats] values from [Hive]
   List<QuickGameStats> getQuickGameStatsFromBox() => quickGameStatsBox.values.toList();

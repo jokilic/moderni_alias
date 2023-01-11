@@ -9,8 +9,12 @@ enum Game {
   starting,
 }
 
+@HiveType(typeId: 7)
 enum Answer {
+  @HiveField(0)
   correct,
+
+  @HiveField(1)
   wrong,
 }
 
