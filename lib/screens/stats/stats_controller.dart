@@ -1,18 +1,35 @@
 import 'package:get/get.dart';
 
+import '../../constants/enums.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
 
 class StatsController extends GetxController {
+  final logger = Get.find<LoggerService>();
   final hiveService = Get.find<HiveService>();
+
+  ///
+  /// REACTIVE VARIABLES
+  ///
+
+  final _activeStats = ActiveStats.none.obs;
+  ActiveStats get activeStats => _activeStats.value;
+  set activeStats(ActiveStats value) => _activeStats.value = value;
 
   ///
   /// VARIABLES
   ///
 
-  late final List<NormalGameStats> normalGameStats;
-  late final List<QuickGameStats> quickGameStats;
+  late List<NormalGameStats> normalGameStats;
+  late List<QuickGameStats> quickGameStats;
+
+  late int totalNormalGames;
+  late int totalQuickGames;
+
+  var totalCorrectAnswers = 0;
+  var totalWrongAnswers = 0;
 
   ///
   /// INIT
@@ -33,28 +50,26 @@ class StatsController extends GetxController {
 
   /// Calculates all values
   void calculateValues() {
-    // if (gameStats == Get.find<HiveService>().newGameStats) {
-    //   return;
-    // }
+    /// Calculate total games
+    totalNormalGames = normalGameStats.length;
+    totalQuickGames = quickGameStats.length;
 
-    // totalNormalGames = gameStats.playedNormalGames;
-    // totalQuickGames = gameStats.playedQuickGames;
-    // totalRounds = gameStats.playedNormalGameRounds;
-    // totalGames = totalNormalGames + totalQuickGames;
+    /// Calculate total correct and wrong answers in all normal games
+    for (final normalGame in normalGameStats) {
+      for (final team in normalGame.teams) {
+        totalCorrectAnswers += team.correctPoints;
+        totalWrongAnswers += team.wrongPoints;
+      }
+    }
 
-    // totalCorrectAnswers = gameStats.correctAnswersNormalGames + gameStats.correctAnswersQuickGames;
-    // totalWrongAnswers = gameStats.wrongAnswersNormalGames + gameStats.wrongAnswersQuickGames;
-    // totalAnswers = totalCorrectAnswers + totalWrongAnswers;
-
-    // if (totalGames != 0) {
-    //   totalAverageCorrectAnswers = totalCorrectAnswers ~/ totalGames;
-    //   totalAverageWrongAnswers = totalWrongAnswers ~/ totalGames;
-    //   totalAverageAnswers = totalAnswers ~/ totalGames;
-    // }
-
-    // if (totalRounds != 0) {
-    //   averageCorrectAnswersRounds = gameStats.correctAnswersNormalGames ~/ totalRounds;
-    //   averageWrongAnswersRounds = gameStats.wrongAnswersNormalGames ~/ totalRounds;
-    // }
+    /// Calculate total correct and wrong answers in all quick games
+    for (final quickGame in quickGameStats) {
+      for (final playedWord in quickGame.round.playedWords) {
+        playedWord.chosenAnswer == Answer.correct ? totalCorrectAnswers += 1 : totalWrongAnswers += 1;
+      }
+    }
   }
+
+  /// Triggered when the user presses some [StatsTitleButton]
+  void titleButtonPressed({required ActiveStats pressedActiveStats}) => activeStats == pressedActiveStats ? activeStats = ActiveStats.none : activeStats = pressedActiveStats;
 }

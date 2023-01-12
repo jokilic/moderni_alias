@@ -23,16 +23,7 @@ class GameFinishedController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // initWorkers();
-
     /// Winning team from [GameService] gets assigned to relevant variable
     winningTeam = Get.find<GameService>().currentlyPlayingTeam;
   }
-
-  ///
-  /// METHODS
-  ///
-
-  /// Initializes workers which log when a variable has changed
-  void initWorkers() => ever(_winningTeam, (value) => logger.v('winningTeam - $value'));
 }

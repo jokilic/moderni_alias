@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/enums.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
-import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
+import 'stats_controller.dart';
+import 'widgets/stats_animated_list.dart';
+import 'widgets/stats_table_row_widget.dart';
+import 'widgets/stats_title_button.dart';
 
-class StatsScreen extends StatelessWidget {
+class StatsScreen extends GetView<StatsController> {
   static const routeName = '/stats-screen';
 
   @override
@@ -17,97 +23,115 @@ class StatsScreen extends StatelessWidget {
               height: double.infinity,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: AnimatedColumn(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 50.h),
-                    const HeroTitle(),
-                    SizedBox(height: 40.h),
+                child: Obx(
+                  () => AnimatedColumn(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 50.h),
+                      const HeroTitle(),
+                      SizedBox(height: 40.h),
 
-                    /// Total games played
-                    const GameTitle(
-                      'Total games played',
-                      smallTitle: true,
-                    ),
-                    SizedBox(height: 16.h),
-                    // StatsTableRowWidget(
-                    //   text: 'Normal games',
-                    //   value: statsController.totalNormalGames,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'Quick games',
-                    //   value: statsController.totalQuickGames,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'All games',
-                    //   value: statsController.totalGames,
-                    //   bigText: true,
-                    // ),
-                    SizedBox(height: 32.h),
+                      ///
+                      /// TOTAL GAMES PLAYED
+                      ///
+                      StatsTitleButton(
+                        text: 'Total games played',
+                        onPressed: () => controller.titleButtonPressed(
+                          pressedActiveStats: ActiveStats.totalGames,
+                        ),
+                        activeIcon: controller.activeStats == ActiveStats.totalGames,
+                      ),
 
-                    /// Correct & wrong answers
-                    const GameTitle(
-                      'Correct & wrong answers',
-                      smallTitle: true,
-                    ),
-                    SizedBox(height: 16.h),
-                    // StatsTableRowWidget(
-                    //   text: 'Correct answers',
-                    //   value: statsController.totalCorrectAnswers,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'Wrong answers',
-                    //   value: statsController.totalWrongAnswers,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'All answers',
-                    //   value: statsController.totalAnswers,
-                    //   bigText: true,
-                    // ),
-                    SizedBox(height: 32.h),
+                      StatsAnimatedList(
+                        widgets: [
+                          StatsTableRowWidget(
+                            text: 'Normal games',
+                            value: controller.totalNormalGames,
+                          ),
+                          StatsTableRowWidget(
+                            text: 'Quick games',
+                            value: controller.totalQuickGames,
+                          ),
+                          StatsTableRowWidget(
+                            text: 'All games',
+                            value: controller.totalNormalGames + controller.totalQuickGames,
+                            bigText: true,
+                          ),
+                        ],
+                        isOpen: controller.activeStats == ActiveStats.totalGames,
+                      ),
 
-                    /// Average answers per game
-                    const GameTitle(
-                      'Average answers per game',
-                      smallTitle: true,
-                    ),
-                    SizedBox(height: 16.h),
-                    // StatsTableRowWidget(
-                    //   text: 'Correct answers',
-                    //   value: statsController.totalAverageCorrectAnswers,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'Wrong answers',
-                    //   value: statsController.totalAverageWrongAnswers,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'All answers',
-                    //   value: statsController.totalAverageAnswers,
-                    //   bigText: true,
-                    // ),
-                    SizedBox(height: 32.h),
+                      ///
+                      /// CORRECT & WRONG ANSWERS
+                      ///
+                      StatsTitleButton(
+                        text: 'Correct & wrong answers',
+                        onPressed: () => controller.titleButtonPressed(
+                          pressedActiveStats: ActiveStats.answers,
+                        ),
+                        activeIcon: controller.activeStats == ActiveStats.answers,
+                      ),
 
-                    /// Average answers per round
-                    const GameTitle(
-                      'Average answers per round',
-                      smallTitle: true,
-                    ),
-                    SizedBox(height: 16.h),
-                    // StatsTableRowWidget(
-                    //   text: 'Correct answers',
-                    //   value: statsController.averageCorrectAnswersRounds,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'Wrong answers',
-                    //   value: statsController.averageWrongAnswersRounds,
-                    // ),
-                    // StatsTableRowWidget(
-                    //   text: 'Rounds',
-                    //   value: statsController.totalRounds,
-                    //   bigText: true,
-                    // ),
-                    SizedBox(height: 50.h),
-                  ],
+                      StatsAnimatedList(
+                        widgets: [
+                          StatsTableRowWidget(
+                            text: 'Correct answers',
+                            value: controller.totalCorrectAnswers,
+                          ),
+                          StatsTableRowWidget(
+                            text: 'Wrong answers',
+                            value: controller.totalWrongAnswers,
+                          ),
+                          StatsTableRowWidget(
+                            text: 'All answers',
+                            value: controller.totalCorrectAnswers + controller.totalWrongAnswers,
+                            bigText: true,
+                          ),
+                        ],
+                        isOpen: controller.activeStats == ActiveStats.answers,
+                      ),
+
+                      Divider(
+                        color: ModerniAliasColors.whiteColor,
+                        thickness: 2.r,
+                        indent: 24.w,
+                        endIndent: 24.w,
+                        height: 56.h,
+                      ),
+
+                      ///
+                      /// NORMAL GAMES
+                      ///
+                      StatsTitleButton(
+                        text: 'NORMAL GAMES',
+                        onPressed: () => controller.titleButtonPressed(
+                          pressedActiveStats: ActiveStats.normalGames,
+                        ),
+                        activeIcon: controller.activeStats == ActiveStats.normalGames,
+                      ),
+
+                      StatsAnimatedList(
+                        isListView: true,
+                        listView: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.normalGameStats.length + 2,
+                          itemBuilder: (_, index) {
+                            final normalGame = controller.normalGameStats[index];
+
+                            return Container(
+                              color: Colors.redAccent,
+                              height: 40,
+                              width: 40,
+                            );
+                          },
+                        ),
+                        isOpen: controller.activeStats == ActiveStats.normalGames,
+                      ),
+
+                      SizedBox(height: 50.h),
+                    ],
+                  ),
                 ),
               ),
             ),

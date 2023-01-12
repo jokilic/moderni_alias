@@ -54,6 +54,12 @@ class ModerniAliasTextStyles {
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
+  static final gameTitleSmall = TextStyle(
+    color: ModerniAliasColors.whiteColor,
+    fontSize: 26.sp,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Sen',
+  );
   static final appNameFirst = TextStyle(
     color: ModerniAliasColors.whiteColor,
     fontSize: 60.sp,

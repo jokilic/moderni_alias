@@ -425,6 +425,13 @@ class GameService extends GetxService {
       if (normalGameStats != null) {
         normalGameStats = normalGameStats!.copyWith(
           endTime: DateTime.now(),
+          rounds: [
+            ...normalGameStats!.rounds,
+            Round(
+              playedWords: List.from(playedWords),
+              playingTeam: currentlyPlayingTeam,
+            ),
+          ],
         );
         hiveService.addNormalGameStatsToBox(normalGameStats: normalGameStats!);
         normalGameStats = null;
@@ -435,7 +442,7 @@ class GameService extends GetxService {
     if (gameType == Game.quick) {
       if (quickGameStats != null) {
         quickGameStats = quickGameStats!.copyWith(
-          round: Round(playedWords: playedWords),
+          round: Round(playedWords: List.from(playedWords)),
           endTime: DateTime.now(),
         );
         hiveService.addQuickGameStatsToBox(quickGameStats: quickGameStats!);
@@ -450,7 +457,7 @@ class GameService extends GetxService {
           rounds: [
             ...normalGameStats!.rounds,
             Round(
-              playedWords: playedWords,
+              playedWords: List.from(playedWords),
               playingTeam: currentlyPlayingTeam,
             ),
           ],
