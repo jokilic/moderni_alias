@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'constants/colors.dart';
 
 final theme = ThemeData(
+  useMaterial3: true,
   primaryColor: ModerniAliasColors.blueColor,
   colorScheme: const ColorScheme.dark(
     background: ModerniAliasColors.blueColor,

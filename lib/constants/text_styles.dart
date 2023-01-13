@@ -240,4 +240,10 @@ class ModerniAliasTextStyles {
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
+  static final statsSegmentedControl = TextStyle(
+    color: ModerniAliasColors.whiteColor,
+    fontSize: 22.sp,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Sen',
+  );
 }

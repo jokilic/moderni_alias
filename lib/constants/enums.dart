@@ -9,14 +9,6 @@ enum Game {
   starting,
 }
 
-enum ActiveStats {
-  none,
-  totalGames,
-  answers,
-  normalGames,
-  quickGames,
-}
-
 @HiveType(typeId: 7)
 enum Answer {
   @HiveField(0)

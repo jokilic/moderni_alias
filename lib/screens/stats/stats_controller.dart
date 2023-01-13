@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../../constants/enums.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
@@ -14,9 +15,9 @@ class StatsController extends GetxController {
   /// REACTIVE VARIABLES
   ///
 
-  final _activeStats = ActiveStats.none.obs;
-  ActiveStats get activeStats => _activeStats.value;
-  set activeStats(ActiveStats value) => _activeStats.value = value;
+  final _currentIndex = Rxn<int?>();
+  int? get currentIndex => _currentIndex.value;
+  set currentIndex(int? value) => _currentIndex.value = value;
 
   ///
   /// VARIABLES
@@ -39,8 +40,12 @@ class StatsController extends GetxController {
   void onInit() {
     super.onInit();
 
+    initializeDateFormatting('en');
+    initializeDateFormatting('hr');
+
     normalGameStats = hiveService.getNormalGameStatsFromBox();
     quickGameStats = hiveService.getQuickGameStatsFromBox();
+
     calculateValues();
   }
 
@@ -70,6 +75,8 @@ class StatsController extends GetxController {
     }
   }
 
-  /// Triggered when the user presses some [StatsTitleButton]
-  void titleButtonPressed({required ActiveStats pressedActiveStats}) => activeStats == pressedActiveStats ? activeStats = ActiveStats.none : activeStats = pressedActiveStats;
+  /// Triggered when the user taps some [StatsSegmentedValueWidget]
+  void segmentedValuePressed(int newIndex) {
+    currentIndex = currentIndex == newIndex ? null : newIndex;
+  }
 }

@@ -25,6 +25,7 @@ dependencies:
   get: ^4.6.5 # State management, dependency injection, etc.
   hive: ^2.2.3 # Used to store data for Stats
   hive_flutter: ^1.1.0 # Easier integration of Hive with Flutter
+  intl: ^0.18.0 # Used for date formatting
   just_audio: ^0.9.30 # Used to play audio files
   logger_fork: ^1.2.0 # Small, easy to use and extensible logger which prints beautiful logs
   lottie: ^1.4.3 # Renders Lottie animations in Flutter

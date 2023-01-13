@@ -168,6 +168,9 @@ class Localization extends Translations {
     'howToQuickAliasExplanationSecondString': '60 seconds',
     'howToQuickAliasExplanationThirdString':
         ' and starts right away.\nWhen the time is finished, you can see the correct and wrong answers.\n\nIf you want, you can play a new game or return to the main menu.',
+
+    /// Stats
+    // TODO
   };
 
   final hr = {
@@ -327,5 +330,8 @@ class Localization extends Translations {
     'howToQuickAliasExplanationSecondString': '60 sekundi',
     'howToQuickAliasExplanationThirdString':
         ' i odmah počinje.\nKada vrijeme završi, vidljivi su točni i krivi odgovori.\n\nAko želite, moguće je odigrati novu igru ili se vratiti u glavni meni.',
+
+    /// Stats
+    // TODO
   };
 }
