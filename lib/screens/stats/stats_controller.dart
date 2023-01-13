@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../../constants/enums.dart';
+import '../../constants/strings.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
@@ -29,6 +31,8 @@ class StatsController extends GetxController {
   late int totalNormalGames;
   late int totalQuickGames;
 
+  late PageController pageController;
+
   var totalCorrectAnswers = 0;
   var totalWrongAnswers = 0;
 
@@ -39,6 +43,8 @@ class StatsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    pageController = PageController();
 
     initializeDateFormatting('en');
     initializeDateFormatting('hr');
@@ -77,6 +83,22 @@ class StatsController extends GetxController {
 
   /// Triggered when the user taps some [StatsSegmentedValueWidget]
   void segmentedValuePressed(int newIndex) {
-    currentIndex = currentIndex == newIndex ? null : newIndex;
+    if (currentIndex == newIndex) {
+      currentIndex = null;
+    } else {
+      currentIndex = newIndex;
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => pageController.animateToPage(
+          currentIndex ?? 4,
+          duration: ModerniAliasDurations.animation,
+          curve: Curves.easeIn,
+        ),
+      );
+    }
+  }
+
+  /// Triggered when [PageView] page is changed (swiping)
+  void pageChanged(int newIndex) {
+    currentIndex = newIndex;
   }
 }
