@@ -67,9 +67,10 @@ class StatsController extends GetxController {
 
     /// Calculate total correct and wrong answers in all normal games
     for (final normalGame in normalGameStats) {
-      for (final team in normalGame.teams) {
-        totalCorrectAnswers += team.correctPoints;
-        totalWrongAnswers += team.wrongPoints;
+      for (final round in normalGame.rounds) {
+        for (final word in round.playedWords) {
+          word.chosenAnswer == Answer.correct ? totalCorrectAnswers = totalCorrectAnswers + 1 : totalWrongAnswers = totalWrongAnswers + 1;
+        }
       }
     }
 
