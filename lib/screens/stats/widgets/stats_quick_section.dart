@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../localization.dart';
 import '../../../widgets/game_title.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
@@ -29,11 +33,13 @@ class StatsQuickSection extends GetView<StatsController> {
               itemCount: controller.quickGameStats.length,
               itemBuilder: (_, index) {
                 final quickGame = controller.quickGameStats[index];
+                final time = DateFormat('d. MMMM - HH:mm', Localization.locale?.languageCode ?? 'en').format(quickGame.startTime);
 
-                return Container(
-                  color: Colors.blueAccent,
-                  height: 40,
-                  width: 40,
+                return StatsValueWidget(
+                  text: '${index + 1}. $time',
+                  onPressed: () {
+                    log(quickGame.toString());
+                  },
                 );
               },
             ),

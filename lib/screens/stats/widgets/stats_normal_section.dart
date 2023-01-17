@@ -33,10 +33,10 @@ class StatsNormalSection extends GetView<StatsController> {
               itemCount: controller.normalGameStats.length,
               itemBuilder: (_, index) {
                 final normalGame = controller.normalGameStats[index];
-                final time = DateFormat('d. MMMM - H:m', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
+                final time = DateFormat('d. MMMM - HH:mm', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
 
                 return StatsValueWidget(
-                  text: '${index + 1}. $time',
+                  text: time,
                   onPressed: () {
                     log(normalGame.toString());
                   },
