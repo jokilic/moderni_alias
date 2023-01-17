@@ -7,7 +7,7 @@ import '../constants/strings.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
 
-Future<bool> exitGameModal({required BuildContext context, required Function() exitGameCallback}) async {
+Future<bool> exitGameModal({required Function() exitGameCallback}) async {
   await Get.bottomSheet(
     Container(
       width: double.infinity,

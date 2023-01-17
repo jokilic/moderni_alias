@@ -283,7 +283,7 @@ class GameService extends GetxService {
 
   /// Gets called when the user has tapped on the 'Wrong' or 'Correct' button
   /// Increments the relevant variable and generate a new random word
-  void answerChosen({required Answer chosenButton, required BuildContext context}) {
+  void answerChosen({required Answer chosenButton}) {
     /// Game is not running, handle tapping answer
     if (currentGame == Game.none) {
       start3SecondCountdown();

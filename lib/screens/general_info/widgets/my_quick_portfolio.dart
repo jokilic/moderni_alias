@@ -10,8 +10,6 @@ import '../../../widgets/play_button.dart';
 import '../general_info_controller.dart';
 
 class MyQuickPortfolio extends StatelessWidget {
-  final generalInfoController = Get.find<GeneralInfoController>();
-
   @override
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.all(16.r),
@@ -21,7 +19,7 @@ class MyQuickPortfolio extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 16.h),
               child: GestureDetector(
-                onLongPress: generalInfoController.playBoomBaby,
+                onLongPress: Get.find<GeneralInfoController>().playBoomBaby,
                 behavior: HitTestBehavior.translucent,
                 child: CircleAvatar(
                   backgroundColor: ModerniAliasColors.whiteColor,

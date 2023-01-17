@@ -17,22 +17,21 @@ class GameOff extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
-        behavior: HitTestBehavior.translucent,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CircularCountDownTimer(
-              duration: 0,
-              width: 0.9.sw,
-              height: 0.6.sh,
-              ringColor: Colors.transparent,
-              fillColor: Colors.transparent,
-              strokeWidth: 36.w,
-              textStyle: ModerniAliasTextStyles.gameCircularCountdown,
-            ),
-            AnimatedColumn(
+  Widget build(BuildContext context) => Stack(
+        alignment: Alignment.center,
+        children: [
+          CircularCountDownTimer(
+            duration: 0,
+            width: 0.9.sw,
+            height: 0.6.sh,
+            ringColor: Colors.transparent,
+            fillColor: Colors.transparent,
+            strokeWidth: 36.w,
+            textStyle: ModerniAliasTextStyles.gameCircularCountdown,
+          ),
+          GestureDetector(
+            onTap: onTap,
+            child: AnimatedColumn(
               fastAnimations: true,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -53,7 +52,7 @@ class GameOff extends StatelessWidget {
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       );
 }
