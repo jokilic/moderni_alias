@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
 import '../constants/text_styles.dart';
+import 'animated_gesture_detector.dart';
 
 class PlayButton extends StatelessWidget {
   final String text;
@@ -18,25 +19,28 @@ class PlayButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          foregroundColor: ModerniAliasColors.whiteColor,
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding.w,
-            vertical: verticalPadding.h,
+  Widget build(BuildContext context) => AnimatedGestureDetector(
+        onTap: onPressed,
+        child: TextButton(
+          onPressed: null,
+          style: TextButton.styleFrom(
+            foregroundColor: ModerniAliasColors.whiteColor,
+            padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding.w,
+              vertical: verticalPadding.h,
+            ),
+            side: BorderSide(
+              color: ModerniAliasColors.whiteColor,
+              width: 2.w,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.r),
+            ),
           ),
-          side: BorderSide(
-            color: ModerniAliasColors.whiteColor,
-            width: 2.w,
+          child: Text(
+            text,
+            style: ModerniAliasTextStyles.playButton,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.r),
-          ),
-        ),
-        child: Text(
-          text,
-          style: ModerniAliasTextStyles.playButton,
         ),
       );
 }

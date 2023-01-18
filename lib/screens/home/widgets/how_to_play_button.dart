@@ -4,30 +4,35 @@ import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 import '../../how_to_play/how_to_play_screen.dart';
 
 class HowToPlayButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => TextButton(
-        onPressed: () => Get.toNamed(
+  Widget build(BuildContext context) => AnimatedGestureDetector(
+        onTap: () => Get.toNamed(
           HowToPlayScreen.routeName,
         ),
-        style: TextButton.styleFrom(
-          foregroundColor: ModerniAliasColors.whiteColor,
-          padding: EdgeInsets.symmetric(
-            horizontal: 12.w,
-            vertical: 2.h,
+        end: 0.85,
+        child: TextButton(
+          onPressed: null,
+          style: TextButton.styleFrom(
+            foregroundColor: ModerniAliasColors.whiteColor,
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+              vertical: 2.h,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.r),
+            ),
+            backgroundColor: Colors.black45,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.r),
-          ),
-          backgroundColor: Colors.black45,
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(12.r),
-          child: Text(
-            'howToPlayButtonString'.tr,
-            style: ModerniAliasTextStyles.howToPlayButton,
+          child: Padding(
+            padding: EdgeInsets.all(12.r),
+            child: Text(
+              'howToPlayButtonString'.tr,
+              style: ModerniAliasTextStyles.howToPlayButton,
+            ),
           ),
         ),
       );

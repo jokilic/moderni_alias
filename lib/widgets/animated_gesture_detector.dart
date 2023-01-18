@@ -12,7 +12,7 @@ class AnimatedGestureDetector extends StatefulWidget {
   const AnimatedGestureDetector({
     required this.child,
     this.onTap,
-    this.duration = const Duration(milliseconds: 50),
+    this.duration = const Duration(milliseconds: 250),
     this.begin = 1,
     this.end = 0.9,
     this.curve = Curves.easeIn,
