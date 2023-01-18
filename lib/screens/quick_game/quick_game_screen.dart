@@ -23,9 +23,7 @@ class QuickGameScreen extends StatelessWidget {
     final gameService = Get.find<GameService>();
 
     return WillPopScope(
-      onWillPop: () => exitGameModal(
-        exitGameCallback: gameService.exitToMainMenu,
-      ),
+      onWillPop: exitGameModal,
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
@@ -39,9 +37,7 @@ class QuickGameScreen extends StatelessWidget {
                     child: QuickGameInfoSection(
                       correctAnswers: gameService.correctAnswers,
                       wrongAnswers: gameService.wrongAnswers,
-                      exitGame: () => exitGameModal(
-                        exitGameCallback: gameService.exitToMainMenu,
-                      ),
+                      exitGame: exitGameModal,
                       showScores: () => showScores(
                         context: context,
                         playedWords: gameService.playedWords,

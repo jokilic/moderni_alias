@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import './exit_game_button.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
+import '../services/game_service.dart';
 import 'animated_column.dart';
 
-Future<bool> exitGameModal({required Function() exitGameCallback}) async {
+Future<bool> exitGameModal() async {
+  final gameService = Get.find<GameService>();
+
   await Get.bottomSheet(
     Container(
       width: double.infinity,
@@ -41,7 +44,9 @@ Future<bool> exitGameModal({required Function() exitGameCallback}) async {
             children: [
               ExitGameButton(
                 text: 'exitModalQuestionYes'.tr,
-                onPressed: exitGameCallback,
+                animationController: gameService.exitButtonAnimationController,
+                pointerDown: (_) => gameService.exitButtonAnimationController.forward(),
+                pointerUp: (_) => gameService.exitButtonAnimationController.reverse(),
               ),
               SizedBox(width: 24.h),
               ExitGameButton(
@@ -54,5 +59,8 @@ Future<bool> exitGameModal({required Function() exitGameCallback}) async {
       ),
     ),
   );
+
+  /// Reset animation when dismissing modal
+  gameService.exitButtonAnimationController.value = 0;
   return false;
 }

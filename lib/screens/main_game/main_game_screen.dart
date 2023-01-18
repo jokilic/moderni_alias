@@ -23,9 +23,7 @@ class MainGameScreen extends StatelessWidget {
     final gameService = Get.find<GameService>();
 
     return WillPopScope(
-      onWillPop: () => exitGameModal(
-        exitGameCallback: gameService.exitToMainMenu,
-      ),
+      onWillPop: exitGameModal,
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
@@ -38,9 +36,7 @@ class MainGameScreen extends StatelessWidget {
                     width: 1.sw,
                     child: MainGameInfoSection(
                       currentlyPlayingTeam: gameService.currentlyPlayingTeam,
-                      exitGame: () => exitGameModal(
-                        exitGameCallback: gameService.exitToMainMenu,
-                      ),
+                      exitGame: exitGameModal,
                       showScores: () => showScores(
                         context: context,
                         teams: gameService.teams,

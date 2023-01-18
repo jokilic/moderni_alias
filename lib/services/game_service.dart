@@ -7,6 +7,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
+import '../constants/strings.dart';
 import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
@@ -22,7 +23,7 @@ import 'dictionary_service.dart';
 import 'hive_service.dart';
 import 'logger_service.dart';
 
-class GameService extends GetxService {
+class GameService extends GetxController with GetSingleTickerProviderStateMixin {
   final logger = Get.find<LoggerService>();
   final hiveService = Get.find<HiveService>();
 
@@ -79,6 +80,8 @@ class GameService extends GetxService {
   late final AudioPlayer wrongPlayer;
   late final AudioPlayer countdownPlayer;
 
+  late final AnimationController exitButtonAnimationController;
+
   Timer? greenTimer;
   Timer? yellowTimer;
   Timer? redTimer;
@@ -103,7 +106,19 @@ class GameService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+
     initValues();
+    initAnimation();
+  }
+
+  ///
+  /// DISPOSE
+  ///
+
+  @override
+  void onClose() {
+    exitButtonAnimationController.dispose();
+    super.onClose();
   }
 
   ///
@@ -117,6 +132,21 @@ class GameService extends GetxService {
     correctPlayer = AudioPlayer()..setAsset('assets/correct.ogg', preload: false);
     wrongPlayer = AudioPlayer()..setAsset('assets/wrong.ogg', preload: false);
     countdownPlayer = AudioPlayer()..setAsset('assets/timer.ogg', preload: false);
+  }
+
+  /// Initializes animation used in the [ExitGame] modal
+  void initAnimation() {
+    exitButtonAnimationController = AnimationController(
+      vsync: this,
+      duration: ModerniAliasDurations.verySlowAnimation,
+    )..addStatusListener(
+        (status) {
+          /// Animation is completed, exit game
+          if (status == AnimationStatus.completed) {
+            exitToMainMenu();
+          }
+        },
+      );
   }
 
   /// Returns a Timer with the specified length and color
@@ -145,6 +175,7 @@ class GameService extends GetxService {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     currentlyPlayingTeam = teams[random.nextInt(teams.length)];
+    exitButtonAnimationController.value = 0;
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
@@ -163,6 +194,7 @@ class GameService extends GetxService {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
     lengthOfRound = 60;
+    exitButtonAnimationController.value = 0;
     quickGameStats = QuickGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
