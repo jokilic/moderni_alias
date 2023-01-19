@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 
 class QuickGameInfoSection extends StatelessWidget {
   final int correctAnswers;
@@ -25,20 +26,24 @@ class QuickGameInfoSection extends StatelessWidget {
           children: [
             Positioned(
               left: 12.w,
-              child: IconButton(
-                onPressed: exitGame,
-                icon: Icon(
-                  Icons.close_rounded,
-                  color: ModerniAliasColors.whiteColor,
-                  size: 30.r,
+              child: AnimatedGestureDetector(
+                onTap: exitGame,
+                end: 0.8,
+                child: IconButton(
+                  onPressed: null,
+                  icon: Icon(
+                    Icons.close_rounded,
+                    color: ModerniAliasColors.whiteColor,
+                    size: 30.r,
+                  ),
                 ),
               ),
             ),
             Positioned(
               right: 20.w,
-              child: GestureDetector(
+              child: AnimatedGestureDetector(
                 onTap: showScores,
-                behavior: HitTestBehavior.translucent,
+                end: 0.8,
                 child: Row(
                   children: [
                     Text(

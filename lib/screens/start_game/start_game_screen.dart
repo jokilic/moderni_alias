@@ -161,10 +161,14 @@ class StartGameScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(16.r),
                       child: Center(
-                        child: Text(
-                          gameService.validationMessage,
-                          style: ModerniAliasTextStyles.validation,
-                          textAlign: TextAlign.center,
+                        child: AnimatedSwitcher(
+                          duration: ModerniAliasDurations.animation,
+                          child: Text(
+                            key: ValueKey(gameService.validationMessage),
+                            gameService.validationMessage,
+                            style: ModerniAliasTextStyles.validation,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../constants/strings.dart';
 import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
 import '../../services/dictionary_service.dart';
@@ -47,12 +48,17 @@ class MainGameScreen extends StatelessWidget {
                     Positioned(
                       top: -75.h,
                       bottom: 0,
-                      child: GameOn(
-                        currentWord: dictionaryService.currentWord,
-                        fillColor: gameService.countdownTimerFillColor,
-                        length: gameService.lengthOfRound,
-                        onComplete: () => gameService.endOfRound(
-                          currentGame: Game.normal,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOn(
+                          currentWord: dictionaryService.currentWord,
+                          fillColor: gameService.countdownTimerFillColor,
+                          length: gameService.lengthOfRound,
+                          onComplete: () => gameService.endOfRound(
+                            currentGame: Game.normal,
+                          ),
                         ),
                       ),
                     )
@@ -60,10 +66,15 @@ class MainGameScreen extends StatelessWidget {
                     Positioned(
                       top: -75.h,
                       bottom: 0,
-                      child: GameStarting(
-                        currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
-                        onComplete: () => gameService.startRound(
-                          chosenGame: Game.normal,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameStarting(
+                          currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
+                          onComplete: () => gameService.startRound(
+                            chosenGame: Game.normal,
+                          ),
                         ),
                       ),
                     )
@@ -71,8 +82,13 @@ class MainGameScreen extends StatelessWidget {
                     Positioned(
                       top: -75.h,
                       bottom: 0,
-                      child: GameOff(
-                        onTap: gameService.start3SecondCountdown,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOff(
+                          onTap: gameService.start3SecondCountdown,
+                        ),
                       ),
                     ),
                   Positioned(

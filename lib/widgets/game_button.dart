@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
+import 'animated_gesture_detector.dart';
 
 class GameButton extends StatelessWidget {
   final String svgIconPath;
@@ -17,7 +18,7 @@ class GameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Expanded(
-        child: InkWell(
+        child: AnimatedGestureDetector(
           onTap: onTap,
           child: Container(
             padding: EdgeInsets.all(50.r),

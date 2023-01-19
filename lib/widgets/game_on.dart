@@ -2,6 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants/strings.dart';
 import '../constants/text_styles.dart';
 
 class GameOn extends StatelessWidget {
@@ -35,10 +36,14 @@ class GameOn extends StatelessWidget {
           SizedBox(
             width: 1.sw - 40.w,
             child: FittedBox(
-              child: Text(
-                currentWord.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: ModerniAliasTextStyles.gameCurrentWord,
+              child: AnimatedSize(
+                duration: ModerniAliasDurations.veryFastAnimation,
+                curve: Curves.easeIn,
+                child: Text(
+                  currentWord.toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: ModerniAliasTextStyles.gameCurrentWord,
+                ),
               ),
             ),
           ),

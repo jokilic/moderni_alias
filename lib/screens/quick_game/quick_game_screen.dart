@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../constants/enums.dart';
+import '../../constants/strings.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
@@ -47,12 +48,17 @@ class QuickGameScreen extends StatelessWidget {
                     Positioned(
                       top: -75.h,
                       bottom: 0,
-                      child: GameOn(
-                        currentWord: dictionaryService.currentWord,
-                        fillColor: gameService.countdownTimerFillColor,
-                        length: gameService.lengthOfRound,
-                        onComplete: () => gameService.endOfRound(
-                          currentGame: Game.quick,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOn(
+                          currentWord: dictionaryService.currentWord,
+                          fillColor: gameService.countdownTimerFillColor,
+                          length: gameService.lengthOfRound,
+                          onComplete: () => gameService.endOfRound(
+                            currentGame: Game.quick,
+                          ),
                         ),
                       ),
                     )
@@ -60,10 +66,15 @@ class QuickGameScreen extends StatelessWidget {
                     Positioned(
                       top: -75.h,
                       bottom: 0,
-                      child: GameStarting(
-                        currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
-                        onComplete: () => gameService.startRound(
-                          chosenGame: Game.quick,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameStarting(
+                          currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
+                          onComplete: () => gameService.startRound(
+                            chosenGame: Game.quick,
+                          ),
                         ),
                       ),
                     )
@@ -71,8 +82,13 @@ class QuickGameScreen extends StatelessWidget {
                     Positioned(
                       top: -75.h,
                       bottom: 0,
-                      child: GameOff(
-                        onTap: gameService.start3SecondCountdown,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOff(
+                          onTap: gameService.start3SecondCountdown,
+                        ),
                       ),
                     ),
                   Positioned(
