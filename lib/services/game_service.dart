@@ -227,7 +227,6 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
 
       if (Get.context != null) {
         showScores(
-          context: Get.context!,
           teams: teams,
           playedWords: playedWords,
           dismissible: false,

@@ -6,6 +6,7 @@ import '../constants/colors.dart';
 import '../constants/enums.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
+import 'animated_gesture_detector.dart';
 
 class FlagButton extends StatelessWidget {
   final String countryName;
@@ -28,30 +29,33 @@ class FlagButton extends StatelessWidget {
           top: 24.h,
           bottom: 16.h,
         ),
-        child: InkWell(
+        child: AnimatedGestureDetector(
           onTap: onTap,
-          child: AnimatedColumn(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    color: backgroundColor,
-                    height: 75.h,
-                    width: 80.w,
-                  ),
-                  SvgPicture.asset(
-                    flagImage,
-                    width: 90.w,
-                    color: color,
-                  ),
-                ],
-              ),
-              Text(
-                countryName,
-                style: ModerniAliasTextStyles.flagName,
-              ),
-            ],
+          child: InkWell(
+            onTap: () {},
+            child: AnimatedColumn(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      color: backgroundColor,
+                      height: 75.h,
+                      width: 80.w,
+                    ),
+                    SvgPicture.asset(
+                      flagImage,
+                      width: 90.w,
+                      color: color,
+                    ),
+                  ],
+                ),
+                Text(
+                  countryName,
+                  style: ModerniAliasTextStyles.flagName,
+                ),
+              ],
+            ),
           ),
         ),
       );

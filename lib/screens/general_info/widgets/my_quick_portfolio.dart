@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
 import '../../../widgets/animated_column.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/play_button.dart';
 import '../general_info_controller.dart';
 
@@ -18,17 +19,19 @@ class MyQuickPortfolio extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: 16.h),
-              child: GestureDetector(
-                onLongPress: Get.find<GeneralInfoController>().playBoomBaby,
-                behavior: HitTestBehavior.translucent,
-                child: CircleAvatar(
-                  backgroundColor: ModerniAliasColors.whiteColor,
-                  radius: 85.r,
+              child: AnimatedGestureDetector(
+                child: GestureDetector(
+                  onLongPress: Get.find<GeneralInfoController>().playBoomBaby,
+                  behavior: HitTestBehavior.translucent,
                   child: CircleAvatar(
-                    backgroundImage: const AssetImage(
-                      ModerniAliasImages.josipImage,
+                    backgroundColor: ModerniAliasColors.whiteColor,
+                    radius: 85.r,
+                    child: CircleAvatar(
+                      backgroundImage: const AssetImage(
+                        ModerniAliasImages.josipImage,
+                      ),
+                      radius: 82.r,
                     ),
-                    radius: 82.r,
                   ),
                 ),
               ),

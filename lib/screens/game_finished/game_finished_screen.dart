@@ -87,7 +87,6 @@ class GameFinishedScreen extends StatelessWidget {
                 right: 12.w,
                 child: IconButton(
                   onPressed: () => showScores(
-                    context: context,
                     playedWords: gameService.playedWords,
                   ),
                   icon: Icon(

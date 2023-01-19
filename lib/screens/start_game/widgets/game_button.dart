@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 
 class GameButton extends StatelessWidget {
   final Function() onTap;
@@ -29,25 +30,28 @@ class GameButton extends StatelessWidget {
           horizontal: horizontalPadding,
           vertical: 36.h,
         ),
-        child: InkWell(
+        child: AnimatedGestureDetector(
           onTap: onTap,
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: Border.all(
-                color: ModerniAliasColors.whiteColor,
-                width: 4.w,
+          child: InkWell(
+            onTap: () {},
+            child: Container(
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                border: Border.all(
+                  color: ModerniAliasColors.whiteColor,
+                  width: 4.w,
+                ),
+                borderRadius: BorderRadius.circular(24.r),
               ),
-              borderRadius: BorderRadius.circular(24.r),
-            ),
-            child: Center(
-              child: Text(
-                number.toString(),
-                style: ModerniAliasTextStyles.gameButton.copyWith(
-                  fontSize: fontSize,
-                  color: color,
+              child: Center(
+                child: Text(
+                  number.toString(),
+                  style: ModerniAliasTextStyles.gameButton.copyWith(
+                    fontSize: fontSize,
+                    color: color,
+                  ),
                 ),
               ),
             ),

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
+import 'animated_gesture_detector.dart';
 
 class GameOff extends StatelessWidget {
   final Function() onTap;
@@ -29,7 +30,7 @@ class GameOff extends StatelessWidget {
             strokeWidth: 36.w,
             textStyle: ModerniAliasTextStyles.gameCircularCountdown,
           ),
-          GestureDetector(
+          AnimatedGestureDetector(
             onTap: onTap,
             child: AnimatedColumn(
               fastAnimations: true,

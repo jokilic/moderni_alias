@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import '../constants/strings.dart';
+
 class AnimatedGestureDetector extends StatefulWidget {
   final Function()? onTap;
   final Widget child;
@@ -12,7 +14,7 @@ class AnimatedGestureDetector extends StatefulWidget {
   const AnimatedGestureDetector({
     required this.child,
     this.onTap,
-    this.duration = const Duration(milliseconds: 250),
+    this.duration = ModerniAliasDurations.veryFastAnimation,
     this.begin = 1,
     this.end = 0.9,
     this.curve = Curves.easeIn,

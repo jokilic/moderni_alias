@@ -6,6 +6,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/team/team.dart';
 import '../../../widgets/animated_column.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 
 class MainGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;
@@ -41,23 +42,31 @@ class MainGameInfoSection extends StatelessWidget {
             ),
             Positioned(
               left: 12.w,
-              child: IconButton(
-                onPressed: exitGame,
-                icon: Icon(
-                  Icons.close,
-                  color: ModerniAliasColors.whiteColor,
-                  size: 30.r,
+              child: AnimatedGestureDetector(
+                onTap: exitGame,
+                end: 0.8,
+                child: IconButton(
+                  onPressed: null,
+                  icon: Icon(
+                    Icons.close,
+                    color: ModerniAliasColors.whiteColor,
+                    size: 30.r,
+                  ),
                 ),
               ),
             ),
             Positioned(
               right: 12.w,
-              child: IconButton(
-                onPressed: showScores,
-                icon: Icon(
-                  Icons.format_list_numbered,
-                  color: ModerniAliasColors.whiteColor,
-                  size: 30.r,
+              child: AnimatedGestureDetector(
+                onTap: showScores,
+                end: 0.8,
+                child: IconButton(
+                  onPressed: null,
+                  icon: Icon(
+                    Icons.format_list_numbered,
+                    color: ModerniAliasColors.whiteColor,
+                    size: 30.r,
+                  ),
                 ),
               ),
             ),

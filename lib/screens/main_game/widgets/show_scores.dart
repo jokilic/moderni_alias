@@ -13,7 +13,6 @@ import '../../../widgets/animated_list_view.dart';
 import 'played_word_value.dart';
 
 void showScores({
-  required BuildContext context,
   required List<PlayedWord> playedWords,
   List<Team>? teams,
   bool dismissible = true,

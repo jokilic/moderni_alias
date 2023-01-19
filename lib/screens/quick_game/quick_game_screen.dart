@@ -39,7 +39,6 @@ class QuickGameScreen extends StatelessWidget {
                       wrongAnswers: gameService.wrongAnswers,
                       exitGame: exitGameModal,
                       showScores: () => showScores(
-                        context: context,
                         playedWords: gameService.playedWords,
                       ),
                     ),
