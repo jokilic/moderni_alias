@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
 import '../constants/text_styles.dart';
+import 'animated_gesture_detector.dart';
 
 class ExitGameButton extends StatelessWidget {
   final String text;
@@ -28,7 +29,7 @@ class ExitGameButton extends StatelessWidget {
                 animation: animationController!,
                 builder: (_, child) => Container(
                   decoration: BoxDecoration(
-                    color: ModerniAliasColors.redColor.withOpacity(
+                    color: ModerniAliasColors.whiteColor.withOpacity(
                       animationController!.value,
                     ),
                     borderRadius: BorderRadius.circular(50.r),
@@ -60,30 +61,33 @@ class ExitTextButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => TextButton(
-        onPressed: animationController == null ? onPressed : null,
-        style: TextButton.styleFrom(
-          foregroundColor: ModerniAliasColors.whiteColor,
-          padding: EdgeInsets.symmetric(
-            horizontal: 12.w,
-            vertical: 2.h,
+  Widget build(BuildContext context) => AnimatedGestureDetector(
+        onTap: animationController == null ? onPressed : null,
+        child: TextButton(
+          onPressed: null,
+          style: TextButton.styleFrom(
+            foregroundColor: ModerniAliasColors.whiteColor,
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+              vertical: 2.h,
+            ),
+            side: BorderSide(
+              color: ModerniAliasColors.whiteColor,
+              width: 2.w,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.r),
+            ),
           ),
-          side: BorderSide(
-            color: ModerniAliasColors.whiteColor,
-            width: 2.w,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.r),
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 36.w,
-            vertical: 16.h,
-          ),
-          child: Text(
-            text.toUpperCase(),
-            style: ModerniAliasTextStyles.exitButton,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 36.w,
+              vertical: 16.h,
+            ),
+            child: Text(
+              text.toUpperCase(),
+              style: ModerniAliasTextStyles.exitButton,
+            ),
           ),
         ),
       );

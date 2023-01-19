@@ -8,10 +8,11 @@ import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
 import '../../services/game_service.dart';
 import '../../widgets/animated_column.dart';
+import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
 import '../../widgets/play_button.dart';
-import '../main_game/widgets/show_scores.dart';
+import '../normal_game/widgets/show_scores.dart';
 
 class QuickGameFinishedScreen extends StatelessWidget {
   static const routeName = '/quick-game-finished-screen';
@@ -98,14 +99,18 @@ class QuickGameFinishedScreen extends StatelessWidget {
               Positioned(
                 top: 48.h,
                 right: 12.w,
-                child: IconButton(
-                  onPressed: () => showScores(
+                child: AnimatedGestureDetector(
+                  onTap: () => showScores(
                     playedWords: gameService.playedWords,
                   ),
-                  icon: Icon(
-                    Icons.format_list_numbered_rounded,
-                    color: ModerniAliasColors.whiteColor,
-                    size: 30.r,
+                  end: 0.8,
+                  child: IconButton(
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.format_list_numbered_rounded,
+                      color: ModerniAliasColors.whiteColor,
+                      size: 30.r,
+                    ),
                   ),
                 ),
               ),

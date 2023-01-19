@@ -8,12 +8,12 @@ import '../../../models/team/team.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
-class MainGameInfoSection extends StatelessWidget {
+class NormalGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;
   final Function() showScores;
   final Function() exitGame;
 
-  const MainGameInfoSection({
+  const NormalGameInfoSection({
     required this.currentlyPlayingTeam,
     required this.showScores,
     required this.exitGame,

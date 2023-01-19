@@ -6,7 +6,7 @@ import 'screens/general_info/general_info_binding.dart';
 import 'screens/general_info/general_info_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/how_to_play/how_to_play_screen.dart';
-import 'screens/main_game/main_game_screen.dart';
+import 'screens/normal_game/normal_game_screen.dart';
 import 'screens/quick_game/quick_game_screen.dart';
 import 'screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'screens/start_game/start_game_screen.dart';
@@ -33,8 +33,8 @@ final routes = [
     page: HowToPlayScreen.new,
   ),
   GetPage(
-    name: MainGameScreen.routeName,
-    page: MainGameScreen.new,
+    name: NormalGameScreen.routeName,
+    page: NormalGameScreen.new,
   ),
   GetPage(
     name: QuickGameScreen.routeName,

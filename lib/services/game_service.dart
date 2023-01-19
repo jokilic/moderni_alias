@@ -15,8 +15,8 @@ import '../models/round/round.dart';
 import '../models/team/team.dart';
 import '../screens/game_finished/game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
-import '../screens/main_game/main_game_screen.dart';
-import '../screens/main_game/widgets/show_scores.dart';
+import '../screens/normal_game/normal_game_screen.dart';
+import '../screens/normal_game/widgets/show_scores.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'dictionary_service.dart';
@@ -138,7 +138,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
   void initAnimation() {
     exitButtonAnimationController = AnimationController(
       vsync: this,
-      duration: ModerniAliasDurations.verySlowAnimation,
+      duration: ModerniAliasDurations.slowAnimation,
     )..addStatusListener(
         (status) {
           /// Animation is completed, exit game
@@ -186,7 +186,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
       language: chosenDictionary,
     );
 
-    Get.toNamed(MainGameScreen.routeName);
+    Get.toNamed(NormalGameScreen.routeName);
   }
 
   /// Starts quick game
