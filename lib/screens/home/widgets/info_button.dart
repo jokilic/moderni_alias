@@ -16,7 +16,7 @@ class InfoButton extends StatelessWidget {
         child: IconButton(
           onPressed: null,
           icon: const Icon(
-            Icons.info_outline,
+            Icons.info_outline_rounded,
             color: ModerniAliasColors.whiteColor,
           ),
           iconSize: 36.r,

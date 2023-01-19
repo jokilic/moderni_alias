@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import './widgets/my_quick_portfolio.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
+import '../../services/app_info_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -29,7 +30,7 @@ class GeneralInfoScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 50.h),
-                    const HeroTitle(showAppVersion: true),
+                    HeroTitle(smallText: Get.find<AppInfoService>().appVersion),
                     SizedBox(height: 40.h),
                     GameTitle('howTitleString'.tr),
                     StandardText(

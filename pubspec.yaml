@@ -19,6 +19,7 @@ dependencies:
   # 
 
   circular_countdown_timer: ^0.2.3 # Used for showing the timer
+  dough: ^1.0.3 # For the squishy effect when dragging elements
   flutter_screenutil: ^5.6.0 # Used for adapting screen and font size
   flutter_staggered_animations: ^1.1.1 # Used for animating widgets
   flutter_svg: ^1.1.6 # SVG rendering library

@@ -6,7 +6,7 @@ import './widgets/info_button.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
-import 'widgets/stats_button.dart';
+import 'widgets/how_to_play_button.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home-screen';
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          StatsButton(),
+                          HowToPlayButton(),
                           SizedBox(width: 8.w),
                           InfoButton(),
                         ],

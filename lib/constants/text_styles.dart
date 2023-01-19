@@ -71,7 +71,7 @@ class ModerniAliasTextStyles {
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final appVersion = TextStyle(
+  static final smallHero = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',

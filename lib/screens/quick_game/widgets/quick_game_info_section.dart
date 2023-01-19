@@ -28,7 +28,7 @@ class QuickGameInfoSection extends StatelessWidget {
               child: IconButton(
                 onPressed: exitGame,
                 icon: Icon(
-                  Icons.close,
+                  Icons.close_rounded,
                   color: ModerniAliasColors.whiteColor,
                   size: 30.r,
                 ),

@@ -103,7 +103,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                     playedWords: gameService.playedWords,
                   ),
                   icon: Icon(
-                    Icons.format_list_numbered,
+                    Icons.format_list_numbered_rounded,
                     color: ModerniAliasColors.whiteColor,
                     size: 30.r,
                   ),

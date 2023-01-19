@@ -9,10 +9,6 @@ class StatsInfoSection extends StatelessWidget {
   Widget build(BuildContext context) => ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          const StatsValueWidget(
-            text: 'Press any section above...',
-          ),
-          SizedBox(height: 8.h),
           const GameTitle(
             'General',
             smallTitle: true,

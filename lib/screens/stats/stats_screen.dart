@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
 import '../../widgets/background_image.dart';
+import '../../widgets/hero_title.dart';
 import 'stats_controller.dart';
 import 'widgets/stats_general_section.dart';
 import 'widgets/stats_info_section.dart';
@@ -25,8 +26,10 @@ class StatsScreen extends GetView<StatsController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 32.h),
-                  StatsSegmentedWidget(),
+                  const HeroTitle(smallText: 'Stats'),
                   SizedBox(height: 32.h),
+                  StatsSegmentedWidget(),
+                  SizedBox(height: 24.h),
                   Expanded(
                     child: Obx(
                       () => AnimatedSwitcher(

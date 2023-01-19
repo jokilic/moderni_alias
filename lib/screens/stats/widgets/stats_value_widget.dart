@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 
 class StatsValueWidget extends StatelessWidget {
   final String text;
@@ -20,39 +21,42 @@ class StatsValueWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            foregroundColor: ModerniAliasColors.whiteColor,
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-              vertical: 8.h,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.r),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  text,
-                  style: ModerniAliasTextStyles.stats.copyWith(
-                    fontSize: bigText ? 24.sp : null,
-                  ),
-                ),
+        child: AnimatedGestureDetector(
+          onTap: onPressed,
+          child: TextButton(
+            onPressed: null,
+            style: TextButton.styleFrom(
+              foregroundColor: ModerniAliasColors.whiteColor,
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 8.h,
               ),
-              if (value != null) ...[
-                SizedBox(width: 20.w),
-                Text(
-                  '$value',
-                  style: ModerniAliasTextStyles.stats.copyWith(
-                    fontSize: bigText ? 24.sp : null,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.r),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    text,
+                    style: ModerniAliasTextStyles.stats.copyWith(
+                      fontSize: bigText ? 24.sp : null,
+                    ),
                   ),
                 ),
+                if (value != null) ...[
+                  SizedBox(width: 20.w),
+                  Text(
+                    '$value',
+                    style: ModerniAliasTextStyles.stats.copyWith(
+                      fontSize: bigText ? 24.sp : null,
+                    ),
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       );
