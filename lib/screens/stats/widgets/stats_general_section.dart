@@ -49,17 +49,72 @@ class StatsGeneralSection extends GetView<StatsController> {
 
           StatsValueWidget(
             text: 'Correct answers',
-            value: controller.totalCorrectAnswers,
+            value: controller.totalCorrectAnswersNormalGames + controller.totalCorrectAnswersQuickGames,
           ),
           StatsValueWidget(
             text: 'Wrong answers',
-            value: controller.totalWrongAnswers,
+            value: controller.totalWrongAnswersNormalGames + controller.totalWrongAnswersQuickGames,
           ),
           StatsValueWidget(
             text: 'All answers',
-            value: controller.totalCorrectAnswers + controller.totalWrongAnswers,
+            value: (controller.totalCorrectAnswersNormalGames + controller.totalCorrectAnswersQuickGames) +
+                (controller.totalWrongAnswersNormalGames + controller.totalWrongAnswersQuickGames),
             bigText: true,
           ),
+
+          SizedBox(height: 32.h),
+
+          ///
+          /// AVERAGE ANSWERS PER GAME
+          ///
+          const GameTitle(
+            'Average answers per game',
+            smallTitle: true,
+          ),
+
+          SizedBox(height: 12.h),
+
+          StatsValueWidget(
+            text: 'Correct answers',
+            value: controller.totalAverageCorrectAnswers,
+          ),
+          StatsValueWidget(
+            text: 'Wrong answers',
+            value: controller.totalAverageWrongAnswers,
+          ),
+          StatsValueWidget(
+            text: 'All answers',
+            value: controller.totalAverageAnswers,
+            bigText: true,
+          ),
+
+          SizedBox(height: 32.h),
+
+          ///
+          /// AVERAGE ANSWERS PER ROUND
+          ///
+          const GameTitle(
+            'Average answers per round',
+            smallTitle: true,
+          ),
+
+          SizedBox(height: 12.h),
+
+          StatsValueWidget(
+            text: 'Correct answers',
+            value: controller.averageCorrectAnswersRounds,
+          ),
+          StatsValueWidget(
+            text: 'Wrong answers',
+            value: controller.averageWrongAnswersRounds,
+          ),
+          StatsValueWidget(
+            text: 'All answers',
+            value: controller.averageAnswersRounds,
+            bigText: true,
+          ),
+
+          SizedBox(height: 32.h),
         ],
       );
 }

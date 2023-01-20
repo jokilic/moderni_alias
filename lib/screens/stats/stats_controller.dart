@@ -35,8 +35,19 @@ class StatsController extends GetxController {
 
   late PageController pageController;
 
-  var totalCorrectAnswers = 0;
-  var totalWrongAnswers = 0;
+  var totalCorrectAnswersNormalGames = 0;
+  var totalCorrectAnswersQuickGames = 0;
+  var totalWrongAnswersNormalGames = 0;
+  var totalWrongAnswersQuickGames = 0;
+  var totalRounds = 0;
+
+  late int totalAverageCorrectAnswers;
+  late int totalAverageWrongAnswers;
+  late int totalAverageAnswers;
+
+  late int averageCorrectAnswersRounds;
+  late int averageWrongAnswersRounds;
+  late int averageAnswersRounds;
 
   ///
   /// INIT
@@ -70,8 +81,10 @@ class StatsController extends GetxController {
     /// Calculate total correct and wrong answers in all normal games
     for (final normalGame in normalGameStats) {
       for (final round in normalGame.rounds) {
+        totalRounds = totalRounds + 1;
+
         for (final word in round.playedWords) {
-          word.chosenAnswer == Answer.correct ? totalCorrectAnswers = totalCorrectAnswers + 1 : totalWrongAnswers = totalWrongAnswers + 1;
+          word.chosenAnswer == Answer.correct ? totalCorrectAnswersNormalGames += 1 : totalWrongAnswersNormalGames += 1;
         }
       }
     }
@@ -79,9 +92,20 @@ class StatsController extends GetxController {
     /// Calculate total correct and wrong answers in all quick games
     for (final quickGame in quickGameStats) {
       for (final playedWord in quickGame.round.playedWords) {
-        playedWord.chosenAnswer == Answer.correct ? totalCorrectAnswers += 1 : totalWrongAnswers += 1;
+        playedWord.chosenAnswer == Answer.correct ? totalCorrectAnswersQuickGames += 1 : totalWrongAnswersQuickGames += 1;
       }
     }
+
+    /// Calculate average answers per game
+    totalAverageCorrectAnswers = (totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames) ~/ (totalNormalGames + totalQuickGames);
+    totalAverageWrongAnswers = (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames) ~/ (totalNormalGames + totalQuickGames);
+    totalAverageAnswers =
+        ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames) + (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames)) ~/ (totalNormalGames + totalQuickGames);
+
+    /// Calculate average answers per round
+    averageCorrectAnswersRounds = totalCorrectAnswersNormalGames ~/ totalRounds;
+    averageWrongAnswersRounds = totalWrongAnswersNormalGames ~/ totalRounds;
+    averageAnswersRounds = (averageCorrectAnswersRounds + averageWrongAnswersRounds) ~/ totalRounds;
   }
 
   /// Triggered when the user taps some [StatsSegmentedValueWidget]
