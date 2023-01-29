@@ -32,6 +32,7 @@ class StatsInfoSection extends StatelessWidget {
           const StatsValueWidget(
             text: "Section which shows info about every quick game you've played.",
           ),
+          SizedBox(height: 32.h),
         ],
       );
 }
