@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../localization.dart';
 import '../../../widgets/game_title.dart';
-import '../../normal_game/normal_game_screen.dart';
+import '../../normal_game_stats/normal_game_stats_screen.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
@@ -38,7 +38,7 @@ class StatsNormalSection extends GetView<StatsController> {
                   text: time,
                   value: index + 1,
                   onPressed: () => Get.toNamed(
-                    NormalGameScreen.routeName,
+                    NormalGameStatsScreen.routeName,
                     arguments: normalGame,
                   ),
                 );
