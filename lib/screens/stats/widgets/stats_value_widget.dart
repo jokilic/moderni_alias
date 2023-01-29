@@ -48,10 +48,22 @@ class StatsValueWidget extends StatelessWidget {
                 ),
                 if (value != null) ...[
                   SizedBox(width: 20.w),
-                  Text(
-                    '$value',
-                    style: ModerniAliasTextStyles.stats.copyWith(
-                      fontSize: bigText ? 24.sp : null,
+                  Container(
+                    padding: EdgeInsets.all(6.r),
+                    constraints: BoxConstraints(
+                      minHeight: 36.r,
+                      minWidth: 36.r,
+                    ),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ModerniAliasColors.whiteColor,
+                    ),
+                    child: Text(
+                      '$value',
+                      style: ModerniAliasTextStyles.statsNumber.copyWith(
+                        fontSize: bigText ? 24.sp : null,
+                      ),
                     ),
                   ),
                 ],

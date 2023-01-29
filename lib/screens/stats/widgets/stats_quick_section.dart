@@ -36,7 +36,8 @@ class StatsQuickSection extends GetView<StatsController> {
                 final time = DateFormat('d. MMMM - HH:mm', Localization.locale?.languageCode ?? 'en').format(quickGame.startTime);
 
                 return StatsValueWidget(
-                  text: '${index + 1}. $time',
+                  text: time,
+                  value: index + 1,
                   onPressed: () {
                     log(quickGame.toString());
                   },

@@ -127,6 +127,13 @@ class ModerniAliasTextStyles {
     fontFamily: 'Sen',
     height: 1.4.h,
   );
+  static final statsNumber = TextStyle(
+    color: ModerniAliasColors.darkBlueColor,
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Sen',
+    height: 1.4.h,
+  );
   static final generalInfoBoldBlue = TextStyle(
     color: ModerniAliasColors.blueColor,
     fontSize: 20.sp,

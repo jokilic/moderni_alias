@@ -37,6 +37,7 @@ class StatsNormalSection extends GetView<StatsController> {
 
                 return StatsValueWidget(
                   text: time,
+                  value: index + 1,
                   onPressed: () {
                     log(normalGame.toString());
                   },
