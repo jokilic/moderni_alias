@@ -7,8 +7,10 @@ import 'screens/general_info/general_info_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/how_to_play/how_to_play_screen.dart';
 import 'screens/normal_game/normal_game_screen.dart';
+import 'screens/normal_game_stats/normal_game_stats_screen.dart';
 import 'screens/quick_game/quick_game_screen.dart';
 import 'screens/quick_game_finished/quick_game_finished_screen.dart';
+import 'screens/quick_game_stats/quick_game_stats_screen.dart';
 import 'screens/start_game/start_game_screen.dart';
 import 'screens/stats/stats_binding.dart';
 import 'screens/stats/stats_screen.dart';
@@ -52,5 +54,13 @@ final routes = [
     name: StatsScreen.routeName,
     page: StatsScreen.new,
     binding: StatsBinding(),
+  ),
+  GetPage(
+    name: NormalGameStatsScreen.routeName,
+    page: NormalGameStatsScreen.new,
+  ),
+  GetPage(
+    name: QuickGameStatsScreen.routeName,
+    page: QuickGameStatsScreen.new,
   ),
 ];

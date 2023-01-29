@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../localization.dart';
 import '../../../widgets/game_title.dart';
+import '../../quick_game/quick_game_screen.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
@@ -38,9 +37,10 @@ class StatsQuickSection extends GetView<StatsController> {
                 return StatsValueWidget(
                   text: time,
                   value: index + 1,
-                  onPressed: () {
-                    log(quickGame.toString());
-                  },
+                  onPressed: () => Get.toNamed(
+                    QuickGameScreen.routeName,
+                    arguments: quickGame,
+                  ),
                 );
               },
             ),
