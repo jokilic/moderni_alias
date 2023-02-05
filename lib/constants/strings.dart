@@ -36,6 +36,17 @@ class ModerniAliasImages {
 - Durations -
 ---------- */
 
+class ModerniAliasSounds {
+  static const correct = 'assets/correct.wav';
+  static const wrong = 'assets/wrong.wav';
+  static const timer = 'assets/timer.wav';
+  static const boom = 'assets/boom.wav';
+}
+
+/* ----------
+- Durations -
+---------- */
+
 class ModerniAliasDurations {
   static const animation = Duration(milliseconds: 400);
   static const slowAnimation = Duration(milliseconds: 800);

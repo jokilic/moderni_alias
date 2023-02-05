@@ -19,7 +19,7 @@ class Localization extends Translations {
 
     'startButtonString': 'Normal game',
     'quickStartButtonString': 'Quick game',
-    'statsButtonString': 'Check previous games',
+    'statsButtonString': 'Previous games',
 
     /// Start Game
     'dictionaryString': 'Dictionary',
@@ -180,7 +180,7 @@ class Localization extends Translations {
 
     'startButtonString': 'Normalna igra',
     'quickStartButtonString': 'Brza igra',
-    'statsButtonString': 'Pogledajte prošle igre',
+    'statsButtonString': 'Prošle igre',
 
     /// Start Game
     'dictionaryString': 'Rječnik',

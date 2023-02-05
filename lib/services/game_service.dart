@@ -129,9 +129,9 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
   void initValues() {
     random = Random();
 
-    correctPlayer = AudioPlayer()..setAsset('assets/correct.ogg', preload: false);
-    wrongPlayer = AudioPlayer()..setAsset('assets/wrong.ogg', preload: false);
-    countdownPlayer = AudioPlayer()..setAsset('assets/timer.ogg', preload: false);
+    correctPlayer = AudioPlayer()..setAsset(ModerniAliasSounds.correct, preload: false);
+    wrongPlayer = AudioPlayer()..setAsset(ModerniAliasSounds.wrong, preload: false);
+    countdownPlayer = AudioPlayer()..setAsset(ModerniAliasSounds.timer, preload: false);
   }
 
   /// Initializes animation used in the [ExitGame] modal

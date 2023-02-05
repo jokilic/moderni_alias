@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../../constants/strings.dart';
+
 class GeneralInfoController extends GetxController {
   ///
   /// VARIABLES
@@ -15,7 +17,7 @@ class GeneralInfoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    audioPlayer = AudioPlayer()..setAsset('assets/boom.wav', preload: false);
+    audioPlayer = AudioPlayer()..setAsset(ModerniAliasSounds.boom, preload: false);
   }
 
   ///
