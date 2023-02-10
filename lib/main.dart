@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'constants/colors.dart';
 import 'global_binding.dart';
 import 'localization.dart';
 import 'routes.dart';
@@ -15,6 +16,11 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    statusBarColor: ModerniAliasColors.whiteColor,
+    statusBarBrightness: Brightness.dark,
+  ));
+
   runApp(ModerniAlias());
 }
 

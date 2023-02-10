@@ -6,6 +6,7 @@ import '../../../services/game_service.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/play_button.dart';
 import '../../start_game/start_game_screen.dart';
+import 'statss_button.dart';
 
 class HomePageButtons extends StatelessWidget {
   @override
@@ -28,8 +29,7 @@ class HomePageButtons extends StatelessWidget {
             onPressed: gameService.startQuickGame,
           ),
           SizedBox(height: 25.h),
-          // TODO: Include `StatsButton`
-          // StatsButton(),
+          StatsButton(),
           SizedBox(height: 50.h),
         ],
       ),
