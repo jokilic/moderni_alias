@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,19 +31,19 @@ class GameFinishedScreen extends StatelessWidget {
         body: BackgroundImage(
           child: Stack(
             children: [
-              const Align(
-                alignment: Alignment.topCenter,
-                child: Confetti(
-                  waitDuration: ModerniAliasDurations.verySlowAnimation,
+              const Confetti(),
+              Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationX(pi),
+                child: const Confetti(
+                  waitDuration: ModerniAliasDurations.slowAnimation,
                 ),
               ),
-              const Align(
-                child: Confetti(),
-              ),
-              const Align(
-                alignment: Alignment.bottomCenter,
-                child: Confetti(
-                  waitDuration: ModerniAliasDurations.slowAnimation,
+              Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationY(pi),
+                child: const Confetti(
+                  waitDuration: ModerniAliasDurations.verySlowAnimation,
                 ),
               ),
               Align(

@@ -29,7 +29,10 @@ class GameButton extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               svgIconPath,
-              color: ModerniAliasColors.whiteColor,
+              colorFilter: const ColorFilter.mode(
+                ModerniAliasColors.whiteColor,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),

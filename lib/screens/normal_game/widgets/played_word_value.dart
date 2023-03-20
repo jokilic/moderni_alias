@@ -36,7 +36,10 @@ class PlayedWordValue extends StatelessWidget {
                 width: 0.1.sw,
                 child: SvgPicture.asset(
                   chosenAnswer == Answer.correct ? ModerniAliasImages.correctImage : ModerniAliasImages.wrongImage,
-                  color: ModerniAliasColors.whiteColor,
+                  colorFilter: const ColorFilter.mode(
+                    ModerniAliasColors.whiteColor,
+                    BlendMode.srcIn,
+                  ),
                   width: 24.r,
                   height: 24.r,
                 ),

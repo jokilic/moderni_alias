@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:rive/rive.dart';
 
 import '../constants/strings.dart';
 
@@ -15,30 +15,39 @@ class Confetti extends StatefulWidget {
 }
 
 class _ConfettiState extends State<Confetti> with SingleTickerProviderStateMixin {
-  late final AnimationController animationController;
+  RiveAnimationController? controller;
 
   @override
   void initState() {
     super.initState();
 
-    animationController = AnimationController(
-      duration: ModerniAliasDurations.slowAnimation,
-      vsync: this,
+    /// Initialize [RiveAnimationController]
+    Future.delayed(
+      widget.waitDuration,
+      () => setState(
+        () => controller = OneShotAnimation(
+          'Animation 1',
+          onStop: () => Future.delayed(
+            ModerniAliasDurations.verySlowAnimation,
+            () => controller?.isActive = true,
+          ),
+        ),
+      ),
     );
-
-    Future.delayed(widget.waitDuration, animationController.repeat);
   }
 
   @override
   void dispose() {
-    animationController.dispose();
+    controller?.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => Lottie.asset(
-        ModerniAliasAnimations.confetti,
-        controller: animationController,
-        onLoaded: (composition) => animationController..duration = composition.duration,
-      );
+  Widget build(BuildContext context) => controller != null
+      ? RiveAnimation.asset(
+          ModerniAliasAnimations.confetti,
+          controllers: [controller!],
+          onInit: (_) => setState(() {}),
+        )
+      : const SizedBox.shrink();
 }

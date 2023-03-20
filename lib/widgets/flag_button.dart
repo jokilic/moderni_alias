@@ -46,7 +46,10 @@ class FlagButton extends StatelessWidget {
                     SvgPicture.asset(
                       flagImage,
                       width: 90.w,
-                      color: color,
+                      colorFilter: ColorFilter.mode(
+                        color,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ],
                 ),

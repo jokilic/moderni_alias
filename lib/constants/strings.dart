@@ -33,7 +33,7 @@ class ModerniAliasImages {
 }
 
 /* ----------
-- Durations -
+- Sounds -
 ---------- */
 
 class ModerniAliasSounds {
@@ -60,5 +60,5 @@ class ModerniAliasDurations {
 ---------- */
 
 class ModerniAliasAnimations {
-  static const confetti = 'assets/lottie-confetti.json';
+  static const confetti = 'assets/confetti.riv';
 }
