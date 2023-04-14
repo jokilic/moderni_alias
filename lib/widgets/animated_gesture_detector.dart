@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../constants/strings.dart';
@@ -27,6 +29,7 @@ class AnimatedGestureDetector extends StatefulWidget {
 class _AnimatedGestureDetectorState extends State<AnimatedGestureDetector> with SingleTickerProviderStateMixin {
   late Animation<double> scaleAnimation;
   late AnimationController animationController;
+  var shouldTrigger = true;
 
   @override
   void initState() {
@@ -56,10 +59,14 @@ class _AnimatedGestureDetectorState extends State<AnimatedGestureDetector> with 
 
   @override
   Widget build(BuildContext context) => Listener(
-        onPointerDown: (_) => animationController.forward(),
+        onPointerMove: (_) => shouldTrigger = false,
+        onPointerDown: (_) {
+          shouldTrigger = true;
+          animationController.forward();
+        },
         onPointerUp: (_) {
           animationController.reverse();
-          if (widget.onTap != null) {
+          if (widget.onTap != null && shouldTrigger) {
             widget.onTap!();
           }
         },
