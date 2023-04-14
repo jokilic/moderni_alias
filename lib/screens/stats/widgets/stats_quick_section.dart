@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../localization.dart';
 import '../../../widgets/game_title.dart';
-import '../../quick_game/quick_game_screen.dart';
+import '../../quick_game_stats/quick_game_stats_screen.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
@@ -37,8 +37,9 @@ class StatsQuickSection extends GetView<StatsController> {
                 return StatsValueWidget(
                   text: time,
                   value: index + 1,
+                  valueLeft: true,
                   onPressed: () => Get.toNamed(
-                    QuickGameScreen.routeName,
+                    QuickGameStatsScreen.routeName,
                     arguments: quickGame,
                   ),
                 );
