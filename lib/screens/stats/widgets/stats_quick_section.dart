@@ -22,7 +22,9 @@ class StatsQuickSection extends GetView<StatsController> {
         ///
         /// QUICK GAMES
         ///
-        GameTitle('statsQuickTitle'.tr),
+        GameTitle(
+          'statsGeneralQuickGames'.tr.toUpperCase(),
+        ),
 
         SizedBox(height: 12.h),
 

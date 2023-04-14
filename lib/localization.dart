@@ -190,10 +190,7 @@ class Localization extends Translations {
     'statsInfoQuick': 'Quick',
     'statsInfoQuickExplanation': "Section which shows info about every quick game you've played.",
 
-    'statsNormalTitle': 'NORMAL GAMES',
     'statsNormalNoGames': "you haven't played any normal games yet",
-
-    'statsQuickTitle': 'QUICK GAMES',
     'statsQuickNoGames': "you haven't played any quick games yet",
 
     'statsWhoWonTitle': 'Who won?',
@@ -371,6 +368,43 @@ class Localization extends Translations {
         ' i odmah počinje.\nKada vrijeme završi, vidljivi su točni i krivi odgovori.\n\nAko želite, moguće je odigrati novu igru ili se vratiti u glavni meni.',
 
     /// Stats
-    // TODO
+    'statsTitle': 'Prošle igre',
+
+    'statsGeneralTitle': 'Ukupno odigrano',
+    'statsGeneralNormalGames': 'Normalne igre',
+    'statsGeneralQuickGames': 'Brze igre',
+
+    'statsGeneralAllGames': 'Sve igre',
+    'statsGeneralCorrectWrong': 'Točni i krivi odgovori',
+    'statsCorrect': 'Točni odgovori',
+    'statsWrong': 'Krivi odgovori',
+    'statsAll': 'Svi odgovori',
+    'statsGeneralAverageGame': 'Prosječni odgovori po igri',
+    'statsGeneralAverageRound': 'Prosječni odgovori po rundi',
+
+    'statsInfoGeneral': 'Općenito',
+    'statsInfoGeneralExplanation': 'Općenite informacije o odigranim igrama.',
+    'statsInfoNormal': 'Normalne',
+    'statsInfoNormalExplanation': 'Informacije o svakoj normalnoj igri koja je odigrana.',
+    'statsInfoQuick': 'Brze',
+    'statsInfoQuickExplanation': 'Informacije o svakoj brzoj igri koja je odigrana.',
+
+    'statsNormalNoGames': 'još nije odigrana nijedna normalna igra',
+    'statsQuickNoGames': 'još nije odigrana nijedna brza igra',
+
+    'statsWhoWonTitle': 'Tko?',
+    'statsWhenTitle': 'Kad?',
+    'statsWhenText': 'Igra je počela @date u @time.\nTo je bilo @textTime.',
+    'statsLanguageTitle': 'Jezik?',
+    'statsLanguageText': '@language jezik se igrao u ovoj igri.',
+    'statsLengthOfRoundTitle': 'Duljina runde?',
+    'statsLengthOfRoundText': 'Runda je trajala @lengthOfRound sekundi.',
+    'statsLengthOfRoundQuickText': 'Runda je trajala 60 sekundi, kao svaka brza igra.',
+    'statsPointsToWinTitle': 'Bodovi za pobjedu?',
+    'statsPointsToWinQuickTitle': 'Bodovi?',
+    'statsPointsToWinText': 'Trebali ste pogoditi @pointsToWin riječi za pobjedu.',
+    'statsWordsTitle': 'Što je s riječima?',
+    'statsCorrectQuick': 'Točno',
+    'statsWrongQuick': 'Krivo',
   };
 }

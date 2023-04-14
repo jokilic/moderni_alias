@@ -23,7 +23,9 @@ class StatsNormalSection extends GetView<StatsController> {
         ///
         /// NORMAL GAMES
         ///
-        GameTitle('statsNormalTitle'.tr),
+        GameTitle(
+          'statsGeneralNormalGames'.tr.toUpperCase(),
+        ),
 
         SizedBox(height: 12.h),
 
