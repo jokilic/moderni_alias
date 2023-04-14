@@ -14,23 +14,23 @@ class StatsGeneralSection extends GetView<StatsController> {
           ///
           /// GENERAL
           ///
-          const GameTitle(
-            'Total games played',
+          GameTitle(
+            'statsGeneralTitle'.tr,
             smallTitle: true,
           ),
 
           SizedBox(height: 12.h),
 
           StatsValueWidget(
-            text: 'Normal games',
+            text: 'statsGeneralNormalGames'.tr,
             value: controller.totalNormalGames,
           ),
           StatsValueWidget(
-            text: 'Quick games',
+            text: 'statsGeneralQuickGames'.tr,
             value: controller.totalQuickGames,
           ),
           StatsValueWidget(
-            text: 'All games',
+            text: 'statsGeneralAllGames'.tr,
             value: controller.totalNormalGames + controller.totalQuickGames,
             bigText: true,
           ),
@@ -40,23 +40,23 @@ class StatsGeneralSection extends GetView<StatsController> {
           ///
           /// CORRECT & WRONG ANSWERS
           ///
-          const GameTitle(
-            'Correct & wrong answers',
+          GameTitle(
+            'statsGeneralCorrectWrong'.tr,
             smallTitle: true,
           ),
 
           SizedBox(height: 12.h),
 
           StatsValueWidget(
-            text: 'Correct answers',
+            text: 'statsCorrect'.tr,
             value: controller.totalCorrectAnswersNormalGames + controller.totalCorrectAnswersQuickGames,
           ),
           StatsValueWidget(
-            text: 'Wrong answers',
+            text: 'statsWrong'.tr,
             value: controller.totalWrongAnswersNormalGames + controller.totalWrongAnswersQuickGames,
           ),
           StatsValueWidget(
-            text: 'All answers',
+            text: 'statsAll'.tr,
             value: (controller.totalCorrectAnswersNormalGames + controller.totalCorrectAnswersQuickGames) +
                 (controller.totalWrongAnswersNormalGames + controller.totalWrongAnswersQuickGames),
             bigText: true,
@@ -67,23 +67,23 @@ class StatsGeneralSection extends GetView<StatsController> {
           ///
           /// AVERAGE ANSWERS PER GAME
           ///
-          const GameTitle(
-            'Average answers per game',
+          GameTitle(
+            'statsGeneralAverageGame'.tr,
             smallTitle: true,
           ),
 
           SizedBox(height: 12.h),
 
           StatsValueWidget(
-            text: 'Correct answers',
+            text: 'statsCorrect'.tr,
             value: controller.totalAverageCorrectAnswers,
           ),
           StatsValueWidget(
-            text: 'Wrong answers',
+            text: 'statsWrong'.tr,
             value: controller.totalAverageWrongAnswers,
           ),
           StatsValueWidget(
-            text: 'All answers',
+            text: 'statsAll'.tr,
             value: controller.totalAverageAnswers,
             bigText: true,
           ),
@@ -93,23 +93,23 @@ class StatsGeneralSection extends GetView<StatsController> {
           ///
           /// AVERAGE ANSWERS PER ROUND
           ///
-          const GameTitle(
-            'Average answers per round',
+          GameTitle(
+            'statsGeneralAverageRound'.tr,
             smallTitle: true,
           ),
 
           SizedBox(height: 12.h),
 
           StatsValueWidget(
-            text: 'Correct answers',
+            text: 'statsCorrect'.tr,
             value: controller.averageCorrectAnswersRounds,
           ),
           StatsValueWidget(
-            text: 'Wrong answers',
+            text: 'statsWrong'.tr,
             value: controller.averageWrongAnswersRounds,
           ),
           StatsValueWidget(
-            text: 'All answers',
+            text: 'statsAll'.tr,
             value: controller.averageAnswersRounds,
             bigText: true,
           ),

@@ -26,7 +26,7 @@ class StatsScreen extends GetView<StatsController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 32.h),
-                  const HeroTitle(smallText: 'Stats'),
+                  HeroTitle(smallText: 'statsTitle'.tr),
                   SizedBox(height: 32.h),
                   StatsSegmentedWidget(),
                   SizedBox(height: 24.h),

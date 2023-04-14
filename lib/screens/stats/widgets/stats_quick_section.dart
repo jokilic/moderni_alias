@@ -22,13 +22,13 @@ class StatsQuickSection extends GetView<StatsController> {
         ///
         /// QUICK GAMES
         ///
-        const GameTitle('QUICK GAMES'),
+        GameTitle('statsQuickTitle'.tr),
 
         SizedBox(height: 12.h),
 
         if (controller.quickGameStats.isEmpty)
-          const StatsValueWidget(
-            text: "you haven't played any quick games yet",
+          StatsValueWidget(
+            text: 'statsQuickNoGames'.tr,
           )
         else
           ListView.builder(

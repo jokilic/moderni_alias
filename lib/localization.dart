@@ -169,7 +169,47 @@ class Localization extends Translations {
         ' and starts right away.\nWhen the time is finished, you can see the correct and wrong answers.\n\nIf you want, you can play a new game or return to the main menu.',
 
     /// Stats
-    // TODO
+    'statsTitle': 'Stats',
+
+    'statsGeneralTitle': 'Total games played',
+    'statsGeneralNormalGames': 'Normal games',
+    'statsGeneralQuickGames': 'Quick games',
+
+    'statsGeneralAllGames': 'All games',
+    'statsGeneralCorrectWrong': 'Correct & wrong answers',
+    'statsCorrect': 'Correct answers',
+    'statsWrong': 'Wrong answers',
+    'statsAll': 'All answers',
+    'statsGeneralAverageGame': 'Average answers per game',
+    'statsGeneralAverageRound': 'Average answers per round',
+
+    'statsInfoGeneral': 'General',
+    'statsInfoGeneralExplanation': 'Section which shows general info about played games.',
+    'statsInfoNormal': 'Normal',
+    'statsInfoNormalExplanation': "Section which shows info about every normal game you've played.",
+    'statsInfoQuick': 'Quick',
+    'statsInfoQuickExplanation': "Section which shows info about every quick game you've played.",
+
+    'statsNormalTitle': 'NORMAL GAMES',
+    'statsNormalNoGames': "you haven't played any normal games yet",
+
+    'statsQuickTitle': 'QUICK GAMES',
+    'statsQuickNoGames': "you haven't played any quick games yet",
+
+    'statsWhoWonTitle': 'Who won?',
+    'statsWhenTitle': 'When?',
+    'statsWhenText': 'The game started @date at @time.\nThis was @textTime.',
+    'statsLanguageTitle': 'Language?',
+    'statsLanguageText': '@language was the language played.',
+    'statsLengthOfRoundTitle': 'Length of round?',
+    'statsLengthOfRoundText': 'Round took @lengthOfRound seconds.',
+    'statsLengthOfRoundQuickText': 'Round took 60 seconds, like every quick game.',
+    'statsPointsToWinTitle': 'Points to win?',
+    'statsPointsToWinQuickTitle': 'Points?',
+    'statsPointsToWinText': 'Players had to guess @pointsToWin points to win.',
+    'statsWordsTitle': 'And the words?',
+    'statsCorrectQuick': 'Correct',
+    'statsWrongQuick': 'Quick',
   };
 
   final hr = {

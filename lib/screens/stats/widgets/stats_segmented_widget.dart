@@ -14,17 +14,17 @@ class StatsSegmentedWidget extends GetView<StatsController> {
             children: [
               StatsSegmentedValueWidget(
                 onPressed: () => controller.segmentedValuePressed(0),
-                text: 'General',
+                text: 'statsInfoGeneral'.tr,
                 isActive: controller.currentIndex == 0 || controller.currentIndex == null,
               ),
               StatsSegmentedValueWidget(
                 onPressed: () => controller.segmentedValuePressed(1),
-                text: 'Normal',
+                text: 'statsInfoNormal'.tr,
                 isActive: controller.currentIndex == 1 || controller.currentIndex == null,
               ),
               StatsSegmentedValueWidget(
                 onPressed: () => controller.segmentedValuePressed(2),
-                text: 'Quick',
+                text: 'statsInfoQuick'.tr,
                 isActive: controller.currentIndex == 2 || controller.currentIndex == null,
               ),
             ],

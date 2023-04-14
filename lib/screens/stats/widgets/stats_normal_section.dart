@@ -23,13 +23,13 @@ class StatsNormalSection extends GetView<StatsController> {
         ///
         /// NORMAL GAMES
         ///
-        const GameTitle('NORMAL GAMES'),
+        GameTitle('statsNormalTitle'.tr),
 
         SizedBox(height: 12.h),
 
         if (controller.normalGameStats.isEmpty)
-          const StatsValueWidget(
-            text: "you haven't played any normal games yet",
+          StatsValueWidget(
+            text: 'statsNormalNoGames'.tr,
           )
         else
           ListView.builder(

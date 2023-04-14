@@ -38,56 +38,62 @@ class QuickGameStatsScreen extends StatelessWidget {
                 SizedBox(height: 32.h),
                 const HeroTitle(),
                 SizedBox(height: 24.h),
-                const GameTitle(
-                  'When?',
+                GameTitle(
+                  'statsWhenTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsTextIconWidget(
-                  text: 'The game started $date at $time.\nThis was $textTime.',
+                  text: 'statsWhenText'.trParams({
+                    'date': date,
+                    'time': time,
+                    'textTime': textTime,
+                  }),
                   icon: ModerniAliasImages.clockImage,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'Language?',
+                GameTitle(
+                  'statsLanguageTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsTextIconWidget(
-                  text: '$language was the language played.',
+                  text: 'statsLanguageText'.trParams({
+                    'language': language,
+                  }),
                   icon: quickGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
                   size: 58,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'Length of round?',
+                GameTitle(
+                  'statsLengthOfRoundTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
-                const StatsTextIconWidget(
-                  text: 'Round took 60 seconds, like every quick game.',
+                StatsTextIconWidget(
+                  text: 'statsLengthOfRoundQuickText'.tr,
                   icon: ModerniAliasImages.hourglassImage,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'Points?',
+                GameTitle(
+                  'statsPointsToWinQuickTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsValueWidget(
-                  text: 'Correct',
+                  text: 'statsCorrectQuick'.tr,
                   value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.correct).length,
                   bigText: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsValueWidget(
-                  text: 'Wrong',
+                  text: 'statsWrongQuick'.tr,
                   value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.wrong).length,
                   bigText: true,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'And the words?',
+                GameTitle(
+                  'statsWordsTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 16.h),

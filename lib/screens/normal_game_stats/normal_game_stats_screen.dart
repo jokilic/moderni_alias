@@ -26,7 +26,7 @@ class NormalGameStatsScreen extends StatelessWidget {
     final date = DateFormat('d. MMMM', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
     final time = DateFormat('HH:mm', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
     final textTime = timeago.format(normalGame.startTime);
-    final language = normalGame.language == Flag.croatia ? 'Croatian' : 'English';
+    final language = normalGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr : 'dictionaryEnglishString'.tr;
     final sortedTeams = List<Team>.from(normalGame.teams)..sort((a, b) => b.points.compareTo(a.points));
 
     return Scaffold(
@@ -40,8 +40,8 @@ class NormalGameStatsScreen extends StatelessWidget {
                 SizedBox(height: 32.h),
                 const HeroTitle(),
                 SizedBox(height: 24.h),
-                const GameTitle(
-                  'Who won?',
+                GameTitle(
+                  'statsWhoWonTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
@@ -62,49 +62,59 @@ class NormalGameStatsScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'When?',
+                GameTitle(
+                  'statsWhenTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsTextIconWidget(
-                  text: 'The game started $date at $time.\nThis was $textTime.',
+                  text: 'statsWhenText'.trParams({
+                    'date': date,
+                    'time': time,
+                    'textTime': textTime,
+                  }),
                   icon: ModerniAliasImages.clockImage,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'Language?',
+                GameTitle(
+                  'statsLanguageTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsTextIconWidget(
-                  text: '$language was the language played.',
+                  text: 'statsLanguageText'.trParams({
+                    'language': language,
+                  }),
                   icon: normalGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
                   size: 58,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'Length of round?',
+                GameTitle(
+                  'statsLengthOfRoundTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsTextIconWidget(
-                  text: 'Round took ${normalGame.lengthOfRound} seconds.',
+                  text: 'statsLengthOfRoundText'.trParams({
+                    'lengthOfRound': '${normalGame.lengthOfRound}',
+                  }),
                   icon: ModerniAliasImages.hourglassImage,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'Points to win?',
+                GameTitle(
+                  'statsPointsToWinTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
                 StatsTextIconWidget(
-                  text: 'Players had to guess ${normalGame.pointsToWin} points to win.',
+                  text: 'statsPointsToWinText'.trParams({
+                    'pointsToWin': '${normalGame.pointsToWin}',
+                  }),
                   icon: ModerniAliasImages.pointsImage,
                 ),
                 SizedBox(height: 16.h),
-                const GameTitle(
-                  'And the words?',
+                GameTitle(
+                  'statsWordsTitle'.tr,
                   smallTitle: true,
                 ),
                 SizedBox(height: 8.h),
