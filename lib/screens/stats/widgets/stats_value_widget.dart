@@ -9,12 +9,16 @@ class StatsValueWidget extends StatelessWidget {
   final String text;
   final int? value;
   final bool bigText;
+  final bool yellowCircle;
   final Function()? onPressed;
+  final bool valueLeft;
 
   const StatsValueWidget({
     required this.text,
     this.value,
     this.bigText = false,
+    this.yellowCircle = false,
+    this.valueLeft = false,
     this.onPressed,
   });
 
@@ -38,6 +42,14 @@ class StatsValueWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                if (value != null && valueLeft) ...[
+                  StatsValueContainer(
+                    yellowCircle: yellowCircle,
+                    value: value,
+                    bigText: bigText,
+                  ),
+                  SizedBox(width: 20.w),
+                ],
                 Expanded(
                   child: Text(
                     text,
@@ -46,30 +58,50 @@ class StatsValueWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (value != null) ...[
+                if (value != null && !valueLeft) ...[
                   SizedBox(width: 20.w),
-                  Container(
-                    padding: EdgeInsets.all(6.r),
-                    constraints: BoxConstraints(
-                      minHeight: 36.r,
-                      minWidth: 36.r,
-                    ),
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ModerniAliasColors.whiteColor,
-                    ),
-                    child: Text(
-                      '$value',
-                      style: ModerniAliasTextStyles.statsNumber.copyWith(
-                        fontSize: bigText ? 24.sp : null,
-                      ),
-                    ),
+                  StatsValueContainer(
+                    yellowCircle: yellowCircle,
+                    value: value,
+                    bigText: bigText,
                   ),
                 ],
               ],
             ),
           ),
+        ),
+      );
+}
+
+class StatsValueContainer extends StatelessWidget {
+  final bool yellowCircle;
+  final int? value;
+  final bool bigText;
+
+  const StatsValueContainer({
+    required this.yellowCircle,
+    required this.value,
+    required this.bigText,
+  });
+
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: EdgeInsets.all(6.r),
+        constraints: BoxConstraints(
+          minHeight: 36.r,
+          minWidth: 36.r,
+        ),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: yellowCircle ? ModerniAliasColors.yellowColor : ModerniAliasColors.whiteColor,
+        ),
+        child: Text(
+          '$value',
+          style: ModerniAliasTextStyles.statsNumber.copyWith(
+            fontSize: bigText ? 24.sp : null,
+          ),
+          textAlign: TextAlign.center,
         ),
       );
 }

@@ -21,8 +21,13 @@ class ModerniAliasWebsites {
 
 class ModerniAliasImages {
   static const backgroundImage = 'assets/background.jpg';
+  static const clockImage = 'assets/clock.png';
+  static const hourglassImage = 'assets/hourglass.png';
+  static const pointsImage = 'assets/points.png';
   static const croatiaImage = 'assets/croatia.svg';
   static const unitedKingdomImage = 'assets/united_kingdom.svg';
+  static const croatiaImageColor = 'assets/croatia_color.png';
+  static const unitedKingdomImageColor = 'assets/united_kingdom_color.png';
   static const correctImage = 'assets/correct.svg';
   static const wrongImage = 'assets/wrong.svg';
   static const clickImage = 'assets/click.svg';

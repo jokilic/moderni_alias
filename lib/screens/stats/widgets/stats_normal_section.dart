@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../localization.dart';
 import '../../../widgets/game_title.dart';
@@ -33,10 +34,12 @@ class StatsNormalSection extends GetView<StatsController> {
               itemBuilder: (_, index) {
                 final normalGame = controller.normalGameStats[index];
                 final time = DateFormat('d. MMMM - HH:mm', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
+                final textTime = timeago.format(normalGame.startTime);
 
                 return StatsValueWidget(
-                  text: time,
+                  text: '$time\n($textTime)',
                   value: index + 1,
+                  valueLeft: true,
                   onPressed: () => Get.toNamed(
                     NormalGameStatsScreen.routeName,
                     arguments: normalGame,
