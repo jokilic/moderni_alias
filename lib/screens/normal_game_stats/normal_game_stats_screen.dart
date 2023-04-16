@@ -49,7 +49,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                   shrinkWrap: true,
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: normalGame.teams.length,
+                  itemCount: sortedTeams.length,
                   itemBuilder: (_, index) {
                     final team = sortedTeams[index];
 

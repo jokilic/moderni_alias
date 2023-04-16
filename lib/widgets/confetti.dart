@@ -24,15 +24,19 @@ class _ConfettiState extends State<Confetti> with SingleTickerProviderStateMixin
     /// Initialize [RiveAnimationController]
     Future.delayed(
       widget.waitDuration,
-      () => setState(
-        () => controller = OneShotAnimation(
-          'Animation 1',
-          onStop: () => Future.delayed(
-            ModerniAliasDurations.verySlowAnimation,
-            () => controller?.isActive = true,
-          ),
-        ),
-      ),
+      () {
+        if (mounted) {
+          setState(
+            () => controller = OneShotAnimation(
+              'Animation 1',
+              onStop: () => Future.delayed(
+                ModerniAliasDurations.verySlowAnimation,
+                () => controller?.isActive = true,
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
