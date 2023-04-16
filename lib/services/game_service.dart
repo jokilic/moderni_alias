@@ -179,7 +179,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
-      teams: teams,
+      teams: List.from(teams),
       rounds: [],
       lengthOfRound: lengthOfRound,
       pointsToWin: pointsToWin,
@@ -465,7 +465,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
           ],
         );
         hiveService.addNormalGameStatsToBox(normalGameStats: normalGameStats!);
-        normalGameStats = null;
+        // normalGameStats = null;
       }
     }
 
