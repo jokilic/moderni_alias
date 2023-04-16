@@ -4,11 +4,11 @@ import 'constants/colors.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
-  primaryColor: ModerniAliasColors.blueColor,
+  primaryColor: ModerniAliasColors.darkBlueColor,
   colorScheme: const ColorScheme.dark(
-    background: ModerniAliasColors.blueColor,
+    background: ModerniAliasColors.darkBlueColor,
   ),
   canvasColor: Colors.transparent,
-  scaffoldBackgroundColor: ModerniAliasColors.blueColor,
+  scaffoldBackgroundColor: ModerniAliasColors.darkBlueColor,
   fontFamily: 'Sen',
 );
