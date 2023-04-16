@@ -26,7 +26,10 @@ class AnimatedGestureDetector extends StatefulWidget {
 class _AnimatedGestureDetectorState extends State<AnimatedGestureDetector> with SingleTickerProviderStateMixin {
   late Animation<double> scaleAnimation;
   late AnimationController animationController;
+
+  final tolerance = 25.0;
   var shouldTrigger = true;
+  Offset? downPosition;
 
   @override
   void initState() {
@@ -56,16 +59,29 @@ class _AnimatedGestureDetectorState extends State<AnimatedGestureDetector> with 
 
   @override
   Widget build(BuildContext context) => Listener(
-        onPointerMove: (_) => shouldTrigger = false,
-        onPointerDown: (_) {
-          shouldTrigger = true;
+        onPointerDown: (details) {
           animationController.forward();
+
+          shouldTrigger = true;
+          downPosition = details.localPosition;
         },
-        onPointerUp: (_) {
+        onPointerUp: (details) {
           animationController.reverse();
-          if (widget.onTap != null && shouldTrigger) {
-            widget.onTap!();
+
+          if (shouldTrigger) {
+            final upPosition = details.localPosition;
+            final distance = (upPosition - downPosition!).distance;
+
+            if (distance <= tolerance && widget.onTap != null) {
+              widget.onTap!();
+            }
           }
+        },
+        onPointerMove: (details) {
+          final movePosition = details.localPosition;
+          final distance = (movePosition - downPosition!).distance;
+
+          shouldTrigger = distance <= tolerance;
         },
         child: ScaleTransition(
           scale: scaleAnimation,
