@@ -18,11 +18,9 @@ Future<void> main() async {
     [DeviceOrientation.portraitUp],
   );
 
-  /// Make sure the status bar shows white text (for `iOS`)
+  /// Make sure the status bar shows white text
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle.dark.copyWith(
-      statusBarBrightness: Brightness.dark,
-    ),
+    SystemUiOverlayStyle.light,
   );
 
   /// Run the app, let's go!
