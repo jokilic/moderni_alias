@@ -36,6 +36,8 @@ class StatsSegmentedValueWidget extends StatelessWidget {
                   text,
                   style: ModerniAliasTextStyles.statsSegmentedControl,
                   textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 4.h),
                 AnimatedOpacity(

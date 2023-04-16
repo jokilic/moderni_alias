@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'constants/colors.dart';
 import 'global_binding.dart';
 import 'localization.dart';
 import 'routes.dart';
@@ -13,14 +12,20 @@ import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Make sure the orientation is only `portrait`
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-    statusBarColor: ModerniAliasColors.whiteColor,
-    statusBarBrightness: Brightness.dark,
-  ));
 
+  /// Make sure the status bar shows white text (for `iOS`)
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle.dark.copyWith(
+      statusBarBrightness: Brightness.dark,
+    ),
+  );
+
+  /// Run the app, let's go!
   runApp(ModerniAlias());
 }
 
