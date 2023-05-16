@@ -174,8 +174,9 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
   void startMainGame() {
     currentGame = Game.none;
     countdownTimerFillColor = Colors.transparent;
-    currentlyPlayingTeam = teams[random.nextInt(teams.length)];
+    currentlyPlayingTeam = teams.first;
     exitButtonAnimationController.value = 0;
+
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
@@ -211,30 +212,77 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
   /// Check if there's a winner
   /// If no winner, continue the game with the next team
   /// If winner, show the confetti screen
-  Future<void> checkGameWinner() async {
+  void checkGameWinner() {
     gameOnHold();
 
-    /// Check if there's a winner and act accordingly
-    if (currentlyPlayingTeam.points >= pointsToWin) {
-      updateHiveStats(gameType: Game.normal);
-      await Get.toNamed(GameFinishedScreen.routeName);
-    } else {
-      updateHiveStats(gameType: Game.none);
+    /// Check if there are teams which have enough points to win the game
+    final teamsWithEnoughPoints = getTeamsWithEnoughPoints();
 
-      /// Let the next team play
-      final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
-      currentTeamIndex < teams.length - 1 ? currentlyPlayingTeam = teams[currentTeamIndex + 1] : currentlyPlayingTeam = teams[0];
+    /// There are no teams with enough points, continue playing the game
+    if (teamsWithEnoughPoints.isEmpty) {
+      continueGame(teams);
+      return;
+    }
 
-      if (Get.context != null) {
-        showScores(
-          teams: teams,
-          playedWords: playedWords,
-          dismissible: false,
-        );
-        await Future.delayed(const Duration(seconds: 3));
-        Get.back();
+    /// There are teams which have enough points to win the game
+    if (teamsWithEnoughPoints.isNotEmpty) {
+      /// Round is not finished, continue playing the game
+      if (roundNotDone(teamsWithEnoughPoints)) {
+        continueGame(teams);
+      }
+
+      /// Round is finished, play tie break if there are tied teams or end game
+      else {
+        handleTieBreak(teamsWithEnoughPoints);
       }
     }
+  }
+
+  /// Returns a list of `Teams` who have enough points to win the game
+  List<Team> getTeamsWithEnoughPoints() => teams.where((team) => team.points >= pointsToWin).toList();
+
+  /// Checks if current round is finished
+  bool roundNotDone(List<Team> teamsWithEnoughPoints) {
+    final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
+
+    /// Find the maximum points among the teams with enough points
+    final maxPoints = teamsWithEnoughPoints.map((team) => team.points).reduce(max);
+
+    /// Check if the current team has reached the maximum points but is not the last team to play
+    return currentlyPlayingTeam.points < maxPoints || currentTeamIndex < teams.length - 1;
+  }
+
+  /// Game went into tie break, handle accordingly
+  void handleTieBreak(List<Team> teamsWithEnoughPoints) {
+    final tiedTeams = getTiedTeams(teamsWithEnoughPoints);
+
+    if (tiedTeams.length > 1) {
+      continueGame(tiedTeams);
+    } else {
+      endGame(tiedTeams.first);
+    }
+  }
+
+  /// Continues tie break with proper teams
+  void continueGame(List<Team> playingTeams) {
+    updateHiveStats(gameType: Game.none);
+
+    final currentTeamIndex = playingTeams.indexOf(currentlyPlayingTeam);
+    currentlyPlayingTeam = currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0];
+
+    showScoresSheet();
+  }
+
+  /// Ends game and goes to
+  void endGame(Team winner) {
+    updateHiveStats(gameType: Game.normal);
+    Get.toNamed(GameFinishedScreen.routeName, arguments: winner);
+  }
+
+  // Find all teams that are tied for first place
+  List<Team> getTiedTeams(List<Team> teamsWithEnoughPoints) {
+    final maxPoints = teamsWithEnoughPoints.map((team) => team.points).reduce(max);
+    return teamsWithEnoughPoints.where((team) => team.points == maxPoints).toList();
   }
 
   /// Goes to the confetti screen and shows info about the round
@@ -253,6 +301,19 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     greenTimer?.cancel();
     yellowTimer?.cancel();
     redTimer?.cancel();
+  }
+
+  /// Shows scores sheet and dismisses it after some time
+  Future<void> showScoresSheet() async {
+    if (Get.context != null) {
+      showScores(
+        teams: teams,
+        playedWords: playedWords,
+        dismissible: false,
+      );
+      await Future.delayed(const Duration(seconds: 3));
+      Get.back();
+    }
   }
 
   /// Gets called when the game is fully over (going to main menu)
@@ -465,7 +526,6 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
           ],
         );
         hiveService.addNormalGameStatsToBox(normalGameStats: normalGameStats!);
-        // normalGameStats = null;
       }
     }
 

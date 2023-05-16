@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
+import '../../models/team/team.dart';
 import '../../services/game_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
@@ -21,6 +22,7 @@ class GameFinishedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameService = Get.find<GameService>();
+    final winningTeam = Get.arguments as Team;
 
     return WillPopScope(
       onWillPop: () async {
@@ -68,12 +70,12 @@ class GameFinishedScreen extends StatelessWidget {
                             style: ModerniAliasTextStyles.winnerFirst,
                             children: [
                               TextSpan(
-                                text: gameService.currentlyPlayingTeam.name,
+                                text: winningTeam.name,
                                 style: ModerniAliasTextStyles.winnerTeam,
                               ),
                               TextSpan(text: 'winnerSecondString'.tr),
                               TextSpan(
-                                text: gameService.currentlyPlayingTeam.points.toString(),
+                                text: '${winningTeam.points}',
                                 style: ModerniAliasTextStyles.winnerPoints,
                               ),
                               TextSpan(text: 'winnerThirdString'.tr),
