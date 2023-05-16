@@ -229,7 +229,9 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
       return;
     }
 
+    ///
     /// There are teams which have enough points to win the game
+    ///
 
     /// Round is not finished, continue playing the game
     if (roundNotDone(tieBreakTeams ?? teams)) {
