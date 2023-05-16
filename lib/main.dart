@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'global_binding.dart';
@@ -29,20 +28,17 @@ Future<void> main() async {
 
 class ModerniAlias extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => ScreenUtilInit(
-        designSize: const Size(390, 844),
-        builder: (_, __) => GetMaterialApp(
-          onGenerateTitle: (_) => 'appNameString'.tr,
-          theme: theme,
-          initialRoute: HomeScreen.routeName,
-          initialBinding: GlobalBinding(),
-          getPages: routes,
-          locale: Localization.locale,
-          fallbackLocale: Localization.fallbackLocale,
-          translations: Localization(),
-          defaultTransition: Transition.fadeIn,
-          logWriterCallback: loggingWithLogger,
-        ),
+  Widget build(BuildContext context) => GetMaterialApp(
+        onGenerateTitle: (_) => 'appNameString'.tr,
+        theme: theme,
+        initialRoute: HomeScreen.routeName,
+        initialBinding: GlobalBinding(),
+        getPages: routes,
+        locale: Localization.locale,
+        fallbackLocale: Localization.fallbackLocale,
+        translations: Localization(),
+        defaultTransition: Transition.fadeIn,
+        logWriterCallback: loggingWithLogger,
       );
 
   void loggingWithLogger(String text, {bool isError = false}) => isError ? Get.find<LoggerService>().logger.e(text) : Get.find<LoggerService>().logger.d(text);

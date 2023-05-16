@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,9 +28,9 @@ class GeneralInfoScreen extends StatelessWidget {
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 50.h),
+                    const SizedBox(height: 50),
                     HeroTitle(smallText: Get.find<AppInfoService>().appVersion),
-                    SizedBox(height: 40.h),
+                    const SizedBox(height: 40),
                     GameTitle('howTitleString'.tr),
                     StandardText(
                       RichText(
@@ -319,7 +318,7 @@ class GeneralInfoScreen extends StatelessWidget {
                       ),
                     ),
                     SmallTitle('enjoyTitleString'.tr),
-                    SizedBox(height: 50.h),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),

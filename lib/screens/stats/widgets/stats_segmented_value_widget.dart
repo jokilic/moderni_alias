@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
@@ -25,9 +24,9 @@ class StatsSegmentedValueWidget extends StatelessWidget {
             onPressed: null,
             style: TextButton.styleFrom(
               foregroundColor: ModerniAliasColors.whiteColor,
-              padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 0),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50.r),
+                borderRadius: BorderRadius.circular(50),
               ),
             ),
             child: Column(
@@ -39,18 +38,18 @@ class StatsSegmentedValueWidget extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 4.h),
+                const SizedBox(height: 4),
                 AnimatedOpacity(
                   opacity: isActive ? 1 : 0,
                   duration: ModerniAliasDurations.fastAnimation,
                   curve: Curves.easeIn,
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100.r),
+                      borderRadius: BorderRadius.circular(100),
                       color: ModerniAliasColors.whiteColor,
                     ),
-                    height: 5.r,
-                    width: 28.w,
+                    height: 5,
+                    width: 28,
                   ),
                 ),
               ],

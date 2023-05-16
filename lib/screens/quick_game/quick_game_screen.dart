@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../constants/enums.dart';
@@ -34,7 +33,7 @@ class QuickGameScreen extends StatelessWidget {
                 children: [
                   Positioned(
                     top: 0,
-                    width: 1.sw,
+                    width: Get.width,
                     child: QuickGameInfoSection(
                       correctAnswers: gameService.correctAnswers,
                       wrongAnswers: gameService.wrongAnswers,
@@ -46,7 +45,7 @@ class QuickGameScreen extends StatelessWidget {
                   ),
                   if (gameService.currentGame == Game.quick)
                     Positioned(
-                      top: -75.h,
+                      top: -75,
                       bottom: 0,
                       child: AnimatedSwitcher(
                         duration: ModerniAliasDurations.fastAnimation,
@@ -64,7 +63,7 @@ class QuickGameScreen extends StatelessWidget {
                     )
                   else if (gameService.currentGame == Game.starting)
                     Positioned(
-                      top: -75.h,
+                      top: -75,
                       bottom: 0,
                       child: AnimatedSwitcher(
                         duration: ModerniAliasDurations.fastAnimation,
@@ -80,7 +79,7 @@ class QuickGameScreen extends StatelessWidget {
                     )
                   else
                     Positioned(
-                      top: -75.h,
+                      top: -75,
                       bottom: 0,
                       child: AnimatedSwitcher(
                         duration: ModerniAliasDurations.fastAnimation,
@@ -93,7 +92,7 @@ class QuickGameScreen extends StatelessWidget {
                     ),
                   Positioned(
                     bottom: 0,
-                    width: 1.sw,
+                    width: Get.width,
                     child: WrongCorrectButtons(
                       correctChosen: () => gameService.answerChosen(
                         chosenButton: Answer.correct,

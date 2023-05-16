@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
@@ -18,9 +17,9 @@ class NameOfTeam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 36.w,
-          vertical: 12.h,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 36,
+          vertical: 12,
         ),
         child: TextField(
           textInputAction: textInputAction,
@@ -35,16 +34,16 @@ class NameOfTeam extends StatelessWidget {
             hintStyle: ModerniAliasTextStyles.nameOfTeamHint,
           ),
           cursorColor: ModerniAliasColors.whiteColor,
-          cursorRadius: Radius.circular(16.r),
-          cursorWidth: 4.w,
+          cursorRadius: const Radius.circular(16),
+          cursorWidth: 4,
         ),
       );
 }
 
 // Make Input Border
-UnderlineInputBorder buildInputBorder() => UnderlineInputBorder(
+UnderlineInputBorder buildInputBorder() => const UnderlineInputBorder(
       borderSide: BorderSide(
         color: ModerniAliasColors.whiteColor,
-        width: 2.w,
+        width: 2,
       ),
     );

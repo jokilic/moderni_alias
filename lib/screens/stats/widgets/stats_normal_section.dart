@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -27,7 +26,7 @@ class StatsNormalSection extends GetView<StatsController> {
           'statsGeneralNormalGames'.tr.toUpperCase(),
         ),
 
-        SizedBox(height: 12.h),
+        const SizedBox(height: 12),
 
         if (controller.normalGameStats.isEmpty)
           StatsValueWidget(

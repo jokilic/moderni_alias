@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/game_title.dart';
@@ -19,7 +18,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             smallTitle: true,
           ),
 
-          SizedBox(height: 12.h),
+          const SizedBox(height: 12),
 
           StatsValueWidget(
             text: 'statsGeneralNormalGames'.tr,
@@ -35,7 +34,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             bigText: true,
           ),
 
-          SizedBox(height: 32.h),
+          const SizedBox(height: 32),
 
           ///
           /// CORRECT & WRONG ANSWERS
@@ -45,7 +44,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             smallTitle: true,
           ),
 
-          SizedBox(height: 12.h),
+          const SizedBox(height: 12),
 
           StatsValueWidget(
             text: 'statsCorrect'.tr,
@@ -62,7 +61,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             bigText: true,
           ),
 
-          SizedBox(height: 32.h),
+          const SizedBox(height: 32),
 
           ///
           /// AVERAGE ANSWERS PER GAME
@@ -72,7 +71,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             smallTitle: true,
           ),
 
-          SizedBox(height: 12.h),
+          const SizedBox(height: 12),
 
           StatsValueWidget(
             text: 'statsCorrect'.tr,
@@ -88,7 +87,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             bigText: true,
           ),
 
-          SizedBox(height: 32.h),
+          const SizedBox(height: 32),
 
           ///
           /// AVERAGE ANSWERS PER ROUND
@@ -98,7 +97,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             smallTitle: true,
           ),
 
-          SizedBox(height: 12.h),
+          const SizedBox(height: 12),
 
           StatsValueWidget(
             text: 'statsCorrect'.tr,
@@ -114,7 +113,7 @@ class StatsGeneralSection extends GetView<StatsController> {
             bigText: true,
           ),
 
-          SizedBox(height: 32.h),
+          const SizedBox(height: 32),
         ],
       );
 }

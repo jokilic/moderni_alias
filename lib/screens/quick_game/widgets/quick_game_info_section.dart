@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
@@ -20,27 +19,27 @@ class QuickGameInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 50.h,
-        margin: EdgeInsets.only(top: 24.h),
+        height: 50,
+        margin: const EdgeInsets.only(top: 24),
         child: Stack(
           children: [
             Positioned(
-              left: 12.w,
+              left: 12,
               child: AnimatedGestureDetector(
                 onTap: exitGame,
                 end: 0.8,
-                child: IconButton(
+                child: const IconButton(
                   onPressed: null,
                   icon: Icon(
                     Icons.close_rounded,
                     color: ModerniAliasColors.whiteColor,
-                    size: 30.r,
+                    size: 30,
                   ),
                 ),
               ),
             ),
             Positioned(
-              right: 20.w,
+              right: 20,
               child: AnimatedGestureDetector(
                 onTap: showScores,
                 end: 0.8,
@@ -50,7 +49,7 @@ class QuickGameInfoSection extends StatelessWidget {
                       wrongAnswers.toString(),
                       style: ModerniAliasTextStyles.quickWrongScore,
                     ),
-                    SizedBox(width: 10.h),
+                    const SizedBox(width: 10),
                     Text(
                       correctAnswers.toString(),
                       style: ModerniAliasTextStyles.quickCorrectScore,

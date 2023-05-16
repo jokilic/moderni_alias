@@ -1,255 +1,254 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'colors.dart';
 
 class ModerniAliasTextStyles {
-  static final exitButton = TextStyle(
+  static const exitButton = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 18.sp,
+    fontSize: 18,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final exitModal = TextStyle(
+  static const exitModal = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final flagName = TextStyle(
+  static const flagName = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
   static const gameCircularCountdown = TextStyle(
     color: Colors.transparent,
     fontWeight: FontWeight.normal,
     fontFamily: 'Sen',
   );
-  static final gameOffStart = TextStyle(
+  static const gameOffStart = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final gameCurrentWord = TextStyle(
+  static const gameCurrentWord = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 50.sp,
+    fontSize: 50,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    letterSpacing: 8.w,
+    letterSpacing: 8,
   );
-  static final gameCurrentSecond = TextStyle(
+  static const gameCurrentSecond = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 120.sp,
+    fontSize: 120,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    letterSpacing: 8.w,
+    letterSpacing: 8,
   );
-  static final gameTitle = TextStyle(
+  static const gameTitle = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
-    fontWeight: FontWeight.bold,
-    fontFamily: 'Sen',
-  );
-  static final gameTitleSmall = TextStyle(
-    color: ModerniAliasColors.whiteColor,
-    fontSize: 26.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final appNameFirst = TextStyle(
+  static const gameTitleSmall = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 60.sp,
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Sen',
+  );
+  static const appNameFirst = TextStyle(
+    color: ModerniAliasColors.whiteColor,
+    fontSize: 60,
     fontWeight: FontWeight.normal,
     fontFamily: 'Sen',
   );
-  static final appNameSecond = TextStyle(
-    fontSize: 40.sp,
+  static const appNameSecond = TextStyle(
+    fontSize: 40,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final smallHero = TextStyle(
-    fontSize: 14.sp,
+  static const smallHero = TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final playButton = TextStyle(
+  static const playButton = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 18.sp,
+    fontSize: 18,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final smallTitle = TextStyle(
+  static const smallTitle = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 24.sp,
+    fontSize: 24,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final winnerFirst = TextStyle(
+  static const winnerFirst = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final winnerTeam = TextStyle(
+  static const winnerTeam = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final winnerPoints = TextStyle(
+  static const winnerPoints = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final generalInfo = TextStyle(
+  static const generalInfo = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.normal,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final generalInfoBold = TextStyle(
+  static const generalInfoBold = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final stats = TextStyle(
+  static const stats = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final statsNumber = TextStyle(
+  static const statsNumber = TextStyle(
     color: ModerniAliasColors.darkBlueColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final generalInfoBoldBlue = TextStyle(
+  static const generalInfoBoldBlue = TextStyle(
     color: ModerniAliasColors.blueColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final howToPlay = TextStyle(
+  static const howToPlay = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.normal,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final howToPlayBold = TextStyle(
+  static const howToPlayBold = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final howToPlayBoldGreen = TextStyle(
+  static const howToPlayBoldGreen = TextStyle(
     color: ModerniAliasColors.greenColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final howToPlayBoldRed = TextStyle(
+  static const howToPlayBoldRed = TextStyle(
     color: ModerniAliasColors.redColor,
-    fontSize: 20.sp,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
-    height: 1.4.h,
+    height: 1.4,
   );
-  static final highscore = TextStyle(
+  static const highscore = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final playingTeamTitle = TextStyle(
+  static const playingTeamTitle = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 14.sp,
+    fontSize: 14,
     fontWeight: FontWeight.normal,
     fontFamily: 'Sen',
   );
-  static final playingTeam = TextStyle(
+  static const playingTeam = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final scoresTitle = TextStyle(
+  static const scoresTitle = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final quickWrongScore = TextStyle(
+  static const quickWrongScore = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final quickCorrectScore = TextStyle(
+  static const quickCorrectScore = TextStyle(
     color: ModerniAliasColors.blueColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final quickGameFinished = TextStyle(
+  static const quickGameFinished = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final quickGameFinishedBold = TextStyle(
+  static const quickGameFinishedBold = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 34.sp,
+    fontSize: 34,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final gameButton = TextStyle(
+  static const gameButton = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 30.sp,
+    fontSize: 30,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
   static final nameOfTeamHint = TextStyle(
     color: ModerniAliasColors.whiteColor.withOpacity(0.6),
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final validation = TextStyle(
+  static const validation = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final howToPlayButton = TextStyle(
+  static const howToPlayButton = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 13.sp,
+    fontSize: 13,
     fontWeight: FontWeight.normal,
     fontFamily: 'Sen',
   );
-  static final teamNameTextField = TextStyle(
+  static const teamNameTextField = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );
-  static final statsSegmentedControl = TextStyle(
+  static const statsSegmentedControl = TextStyle(
     color: ModerniAliasColors.whiteColor,
-    fontSize: 22.sp,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     fontFamily: 'Sen',
   );

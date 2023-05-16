@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -16,15 +15,15 @@ class HeroTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(top: 16.h),
+        padding: const EdgeInsets.only(top: 16),
         child: AnimatedColumn(
           children: [
             Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.only(left: 32.w),
+              padding: const EdgeInsets.only(left: 32),
               child: SvgPicture.asset(
                 ModerniAliasImages.conversationUpImage,
-                width: 70.w,
+                width: 70,
               ),
             ),
             Column(
@@ -32,8 +31,8 @@ class HeroTitle extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: 12.h,
-                    bottom: smallText == null ? 12.h : 0,
+                    top: 12,
+                    bottom: smallText == null ? 12 : 0,
                   ),
                   child: RichText(
                     textAlign: TextAlign.center,
@@ -51,9 +50,9 @@ class HeroTitle extends StatelessWidget {
                 ),
                 if (smallText != null)
                   Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 16.h,
-                      right: 8.w,
+                    padding: const EdgeInsets.only(
+                      bottom: 16,
+                      right: 8,
                     ),
                     child: Text(
                       smallText!,
@@ -65,10 +64,10 @@ class HeroTitle extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.bottomRight,
-              padding: EdgeInsets.only(right: 32.w),
+              padding: const EdgeInsets.only(right: 32),
               child: SvgPicture.asset(
                 ModerniAliasImages.conversationDownImage,
-                width: 70.w,
+                width: 70,
               ),
             ),
           ],

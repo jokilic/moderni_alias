@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,49 +12,49 @@ import '../general_info_controller.dart';
 class MyQuickPortfolio extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.all(16.r),
+        padding: const EdgeInsets.all(16),
         width: double.infinity,
         child: AnimatedColumn(
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 16.h),
+              padding: const EdgeInsets.only(bottom: 16),
               child: AnimatedGestureDetector(
                 child: GestureDetector(
                   onLongPress: Get.find<GeneralInfoController>().playBoomBaby,
                   behavior: HitTestBehavior.translucent,
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     backgroundColor: ModerniAliasColors.whiteColor,
-                    radius: 85.r,
+                    radius: 85,
                     child: CircleAvatar(
-                      backgroundImage: const AssetImage(
+                      backgroundImage: AssetImage(
                         ModerniAliasImages.josipImage,
                       ),
-                      radius: 82.r,
+                      radius: 82,
                     ),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.r),
+              padding: const EdgeInsets.all(8),
               child: PlayButton(
                 text: 'aboutMeWebsiteString'.tr.toUpperCase(),
-                horizontalPadding: 16.w,
+                horizontalPadding: 16,
                 onPressed: () => launchUrl(
                   Uri.parse(ModerniAliasWebsites.josipKilicWebsite),
                   mode: LaunchMode.externalApplication,
                 ),
               ),
             ),
-            SizedBox(height: 8.h),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(8.r),
+                  padding: const EdgeInsets.all(8),
                   child: PlayButton(
                     text: 'aboutMeGitHubString'.tr.toUpperCase(),
-                    horizontalPadding: 16.w,
+                    horizontalPadding: 16,
                     onPressed: () => launchUrl(
                       Uri.parse(ModerniAliasWebsites.josipGithubWebsite),
                       mode: LaunchMode.externalApplication,
@@ -63,10 +62,10 @@ class MyQuickPortfolio extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.r),
+                  padding: const EdgeInsets.all(8),
                   child: PlayButton(
                     text: 'aboutMeEmailString'.tr.toUpperCase(),
-                    horizontalPadding: 16.w,
+                    horizontalPadding: 16,
                     onPressed: () => launchUrl(
                       Uri.parse(ModerniAliasWebsites.josipKilicEmail),
                       mode: LaunchMode.externalApplication,

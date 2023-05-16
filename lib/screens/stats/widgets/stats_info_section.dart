@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/game_title.dart';
@@ -17,7 +16,7 @@ class StatsInfoSection extends StatelessWidget {
           StatsValueWidget(
             text: 'statsInfoGeneralExplanation'.tr,
           ),
-          SizedBox(height: 8.h),
+          const SizedBox(height: 8),
           GameTitle(
             'statsInfoNormal'.tr,
             smallTitle: true,
@@ -25,7 +24,7 @@ class StatsInfoSection extends StatelessWidget {
           StatsValueWidget(
             text: 'statsInfoNormalExplanation'.tr,
           ),
-          SizedBox(height: 8.h),
+          const SizedBox(height: 8),
           GameTitle(
             'statsInfoQuick'.tr,
             smallTitle: true,
@@ -33,7 +32,7 @@ class StatsInfoSection extends StatelessWidget {
           StatsValueWidget(
             text: 'statsInfoQuickExplanation'.tr,
           ),
-          SizedBox(height: 32.h),
+          const SizedBox(height: 32),
         ],
       );
 }

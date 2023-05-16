@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
@@ -28,7 +27,7 @@ class GameButton extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding,
-          vertical: 36.h,
+          vertical: 36,
         ),
         child: AnimatedGestureDetector(
           onTap: onTap,
@@ -41,9 +40,9 @@ class GameButton extends StatelessWidget {
                 color: backgroundColor,
                 border: Border.all(
                   color: ModerniAliasColors.whiteColor,
-                  width: 4.w,
+                  width: 4,
                 ),
-                borderRadius: BorderRadius.circular(24.r),
+                borderRadius: BorderRadius.circular(24),
               ),
               child: Center(
                 child: Text(

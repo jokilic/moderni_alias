@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
@@ -21,7 +20,7 @@ class NormalGameInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.only(top: 24.h),
+        margin: const EdgeInsets.only(top: 24),
         child: Stack(
           children: [
             Align(
@@ -41,31 +40,31 @@ class NormalGameInfoSection extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 12.w,
+              left: 12,
               child: AnimatedGestureDetector(
                 onTap: exitGame,
                 end: 0.8,
-                child: IconButton(
+                child: const IconButton(
                   onPressed: null,
                   icon: Icon(
                     Icons.close_rounded,
                     color: ModerniAliasColors.whiteColor,
-                    size: 30.r,
+                    size: 30,
                   ),
                 ),
               ),
             ),
             Positioned(
-              right: 12.w,
+              right: 12,
               child: AnimatedGestureDetector(
                 onTap: showScores,
                 end: 0.8,
-                child: IconButton(
+                child: const IconButton(
                   onPressed: null,
                   icon: Icon(
                     Icons.format_list_numbered_rounded,
                     color: ModerniAliasColors.whiteColor,
-                    size: 30.r,
+                    size: 30,
                   ),
                 ),
               ),

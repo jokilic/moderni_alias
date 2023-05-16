@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
@@ -159,7 +158,7 @@ class StartGameScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16.r),
+                      padding: const EdgeInsets.all(16),
                       child: Center(
                         child: AnimatedSwitcher(
                           duration: ModerniAliasDurations.animation,
@@ -179,7 +178,7 @@ class StartGameScreen extends StatelessWidget {
                         onPressed: gameService.validateMainGame,
                       ),
                     ),
-                    SizedBox(height: 50.h),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),

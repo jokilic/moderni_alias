@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import 'game_button.dart';
@@ -12,9 +11,9 @@ Widget createNumberOfTeamsButton({
     GameButton(
       backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
       color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
-      fontSize: 36.r,
-      horizontalPadding: 20.w,
+      fontSize: 36,
+      horizontalPadding: 20,
       number: chosenNumberOfTeams,
       onTap: updateValue,
-      size: 90.r,
+      size: 90,
     );

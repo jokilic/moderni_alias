@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../services/game_service.dart';
@@ -18,19 +17,19 @@ class HomePageButtons extends StatelessWidget {
         children: [
           PlayButton(
             text: 'startButtonString'.tr.toUpperCase(),
-            horizontalPadding: 44.w,
+            horizontalPadding: 44,
             onPressed: () => Get.toNamed(
               StartGameScreen.routeName,
             ),
           ),
-          SizedBox(height: 25.h),
+          const SizedBox(height: 25),
           PlayButton(
             text: 'quickStartButtonString'.tr.toUpperCase(),
             onPressed: gameService.startQuickGame,
           ),
-          SizedBox(height: 25.h),
+          const SizedBox(height: 25),
           StatsButton(),
-          SizedBox(height: 50.h),
+          const SizedBox(height: 50),
         ],
       ),
     );

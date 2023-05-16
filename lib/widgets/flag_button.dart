@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
@@ -25,9 +24,9 @@ class FlagButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(
-          top: 24.h,
-          bottom: 16.h,
+        padding: const EdgeInsets.only(
+          top: 24,
+          bottom: 16,
         ),
         child: AnimatedGestureDetector(
           onTap: onTap,
@@ -40,12 +39,12 @@ class FlagButton extends StatelessWidget {
                   children: [
                     Container(
                       color: backgroundColor,
-                      height: 75.h,
-                      width: 80.w,
+                      height: 75,
+                      width: 80,
                     ),
                     SvgPicture.asset(
                       flagImage,
-                      width: 90.w,
+                      width: 90,
                       colorFilter: ColorFilter.mode(
                         color,
                         BlendMode.srcIn,

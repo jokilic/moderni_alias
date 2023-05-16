@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
@@ -25,11 +24,11 @@ class StatsScreen extends GetView<StatsController> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 32.h),
+                  const SizedBox(height: 32),
                   HeroTitle(smallText: 'statsTitle'.tr),
-                  SizedBox(height: 32.h),
+                  const SizedBox(height: 32),
                   StatsSegmentedWidget(),
-                  SizedBox(height: 24.h),
+                  const SizedBox(height: 24),
                   Expanded(
                     child: Obx(
                       () => AnimatedSwitcher(

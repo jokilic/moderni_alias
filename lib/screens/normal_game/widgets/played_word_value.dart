@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/enums.dart';
@@ -18,30 +18,30 @@ class PlayedWordValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.r),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Padding(
-          padding: EdgeInsets.only(bottom: 6.h),
+          padding: const EdgeInsets.only(bottom: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 0.6.sw,
+                width: Get.width * 0.6,
                 child: Text(
                   word,
                   style: ModerniAliasTextStyles.highscore,
                 ),
               ),
-              SizedBox(width: 16.w),
+              const SizedBox(width: 16),
               SizedBox(
-                width: 0.1.sw,
+                width: Get.width * 0.1,
                 child: SvgPicture.asset(
                   chosenAnswer == Answer.correct ? ModerniAliasImages.correctImage : ModerniAliasImages.wrongImage,
                   colorFilter: const ColorFilter.mode(
                     ModerniAliasColors.whiteColor,
                     BlendMode.srcIn,
                   ),
-                  width: 24.r,
-                  height: 24.r,
+                  width: 24,
+                  height: 24,
                 ),
               ),
             ],

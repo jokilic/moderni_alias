@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
@@ -22,19 +21,19 @@ void showScores({
       isDismissible: dismissible,
       Container(
         width: double.infinity,
-        padding: EdgeInsets.only(
-          top: 36.h,
-          bottom: 24.h,
+        padding: const EdgeInsets.only(
+          top: 36,
+          bottom: 24,
         ),
-        decoration: BoxDecoration(
-          image: const DecorationImage(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
             image: AssetImage(
               ModerniAliasImages.backgroundImage,
             ),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(24.r),
+            top: Radius.circular(24),
           ),
         ),
         child: SingleChildScrollView(
@@ -51,7 +50,7 @@ void showScores({
                   'scoresModalString'.tr,
                   style: ModerniAliasTextStyles.scoresTitle,
                 ),
-                SizedBox(height: 24.h),
+                const SizedBox(height: 24),
                 AnimationLimiter(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -73,12 +72,12 @@ void showScores({
               /// WORDS FROM LAST ROUND
               ///
               if (playedWords.isNotEmpty) ...[
-                if (teams != null) SizedBox(height: 40.h),
+                if (teams != null) const SizedBox(height: 40),
                 Text(
                   'playedWordsModalString'.tr,
                   style: ModerniAliasTextStyles.scoresTitle,
                 ),
-                SizedBox(height: 24.h),
+                const SizedBox(height: 24),
                 AnimationLimiter(
                   child: ListView.builder(
                     shrinkWrap: true,

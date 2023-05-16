@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -26,7 +25,7 @@ class StatsQuickSection extends GetView<StatsController> {
           'statsGeneralQuickGames'.tr.toUpperCase(),
         ),
 
-        SizedBox(height: 12.h),
+        const SizedBox(height: 12),
 
         if (controller.quickGameStats.isEmpty)
           StatsValueWidget(

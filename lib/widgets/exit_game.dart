@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import './exit_game_button.dart';
@@ -14,19 +14,19 @@ Future<bool> exitGameModal() async {
   await Get.bottomSheet(
     Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: 24.w,
-        vertical: 36.h,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: 36,
       ),
-      decoration: BoxDecoration(
-        image: const DecorationImage(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
           image: AssetImage(
             ModerniAliasImages.backgroundImage,
           ),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24.r),
+          top: Radius.circular(24),
         ),
       ),
       child: AnimatedColumn(
@@ -38,7 +38,7 @@ Future<bool> exitGameModal() async {
             textAlign: TextAlign.center,
             style: ModerniAliasTextStyles.exitModal,
           ),
-          SizedBox(height: 24.h),
+          const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -48,7 +48,7 @@ Future<bool> exitGameModal() async {
                 pointerDown: (_) => gameService.exitButtonAnimationController.forward(),
                 pointerUp: (_) => gameService.exitButtonAnimationController.reverse(),
               ),
-              SizedBox(width: 24.h),
+              const SizedBox(width: 24),
               ExitGameButton(
                 text: 'exitModalQuestionNo'.tr,
                 onPressed: Get.back,

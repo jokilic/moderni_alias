@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
@@ -13,13 +12,13 @@ class InfoButton extends StatelessWidget {
           GeneralInfoScreen.routeName,
         ),
         end: 0.8,
-        child: IconButton(
+        child: const IconButton(
           onPressed: null,
-          icon: const Icon(
+          icon: Icon(
             Icons.info_outline_rounded,
             color: ModerniAliasColors.whiteColor,
           ),
-          iconSize: 36.r,
+          iconSize: 36,
         ),
       );
 }

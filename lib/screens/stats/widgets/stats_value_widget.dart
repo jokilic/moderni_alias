@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
@@ -24,19 +23,19 @@ class StatsValueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: AnimatedGestureDetector(
           onTap: onPressed,
           child: TextButton(
             onPressed: null,
             style: TextButton.styleFrom(
               foregroundColor: ModerniAliasColors.whiteColor,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-                vertical: 8.h,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50.r),
+                borderRadius: BorderRadius.circular(50),
               ),
             ),
             child: Row(
@@ -48,18 +47,18 @@ class StatsValueWidget extends StatelessWidget {
                     value: value,
                     bigText: bigText,
                   ),
-                  SizedBox(width: 20.w),
+                  const SizedBox(width: 20),
                 ],
                 Expanded(
                   child: Text(
                     text,
                     style: ModerniAliasTextStyles.stats.copyWith(
-                      fontSize: bigText ? 24.sp : null,
+                      fontSize: bigText ? 24 : null,
                     ),
                   ),
                 ),
                 if (value != null && !valueLeft) ...[
-                  SizedBox(width: 20.w),
+                  const SizedBox(width: 20),
                   StatsValueContainer(
                     yellowCircle: yellowCircle,
                     value: value,
@@ -86,10 +85,10 @@ class StatsValueContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.all(6.r),
-        constraints: BoxConstraints(
-          minHeight: 36.r,
-          minWidth: 36.r,
+        padding: const EdgeInsets.all(6),
+        constraints: const BoxConstraints(
+          minHeight: 36,
+          minWidth: 36,
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -99,7 +98,7 @@ class StatsValueContainer extends StatelessWidget {
         child: Text(
           '$value',
           style: ModerniAliasTextStyles.statsNumber.copyWith(
-            fontSize: bigText ? 24.sp : null,
+            fontSize: bigText ? 24 : null,
           ),
           textAlign: TextAlign.center,
         ),

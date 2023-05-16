@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import './widgets/home_page_buttons.dart';
 import './widgets/info_button.dart';
@@ -21,12 +20,12 @@ class HomeScreen extends StatelessWidget {
                 AnimatedColumn(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(16.r),
+                      padding: const EdgeInsets.all(16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           HowToPlayButton(),
-                          SizedBox(width: 8.w),
+                          const SizedBox(width: 8),
                           InfoButton(),
                         ],
                       ),

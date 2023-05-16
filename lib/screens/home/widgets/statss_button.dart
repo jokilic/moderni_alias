@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
@@ -18,17 +17,17 @@ class StatsButton extends StatelessWidget {
           onPressed: null,
           style: TextButton.styleFrom(
             foregroundColor: ModerniAliasColors.whiteColor,
-            padding: EdgeInsets.symmetric(
-              horizontal: 12.w,
-              vertical: 2.h,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 2,
             ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.r),
+              borderRadius: BorderRadius.circular(50),
             ),
             backgroundColor: Colors.black45,
           ),
           child: Padding(
-            padding: EdgeInsets.all(12.r),
+            padding: const EdgeInsets.all(12),
             child: Text(
               'statsButtonString'.tr,
               style: ModerniAliasTextStyles.howToPlayButton,

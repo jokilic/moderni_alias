@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
@@ -20,7 +19,7 @@ class StatsTextIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.w),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -30,12 +29,12 @@ class StatsTextIconWidget extends StatelessWidget {
                 style: ModerniAliasTextStyles.stats,
               ),
             ),
-            SizedBox(width: 28.w),
+            const SizedBox(width: 28),
             if (icon != null)
               if (isSVG)
                 SvgPicture.asset(
                   icon!,
-                  width: size.w,
+                  width: size,
                   colorFilter: const ColorFilter.mode(
                     ModerniAliasColors.whiteColor,
                     BlendMode.srcIn,
@@ -44,7 +43,7 @@ class StatsTextIconWidget extends StatelessWidget {
               else
                 Image.asset(
                   icon!,
-                  width: size.w,
+                  width: size,
                 ),
           ],
         ),

@@ -1,6 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
@@ -21,16 +21,16 @@ class GameStarting extends StatelessWidget {
           CircularCountDownTimer(
             strokeCap: StrokeCap.round,
             duration: 3,
-            width: 0.9.sw,
-            height: 0.6.sh,
+            width: Get.width * 0.9,
+            height: Get.height * 0.6,
             onComplete: onComplete,
             ringColor: Colors.transparent,
             fillColor: Colors.transparent,
-            strokeWidth: 36.w,
+            strokeWidth: 36,
             textStyle: ModerniAliasTextStyles.gameCircularCountdown,
           ),
           SizedBox(
-            width: 1.sw - 40.w,
+            width: Get.width - 40,
             child: AnimatedSwitcher(
               duration: ModerniAliasDurations.fastAnimation,
               switchInCurve: Curves.easeIn,

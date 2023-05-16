@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
 import '../constants/text_styles.dart';
@@ -26,15 +25,15 @@ class PlayButton extends StatelessWidget {
           style: TextButton.styleFrom(
             foregroundColor: ModerniAliasColors.whiteColor,
             padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding.w,
-              vertical: verticalPadding.h,
+              horizontal: horizontalPadding,
+              vertical: verticalPadding,
             ),
-            side: BorderSide(
+            side: const BorderSide(
               color: ModerniAliasColors.whiteColor,
-              width: 2.w,
+              width: 2,
             ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.r),
+              borderRadius: BorderRadius.circular(50),
             ),
           ),
           child: Text(

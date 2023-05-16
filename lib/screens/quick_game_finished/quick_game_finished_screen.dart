@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -49,16 +48,16 @@ class QuickGameFinishedScreen extends StatelessWidget {
               ),
               Center(
                 child: SizedBox(
-                  height: 1.sh,
-                  width: 0.8.sw,
+                  height: Get.height,
+                  width: Get.width * 0.8,
                   child: AnimatedColumn(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
                         ModerniAliasImages.clapImage,
-                        height: 220.h,
+                        height: 220,
                       ),
-                      SizedBox(height: 30.h),
+                      const SizedBox(height: 30),
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
@@ -80,14 +79,14 @@ class QuickGameFinishedScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 72.h),
+                      const SizedBox(height: 72),
                       AnimatedColumn(
                         children: [
                           PlayButton(
                             text: 'quickGameFinishedPlayAgainString'.tr.toUpperCase(),
                             onPressed: gameService.startQuickGame,
                           ),
-                          SizedBox(height: 20.h),
+                          const SizedBox(height: 20),
                           PlayButton(
                             text: 'quickGameFinishedExitString'.tr.toUpperCase(),
                             onPressed: gameService.exitToMainMenu,
@@ -99,19 +98,19 @@ class QuickGameFinishedScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 48.h,
-                right: 12.w,
+                top: 48,
+                right: 12,
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
                     playedWords: gameService.playedWords,
                   ),
                   end: 0.8,
-                  child: IconButton(
+                  child: const IconButton(
                     onPressed: null,
                     icon: Icon(
                       Icons.format_list_numbered_rounded,
                       color: ModerniAliasColors.whiteColor,
-                      size: 30.r,
+                      size: 30,
                     ),
                   ),
                 ),

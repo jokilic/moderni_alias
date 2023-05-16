@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/text_styles.dart';
 
@@ -14,22 +14,22 @@ class HighscoreValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.r),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Padding(
-          padding: EdgeInsets.only(bottom: 6.h),
+          padding: const EdgeInsets.only(bottom: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 0.6.sw,
+                width: Get.width * 0.6,
                 child: Text(
                   teamName,
                   style: ModerniAliasTextStyles.highscore,
                 ),
               ),
-              SizedBox(width: 16.w),
+              const SizedBox(width: 16),
               SizedBox(
-                width: 0.1.sw,
+                width: Get.width * 0.1,
                 child: Text(
                   points.toString(),
                   textAlign: TextAlign.center,

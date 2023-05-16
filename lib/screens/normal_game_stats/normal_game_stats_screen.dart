@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -37,17 +36,17 @@ class NormalGameStatsScreen extends StatelessWidget {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                SizedBox(height: 32.h),
+                const SizedBox(height: 32),
                 const HeroTitle(),
-                SizedBox(height: 24.h),
+                const SizedBox(height: 24),
                 GameTitle(
                   'statsWhoWonTitle'.tr,
                   smallTitle: true,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 ListView.builder(
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: sortedTeams.length,
                   itemBuilder: (_, index) {
@@ -61,12 +60,12 @@ class NormalGameStatsScreen extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 GameTitle(
                   'statsWhenTitle'.tr,
                   smallTitle: true,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 StatsTextIconWidget(
                   text: 'statsWhenText'.trParams({
                     'date': date,
@@ -75,12 +74,12 @@ class NormalGameStatsScreen extends StatelessWidget {
                   }),
                   icon: ModerniAliasImages.clockImage,
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 GameTitle(
                   'statsLanguageTitle'.tr,
                   smallTitle: true,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 StatsTextIconWidget(
                   text: 'statsLanguageText'.trParams({
                     'language': language,
@@ -88,39 +87,39 @@ class NormalGameStatsScreen extends StatelessWidget {
                   icon: normalGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
                   size: 58,
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 GameTitle(
                   'statsLengthOfRoundTitle'.tr,
                   smallTitle: true,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 StatsTextIconWidget(
                   text: 'statsLengthOfRoundText'.trParams({
                     'lengthOfRound': '${normalGame.lengthOfRound}',
                   }),
                   icon: ModerniAliasImages.hourglassImage,
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 GameTitle(
                   'statsPointsToWinTitle'.tr,
                   smallTitle: true,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 StatsTextIconWidget(
                   text: 'statsPointsToWinText'.trParams({
                     'pointsToWin': '${normalGame.pointsToWin}',
                   }),
                   icon: ModerniAliasImages.pointsImage,
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 GameTitle(
                   'statsWordsTitle'.tr,
                   smallTitle: true,
                 ),
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 ListView.builder(
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: normalGame.rounds.length,
                   itemBuilder: (_, index) {
@@ -134,7 +133,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(height: 40.h),
+                const SizedBox(height: 40),
               ],
             ),
           ),

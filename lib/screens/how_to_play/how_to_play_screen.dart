@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../constants/text_styles.dart';
@@ -24,9 +23,9 @@ class HowToPlayScreen extends StatelessWidget {
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 50.h),
+                    const SizedBox(height: 50),
                     const HeroTitle(),
-                    SizedBox(height: 40.h),
+                    const SizedBox(height: 40),
                     GameTitle('whatIsAliasTitleString'.tr),
                     StandardText(
                       RichText(
@@ -129,7 +128,7 @@ class HowToPlayScreen extends StatelessWidget {
                       ),
                     ),
                     SmallTitle('enjoyTitleString'.tr),
-                    SizedBox(height: 50.h),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),

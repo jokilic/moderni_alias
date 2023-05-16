@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/text_styles.dart';
 
@@ -14,15 +13,11 @@ class GameTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(
-          top: 24.h,
-          left: 24.w,
-          right: 24.w,
-        ),
+        padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
         child: Text(
           title,
           style: ModerniAliasTextStyles.gameTitle.copyWith(
-            fontSize: smallTitle ? 30.sp : null,
+            fontSize: smallTitle ? 30 : null,
           ),
         ),
       );

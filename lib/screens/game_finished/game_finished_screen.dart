@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -53,16 +52,16 @@ class GameFinishedScreen extends StatelessWidget {
                   onTap: gameService.exitToMainMenu,
                   behavior: HitTestBehavior.translucent,
                   child: SizedBox(
-                    width: 0.8.sw,
-                    height: 500.h,
+                    width: Get.width * 0.8,
+                    height: 500,
                     child: AnimatedColumn(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
                           ModerniAliasImages.clapImage,
-                          height: 220.h,
+                          height: 220,
                         ),
-                        SizedBox(height: 30.h),
+                        const SizedBox(height: 30),
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
@@ -88,19 +87,19 @@ class GameFinishedScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 48.h,
-                right: 12.w,
+                top: 48,
+                right: 12,
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
                     playedWords: gameService.playedWords,
                   ),
                   end: 0.8,
-                  child: IconButton(
+                  child: const IconButton(
                     onPressed: null,
                     icon: Icon(
                       Icons.format_list_numbered_rounded,
                       color: ModerniAliasColors.whiteColor,
-                      size: 30.r,
+                      size: 30,
                     ),
                   ),
                 ),

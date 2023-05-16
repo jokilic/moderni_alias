@@ -1,6 +1,5 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -23,11 +22,11 @@ class GameOff extends StatelessWidget {
         children: [
           CircularCountDownTimer(
             duration: 0,
-            width: 0.9.sw,
-            height: 0.6.sh,
+            width: Get.width * 0.9,
+            height: Get.height * 0.6,
             ringColor: Colors.transparent,
             fillColor: Colors.transparent,
-            strokeWidth: 36.w,
+            strokeWidth: 36,
             textStyle: ModerniAliasTextStyles.gameCircularCountdown,
           ),
           AnimatedGestureDetector(
@@ -38,9 +37,9 @@ class GameOff extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   ModerniAliasImages.clickImage,
-                  height: 136.h,
+                  height: 136,
                 ),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 16),
                 FadeInAnimation(
                   curve: Curves.easeIn,
                   duration: ModerniAliasDurations.slowAnimation,

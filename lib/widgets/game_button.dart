@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
@@ -21,8 +20,8 @@ class GameButton extends StatelessWidget {
         child: AnimatedGestureDetector(
           onTap: onTap,
           child: Container(
-            padding: EdgeInsets.all(50.r),
-            height: 150.h,
+            padding: const EdgeInsets.all(50),
+            height: 150,
             decoration: BoxDecoration(
               color: ModerniAliasColors.whiteColor.withOpacity(0.05),
               borderRadius: borderRadius,

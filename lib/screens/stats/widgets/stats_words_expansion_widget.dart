@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/strings.dart';
@@ -33,16 +32,16 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
           turns = value ? 0.5 : 0;
         }),
         shape: const RoundedRectangleBorder(),
-        tilePadding: EdgeInsets.symmetric(
-          horizontal: 16.w,
-          vertical: 8.h,
+        tilePadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 8,
         ),
-        childrenPadding: EdgeInsets.only(top: 8.h, bottom: 16.h),
+        childrenPadding: const EdgeInsets.only(top: 8, bottom: 16),
         leading: Container(
-          padding: EdgeInsets.all(6.r),
-          constraints: BoxConstraints(
-            minHeight: 36.r,
-            minWidth: 36.r,
+          padding: const EdgeInsets.all(6),
+          constraints: const BoxConstraints(
+            minHeight: 36,
+            minWidth: 36,
           ),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
@@ -51,7 +50,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
           child: Text(
             '${widget.index + 1}',
             style: ModerniAliasTextStyles.statsNumber.copyWith(
-              fontSize: 24.sp,
+              fontSize: 24,
             ),
             textAlign: TextAlign.center,
           ),
@@ -60,24 +59,24 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
             ? Text(
                 '${widget.someWords}...',
                 style: ModerniAliasTextStyles.stats.copyWith(
-                  fontSize: 16.sp,
+                  fontSize: 16,
                 ),
               )
             : null,
         title: Text(
           '${widget.round.playingTeam?.name}',
           style: ModerniAliasTextStyles.stats.copyWith(
-            fontSize: 24.sp,
+            fontSize: 24,
           ),
         ),
         trailing: AnimatedRotation(
           turns: turns,
           duration: ModerniAliasDurations.fastAnimation,
           curve: Curves.easeIn,
-          child: Icon(
+          child: const Icon(
             Icons.arrow_drop_down_circle,
             color: ModerniAliasColors.whiteColor,
-            size: 32.r,
+            size: 32,
           ),
         ),
         children: List.generate(
