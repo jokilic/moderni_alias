@@ -55,6 +55,10 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
   List<Team> get teams => _teams;
   set teams(List<Team> value) => _teams.assignAll(value);
 
+  final _tieBreakTeams = Rxn<List<Team>?>();
+  List<Team>? get tieBreakTeams => _tieBreakTeams.value;
+  set tieBreakTeams(List<Team>? value) => _tieBreakTeams.value = value;
+
   final _currentlyPlayingTeam = Team(name: '').obs;
   Team get currentlyPlayingTeam => _currentlyPlayingTeam.value;
   set currentlyPlayingTeam(Team value) => _currentlyPlayingTeam.value = value;
@@ -176,6 +180,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     countdownTimerFillColor = Colors.transparent;
     currentlyPlayingTeam = teams.first;
     exitButtonAnimationController.value = 0;
+    tieBreakTeams = null;
 
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
@@ -225,16 +230,15 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     }
 
     /// There are teams which have enough points to win the game
-    if (teamsWithEnoughPoints.isNotEmpty) {
-      /// Round is not finished, continue playing the game
-      if (roundNotDone(teamsWithEnoughPoints)) {
-        continueGame(teams);
-      }
 
-      /// Round is finished, play tie break if there are tied teams or end game
-      else {
-        handleTieBreak(teamsWithEnoughPoints);
-      }
+    /// Round is not finished, continue playing the game
+    if (roundNotDone(tieBreakTeams ?? teams)) {
+      continueGame(tieBreakTeams ?? teams);
+    }
+
+    /// Round is finished, play tie break if there are tied teams or end game
+    else {
+      handleTieBreak(getTiedTeams(teamsWithEnoughPoints));
     }
   }
 
@@ -242,19 +246,19 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
   List<Team> getTeamsWithEnoughPoints() => teams.where((team) => team.points >= pointsToWin).toList();
 
   /// Checks if current round is finished
-  bool roundNotDone(List<Team> teamsWithEnoughPoints) {
-    final currentTeamIndex = teams.indexOf(currentlyPlayingTeam);
+  bool roundNotDone(List<Team> teamsToCheck) {
+    final currentTeamIndex = teamsToCheck.indexOf(currentlyPlayingTeam);
 
     /// Find the maximum points among the teams with enough points
-    final maxPoints = teamsWithEnoughPoints.map((team) => team.points).reduce(max);
+    final maxPoints = teamsToCheck.map((team) => team.points).reduce(max);
 
     /// Check if the current team has reached the maximum points but is not the last team to play
-    return currentlyPlayingTeam.points < maxPoints || currentTeamIndex < teams.length - 1;
+    return currentlyPlayingTeam.points <= maxPoints && currentTeamIndex < teamsToCheck.length - 1;
   }
 
   /// Game went into tie break, handle accordingly
-  void handleTieBreak(List<Team> teamsWithEnoughPoints) {
-    final tiedTeams = getTiedTeams(teamsWithEnoughPoints);
+  void handleTieBreak(List<Team> tiedTeams) {
+    tieBreakTeams = tiedTeams;
 
     if (tiedTeams.length > 1) {
       continueGame(tiedTeams);
