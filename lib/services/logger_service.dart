@@ -1,7 +1,17 @@
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-class LoggerService extends GetxService {
+final loggerProvider = Provider<LoggerService>((ref) => LoggerService());
+
+class LoggerService {
+  ///
+  /// CONSTRUCTOR
+  ///
+
+  LoggerService() {
+    init();
+  }
+
   ///
   /// VARIABLES
   ///
@@ -12,18 +22,14 @@ class LoggerService extends GetxService {
   /// INIT
   ///
 
-  @override
-  void onInit() {
-    super.onInit();
-    logger = Logger(
-      printer: PrettyPrinter(
-        methodCount: 0,
-        errorMethodCount: 3,
-        lineLength: 50,
-        noBoxingByDefault: true,
-      ),
-    );
-  }
+  void init() => logger = Logger(
+        printer: PrettyPrinter(
+          methodCount: 0,
+          errorMethodCount: 3,
+          lineLength: 50,
+          noBoxingByDefault: true,
+        ),
+      );
 
   ///
   /// METHODS

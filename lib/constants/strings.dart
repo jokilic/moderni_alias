@@ -20,21 +20,21 @@ class ModerniAliasWebsites {
 ---------- */
 
 class ModerniAliasImages {
-  static const backgroundImage = 'assets/background.jpg';
-  static const clockImage = 'assets/clock.png';
-  static const hourglassImage = 'assets/hourglass.png';
-  static const pointsImage = 'assets/points.png';
-  static const croatiaImage = 'assets/croatia.svg';
-  static const unitedKingdomImage = 'assets/united_kingdom.svg';
-  static const croatiaImageColor = 'assets/croatia_color.png';
-  static const unitedKingdomImageColor = 'assets/united_kingdom_color.png';
-  static const correctImage = 'assets/correct.svg';
-  static const wrongImage = 'assets/wrong.svg';
-  static const clickImage = 'assets/click.svg';
-  static const clapImage = 'assets/clap.svg';
-  static const conversationUpImage = 'assets/conversation-up.svg';
-  static const conversationDownImage = 'assets/conversation-down.svg';
-  static const josipImage = 'assets/josip.jpg';
+  static const backgroundImage = 'assets/images/background.jpg';
+  static const josipImage = 'assets/images/josip.jpg';
+  static const clockImage = 'assets/icons/clock.png';
+  static const hourglassImage = 'assets/icons/hourglass.png';
+  static const pointsImage = 'assets/icons/points.png';
+  static const croatiaImage = 'assets/icons/croatia.svg';
+  static const unitedKingdomImage = 'assets/icons/united_kingdom.svg';
+  static const croatiaImageColor = 'assets/icons/croatia_color.png';
+  static const unitedKingdomImageColor = 'assets/icons/united_kingdom_color.png';
+  static const correctImage = 'assets/icons/correct.svg';
+  static const wrongImage = 'assets/icons/wrong.svg';
+  static const clickImage = 'assets/icons/click.svg';
+  static const clapImage = 'assets/icons/clap.svg';
+  static const conversationUpImage = 'assets/icons/conversation-up.svg';
+  static const conversationDownImage = 'assets/icons/conversation-down.svg';
 }
 
 /* ----------
@@ -42,10 +42,10 @@ class ModerniAliasImages {
 ---------- */
 
 class ModerniAliasSounds {
-  static const correct = 'assets/correct.wav';
-  static const wrong = 'assets/wrong.wav';
-  static const timer = 'assets/timer.wav';
-  static const boom = 'assets/boom.wav';
+  static const correct = 'assets/audio/correct.wav';
+  static const wrong = 'assets/audio/wrong.wav';
+  static const timer = 'assets/audio/timer.wav';
+  static const boom = 'assets/audio/boom.wav';
 }
 
 /* ----------
@@ -66,4 +66,12 @@ class ModerniAliasDurations {
 
 class ModerniAliasAnimations {
   static const confetti = 'assets/confetti.riv';
+}
+
+/* ----------
+- Translations -
+---------- */
+
+class ModerniAliasTranslations {
+  static const folderLocation = 'assets/translations';
 }

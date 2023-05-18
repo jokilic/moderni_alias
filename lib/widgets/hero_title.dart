@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
@@ -37,11 +37,11 @@ class HeroTitle extends StatelessWidget {
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: 'appNameFirstString'.tr,
+                      text: 'appNameFirstString'.tr(),
                       style: ModerniAliasTextStyles.appNameFirst,
                       children: [
                         TextSpan(
-                          text: 'appNameSecondString'.tr,
+                          text: 'appNameSecondString'.tr(),
                           style: ModerniAliasTextStyles.appNameSecond,
                         ),
                       ],

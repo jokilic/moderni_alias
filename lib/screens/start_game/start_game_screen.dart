@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:get/get.dart';
 
 import './widgets/horizontal_row.dart';
 import './widgets/length_of_round_button.dart';
@@ -36,19 +36,19 @@ class StartGameScreen extends StatelessWidget {
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GameTitle('dictionaryString'.tr),
+                    GameTitle('dictionaryString'.tr()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         createFlagButton(
-                          countryName: 'dictionaryCroatianString'.tr,
+                          countryName: 'dictionaryCroatianString'.tr(),
                           flagImage: ModerniAliasImages.croatiaImage,
                           selectedCountry: Flag.croatia,
                           updateValue: () => gameService.updateDictionary(Flag.croatia),
                           isActive: gameService.chosenDictionary == Flag.croatia,
                         ),
                         createFlagButton(
-                          countryName: 'dictionaryEnglishString'.tr,
+                          countryName: 'dictionaryEnglishString'.tr(),
                           flagImage: ModerniAliasImages.unitedKingdomImage,
                           selectedCountry: Flag.unitedKingdom,
                           updateValue: () => gameService.updateDictionary(Flag.unitedKingdom),
@@ -56,7 +56,7 @@ class StartGameScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    GameTitle('teamsString'.tr),
+                    GameTitle('teamsString'.tr()),
                     HorizontalScroll(
                       [
                         createNumberOfTeamsButton(
@@ -82,7 +82,7 @@ class StartGameScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    GameTitle('numberOfPointsString'.tr),
+                    GameTitle('numberOfPointsString'.tr()),
                     HorizontalScroll(
                       [
                         createNumberOfPointsButton(
@@ -107,7 +107,7 @@ class StartGameScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    GameTitle('lengthOfRoundString'.tr),
+                    GameTitle('lengthOfRoundString'.tr()),
                     HorizontalScroll(
                       [
                         createLengthOfRoundButton(
@@ -132,7 +132,7 @@ class StartGameScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    GameTitle('teamNamesString'.tr),
+                    GameTitle('teamNamesString'.tr()),
                     AnimationLimiter(
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -146,7 +146,7 @@ class StartGameScreen extends StatelessWidget {
                             index: index,
                             child: NameOfTeam(
                               key: ValueKey(team),
-                              hintText: 'teamNameString'.tr,
+                              hintText: 'teamNameString'.tr(),
                               textInputAction: index == gameService.teams.length - 1 ? TextInputAction.done : TextInputAction.next,
                               onChanged: (value) => gameService.teamNameUpdated(
                                 team: team,
@@ -174,7 +174,7 @@ class StartGameScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: PlayButton(
-                        text: 'playTheGameString'.tr.toUpperCase(),
+                        text: 'playTheGameString'.tr().toUpperCase(),
                         onPressed: gameService.validateMainGame,
                       ),
                     ),

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
 import '../dictionary/croatian/adjectives.dart';
@@ -13,8 +13,20 @@ import '../dictionary/english/verbs.dart';
 import 'game_service.dart';
 import 'logger_service.dart';
 
-class DictionaryService extends GetxService {
-  final logger = Get.find<LoggerService>();
+final dictionaryProvider = Provider<DictionaryService>(
+  (ref) => DictionaryService(
+    ref.watch(loggerProvider),
+  ),
+);
+
+class DictionaryService {
+  ///
+  /// CONSTRUCTOR
+  ///
+
+  final LoggerService logger;
+
+  DictionaryService(this.logger);
 
   ///
   /// REACTIVE VARIABLES

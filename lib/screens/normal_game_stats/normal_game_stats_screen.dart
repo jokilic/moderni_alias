@@ -1,11 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
-import '../../localization.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/team/team.dart';
 import '../../widgets/background_image.dart';
@@ -25,7 +23,7 @@ class NormalGameStatsScreen extends StatelessWidget {
     final date = DateFormat('d. MMMM', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
     final time = DateFormat('HH:mm', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
     final textTime = timeago.format(normalGame.startTime);
-    final language = normalGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr : 'dictionaryEnglishString'.tr;
+    final language = normalGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
     final sortedTeams = List<Team>.from(normalGame.teams)..sort((a, b) => b.points.compareTo(a.points));
 
     return Scaffold(
@@ -40,7 +38,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                 const HeroTitle(),
                 const SizedBox(height: 24),
                 GameTitle(
-                  'statsWhoWonTitle'.tr,
+                  'statsWhoWonTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
@@ -62,58 +60,66 @@ class NormalGameStatsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsWhenTitle'.tr,
+                  'statsWhenTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsWhenText'.trParams({
-                    'date': date,
-                    'time': time,
-                    'textTime': textTime,
-                  }),
+                  text: 'statsWhenText'.tr(
+                    namedArgs: {
+                      'date': date,
+                      'time': time,
+                      'textTime': textTime,
+                    },
+                  ),
                   icon: ModerniAliasImages.clockImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsLanguageTitle'.tr,
+                  'statsLanguageTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsLanguageText'.trParams({
-                    'language': language,
-                  }),
+                  text: 'statsLanguageText'.tr(
+                    namedArgs: {
+                      'language': language,
+                    },
+                  ),
                   icon: normalGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
                   size: 58,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsLengthOfRoundTitle'.tr,
+                  'statsLengthOfRoundTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsLengthOfRoundText'.trParams({
-                    'lengthOfRound': '${normalGame.lengthOfRound}',
-                  }),
+                  text: 'statsLengthOfRoundText'.tr(
+                    namedArgs: {
+                      'lengthOfRound': '${normalGame.lengthOfRound}',
+                    },
+                  ),
                   icon: ModerniAliasImages.hourglassImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsPointsToWinTitle'.tr,
+                  'statsPointsToWinTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsPointsToWinText'.trParams({
-                    'pointsToWin': '${normalGame.pointsToWin}',
-                  }),
+                  text: 'statsPointsToWinText'.tr(
+                    namedArgs: {
+                      'pointsToWin': '${normalGame.pointsToWin}',
+                    },
+                  ),
                   icon: ModerniAliasImages.pointsImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsWordsTitle'.tr,
+                  'statsWordsTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),

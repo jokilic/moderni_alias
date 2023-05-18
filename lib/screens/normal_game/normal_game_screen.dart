@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import './widgets/show_scores.dart';
 import '../../constants/enums.dart';

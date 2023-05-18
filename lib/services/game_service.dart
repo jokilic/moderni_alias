@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../constants/colors.dart';
@@ -20,13 +20,8 @@ import '../screens/normal_game/widgets/show_scores.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import 'dictionary_service.dart';
-import 'hive_service.dart';
-import 'logger_service.dart';
 
-class GameService extends GetxController with GetSingleTickerProviderStateMixin {
-  final logger = Get.find<LoggerService>();
-  final hiveService = Get.find<HiveService>();
-
+class GameService {
   ///
   /// REACTIVE VARIABLES
   ///
@@ -279,7 +274,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     showScoresSheet();
   }
 
-  /// Ends game and goes to
+  /// Ends game and goes to [GameFinishedScreen]
   void endGame(Team winner) {
     updateHiveStats(gameType: Game.normal);
     Get.toNamed(GameFinishedScreen.routeName, arguments: winner);
@@ -495,7 +490,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     final duplicateTeamsList = <Team>[];
     teams.map((team) {
       if (duplicateTeamsList.contains(team)) {
-        validationMessage = 'teamNamesSameString'.tr;
+        validationMessage = 'teamNamesSameString'.tr();
         teamsValidated = false;
       } else {
         duplicateTeamsList.add(team);
@@ -505,7 +500,7 @@ class GameService extends GetxController with GetSingleTickerProviderStateMixin 
     /// Check if any of the teams has an empty name
     teams.map((team) {
       if (team.name.isEmpty) {
-        validationMessage = 'teamNamesMissingString'.tr;
+        validationMessage = 'teamNamesMissingString'.tr();
         teamsValidated = false;
       }
     }).toList();

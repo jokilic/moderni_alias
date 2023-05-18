@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../constants/strings.dart';
 import '../../widgets/background_image.dart';
@@ -11,7 +10,7 @@ import 'widgets/stats_normal_section.dart';
 import 'widgets/stats_quick_section.dart';
 import 'widgets/stats_segmented_widget.dart';
 
-class StatsScreen extends GetView<StatsController> {
+class StatsScreen extends StatelessWidget {
   static const routeName = '/stats-screen';
 
   @override

@@ -1,28 +1,29 @@
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class AppInfoService extends GetxService {
+final appInfoProvider = Provider<AppInfoService>((ref) => AppInfoService());
+
+class AppInfoService {
   ///
-  /// REACTIVE VARIABLES
+  /// CONSTRUCTOR
   ///
 
-  final _appVersion = ''.obs;
-  String get appVersion => _appVersion.value;
-  set appVersion(String value) => _appVersion.value = value;
+  AppInfoService() {
+    init();
+  }
 
   ///
   /// VARIABLES
   ///
 
   late final PackageInfo packageInfo;
+  late final String appVersion;
 
   ///
   /// INIT
   ///
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
+  Future<void> init() async {
     packageInfo = await PackageInfo.fromPlatform();
     appVersion = packageInfo.version;
   }

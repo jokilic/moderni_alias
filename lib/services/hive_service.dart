@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../constants/enums.dart';
@@ -9,8 +9,26 @@ import '../models/round/round.dart';
 import '../models/team/team.dart';
 import 'logger_service.dart';
 
-class HiveService extends GetxService {
-  final logger = Get.find<LoggerService>();
+final hiveProvider = Provider<HiveService>(
+  (ref) {
+    final hiveService = HiveService(
+      ref.watch(loggerProvider),
+    );
+    ref.onDispose(hiveService.dispose);
+    return hiveService;
+  },
+);
+
+class HiveService {
+  ///
+  /// CONSTRUCTOR
+  ///
+
+  final LoggerService logger;
+
+  HiveService(this.logger) {
+    init();
+  }
 
   ///
   /// VARIABLES
@@ -23,10 +41,7 @@ class HiveService extends GetxService {
   /// INIT
   ///
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-
+  Future<void> init() async {
     await Hive.initFlutter();
     Hive
       ..registerAdapter(NormalGameStatsAdapter())
@@ -45,13 +60,10 @@ class HiveService extends GetxService {
   /// DISPOSE
   ///
 
-  @override
-  Future<void> onClose() async {
+  Future<void> dispose() async {
     await normalGameStatsBox.close();
     await quickGameStatsBox.close();
     await Hive.close();
-
-    super.onClose();
   }
 
   ///

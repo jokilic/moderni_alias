@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../widgets/game_title.dart';
 import '../stats_controller.dart';

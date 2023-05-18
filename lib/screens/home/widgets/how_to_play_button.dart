@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../constants/colors.dart';
 import '../../../widgets/animated_gesture_detector.dart';

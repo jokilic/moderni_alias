@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import './widgets/my_quick_portfolio.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
-import '../../services/app_info_service.dart';
+import '../../providers.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -14,11 +15,11 @@ import '../../widgets/hero_title.dart';
 import '../../widgets/small_title.dart';
 import '../../widgets/standard_text.dart';
 
-class GeneralInfoScreen extends StatelessWidget {
+class GeneralInfoScreen extends ConsumerWidget {
   static const routeName = '/general-info';
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
         body: BackgroundImage(
           child: SafeArea(
             child: SizedBox(
@@ -29,27 +30,27 @@ class GeneralInfoScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 50),
-                    HeroTitle(smallText: Get.find<AppInfoService>().appVersion),
+                    HeroTitle(smallText: ref.watch(appInfoProvider).appVersion),
                     const SizedBox(height: 40),
-                    GameTitle('howTitleString'.tr),
+                    GameTitle('howTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'howFirstString'.tr,
+                          text: 'howFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'howSecondString'.tr,
+                              text: 'howSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'howThirdString'.tr,
+                              text: 'howThirdString'.tr(),
                             ),
                             TextSpan(
-                              text: 'howFourthString'.tr,
+                              text: 'howFourthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'howFifthString'.tr,
+                              text: 'howFifthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -58,14 +59,14 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'howSixthString'.tr,
+                              text: 'howSixthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'howSeventhString'.tr,
+                              text: 'howSeventhString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'howEightString'.tr,
+                              text: 'howEightString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -74,75 +75,75 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'howNinthString'.tr,
+                              text: 'howNinthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    GameTitle('whoTitleString'.tr),
+                    GameTitle('whoTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'whoFirstString'.tr,
+                          text: 'whoFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'whoSecondString'.tr,
+                              text: 'whoSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'whoThirdString'.tr,
+                              text: 'whoThirdString'.tr(),
                             ),
                             TextSpan(
-                              text: 'whoFourthString'.tr,
+                              text: 'whoFourthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'whoFifthString'.tr,
+                              text: 'whoFifthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'whoSixthString'.tr,
+                              text: 'whoSixthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'whoSeventhString'.tr,
+                              text: 'whoSeventhString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'whoEighthString'.tr,
+                              text: 'whoEighthString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
                     MyQuickPortfolio(),
-                    GameTitle('fontTitleString'.tr),
+                    GameTitle('fontTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'fontFirstString'.tr,
+                          text: 'fontFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'fontSecondString'.tr,
+                              text: 'fontSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'fontThirdString'.tr,
+                              text: 'fontThirdString'.tr(),
                             ),
                             TextSpan(
-                              text: 'fontFourthString'.tr,
+                              text: 'fontFourthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'fontFifthString'.tr,
+                              text: 'fontFifthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'fontSixthString'.tr,
+                              text: 'fontSixthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'fontSeventhString'.tr,
+                              text: 'fontSeventhString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -151,30 +152,30 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'fontEigthString'.tr,
+                              text: 'fontEigthString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    GameTitle('iconsTitleString'.tr),
+                    GameTitle('iconsTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'iconsFirstString'.tr,
+                          text: 'iconsFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                         ),
                       ),
                     ),
-                    SmallTitle('appIconTitleString'.tr),
+                    SmallTitle('appIconTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'appIconFirstString'.tr,
+                          text: 'appIconFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'appIconSecondString'.tr,
+                              text: 'appIconSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -183,28 +184,28 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'appIconThirdString'.tr,
+                              text: 'appIconThirdString'.tr(),
                             ),
                             TextSpan(
-                              text: 'appIconFourthString'.tr,
+                              text: 'appIconFourthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'appIconFifthString'.tr,
+                              text: 'appIconFifthString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SmallTitle('otherIconsTitleString'.tr),
+                    SmallTitle('otherIconsTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'otherIconsFirstString'.tr,
+                          text: 'otherIconsFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'otherIconsSecondString'.tr,
+                              text: 'otherIconsSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -213,22 +214,22 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'otherIconsThirdString'.tr,
+                              text: 'otherIconsThirdString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    GameTitle('soundsTitleString'.tr),
-                    SmallTitle('wrongCorrectSoundsTitleString'.tr),
+                    GameTitle('soundsTitleString'.tr()),
+                    SmallTitle('wrongCorrectSoundsTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'wrongCorrectSoundsFirstString'.tr,
+                          text: 'wrongCorrectSoundsFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'wrongCorrectSoundsSecondString'.tr,
+                              text: 'wrongCorrectSoundsSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -237,35 +238,35 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'wrongCorrectSoundsThirdString'.tr,
+                              text: 'wrongCorrectSoundsThirdString'.tr(),
                             ),
                             TextSpan(
-                              text: 'wrongCorrectSoundsFourthString'.tr,
+                              text: 'wrongCorrectSoundsFourthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'wrongCorrectSoundsFifthString'.tr,
+                              text: 'wrongCorrectSoundsFifthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'wrongCorrectSoundsSixthString'.tr,
+                              text: 'wrongCorrectSoundsSixthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'wrongCorrectSoundsSeventhString'.tr,
+                              text: 'wrongCorrectSoundsSeventhString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SmallTitle('countdownSoundsTitleString'.tr),
+                    SmallTitle('countdownSoundsTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'countdownSoundsFirstString'.tr,
+                          text: 'countdownSoundsFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'countdownSoundsSecondString'.tr,
+                              text: 'countdownSoundsSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -274,35 +275,35 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'countdownSoundsThirdString'.tr,
+                              text: 'countdownSoundsThirdString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    GameTitle('screenshotsTitleString'.tr),
+                    GameTitle('screenshotsTitleString'.tr()),
                     StandardText(
                       RichText(
                         text: TextSpan(
-                          text: 'screenshotsFirstString'.tr,
+                          text: 'screenshotsFirstString'.tr(),
                           style: ModerniAliasTextStyles.generalInfo,
                           children: [
                             TextSpan(
-                              text: 'screenshotsSecondString'.tr,
+                              text: 'screenshotsSecondString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'screenshotsThirdString'.tr,
+                              text: 'screenshotsThirdString'.tr(),
                             ),
                             TextSpan(
-                              text: 'screenshotsFourthString'.tr,
+                              text: 'screenshotsFourthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBold,
                             ),
                             TextSpan(
-                              text: 'screenshotsFifthString'.tr,
+                              text: 'screenshotsFifthString'.tr(),
                             ),
                             TextSpan(
-                              text: 'screenshotsSixthString'.tr,
+                              text: 'screenshotsSixthString'.tr(),
                               style: ModerniAliasTextStyles.generalInfoBoldBlue,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrl(
@@ -311,13 +312,13 @@ class GeneralInfoScreen extends StatelessWidget {
                                     ),
                             ),
                             TextSpan(
-                              text: 'screenshotsSeventhString'.tr,
+                              text: 'screenshotsSeventhString'.tr(),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SmallTitle('enjoyTitleString'.tr),
+                    SmallTitle('enjoyTitleString'.tr()),
                     const SizedBox(height: 50),
                   ],
                 ),

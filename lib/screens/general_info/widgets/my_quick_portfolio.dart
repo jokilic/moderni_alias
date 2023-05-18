@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
@@ -9,9 +11,9 @@ import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/play_button.dart';
 import '../general_info_controller.dart';
 
-class MyQuickPortfolio extends StatelessWidget {
+class MyQuickPortfolio extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context, WidgetRef ref) => Container(
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         child: AnimatedColumn(
@@ -20,7 +22,7 @@ class MyQuickPortfolio extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 16),
               child: AnimatedGestureDetector(
                 child: GestureDetector(
-                  onLongPress: Get.find<GeneralInfoController>().playBoomBaby,
+                  onLongPress: ref.read(generalInfoProvider).playBoomBaby,
                   behavior: HitTestBehavior.translucent,
                   child: const CircleAvatar(
                     backgroundColor: ModerniAliasColors.whiteColor,
@@ -38,7 +40,7 @@ class MyQuickPortfolio extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8),
               child: PlayButton(
-                text: 'aboutMeWebsiteString'.tr.toUpperCase(),
+                text: 'aboutMeWebsiteString'.tr().toUpperCase(),
                 horizontalPadding: 16,
                 onPressed: () => launchUrl(
                   Uri.parse(ModerniAliasWebsites.josipKilicWebsite),
@@ -53,7 +55,7 @@ class MyQuickPortfolio extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: PlayButton(
-                    text: 'aboutMeGitHubString'.tr.toUpperCase(),
+                    text: 'aboutMeGitHubString'.tr().toUpperCase(),
                     horizontalPadding: 16,
                     onPressed: () => launchUrl(
                       Uri.parse(ModerniAliasWebsites.josipGithubWebsite),
@@ -64,7 +66,7 @@ class MyQuickPortfolio extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: PlayButton(
-                    text: 'aboutMeEmailString'.tr.toUpperCase(),
+                    text: 'aboutMeEmailString'.tr().toUpperCase(),
                     horizontalPadding: 16,
                     onPressed: () => launchUrl(
                       Uri.parse(ModerniAliasWebsites.josipKilicEmail),

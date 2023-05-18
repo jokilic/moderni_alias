@@ -1,16 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 
 import './exit_game_button.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
-import '../services/game_service.dart';
 import 'animated_column.dart';
 
 Future<bool> exitGameModal() async {
-  final gameService = Get.find<GameService>();
-
   await Get.bottomSheet(
     Container(
       width: double.infinity,
@@ -34,7 +30,7 @@ Future<bool> exitGameModal() async {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'exitModalQuestionString'.tr,
+            'exitModalQuestionString'.tr(),
             textAlign: TextAlign.center,
             style: ModerniAliasTextStyles.exitModal,
           ),
@@ -43,15 +39,15 @@ Future<bool> exitGameModal() async {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ExitGameButton(
-                text: 'exitModalQuestionYes'.tr,
+                text: 'exitModalQuestionYes'.tr(),
                 animationController: gameService.exitButtonAnimationController,
                 pointerDown: (_) => gameService.exitButtonAnimationController.forward(),
                 pointerUp: (_) => gameService.exitButtonAnimationController.reverse(),
               ),
               const SizedBox(width: 24),
               ExitGameButton(
-                text: 'exitModalQuestionNo'.tr,
-                onPressed: Get.back,
+                text: 'exitModalQuestionNo'.tr(),
+                onPressed: Navigator.of(context).pop,
               ),
             ],
           ),
