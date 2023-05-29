@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
-import '../../services/dictionary_service.dart';
-import '../../services/game_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
@@ -18,91 +16,88 @@ class QuickGameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dictionaryService = Get.find<DictionaryService>();
-    final gameService = Get.find<GameService>();
+    final width = MediaQuery.of(context).size.width;
 
     return WillPopScope(
       onWillPop: exitGameModal,
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
-            child: Obx(
-              () => Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: 0,
-                    width: Get.width,
-                    child: QuickGameInfoSection(
-                      correctAnswers: gameService.correctAnswers,
-                      wrongAnswers: gameService.wrongAnswers,
-                      exitGame: exitGameModal,
-                      showScores: () => showScores(
-                        playedWords: gameService.playedWords,
-                      ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 0,
+                  width: width,
+                  child: QuickGameInfoSection(
+                    correctAnswers: gameService.correctAnswers,
+                    wrongAnswers: gameService.wrongAnswers,
+                    exitGame: exitGameModal,
+                    showScores: () => showScores(
+                      playedWords: gameService.playedWords,
                     ),
                   ),
-                  if (gameService.currentGame == Game.quick)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOn(
-                          currentWord: dictionaryService.currentWord,
-                          fillColor: gameService.countdownTimerFillColor,
-                          length: gameService.lengthOfRound,
-                          onComplete: () => gameService.endOfRound(
-                            currentGame: Game.quick,
-                          ),
-                        ),
-                      ),
-                    )
-                  else if (gameService.currentGame == Game.starting)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameStarting(
-                          currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
-                          onComplete: () => gameService.startRound(
-                            chosenGame: Game.quick,
-                          ),
-                        ),
-                      ),
-                    )
-                  else
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOff(
-                          onTap: gameService.start3SecondCountdown,
-                        ),
-                      ),
-                    ),
+                ),
+                if (gameService.currentGame == Game.quick)
                   Positioned(
+                    top: -75,
                     bottom: 0,
-                    width: Get.width,
-                    child: WrongCorrectButtons(
-                      correctChosen: () => gameService.answerChosen(
-                        chosenButton: Answer.correct,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: GameOn(
+                        currentWord: dictionaryService.currentWord,
+                        fillColor: gameService.countdownTimerFillColor,
+                        length: gameService.lengthOfRound,
+                        onComplete: () => gameService.endOfRound(
+                          currentGame: Game.quick,
+                        ),
                       ),
-                      wrongChosen: () => gameService.answerChosen(
-                        chosenButton: Answer.wrong,
+                    ),
+                  )
+                else if (gameService.currentGame == Game.starting)
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: GameStarting(
+                        currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
+                        onComplete: () => gameService.startRound(
+                          chosenGame: Game.quick,
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: GameOff(
+                        onTap: gameService.start3SecondCountdown,
                       ),
                     ),
                   ),
-                ],
-              ),
+                Positioned(
+                  bottom: 0,
+                  width: width,
+                  child: WrongCorrectButtons(
+                    correctChosen: () => gameService.answerChosen(
+                      chosenButton: Answer.correct,
+                    ),
+                    wrongChosen: () => gameService.answerChosen(
+                      chosenButton: Answer.wrong,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.12.0"
-  analyzer_plugin:
-    dependency: transitive
-    description:
-      name: analyzer_plugin
-      sha256: c1d5f167683de03d5ab6c3b53fc9aeefc5d59476e7810ba7bbddff50c6f4392d
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.11.2"
   archive:
     dependency: transitive
     description:
@@ -145,14 +137,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  ci:
-    dependency: transitive
-    description:
-      name: ci
-      sha256: "145d095ce05cddac4d797a158bc4cf3b6016d1fe63d8c3d2fbd7212590adca13"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   circular_countdown_timer:
     dependency: "direct main"
     description:
@@ -217,30 +201,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.2"
-  custom_lint:
-    dependency: "direct dev"
-    description:
-      name: custom_lint
-      sha256: "3ce36c04d30c60cde295588c6185b3f9800e6c18f6670a7ffdb3d5eab39bb942"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
-  custom_lint_builder:
-    dependency: transitive
-    description:
-      name: custom_lint_builder
-      sha256: "73d09c9848e9f6d5c3e0a1809eac841a8d7ea123d0849feefa040e1ad60b6d06"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
-  custom_lint_core:
-    dependency: transitive
-    description:
-      name: custom_lint_core
-      sha256: "9170d9db2daf774aa2251a3bc98e4ba903c7702ab07aa438bc83bd3c9a0de57f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   dart_style:
     dependency: transitive
     description:
@@ -344,14 +304,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  freezed_annotation:
-    dependency: transitive
-    description:
-      name: freezed_annotation
-      sha256: aeac15850ef1b38ee368d4c53ba9a847e900bb2c53a4db3f6881cbb3cb684338
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -400,14 +352,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-  hotreloader:
-    dependency: transitive
-    description:
-      name: hotreloader
-      sha256: "728c0613556c1d153f7e7f4a367cffacc3f5a677d7f6497a1c2b35add4e6dacf"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.6"
   html:
     dependency: transitive
     description:
@@ -728,22 +672,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
-  riverpod_analyzer_utils:
-    dependency: transitive
-    description:
-      name: riverpod_analyzer_utils
-      sha256: "1b2632a6fc0b659c923a4dcc7cd5da42476f5b3294c70c86c971e63bdd443384"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.1"
-  riverpod_lint:
-    dependency: "direct dev"
-    description:
-      name: riverpod_lint
-      sha256: "043ff016011be4c5887b3239bfbca05d284bdb68db0a5363cee0242b7567e250"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.2"
   rxdart:
     dependency: transitive
     description:
@@ -1045,14 +973,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  vm_service:
-    dependency: transitive
-    description:
-      name: vm_service
-      sha256: f3743ca475e0c9ef71df4ba15eb2d7684eecd5c8ba20a462462e4e8b561b2e11
-      url: "https://pub.dev"
-    source: hosted
-    version: "11.6.0"
   watcher:
     dependency: transitive
     description:

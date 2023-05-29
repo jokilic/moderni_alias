@@ -1,16 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
+import '../../../routes.dart';
 import '../../../widgets/animated_gesture_detector.dart';
-import '../../stats/stats_screen.dart';
 
 class StatsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedGestureDetector(
-        onTap: () => Get.toNamed(
-          StatsScreen.routeName,
-        ),
+        onTap: () => goToStatsScreen(context),
         end: 0.85,
         child: TextButton(
           onPressed: null,
@@ -28,7 +27,7 @@ class StatsButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Text(
-              'statsButtonString'.tr,
+              'statsButtonString'.tr(),
               style: ModerniAliasTextStyles.howToPlayButton,
             ),
           ),

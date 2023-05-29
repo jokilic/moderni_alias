@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -18,10 +20,10 @@ class NormalGameStatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final normalGame = Get.arguments as NormalGameStats;
+    final normalGame = ModalRoute.of(context)?.settings.arguments as NormalGameStats;
 
-    final date = DateFormat('d. MMMM', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
-    final time = DateFormat('HH:mm', Localization.locale?.languageCode ?? 'en').format(normalGame.startTime);
+    final date = DateFormat('d. MMMM', context.locale.languageCode).format(normalGame.startTime);
+    final time = DateFormat('HH:mm', context.locale.languageCode).format(normalGame.startTime);
     final textTime = timeago.format(normalGame.startTime);
     final language = normalGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
     final sortedTeams = List<Team>.from(normalGame.teams)..sort((a, b) => b.points.compareTo(a.points));

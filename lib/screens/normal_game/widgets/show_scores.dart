@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -46,7 +47,7 @@ void showScores({
               ///
               if (teams != null) ...[
                 Text(
-                  'scoresModalString'.tr,
+                  'scoresModalString'.tr(),
                   style: ModerniAliasTextStyles.scoresTitle,
                 ),
                 const SizedBox(height: 24),
@@ -73,7 +74,7 @@ void showScores({
               if (playedWords.isNotEmpty) ...[
                 if (teams != null) const SizedBox(height: 40),
                 Text(
-                  'playedWordsModalString'.tr,
+                  'playedWordsModalString'.tr(),
                   style: ModerniAliasTextStyles.scoresTitle,
                 ),
                 const SizedBox(height: 24),

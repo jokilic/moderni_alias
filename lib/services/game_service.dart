@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../constants/colors.dart';
@@ -19,7 +20,17 @@ import '../screens/normal_game/normal_game_screen.dart';
 import '../screens/normal_game/widgets/show_scores.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
-import 'dictionary_service.dart';
+
+final correctPlayerProvider = Provider<AudioPlayer>(
+  (_) => AudioPlayer()..setAsset(ModerniAliasSounds.correct, preload: false),
+);
+final wrongPlayerProvider = Provider<AudioPlayer>(
+  (_) => AudioPlayer()..setAsset(ModerniAliasSounds.wrong, preload: false),
+);
+final countdownPlayerProvider = Provider<AudioPlayer>(
+  (_) => AudioPlayer()..setAsset(ModerniAliasSounds.timer, preload: false),
+);
+final randomProvider = Provider<Random>((_) => Random());
 
 class GameService {
   ///
@@ -80,11 +91,6 @@ class GameService {
   late final AudioPlayer countdownPlayer;
 
   late final AnimationController exitButtonAnimationController;
-
-  Timer? greenTimer;
-  Timer? yellowTimer;
-  Timer? redTimer;
-  Timer? soundTimer;
 
   var correctAnswers = 0;
   var wrongAnswers = 0;
@@ -148,11 +154,52 @@ class GameService {
       );
   }
 
+  Timer? soundTimer;
+
+  ///
+  /// TIMER
+  ///
+
+  Timer? greenTimer;
+  Timer? yellowTimer;
+  Timer? redTimer;
+
   /// Returns a Timer with the specified length and color
   Timer makeTimer({required double chosenSeconds, required Color chosenColor}) => Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
         () => countdownTimerFillColor = chosenColor,
       );
+
+  ///
+  /// QUICK
+  ///
+
+  /// Starts quick game
+  void startQuickGame() {
+    currentGame = Game.none;
+    countdownTimerFillColor = Colors.transparent;
+    lengthOfRound = 60;
+    exitButtonAnimationController.value = 0;
+    quickGameStats = QuickGameStats(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      round: Round(playedWords: []),
+      language: chosenDictionary,
+    );
+
+    Get.toNamed(QuickGameScreen.routeName);
+  }
+
+  /// Goes to the confetti screen and shows info about the round
+  void finishQuickGame() {
+    gameFinished();
+    updateHiveStats(gameType: Game.quick);
+    Get.toNamed(QuickGameFinishedScreen.routeName);
+  }
+
+  ///
+  /// NORMAL
+  ///
 
   /// Reset variables and start the round
   void startRound({required Game chosenGame}) {
@@ -190,21 +237,9 @@ class GameService {
     Get.toNamed(NormalGameScreen.routeName);
   }
 
-  /// Starts quick game
-  void startQuickGame() {
-    currentGame = Game.none;
-    countdownTimerFillColor = Colors.transparent;
-    lengthOfRound = 60;
-    exitButtonAnimationController.value = 0;
-    quickGameStats = QuickGameStats(
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      round: Round(playedWords: []),
-      language: chosenDictionary,
-    );
-
-    Get.toNamed(QuickGameScreen.routeName);
-  }
+  ///
+  /// ROUND
+  ///
 
   /// Round has ended (time has run out)
   void endOfRound({required Game currentGame}) => currentGame == Game.normal ? checkGameWinner() : finishQuickGame();
@@ -284,13 +319,6 @@ class GameService {
   List<Team> getTiedTeams(List<Team> teamsWithEnoughPoints) {
     final maxPoints = teamsWithEnoughPoints.map((team) => team.points).reduce(max);
     return teamsWithEnoughPoints.where((team) => team.points == maxPoints).toList();
-  }
-
-  /// Goes to the confetti screen and shows info about the round
-  void finishQuickGame() {
-    gameFinished();
-    updateHiveStats(gameType: Game.quick);
-    Get.toNamed(QuickGameFinishedScreen.routeName);
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
@@ -447,40 +475,11 @@ class GameService {
     }
   }
 
-  /// Called when the user exits the game
-  void exitToMainMenu() {
-    teams = <Team>[for (var i = 0; i < 2; i++) Team(name: '')];
-
-    gameFinished();
-    countdownPlayer.stop();
-
-    Get.offNamedUntil(
-      HomeScreen.routeName,
-      (route) => false,
-    );
-  }
-
-  /// Called when the user taps on the flag in StartGame
-  void updateDictionary(Flag chosenFlag) {
-    chosenDictionary = chosenFlag;
-    Get.find<DictionaryService>().refillCurrentDictionary();
-  }
-
   /// Called when the user taps on the points in StartGame
   set updatePointsToWin(int chosenPoints) => pointsToWin = chosenPoints;
 
   /// Called when the user taps on the length of round in StartGame
   set updateLengthOfRound(int chosenLength) => lengthOfRound = chosenLength;
-
-  /// Called when the user writes on the text field and adds a team name
-  void teamNameUpdated({required Team team, required String value}) => team.name = value;
-
-  /// Called when the user taps on the number of teams in StartGame
-  void updateNumberOfTeams({required int chosenNumber}) {
-    teams
-      ..clear()
-      ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '')]);
-  }
 
   /// Called when the user taps the 'Play' button
   void validateMainGame() {
@@ -511,50 +510,44 @@ class GameService {
     }
   }
 
-  /// Game is finished, update stats and store them in [Hive]
-  void updateHiveStats({required Game gameType}) {
-    /// Normal game was played
-    if (gameType == Game.normal) {
-      if (normalGameStats != null) {
-        normalGameStats = normalGameStats!.copyWith(
-          endTime: DateTime.now(),
-          rounds: [
-            ...normalGameStats!.rounds,
-            Round(
-              playedWords: List.from(playedWords),
-              playingTeam: currentlyPlayingTeam,
-            ),
-          ],
-        );
-        hiveService.addNormalGameStatsToBox(normalGameStats: normalGameStats!);
-      }
-    }
+  ///
+  /// HIVE
+  ///
 
-    /// Quick game was played
-    if (gameType == Game.quick) {
-      if (quickGameStats != null) {
-        quickGameStats = quickGameStats!.copyWith(
-          round: Round(playedWords: List.from(playedWords)),
-          endTime: DateTime.now(),
-        );
-        hiveService.addQuickGameStatsToBox(quickGameStats: quickGameStats!);
-        quickGameStats = null;
-      }
-    }
+  /// Normal game is finished, update stats and store them in [Hive]
+  void updateHiveNormalStats() {
+    normalGameStats = normalGameStats.copyWith(
+      endTime: DateTime.now(),
+      rounds: [
+        ...normalGameStats.rounds,
+        Round(
+          playedWords: List.from(playedWords),
+          playingTeam: currentlyPlayingTeam,
+        ),
+      ],
+    );
+    hiveService.addNormalGameStatsToBox(normalGameStats: normalGameStats!);
+  }
 
-    /// Normal game is played, but the round ended
-    if (gameType == Game.none) {
-      if (normalGameStats != null) {
-        normalGameStats = normalGameStats!.copyWith(
-          rounds: [
-            ...normalGameStats!.rounds,
-            Round(
-              playedWords: List.from(playedWords),
-              playingTeam: currentlyPlayingTeam,
-            ),
-          ],
-        );
-      }
-    }
+  /// Quick game is finished, update stats and store them in [Hive]
+  void updateHiveQuickStats() {
+    quickGameStats = quickGameStats.copyWith(
+      round: Round(playedWords: List.from(playedWords)),
+      endTime: DateTime.now(),
+    );
+    hiveService.addQuickGameStatsToBox(quickGameStats: quickGameStats!);
+  }
+
+  /// Normal game is played, but the round ended
+  void updateHiveNormalStatsContinue() {
+    normalGameStats = normalGameStats.copyWith(
+      rounds: [
+        ...normalGameStats!.rounds,
+        Round(
+          playedWords: List.from(playedWords),
+          playingTeam: currentlyPlayingTeam,
+        ),
+      ],
+    );
   }
 }

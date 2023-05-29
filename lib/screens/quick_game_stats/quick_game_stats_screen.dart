@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: cast_nullable_to_non_nullable
 
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
-import '../../localization.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -19,10 +19,10 @@ class QuickGameStatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quickGame = Get.arguments as QuickGameStats;
+    final quickGame = ModalRoute.of(context)?.settings.arguments as QuickGameStats;
 
-    final date = DateFormat('d. MMMM', Localization.locale?.languageCode ?? 'en').format(quickGame.startTime);
-    final time = DateFormat('HH:mm', Localization.locale?.languageCode ?? 'en').format(quickGame.startTime);
+    final date = DateFormat('d. MMMM', context.locale.languageCode).format(quickGame.startTime);
+    final time = DateFormat('HH:mm', context.locale.languageCode).format(quickGame.startTime);
     final textTime = timeago.format(quickGame.startTime);
     final language = quickGame.language == Flag.croatia ? 'Croatian' : 'English';
 
@@ -38,61 +38,65 @@ class QuickGameStatsScreen extends StatelessWidget {
                 const HeroTitle(),
                 const SizedBox(height: 24),
                 GameTitle(
-                  'statsWhenTitle'.tr,
+                  'statsWhenTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsWhenText'.trParams({
-                    'date': date,
-                    'time': time,
-                    'textTime': textTime,
-                  }),
+                  text: 'statsWhenText'.tr(
+                    namedArgs: {
+                      'date': date,
+                      'time': time,
+                      'textTime': textTime,
+                    },
+                  ),
                   icon: ModerniAliasImages.clockImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsLanguageTitle'.tr,
+                  'statsLanguageTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsLanguageText'.trParams({
-                    'language': language,
-                  }),
+                  text: 'statsLanguageText'.tr(
+                    namedArgs: {
+                      'language': language,
+                    },
+                  ),
                   icon: quickGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
                   size: 58,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsLengthOfRoundTitle'.tr,
+                  'statsLengthOfRoundTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
-                  text: 'statsLengthOfRoundQuickText'.tr,
+                  text: 'statsLengthOfRoundQuickText'.tr(),
                   icon: ModerniAliasImages.hourglassImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsPointsToWinQuickTitle'.tr,
+                  'statsPointsToWinQuickTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 8),
                 StatsValueWidget(
-                  text: 'statsCorrectQuick'.tr,
+                  text: 'statsCorrectQuick'.tr(),
                   value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.correct).length,
                   bigText: true,
                 ),
                 const SizedBox(height: 8),
                 StatsValueWidget(
-                  text: 'statsWrongQuick'.tr,
+                  text: 'statsWrongQuick'.tr(),
                   value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.wrong).length,
                   bigText: true,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
-                  'statsWordsTitle'.tr,
+                  'statsWordsTitle'.tr(),
                   smallTitle: true,
                 ),
                 const SizedBox(height: 16),

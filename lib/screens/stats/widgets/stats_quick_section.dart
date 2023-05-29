@@ -1,19 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:intl/intl.dart';
-
-import '../../../localization.dart';
 import '../../../models/quick_game_stats/quick_game_stats.dart';
 import '../../../widgets/game_title.dart';
 import '../../quick_game_stats/quick_game_stats_screen.dart';
-import '../stats_controller.dart';
+import '../stats_notifier.dart';
 import 'stats_value_widget.dart';
 
-class StatsQuickSection extends GetView<StatsController> {
+class StatsQuickSection extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final statsNotifier = ref.watch(statsProvider.notifier);
+
     final now = DateTime.now();
-    final sortedGames = List<QuickGameStats>.from(controller.quickGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
+    final sortedGames = List<QuickGameStats>.from(statsNotifier.quickGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
 
     return ListView(
       physics: const BouncingScrollPhysics(),
@@ -22,29 +23,29 @@ class StatsQuickSection extends GetView<StatsController> {
         /// QUICK GAMES
         ///
         GameTitle(
-          'statsGeneralQuickGames'.tr.toUpperCase(),
+          'statsGeneralQuickGames'.tr().toUpperCase(),
         ),
 
         const SizedBox(height: 12),
 
-        if (controller.quickGameStats.isEmpty)
+        if (statsNotifier.quickGameStats.isEmpty)
           StatsValueWidget(
-            text: 'statsQuickNoGames'.tr,
+            text: 'statsQuickNoGames'.tr(),
           )
         else
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: controller.quickGameStats.length,
+            itemCount: statsNotifier.quickGameStats.length,
             itemBuilder: (_, index) {
               final quickGame = sortedGames[index];
-              final time = DateFormat('d. MMMM - HH:mm', Localization.locale?.languageCode ?? 'en').format(quickGame.startTime);
+              final time = DateFormat('d. MMMM - HH:mm', context.locale.languageCode).format(quickGame.startTime);
 
               return StatsValueWidget(
                 text: time,
                 value: index + 1,
                 valueLeft: true,
-                onPressed: () => Get.toNamed(
+                onPressed: () => Navigator.of(context).pushNamed(
                   QuickGameStatsScreen.routeName,
                   arguments: quickGame,
                 ),

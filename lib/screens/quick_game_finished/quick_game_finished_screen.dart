@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
-import '../../services/game_service.dart';
+import '../../routes.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
@@ -19,11 +20,11 @@ class QuickGameFinishedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gameService = Get.find<GameService>();
+    final size = MediaQuery.of(context).size;
 
     return WillPopScope(
       onWillPop: () async {
-        gameService.exitToMainMenu();
+        goToHomeScreen(context, popEverything: true);
         return true;
       },
       child: Scaffold(
@@ -47,8 +48,8 @@ class QuickGameFinishedScreen extends StatelessWidget {
               ),
               Center(
                 child: SizedBox(
-                  height: Get.height,
-                  width: Get.width * 0.8,
+                  height: size.height,
+                  width: size.width * 0.8,
                   child: AnimatedColumn(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -60,20 +61,20 @@ class QuickGameFinishedScreen extends StatelessWidget {
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          text: 'quickGameFinishedFirstString'.tr,
+                          text: 'quickGameFinishedFirstString'.tr(),
                           style: ModerniAliasTextStyles.quickGameFinished,
                           children: [
                             TextSpan(
                               text: gameService.correctAnswers.toString(),
                               style: ModerniAliasTextStyles.quickGameFinishedBold,
                             ),
-                            TextSpan(text: 'quickGameFinishedSecondString'.tr),
+                            TextSpan(text: 'quickGameFinishedSecondString'.tr()),
                             TextSpan(
                               text: gameService.wrongAnswers.toString(),
                               style: ModerniAliasTextStyles.quickGameFinishedBold,
                             ),
                             TextSpan(
-                              text: 'quickGameFinishedThirdString'.tr,
+                              text: 'quickGameFinishedThirdString'.tr(),
                             ),
                           ],
                         ),
@@ -82,13 +83,13 @@ class QuickGameFinishedScreen extends StatelessWidget {
                       AnimatedColumn(
                         children: [
                           PlayButton(
-                            text: 'quickGameFinishedPlayAgainString'.tr.toUpperCase(),
-                            onPressed: gameService.startQuickGame,
+                            text: 'quickGameFinishedPlayAgainString'.tr().toUpperCase(),
+                            onPressed: () => goToQuickGameScreen(context),
                           ),
                           const SizedBox(height: 20),
                           PlayButton(
-                            text: 'quickGameFinishedExitString'.tr.toUpperCase(),
-                            onPressed: gameService.exitToMainMenu,
+                            text: 'quickGameFinishedExitString'.tr().toUpperCase(),
+                            onPressed: () => goToHomeScreen(context),
                           ),
                         ],
                       ),

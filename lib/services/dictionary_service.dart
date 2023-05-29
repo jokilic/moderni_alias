@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
@@ -13,35 +11,21 @@ import '../dictionary/english/verbs.dart';
 import 'game_service.dart';
 import 'logger_service.dart';
 
-final dictionaryProvider = Provider<DictionaryService>(
-  (ref) => DictionaryService(
-    ref.watch(loggerProvider),
-  ),
-);
+final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(DictionaryNotifier.new);
+final chosenDictionaryProvider = StateProvider<Flag>((_) => Flag.croatia);
 
-class DictionaryService {
-  ///
-  /// CONSTRUCTOR
-  ///
-
-  final LoggerService logger;
-
-  DictionaryService(this.logger);
-
-  ///
-  /// REACTIVE VARIABLES
-  ///
-
-  /// The currently used word in game
-  final _currentWord = ''.obs;
-  String get currentWord => _currentWord.value;
-  set currentWord(String value) => _currentWord.value = value;
+class DictionaryNotifier extends Notifier<String> {
+  @override
+  String build() {
+    init();
+    return '';
+  }
 
   ///
   /// VARIABLES
   ///
 
-  late final Random random;
+  late final LoggerService logger;
 
   /// Dictionary containing croatian words
   final croatianDictionary = [
@@ -60,44 +44,43 @@ class DictionaryService {
 
   var currentDictionary = <String>[];
 
-  String get getRandomWord => setRandomWord(currentDictionary);
-
   ///
   /// INIT
   ///
 
-  @override
-  void onInit() {
-    super.onInit();
+  void init() {
+    logger = ref.watch(loggerProvider);
 
-    initValues();
+    currentDictionary = [...croatianDictionary];
+
+    state = getRandomWord();
   }
 
   ///
   /// METHODS
   ///
 
-  /// Initializes dictionary and Random
-  void initValues() {
-    currentDictionary = [...croatianDictionary];
-    random = Random();
-  }
+  /// Returns a random word from the `currentDictionary`
+  String getRandomWord() => setRandomWord(
+        currentDictionary,
+        chosenDictionary: ref.read(chosenDictionaryProvider),
+      );
 
   /// If there are no more words in the [currentDictionary], refill it
   List<String> refillCurrentDictionary() =>
-      Get.find<GameService>().chosenDictionary == Flag.croatia ? currentDictionary = [...croatianDictionary] : currentDictionary = [...englishDictionary];
+      ref.read(chosenDictionaryProvider) == Flag.croatia ? currentDictionary = [...croatianDictionary] : currentDictionary = [...englishDictionary];
 
   /// Remove used word from the dictionary and give a new random word
-  String setRandomWord(List<String> currentDictionary) {
+  String setRandomWord(List<String> currentDictionary, {required Flag chosenDictionary}) {
     /// If there are no more words in the dictionary, refill it
     if (currentDictionary.length == 2) {
       refillCurrentDictionary();
     }
 
     /// Remove currently guessed word from the dictionary
-    currentDictionary.remove(currentWord);
+    currentDictionary.remove(state);
 
     /// Return randomized word from the dictionary
-    return currentWord = currentDictionary[random.nextInt(currentDictionary.length)];
+    return state = currentDictionary[ref.read(randomProvider).nextInt(currentDictionary.length)];
   }
 }

@@ -1,118 +1,124 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../widgets/game_title.dart';
-import '../stats_controller.dart';
+import '../stats_notifier.dart';
 import 'stats_value_widget.dart';
 
-class StatsGeneralSection extends GetView<StatsController> {
+class StatsGeneralSection extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) => ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          ///
-          /// GENERAL
-          ///
-          GameTitle(
-            'statsGeneralTitle'.tr,
-            smallTitle: true,
-          ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final statsNotifier = ref.watch(statsProvider.notifier);
 
-          const SizedBox(height: 12),
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      children: [
+        ///
+        /// GENERAL
+        ///
+        GameTitle(
+          'statsGeneralTitle'.tr(),
+          smallTitle: true,
+        ),
 
-          StatsValueWidget(
-            text: 'statsGeneralNormalGames'.tr,
-            value: controller.totalNormalGames,
-          ),
-          StatsValueWidget(
-            text: 'statsGeneralQuickGames'.tr,
-            value: controller.totalQuickGames,
-          ),
-          StatsValueWidget(
-            text: 'statsGeneralAllGames'.tr,
-            value: controller.totalNormalGames + controller.totalQuickGames,
-            bigText: true,
-          ),
+        const SizedBox(height: 12),
 
-          const SizedBox(height: 32),
+        StatsValueWidget(
+          text: 'statsGeneralNormalGames'.tr(),
+          value: statsNotifier.totalNormalGames,
+        ),
+        StatsValueWidget(
+          text: 'statsGeneralQuickGames'.tr(),
+          value: statsNotifier.totalQuickGames,
+        ),
+        StatsValueWidget(
+          text: 'statsGeneralAllGames'.tr(),
+          value: statsNotifier.totalNormalGames + statsNotifier.totalQuickGames,
+          bigText: true,
+        ),
 
-          ///
-          /// CORRECT & WRONG ANSWERS
-          ///
-          GameTitle(
-            'statsGeneralCorrectWrong'.tr,
-            smallTitle: true,
-          ),
+        const SizedBox(height: 32),
 
-          const SizedBox(height: 12),
+        ///
+        /// CORRECT & WRONG ANSWERS
+        ///
+        GameTitle(
+          'statsGeneralCorrectWrong'.tr(),
+          smallTitle: true,
+        ),
 
-          StatsValueWidget(
-            text: 'statsCorrect'.tr,
-            value: controller.totalCorrectAnswersNormalGames + controller.totalCorrectAnswersQuickGames,
-          ),
-          StatsValueWidget(
-            text: 'statsWrong'.tr,
-            value: controller.totalWrongAnswersNormalGames + controller.totalWrongAnswersQuickGames,
-          ),
-          StatsValueWidget(
-            text: 'statsAll'.tr,
-            value: (controller.totalCorrectAnswersNormalGames + controller.totalCorrectAnswersQuickGames) +
-                (controller.totalWrongAnswersNormalGames + controller.totalWrongAnswersQuickGames),
-            bigText: true,
-          ),
+        const SizedBox(height: 12),
 
-          const SizedBox(height: 32),
+        StatsValueWidget(
+          text: 'statsCorrect'.tr(),
+          value: statsNotifier.totalCorrectAnswersNormalGames + statsNotifier.totalCorrectAnswersQuickGames,
+        ),
+        StatsValueWidget(
+          text: 'statsWrong'.tr(),
+          value: statsNotifier.totalWrongAnswersNormalGames + statsNotifier.totalWrongAnswersQuickGames,
+        ),
+        StatsValueWidget(
+          text: 'statsAll'.tr(),
+          value: (statsNotifier.totalCorrectAnswersNormalGames + statsNotifier.totalCorrectAnswersQuickGames) +
+              (statsNotifier.totalWrongAnswersNormalGames + statsNotifier.totalWrongAnswersQuickGames),
+          bigText: true,
+        ),
 
-          ///
-          /// AVERAGE ANSWERS PER GAME
-          ///
-          GameTitle(
-            'statsGeneralAverageGame'.tr,
-            smallTitle: true,
-          ),
+        const SizedBox(height: 32),
 
-          const SizedBox(height: 12),
+        ///
+        /// AVERAGE ANSWERS PER GAME
+        ///
+        GameTitle(
+          'statsGeneralAverageGame'.tr(),
+          smallTitle: true,
+        ),
 
-          StatsValueWidget(
-            text: 'statsCorrect'.tr,
-            value: controller.totalAverageCorrectAnswers,
-          ),
-          StatsValueWidget(
-            text: 'statsWrong'.tr,
-            value: controller.totalAverageWrongAnswers,
-          ),
-          StatsValueWidget(
-            text: 'statsAll'.tr,
-            value: controller.totalAverageAnswers,
-            bigText: true,
-          ),
+        const SizedBox(height: 12),
 
-          const SizedBox(height: 32),
+        StatsValueWidget(
+          text: 'statsCorrect'.tr(),
+          value: statsNotifier.totalAverageCorrectAnswers,
+        ),
+        StatsValueWidget(
+          text: 'statsWrong'.tr(),
+          value: statsNotifier.totalAverageWrongAnswers,
+        ),
+        StatsValueWidget(
+          text: 'statsAll'.tr(),
+          value: statsNotifier.totalAverageAnswers,
+          bigText: true,
+        ),
 
-          ///
-          /// AVERAGE ANSWERS PER ROUND
-          ///
-          GameTitle(
-            'statsGeneralAverageRound'.tr,
-            smallTitle: true,
-          ),
+        const SizedBox(height: 32),
 
-          const SizedBox(height: 12),
+        ///
+        /// AVERAGE ANSWERS PER ROUND
+        ///
+        GameTitle(
+          'statsGeneralAverageRound'.tr(),
+          smallTitle: true,
+        ),
 
-          StatsValueWidget(
-            text: 'statsCorrect'.tr,
-            value: controller.averageCorrectAnswersRounds,
-          ),
-          StatsValueWidget(
-            text: 'statsWrong'.tr,
-            value: controller.averageWrongAnswersRounds,
-          ),
-          StatsValueWidget(
-            text: 'statsAll'.tr,
-            value: controller.averageAnswersRounds,
-            bigText: true,
-          ),
+        const SizedBox(height: 12),
 
-          const SizedBox(height: 32),
-        ],
-      );
+        StatsValueWidget(
+          text: 'statsCorrect'.tr(),
+          value: statsNotifier.averageCorrectAnswersRounds,
+        ),
+        StatsValueWidget(
+          text: 'statsWrong'.tr(),
+          value: statsNotifier.averageWrongAnswersRounds,
+        ),
+        StatsValueWidget(
+          text: 'statsAll'.tr(),
+          value: statsNotifier.averageAnswersRounds,
+          bigText: true,
+        ),
+
+        const SizedBox(height: 32),
+      ],
+    );
+  }
 }

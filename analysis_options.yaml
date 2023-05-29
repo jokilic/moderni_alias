@@ -1,8 +1,5 @@
 analyzer:
 
-  plugins:
-    - custom_lint
-
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"

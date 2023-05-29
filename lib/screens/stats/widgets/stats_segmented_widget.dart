@@ -1,33 +1,37 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../stats_controller.dart';
+import '../stats_notifier.dart';
 import 'stats_segmented_value_widget.dart';
 
-class StatsSegmentedWidget extends GetView<StatsController> {
+class StatsSegmentedWidget extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Obx(
-          () => Row(
-            children: [
-              StatsSegmentedValueWidget(
-                onPressed: () => controller.segmentedValuePressed(0),
-                text: 'statsInfoGeneral'.tr(),
-                isActive: controller.currentIndex == 0 || controller.currentIndex == null,
-              ),
-              StatsSegmentedValueWidget(
-                onPressed: () => controller.segmentedValuePressed(1),
-                text: 'statsInfoNormal'.tr(),
-                isActive: controller.currentIndex == 1 || controller.currentIndex == null,
-              ),
-              StatsSegmentedValueWidget(
-                onPressed: () => controller.segmentedValuePressed(2),
-                text: 'statsInfoQuick'.tr(),
-                isActive: controller.currentIndex == 2 || controller.currentIndex == null,
-              ),
-            ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = ref.watch(statsProvider);
+    final statsNotifier = ref.watch(statsProvider.notifier);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Row(
+        children: [
+          StatsSegmentedValueWidget(
+            onPressed: () => statsNotifier.segmentedValuePressed(0),
+            text: 'statsInfoGeneral'.tr(),
+            isActive: currentIndex == 0 || currentIndex == null,
           ),
-        ),
-      );
+          StatsSegmentedValueWidget(
+            onPressed: () => statsNotifier.segmentedValuePressed(1),
+            text: 'statsInfoNormal'.tr(),
+            isActive: currentIndex == 1 || currentIndex == null,
+          ),
+          StatsSegmentedValueWidget(
+            onPressed: () => statsNotifier.segmentedValuePressed(2),
+            text: 'statsInfoQuick'.tr(),
+            isActive: currentIndex == 2 || currentIndex == null,
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
@@ -27,7 +28,7 @@ class NormalGameInfoSection extends StatelessWidget {
                 fastAnimations: true,
                 children: [
                   Text(
-                    'currentlyPlayingTitle'.tr.toUpperCase(),
+                    'currentlyPlayingTitle'.tr().toUpperCase(),
                     style: ModerniAliasTextStyles.playingTeamTitle,
                   ),
                   Text(

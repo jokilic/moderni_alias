@@ -12,31 +12,35 @@ class HighscoreValue extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: Get.width * 0.6,
-                child: Text(
-                  teamName,
-                  style: ModerniAliasTextStyles.highscore,
-                ),
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: width * 0.6,
+              child: Text(
+                teamName,
+                style: ModerniAliasTextStyles.highscore,
               ),
-              const SizedBox(width: 16),
-              SizedBox(
-                width: Get.width * 0.1,
-                child: Text(
-                  points.toString(),
-                  textAlign: TextAlign.center,
-                  style: ModerniAliasTextStyles.highscore,
-                ),
+            ),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: width * 0.1,
+              child: Text(
+                points.toString(),
+                textAlign: TextAlign.center,
+                style: ModerniAliasTextStyles.highscore,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

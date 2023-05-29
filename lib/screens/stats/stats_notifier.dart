@@ -1,6 +1,7 @@
 // ignore_for_file: use_setters_to_change_properties
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -11,21 +12,25 @@ import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class StatsController extends GetxController {
-  final logger = Get.find<LoggerService>();
-  final hiveService = Get.find<HiveService>();
+final statsProvider = NotifierProvider<StatsNotifier, int?>(StatsNotifier.new);
 
+class StatsNotifier extends Notifier<int?> {
   ///
-  /// REACTIVE VARIABLES
+  /// INIT
   ///
 
-  final _currentIndex = Rxn<int?>();
-  int? get currentIndex => _currentIndex.value;
-  set currentIndex(int? value) => _currentIndex.value = value;
+  @override
+  int? build() {
+    init();
+    return null;
+  }
 
   ///
   /// VARIABLES
   ///
+
+  late final LoggerService logger;
+  late final HiveService hive;
 
   late List<NormalGameStats> normalGameStats;
   late List<QuickGameStats> quickGameStats;
@@ -54,17 +59,17 @@ class StatsController extends GetxController {
   /// INIT
   ///
 
-  @override
-  void onInit() {
-    super.onInit();
+  void init() {
+    logger = ref.watch(loggerProvider);
+    hive = ref.watch(hiveProvider);
 
     pageController = PageController();
 
     initializeDateFormatting('en');
     initializeDateFormatting('hr');
 
-    normalGameStats = hiveService.getNormalGameStatsFromBox();
-    quickGameStats = hiveService.getQuickGameStatsFromBox();
+    normalGameStats = hive.getNormalGameStatsFromBox();
+    quickGameStats = hive.getQuickGameStatsFromBox();
 
     calculateValues();
   }
@@ -115,13 +120,13 @@ class StatsController extends GetxController {
 
   /// Triggered when the user taps some [StatsSegmentedValueWidget]
   void segmentedValuePressed(int newIndex) {
-    if (currentIndex == newIndex) {
-      currentIndex = null;
+    if (state == newIndex) {
+      state = null;
     } else {
-      currentIndex = newIndex;
+      state = newIndex;
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => pageController.animateToPage(
-          currentIndex ?? 4,
+          state ?? 4,
           duration: ModerniAliasDurations.animation,
           curve: Curves.easeIn,
         ),
@@ -131,6 +136,6 @@ class StatsController extends GetxController {
 
   /// Triggered when [PageView] page is changed (swiping)
   void pageChanged(int newIndex) {
-    currentIndex = newIndex;
+    state = newIndex;
   }
 }

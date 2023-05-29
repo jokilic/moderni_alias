@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/game_title.dart';
@@ -9,27 +10,27 @@ class StatsInfoSection extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         children: [
           GameTitle(
-            'statsInfoGeneral'.tr,
+            'statsInfoGeneral'.tr(),
             smallTitle: true,
           ),
           StatsValueWidget(
-            text: 'statsInfoGeneralExplanation'.tr,
+            text: 'statsInfoGeneralExplanation'.tr(),
           ),
           const SizedBox(height: 8),
           GameTitle(
-            'statsInfoNormal'.tr,
+            'statsInfoNormal'.tr(),
             smallTitle: true,
           ),
           StatsValueWidget(
-            text: 'statsInfoNormalExplanation'.tr,
+            text: 'statsInfoNormalExplanation'.tr(),
           ),
           const SizedBox(height: 8),
           GameTitle(
-            'statsInfoQuick'.tr,
+            'statsInfoQuick'.tr(),
             smallTitle: true,
           ),
           StatsValueWidget(
-            text: 'statsInfoQuickExplanation'.tr,
+            text: 'statsInfoQuickExplanation'.tr(),
           ),
           const SizedBox(height: 32),
         ],
