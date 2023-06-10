@@ -15,8 +15,6 @@ import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 
 class QuickGameStatsScreen extends StatelessWidget {
-  static const routeName = '/quick-game-stats-screen';
-
   @override
   Widget build(BuildContext context) {
     final quickGame = ModalRoute.of(context)?.settings.arguments as QuickGameStats;

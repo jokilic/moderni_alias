@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
-import '../../routes.dart';
+import '../../routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
@@ -16,8 +16,6 @@ import '../../widgets/play_button.dart';
 import '../normal_game/widgets/show_scores.dart';
 
 class QuickGameFinishedScreen extends StatelessWidget {
-  static const routeName = '/quick-game-finished-screen';
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

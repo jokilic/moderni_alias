@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'constants/strings.dart';
-import 'routes.dart';
+import 'routing.dart';
 import 'theme.dart';
 
 Future<void> main() async {

@@ -12,8 +12,6 @@ import '../../widgets/wrong_correct_buttons.dart';
 import 'widgets/normal_game_info_section.dart';
 
 class NormalGameScreen extends StatelessWidget {
-  static const routeName = '/normal-game-screen';
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

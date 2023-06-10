@@ -21,14 +21,14 @@ import '../../widgets/play_button.dart';
 import 'start_game_controller.dart';
 
 class StartGameScreen extends ConsumerWidget {
-  static const routeName = '/start-game-screen';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chosenDictionary = ref.watch(chosenDictionaryProvider);
     final teams = ref.watch(teamsProvider);
     final pointsToWin = ref.watch(pointsToWinProvider);
     final lengthOfRound = ref.watch(lengthOfRoundProvider);
+    final validationMessage = ref.watch(validationMessageProvider);
+
     final startGameController = ref.watch(startGameProvider);
 
     return Scaffold(

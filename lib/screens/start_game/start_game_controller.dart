@@ -33,4 +33,33 @@ class StartGameController {
 
   /// Called when the user writes on the text field and adds a team name
   void teamNameUpdated({required Team passedTeam, required String value}) => ref.read(teamsProvider.notifier).state.firstWhere((team) => team == passedTeam).name = value;
+
+  /// Called when the user taps the 'Play' button
+  void validateMainGame() {
+    var teamsValidated = true;
+
+    /// Check if any of team names are same
+    final duplicateTeamsList = <Team>[];
+    teams.map((team) {
+      if (duplicateTeamsList.contains(team)) {
+        validationMessage = 'teamNamesSameString'.tr();
+        teamsValidated = false;
+      } else {
+        duplicateTeamsList.add(team);
+      }
+    }).toList();
+
+    /// Check if any of the teams has an empty name
+    teams.map((team) {
+      if (team.name.isEmpty) {
+        validationMessage = 'teamNamesMissingString'.tr();
+        teamsValidated = false;
+      }
+    }).toList();
+
+    if (teamsValidated) {
+      validationMessage = '';
+      startMainGame();
+    }
+  }
 }

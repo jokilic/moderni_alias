@@ -10,8 +10,6 @@ import '../../widgets/small_title.dart';
 import '../../widgets/standard_text.dart';
 
 class HowToPlayScreen extends StatelessWidget {
-  static const routeName = '/how-to-play-screen';
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BackgroundImage(

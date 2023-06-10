@@ -13,8 +13,6 @@ import 'widgets/stats_quick_section.dart';
 import 'widgets/stats_segmented_widget.dart';
 
 class StatsScreen extends ConsumerWidget {
-  static const routeName = '/stats-screen';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(statsProvider);

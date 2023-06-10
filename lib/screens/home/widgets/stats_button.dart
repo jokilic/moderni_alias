@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
-import '../../../routes.dart';
+import '../../../routing.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
 class StatsButton extends StatelessWidget {

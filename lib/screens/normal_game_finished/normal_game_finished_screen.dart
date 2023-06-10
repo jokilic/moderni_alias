@@ -12,22 +12,14 @@ import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../home/home_screen.dart';
 import '../normal_game/widgets/show_scores.dart';
 
-class GameFinishedScreen extends StatelessWidget {
-  static const routeName = '/game-finished';
-
+class NormalGameFinishedScreen extends StatelessWidget {
   final Team winningTeam;
 
-  const GameFinishedScreen({
+  const NormalGameFinishedScreen({
     required this.winningTeam,
   });
-
-  void goToHomeScreen(BuildContext context) => Navigator.of(context).pushNamedAndRemoveUntil(
-        HomeScreen.routeName,
-        (_) => false,
-      );
 
   @override
   Widget build(BuildContext context) => WillPopScope(

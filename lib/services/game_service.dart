@@ -14,7 +14,7 @@ import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
 import '../models/round/round.dart';
 import '../models/team/team.dart';
-import '../screens/game_finished/game_finished_screen.dart';
+import '../screens/normal_game_finished/normal_game_finished_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/normal_game/normal_game_screen.dart';
 import '../screens/normal_game/widgets/show_scores.dart';
@@ -30,7 +30,12 @@ final wrongPlayerProvider = Provider<AudioPlayer>(
 final countdownPlayerProvider = Provider<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.timer, preload: false),
 );
+
 final randomProvider = Provider<Random>((_) => Random());
+
+final currentGameProvider = StateProvider<Game>((_) => Game.none);
+
+final chosenDictionaryProvider = StateProvider<Flag>((_) => Flag.croatia);
 
 class GameService {
   ///
@@ -215,28 +220,6 @@ class GameService {
     startCountdown();
   }
 
-  /// Called when the validation passes
-  /// Starts main game
-  void startMainGame() {
-    currentGame = Game.none;
-    countdownTimerFillColor = Colors.transparent;
-    currentlyPlayingTeam = teams.first;
-    exitButtonAnimationController.value = 0;
-    tieBreakTeams = null;
-
-    normalGameStats = NormalGameStats(
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      teams: List.from(teams),
-      rounds: [],
-      lengthOfRound: lengthOfRound,
-      pointsToWin: pointsToWin,
-      language: chosenDictionary,
-    );
-
-    Get.toNamed(NormalGameScreen.routeName);
-  }
-
   ///
   /// ROUND
   ///
@@ -309,10 +292,10 @@ class GameService {
     showScoresSheet();
   }
 
-  /// Ends game and goes to [GameFinishedScreen]
+  /// Ends game and goes to [NormalGameFinishedScreen]
   void endGame(Team winner) {
     updateHiveStats(gameType: Game.normal);
-    Get.toNamed(GameFinishedScreen.routeName, arguments: winner);
+    Get.toNamed(NormalGameFinishedScreen.routeName, arguments: winner);
   }
 
   // Find all teams that are tied for first place
@@ -475,39 +458,26 @@ class GameService {
     }
   }
 
-  /// Called when the user taps on the points in StartGame
-  set updatePointsToWin(int chosenPoints) => pointsToWin = chosenPoints;
+  /// Called when the validation passes
+  /// Starts main game
+  void startMainGame() {
+    currentGame = Game.none;
+    countdownTimerFillColor = Colors.transparent;
+    currentlyPlayingTeam = teams.first;
+    exitButtonAnimationController.value = 0;
+    tieBreakTeams = null;
 
-  /// Called when the user taps on the length of round in StartGame
-  set updateLengthOfRound(int chosenLength) => lengthOfRound = chosenLength;
+    normalGameStats = NormalGameStats(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      teams: List.from(teams),
+      rounds: [],
+      lengthOfRound: lengthOfRound,
+      pointsToWin: pointsToWin,
+      language: chosenDictionary,
+    );
 
-  /// Called when the user taps the 'Play' button
-  void validateMainGame() {
-    teamsValidated = true;
-
-    /// Check if any of team names are same
-    final duplicateTeamsList = <Team>[];
-    teams.map((team) {
-      if (duplicateTeamsList.contains(team)) {
-        validationMessage = 'teamNamesSameString'.tr();
-        teamsValidated = false;
-      } else {
-        duplicateTeamsList.add(team);
-      }
-    }).toList();
-
-    /// Check if any of the teams has an empty name
-    teams.map((team) {
-      if (team.name.isEmpty) {
-        validationMessage = 'teamNamesMissingString'.tr();
-        teamsValidated = false;
-      }
-    }).toList();
-
-    if (teamsValidated) {
-      validationMessage = '';
-      startMainGame();
-    }
+    Get.toNamed(NormalGameScreen.routeName);
   }
 
   ///

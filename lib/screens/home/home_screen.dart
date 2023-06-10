@@ -8,8 +8,6 @@ import '../../widgets/hero_title.dart';
 import 'widgets/how_to_play_button.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const routeName = '/home-screen';
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: BackgroundImage(

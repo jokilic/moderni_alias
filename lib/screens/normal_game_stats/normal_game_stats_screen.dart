@@ -16,8 +16,6 @@ import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
 
 class NormalGameStatsScreen extends StatelessWidget {
-  static const routeName = '/normal-game-stats-screen';
-
   @override
   Widget build(BuildContext context) {
     final normalGame = ModalRoute.of(context)?.settings.arguments as NormalGameStats;

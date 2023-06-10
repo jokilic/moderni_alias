@@ -12,8 +12,6 @@ import '../normal_game/widgets/show_scores.dart';
 import 'widgets/quick_game_info_section.dart';
 
 class QuickGameScreen extends StatelessWidget {
-  static const routeName = '/quick-game-screen';
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

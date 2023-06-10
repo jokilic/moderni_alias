@@ -16,8 +16,6 @@ import '../../widgets/small_title.dart';
 import '../../widgets/standard_text.dart';
 
 class GeneralInfoScreen extends ConsumerWidget {
-  static const routeName = '/general-info';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
         body: BackgroundImage(
