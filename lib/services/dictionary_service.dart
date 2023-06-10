@@ -16,12 +16,12 @@ final chosenDictionaryProvider = StateProvider<Flag>(
   name: 'ChosenDictionaryProvider',
 );
 
-final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(
+final dictionaryProvider = NotifierProvider.autoDispose<DictionaryNotifier, String>(
   DictionaryNotifier.new,
   name: 'DictionaryProvider',
 );
 
-class DictionaryNotifier extends Notifier<String> {
+class DictionaryNotifier extends AutoDisposeNotifier<String> {
   @override
   String build() {
     init();

@@ -18,16 +18,16 @@ import '../../services/hive_service.dart';
 import '../start_game/start_game_controller.dart';
 import 'widgets/show_scores.dart';
 
-final currentlyPlayingTeamProvider = StateProvider<Team>(
+final currentlyPlayingTeamProvider = StateProvider.autoDispose<Team>(
   (_) => Team(name: ''),
   name: 'CurrentlyPlayingTeamProvider',
 );
-final tieBreakTeamsProvider = StateProvider<List<Team>?>(
+final tieBreakTeamsProvider = StateProvider.autoDispose<List<Team>?>(
   (_) => null,
   name: 'TieBreakTeamsProvider',
 );
 
-final normalGameProvider = Provider.family<NormalGameController, NormalGameArguments>(
+final normalGameProvider = Provider.autoDispose.family<NormalGameController, NormalGameArguments>(
   (ref, arguments) {
     final normalGameController = NormalGameController(
       ref,

@@ -5,24 +5,24 @@ import '../../constants/enums.dart';
 import '../../models/team/team.dart';
 import '../../services/dictionary_service.dart';
 
-final teamsProvider = StateProvider<List<Team>>(
+final teamsProvider = StateProvider.autoDispose<List<Team>>(
   (_) => [for (var i = 0; i < 2; i++) Team(name: '')],
   name: 'TeamsProvider',
 );
-final pointsToWinProvider = StateProvider<int>(
+final pointsToWinProvider = StateProvider.autoDispose<int>(
   (_) => 50,
   name: 'PointsToWinProvider',
 );
-final lengthOfRoundProvider = StateProvider<int>(
+final lengthOfRoundProvider = StateProvider.autoDispose<int>(
   (_) => 60,
   name: 'LengthOfRoundProvider',
 );
-final validationMessageProvider = StateProvider<String?>(
+final validationMessageProvider = StateProvider.autoDispose<String?>(
   (_) => null,
   name: 'ValidationMessageProvider',
 );
 
-final startGameProvider = Provider<StartGameController>(
+final startGameProvider = Provider.autoDispose<StartGameController>(
   StartGameController.new,
   name: 'StartGameProvider',
 );

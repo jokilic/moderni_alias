@@ -59,13 +59,4 @@ class RiverpodLogger extends ProviderObserver {
     logger.d('${provider.name ?? provider.runtimeType} has been disposed');
     super.didDisposeProvider(provider, container);
   }
-
-  @override
-  void didUpdateProvider(
-    ProviderBase provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) =>
-      logger.i('${provider.name ?? provider.runtimeType}] updated\n$newValue');
 }

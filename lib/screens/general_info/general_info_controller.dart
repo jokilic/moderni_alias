@@ -3,7 +3,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../constants/strings.dart';
 
-final generalInfoProvider = Provider<GeneralInfoController>(
+final generalInfoProvider = Provider.autoDispose<GeneralInfoController>(
   (_) => GeneralInfoController(),
   name: 'GeneralInfoProvider',
 );

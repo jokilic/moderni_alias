@@ -9,36 +9,36 @@ import 'constants/enums.dart';
 import 'constants/strings.dart';
 import 'models/played_word/played_word.dart';
 
-final randomProvider = Provider<Random>(
+final randomProvider = Provider.autoDispose<Random>(
   (_) => Random(),
   name: 'RandomProvider',
 );
-final correctPlayerProvider = Provider<AudioPlayer>(
+final correctPlayerProvider = Provider.autoDispose<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.correct, preload: false),
   name: 'CorrectPlayerProvider',
 );
-final wrongPlayerProvider = Provider<AudioPlayer>(
+final wrongPlayerProvider = Provider.autoDispose<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.wrong, preload: false),
   name: 'WrongPlayerProvider',
 );
-final countdownPlayerProvider = Provider<AudioPlayer>(
+final countdownPlayerProvider = Provider.autoDispose<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.timer, preload: false),
   name: 'CountdownPlayerProvider',
 );
 
-final currentGameProvider = StateProvider<Game>(
+final currentGameProvider = StateProvider.autoDispose<Game>(
   (_) => Game.none,
   name: 'CurrentGameProvider',
 );
-final countdownTimerFillColorProvider = StateProvider<Color>(
+final countdownTimerFillColorProvider = StateProvider.autoDispose<Color>(
   (_) => ModerniAliasColors.blueColor,
   name: 'CountdownTimerFillColorProvider',
 );
-final playedWordsProvider = StateProvider<List<PlayedWord>>(
+final playedWordsProvider = StateProvider.autoDispose<List<PlayedWord>>(
   (_) => [],
   name: 'PlayedWordsProvider',
 );
-final counter3SecondsProvider = StateProvider<int>(
+final counter3SecondsProvider = StateProvider.autoDispose<int>(
   (_) => 0,
   name: 'Counter3SecondsProvider',
 );

@@ -13,7 +13,7 @@ import '../../routing.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 
-final quickGameProvider = Provider<QuickGameController>(
+final quickGameProvider = Provider.autoDispose<QuickGameController>(
   (ref) {
     final quickGameController = QuickGameController(ref);
     ref.onDispose(quickGameController.dispose);
