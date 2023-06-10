@@ -1,35 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-final loggerProvider = Provider<LoggerService>((ref) => LoggerService());
+final loggerProvider = Provider<LoggerService>(
+  (_) => throw UnimplementedError(),
+  name: 'LoggerProvider',
+);
 
 class LoggerService {
-  ///
-  /// CONSTRUCTOR
-  ///
-
-  LoggerService() {
-    init();
-  }
-
   ///
   /// VARIABLES
   ///
 
-  late final Logger logger;
-
-  ///
-  /// INIT
-  ///
-
-  void init() => logger = Logger(
-        printer: PrettyPrinter(
-          methodCount: 0,
-          errorMethodCount: 3,
-          lineLength: 50,
-          noBoxingByDefault: true,
-        ),
-      );
+  late final logger = Logger(
+    printer: PrettyPrinter(
+      methodCount: 0,
+      errorMethodCount: 3,
+      lineLength: 50,
+      noBoxingByDefault: true,
+    ),
+  );
 
   ///
   /// METHODS
@@ -52,4 +41,31 @@ class LoggerService {
 
   /// 👾 What a terrible failure error, purple color
   void wtf(value) => logger.wtf(value);
+}
+
+class RiverpodLogger extends ProviderObserver {
+  final LoggerService logger;
+
+  RiverpodLogger(this.logger);
+
+  @override
+  void didAddProvider(ProviderBase<Object?> provider, Object? value, ProviderContainer container) {
+    logger.d('${provider.name ?? provider.runtimeType} has been initialized');
+    super.didAddProvider(provider, value, container);
+  }
+
+  @override
+  void didDisposeProvider(ProviderBase<Object?> provider, ProviderContainer container) {
+    logger.d('${provider.name ?? provider.runtimeType} has been disposed');
+    super.didDisposeProvider(provider, container);
+  }
+
+  @override
+  void didUpdateProvider(
+    ProviderBase provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) =>
+      logger.i('${provider.name ?? provider.runtimeType}] updated\n$newValue');
 }

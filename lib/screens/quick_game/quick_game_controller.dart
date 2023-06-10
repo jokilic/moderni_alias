@@ -19,6 +19,7 @@ final quickGameProvider = Provider<QuickGameController>(
     ref.onDispose(quickGameController.dispose);
     return quickGameController;
   },
+  name: 'QuickGameProvider',
 );
 
 class QuickGameController {

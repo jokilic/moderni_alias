@@ -1,11 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-final appInfoProvider = FutureProvider<AppInfoService>((ref) async {
-  final appInfoService = AppInfoService();
-  await appInfoService.init();
-  return appInfoService;
-});
+final appInfoProvider = FutureProvider.autoDispose<AppInfoService>(
+  (ref) async {
+    final appInfoService = AppInfoService();
+    await appInfoService.init();
+    return appInfoService;
+  },
+  name: 'AppInfoProvider',
+);
 
 class AppInfoService {
   ///

@@ -7,12 +7,25 @@ import '../../services/dictionary_service.dart';
 
 final teamsProvider = StateProvider<List<Team>>(
   (_) => [for (var i = 0; i < 2; i++) Team(name: '')],
+  name: 'TeamsProvider',
 );
-final pointsToWinProvider = StateProvider<int>((_) => 50);
-final lengthOfRoundProvider = StateProvider<int>((_) => 60);
-final validationMessageProvider = StateProvider<String?>((_) => null);
+final pointsToWinProvider = StateProvider<int>(
+  (_) => 50,
+  name: 'PointsToWinProvider',
+);
+final lengthOfRoundProvider = StateProvider<int>(
+  (_) => 60,
+  name: 'LengthOfRoundProvider',
+);
+final validationMessageProvider = StateProvider<String?>(
+  (_) => null,
+  name: 'ValidationMessageProvider',
+);
 
-final startGameProvider = Provider<StartGameController>(StartGameController.new);
+final startGameProvider = Provider<StartGameController>(
+  StartGameController.new,
+  name: 'StartGameProvider',
+);
 
 class StartGameController {
   final ProviderRef ref;

@@ -11,8 +11,15 @@ import '../dictionary/english/verbs.dart';
 import '../providers.dart';
 import 'logger_service.dart';
 
-final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(DictionaryNotifier.new);
-final chosenDictionaryProvider = StateProvider<Flag>((_) => Flag.croatia);
+final chosenDictionaryProvider = StateProvider<Flag>(
+  (_) => Flag.croatia,
+  name: 'ChosenDictionaryProvider',
+);
+
+final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(
+  DictionaryNotifier.new,
+  name: 'DictionaryProvider',
+);
 
 class DictionaryNotifier extends Notifier<String> {
   @override

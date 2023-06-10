@@ -12,7 +12,10 @@ import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-final statsProvider = NotifierProvider<StatsNotifier, int?>(StatsNotifier.new);
+final statsProvider = NotifierProvider<StatsNotifier, int?>(
+  StatsNotifier.new,
+  name: 'StatsProvider',
+);
 
 class StatsNotifier extends Notifier<int?> {
   ///

@@ -17,6 +17,7 @@ final hiveProvider = Provider<HiveService>(
     ref.onDispose(hiveService.dispose);
     return hiveService;
   },
+  name: 'HiveProvider',
 );
 
 class HiveService {

@@ -18,8 +18,14 @@ import '../../services/hive_service.dart';
 import '../start_game/start_game_controller.dart';
 import 'widgets/show_scores.dart';
 
-final currentlyPlayingTeamProvider = StateProvider<Team>((_) => Team(name: ''));
-final tieBreakTeamsProvider = StateProvider<List<Team>?>((_) => null);
+final currentlyPlayingTeamProvider = StateProvider<Team>(
+  (_) => Team(name: ''),
+  name: 'CurrentlyPlayingTeamProvider',
+);
+final tieBreakTeamsProvider = StateProvider<List<Team>?>(
+  (_) => null,
+  name: 'TieBreakTeamsProvider',
+);
 
 final normalGameProvider = Provider.family<NormalGameController, NormalGameArguments>(
   (ref, arguments) {
@@ -30,6 +36,7 @@ final normalGameProvider = Provider.family<NormalGameController, NormalGameArgum
     ref.onDispose(normalGameController.dispose);
     return normalGameController;
   },
+  name: 'NormalGameProvider',
 );
 
 class NormalGameController {

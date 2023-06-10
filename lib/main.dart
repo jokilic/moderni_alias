@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'constants/strings.dart';
 import 'routing.dart';
+import 'services/logger_service.dart';
 import 'theme.dart';
 
 Future<void> main() async {
@@ -23,9 +24,18 @@ Future<void> main() async {
     SystemUiOverlayStyle.light,
   );
 
+  /// Initialize [Logger]
+  final logger = LoggerService();
+
   /// Run the app, let's go!
   runApp(
     ProviderScope(
+      overrides: [
+        loggerProvider.overrideWithValue(logger),
+      ],
+      observers: [
+        RiverpodLogger(logger),
+      ],
       child: ModerniAlias(),
     ),
   );
