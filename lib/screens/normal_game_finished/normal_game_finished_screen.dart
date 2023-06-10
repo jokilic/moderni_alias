@@ -51,7 +51,7 @@ class NormalGameFinishedScreen extends StatelessWidget {
                     onTap: () => goToHomeScreen(context),
                     behavior: HitTestBehavior.translucent,
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: MediaQuery.sizeOf(context).width * 0.8,
                       height: 500,
                       child: AnimatedColumn(
                         mainAxisAlignment: MainAxisAlignment.center,

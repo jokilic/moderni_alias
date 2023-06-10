@@ -11,6 +11,7 @@ import './widgets/number_of_teams_button.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
+import '../../routing.dart';
 import '../../services/dictionary_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_list_view.dart';
@@ -168,8 +169,8 @@ class StartGameScreen extends ConsumerWidget {
                       child: AnimatedSwitcher(
                         duration: ModerniAliasDurations.animation,
                         child: Text(
-                          key: ValueKey(gameService.validationMessage),
-                          gameService.validationMessage,
+                          key: ValueKey(validationMessage),
+                          validationMessage ?? '',
                           style: ModerniAliasTextStyles.validation,
                           textAlign: TextAlign.center,
                         ),
@@ -180,7 +181,12 @@ class StartGameScreen extends ConsumerWidget {
                     alignment: Alignment.center,
                     child: PlayButton(
                       text: 'playTheGameString'.tr().toUpperCase(),
-                      onPressed: gameService.validateMainGame,
+                      onPressed: () {
+                        /// Validation successfull, go to [NormalGameScreen]
+                        if (startGameController.validateMainGame()) {
+                          goToNormalGameScreen(context);
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(height: 50),

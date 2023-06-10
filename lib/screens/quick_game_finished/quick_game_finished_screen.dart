@@ -18,7 +18,7 @@ import '../normal_game/widgets/show_scores.dart';
 class QuickGameFinishedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
 
     return WillPopScope(
       onWillPop: () async {

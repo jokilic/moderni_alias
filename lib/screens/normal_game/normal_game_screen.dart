@@ -14,7 +14,7 @@ import 'widgets/normal_game_info_section.dart';
 class NormalGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
 
     return WillPopScope(
       onWillPop: exitGameModal,

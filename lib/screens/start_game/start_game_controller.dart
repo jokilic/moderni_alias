@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
@@ -9,6 +10,8 @@ final teamsProvider = StateProvider<List<Team>>(
 );
 final pointsToWinProvider = StateProvider<int>((_) => 50);
 final lengthOfRoundProvider = StateProvider<int>((_) => 60);
+final validationMessageProvider = StateProvider<String?>((_) => null);
+
 final startGameProvider = Provider<StartGameController>(StartGameController.new);
 
 class StartGameController {
@@ -35,31 +38,28 @@ class StartGameController {
   void teamNameUpdated({required Team passedTeam, required String value}) => ref.read(teamsProvider.notifier).state.firstWhere((team) => team == passedTeam).name = value;
 
   /// Called when the user taps the 'Play' button
-  void validateMainGame() {
-    var teamsValidated = true;
-
+  bool validateMainGame() {
     /// Check if any of team names are same
     final duplicateTeamsList = <Team>[];
-    teams.map((team) {
+    ref.read(teamsProvider.notifier).state.map((team) {
       if (duplicateTeamsList.contains(team)) {
-        validationMessage = 'teamNamesSameString'.tr();
-        teamsValidated = false;
+        ref.read(validationMessageProvider.notifier).state = 'teamNamesSameString'.tr();
+        return false;
       } else {
         duplicateTeamsList.add(team);
       }
     }).toList();
 
     /// Check if any of the teams has an empty name
-    teams.map((team) {
+    ref.read(teamsProvider.notifier).state.map((team) {
       if (team.name.isEmpty) {
-        validationMessage = 'teamNamesMissingString'.tr();
-        teamsValidated = false;
+        ref.read(validationMessageProvider.notifier).state = 'teamNamesMissingString'.tr();
+        return false;
       }
     }).toList();
 
-    if (teamsValidated) {
-      validationMessage = '';
-      startMainGame();
-    }
+    /// Validation passed successfully
+    ref.read(validationMessageProvider.notifier).state = null;
+    return true;
   }
 }
