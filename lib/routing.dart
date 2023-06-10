@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'models/arguments/normal_game_arguments.dart';
 import 'models/team/team.dart';
 import 'screens/general_info/general_info_screen.dart';
 import 'screens/home/home_screen.dart';
@@ -19,7 +20,7 @@ final routes = {
   ModerniAliasRoutes.howToPlayScreen: (context) => HowToPlayScreen(),
   ModerniAliasRoutes.startGameScreen: (context) => StartGameScreen(),
   ModerniAliasRoutes.normalGameScreen: (context) => NormalGameScreen(),
-  ModerniAliasRoutes.normalGameFinishedScreen: (context) => NormalGameFinishedScreen(winningTeam: Team(name: '')),
+  ModerniAliasRoutes.normalGameFinishedScreen: (context) => NormalGameFinishedScreen(),
   ModerniAliasRoutes.quickGameScreen: (context) => QuickGameScreen(),
   ModerniAliasRoutes.quickGameFinishedScreen: (context) => QuickGameFinishedScreen(),
   ModerniAliasRoutes.statsScreen: (context) => StatsScreen(),
@@ -67,13 +68,15 @@ void goToStartGameScreen(BuildContext context) => Navigator.of(context).pushName
     );
 
 ///
-void goToNormalGameScreen(BuildContext context) => Navigator.of(context).pushNamed(
+void goToNormalGameScreen(BuildContext context, {required NormalGameArguments arguments}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameScreen,
+      arguments: arguments,
     );
 
 ///
-void goToNormalGameFinishedScreen(BuildContext context) => Navigator.of(context).pushNamed(
+void goToNormalGameFinishedScreen(BuildContext context, {required Team winner}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameFinishedScreen,
+      arguments: winner,
     );
 
 ///

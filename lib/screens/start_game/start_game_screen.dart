@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import './widgets/horizontal_row.dart';
 import './widgets/length_of_round_button.dart';
 import './widgets/name_of_team.dart';
 import './widgets/number_of_points.dart';
@@ -11,6 +10,7 @@ import './widgets/number_of_teams_button.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
+import '../../models/arguments/normal_game_arguments.dart';
 import '../../routing.dart';
 import '../../services/dictionary_service.dart';
 import '../../widgets/animated_column.dart';
@@ -20,6 +20,7 @@ import '../../widgets/flag_button.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
 import 'start_game_controller.dart';
+import 'widgets/horizontal_row.dart';
 
 class StartGameScreen extends ConsumerWidget {
   @override
@@ -184,7 +185,15 @@ class StartGameScreen extends ConsumerWidget {
                       onPressed: () {
                         /// Validation successfull, go to [NormalGameScreen]
                         if (startGameController.validateMainGame()) {
-                          goToNormalGameScreen(context);
+                          goToNormalGameScreen(
+                            context,
+                            arguments: NormalGameArguments(
+                              chosenDictionary: chosenDictionary,
+                              teams: teams,
+                              pointsToWin: pointsToWin,
+                              lengthOfRound: lengthOfRound,
+                            ),
+                          );
                         }
                       },
                     ),

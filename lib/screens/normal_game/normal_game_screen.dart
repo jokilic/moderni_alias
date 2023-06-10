@@ -1,23 +1,43 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
+import '../../models/arguments/normal_game_arguments.dart';
+import '../../services/dictionary_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
+import 'normal_game_controller.dart';
 import 'widgets/normal_game_info_section.dart';
 
-class NormalGameScreen extends StatelessWidget {
+class NormalGameScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.sizeOf(context).width;
 
+    final currentlyPlayingTeam = ref.watch(currentlyPlayingTeamProvider);
+    final currentGame = ref.watch(currentGameProvider);
+    final countdownTimerFillColor = ref.watch(countdownTimerFillColorProvider);
+    final playedWords = ref.watch(playedWordsProvider);
+    final counter3Seconds = ref.watch(counter3SecondsProvider);
+
+    final currentWord = ref.watch(dictionaryProvider);
+
+    final normalGameController = ref.watch(
+      normalGameProvider(
+        ModalRoute.of(context)?.settings.arguments as NormalGameArguments,
+      ),
+    );
+
     return WillPopScope(
-      onWillPop: exitGameModal,
+      onWillPop: () => exitGameModal(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
@@ -28,15 +48,16 @@ class NormalGameScreen extends StatelessWidget {
                   top: 0,
                   width: width,
                   child: NormalGameInfoSection(
-                    currentlyPlayingTeam: gameService.currentlyPlayingTeam,
-                    exitGame: exitGameModal,
+                    currentlyPlayingTeam: currentlyPlayingTeam,
+                    exitGame: () => exitGameModal(context),
                     showScores: () => showScores(
-                      teams: gameService.teams,
-                      playedWords: gameService.playedWords,
+                      teams: normalGameController.arguments.teams,
+                      playedWords: playedWords,
+                      context: context,
                     ),
                   ),
                 ),
-                if (gameService.currentGame == Game.normal)
+                if (currentGame == Game.normal)
                   Positioned(
                     top: -75,
                     bottom: 0,
@@ -45,16 +66,14 @@ class NormalGameScreen extends StatelessWidget {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: GameOn(
-                        currentWord: dictionaryService.currentWord,
-                        fillColor: gameService.countdownTimerFillColor,
-                        length: gameService.lengthOfRound,
-                        onComplete: () => gameService.endOfRound(
-                          currentGame: Game.normal,
-                        ),
+                        currentWord: currentWord,
+                        fillColor: countdownTimerFillColor,
+                        length: normalGameController.arguments.lengthOfRound,
+                        onComplete: () => normalGameController.stopGameCheckWinner(context),
                       ),
                     ),
                   )
-                else if (gameService.currentGame == Game.starting)
+                else if (currentGame == Game.starting)
                   Positioned(
                     top: -75,
                     bottom: 0,
@@ -63,8 +82,8 @@ class NormalGameScreen extends StatelessWidget {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: GameStarting(
-                        currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
-                        onComplete: () => gameService.startRound(
+                        currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                        onComplete: () => normalGameController.startRound(
                           chosenGame: Game.normal,
                         ),
                       ),
@@ -79,7 +98,7 @@ class NormalGameScreen extends StatelessWidget {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: GameOff(
-                        onTap: gameService.start3SecondCountdown,
+                        onTap: normalGameController.start3SecondCountdown,
                       ),
                     ),
                   ),
@@ -87,10 +106,10 @@ class NormalGameScreen extends StatelessWidget {
                   bottom: 0,
                   width: width,
                   child: WrongCorrectButtons(
-                    wrongChosen: () => gameService.answerChosen(
+                    wrongChosen: () => normalGameController.answerChosen(
                       chosenButton: Answer.wrong,
                     ),
-                    correctChosen: () => gameService.answerChosen(
+                    correctChosen: () => normalGameController.answerChosen(
                       chosenButton: Answer.correct,
                     ),
                   ),

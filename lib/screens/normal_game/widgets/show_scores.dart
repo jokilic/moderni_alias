@@ -13,13 +13,15 @@ import 'played_word_value.dart';
 
 void showScores({
   required List<PlayedWord> playedWords,
+  required BuildContext context,
   List<Team>? teams,
   bool dismissible = true,
 }) {
   if (teams != null || playedWords.isNotEmpty) {
-    Get.bottomSheet(
+    showModalBottomSheet(
+      context: context,
       isDismissible: dismissible,
-      Container(
+      builder: (context) => Container(
         width: double.infinity,
         padding: const EdgeInsets.only(
           top: 36,

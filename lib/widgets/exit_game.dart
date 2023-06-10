@@ -6,9 +6,10 @@ import '../constants/strings.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
 
-Future<bool> exitGameModal() async {
-  await Get.bottomSheet(
-    Container(
+Future<bool> exitGameModal(BuildContext context) async {
+  await showModalBottomSheet(
+    context: context,
+    builder: (context) => Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
         horizontal: 24,
@@ -40,9 +41,6 @@ Future<bool> exitGameModal() async {
             children: [
               ExitGameButton(
                 text: 'exitModalQuestionYes'.tr(),
-                animationController: gameService.exitButtonAnimationController,
-                pointerDown: (_) => gameService.exitButtonAnimationController.forward(),
-                pointerUp: (_) => gameService.exitButtonAnimationController.reverse(),
               ),
               const SizedBox(width: 24),
               ExitGameButton(
@@ -56,7 +54,5 @@ Future<bool> exitGameModal() async {
     ),
   );
 
-  /// Reset animation when dismissing modal
-  gameService.exitButtonAnimationController.value = 0;
   return false;
 }

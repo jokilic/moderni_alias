@@ -1,50 +1,70 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../constants/strings.dart';
 import '../constants/text_styles.dart';
+import '../routing.dart';
 import 'animated_gesture_detector.dart';
 
-class ExitGameButton extends StatelessWidget {
+class ExitGameButton extends StatefulWidget {
   final String text;
   final Function()? onPressed;
-  final AnimationController? animationController;
-  final Function(PointerDownEvent event)? pointerDown;
-  final Function(PointerUpEvent event)? pointerUp;
 
   const ExitGameButton({
     required this.text,
     this.onPressed,
-    this.animationController,
-    this.pointerDown,
-    this.pointerUp,
   });
 
   @override
+  State<ExitGameButton> createState() => _ExitGameButtonState();
+}
+
+class _ExitGameButtonState extends State<ExitGameButton> with SingleTickerProviderStateMixin {
+  late final AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: ModerniAliasDurations.slowAnimation,
+    )..addStatusListener(
+        (status) {
+          /// Animation is completed, exit game
+          if (status == AnimationStatus.completed) {
+            goToHomeScreen(context, popEverything: true);
+          }
+        },
+      );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => Listener(
-        onPointerDown: animationController != null ? pointerDown : null,
-        onPointerUp: animationController != null ? pointerUp : null,
-        child: animationController != null
-            ? AnimatedBuilder(
-                animation: animationController!,
-                builder: (_, child) => Container(
-                  decoration: BoxDecoration(
-                    color: ModerniAliasColors.whiteColor.withOpacity(
-                      animationController!.value,
-                    ),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: ExitTextButton(
-                    animationController: animationController,
-                    onPressed: onPressed,
-                    text: text,
-                  ),
-                ),
-              )
-            : ExitTextButton(
-                animationController: animationController,
-                onPressed: onPressed,
-                text: text,
+        onPointerDown: (_) => controller.forward(),
+        onPointerUp: (_) => controller.reverse(),
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (_, child) => Container(
+            decoration: BoxDecoration(
+              color: ModerniAliasColors.whiteColor.withOpacity(
+                controller.value,
               ),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: ExitTextButton(
+              animationController: controller,
+              onPressed: widget.onPressed,
+              text: widget.text,
+            ),
+          ),
+        ),
       );
 }
 

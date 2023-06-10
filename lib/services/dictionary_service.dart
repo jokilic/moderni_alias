@@ -8,7 +8,7 @@ import '../dictionary/croatian/verbs.dart';
 import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
-import 'game_service.dart';
+import '../providers.dart';
 import 'logger_service.dart';
 
 final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(DictionaryNotifier.new);
