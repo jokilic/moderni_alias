@@ -11,12 +11,12 @@ import '../../constants/colors.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
 import '../../models/team/team.dart';
+import '../../providers.dart';
 import '../../routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../normal_game/normal_game_controller.dart';
 import '../normal_game/widgets/show_scores.dart';
 
 class NormalGameFinishedScreen extends ConsumerWidget {

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/quick_game_stats/quick_game_stats.dart';
+import '../../../routing.dart';
 import '../../../widgets/game_title.dart';
-import '../../quick_game_stats/quick_game_stats_screen.dart';
 import '../stats_notifier.dart';
 import 'stats_value_widget.dart';
 
@@ -45,9 +45,9 @@ class StatsQuickSection extends ConsumerWidget {
                 text: time,
                 value: index + 1,
                 valueLeft: true,
-                onPressed: () => Navigator.of(context).pushNamed(
-                  QuickGameStatsScreen.routeName,
-                  arguments: quickGame,
+                onPressed: () => goToQuickGameStatsScreen(
+                  context,
+                  quickGameStats: quickGame,
                 ),
               );
             },

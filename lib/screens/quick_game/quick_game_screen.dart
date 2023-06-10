@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
+import '../../providers.dart';
+import '../../services/dictionary_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
@@ -9,15 +12,25 @@ import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import '../normal_game/widgets/show_scores.dart';
+import 'quick_game_controller.dart';
 import 'widgets/quick_game_info_section.dart';
 
-class QuickGameScreen extends StatelessWidget {
+class QuickGameScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.sizeOf(context).width;
 
+    final currentGame = ref.watch(currentGameProvider);
+    final countdownTimerFillColor = ref.watch(countdownTimerFillColorProvider);
+    final playedWords = ref.watch(playedWordsProvider);
+    final counter3Seconds = ref.watch(counter3SecondsProvider);
+
+    final currentWord = ref.watch(dictionaryProvider);
+
+    final quickGameController = ref.watch(quickGameProvider);
+
     return WillPopScope(
-      onWillPop: exitGameModal,
+      onWillPop: () => exitGameModal(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
@@ -28,15 +41,16 @@ class QuickGameScreen extends StatelessWidget {
                   top: 0,
                   width: width,
                   child: QuickGameInfoSection(
-                    correctAnswers: gameService.correctAnswers,
-                    wrongAnswers: gameService.wrongAnswers,
-                    exitGame: exitGameModal,
+                    correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
+                    wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
+                    exitGame: () => exitGameModal(context),
                     showScores: () => showScores(
-                      playedWords: gameService.playedWords,
+                      playedWords: ref.read(playedWordsProvider.notifier).state,
+                      context: context,
                     ),
                   ),
                 ),
-                if (gameService.currentGame == Game.quick)
+                if (currentGame == Game.quick)
                   Positioned(
                     top: -75,
                     bottom: 0,
@@ -45,16 +59,14 @@ class QuickGameScreen extends StatelessWidget {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: GameOn(
-                        currentWord: dictionaryService.currentWord,
-                        fillColor: gameService.countdownTimerFillColor,
-                        length: gameService.lengthOfRound,
-                        onComplete: () => gameService.endOfRound(
-                          currentGame: Game.quick,
-                        ),
+                        currentWord: currentWord,
+                        fillColor: countdownTimerFillColor,
+                        length: 60,
+                        onComplete: () => quickGameController.endGame(context),
                       ),
                     ),
                   )
-                else if (gameService.currentGame == Game.starting)
+                else if (currentGame == Game.starting)
                   Positioned(
                     top: -75,
                     bottom: 0,
@@ -63,10 +75,8 @@ class QuickGameScreen extends StatelessWidget {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: GameStarting(
-                        currentSecond: gameService.counter3Seconds != 0 ? '${gameService.counter3Seconds}' : '',
-                        onComplete: () => gameService.startRound(
-                          chosenGame: Game.quick,
-                        ),
+                        currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                        onComplete: quickGameController.startRound,
                       ),
                     ),
                   )
@@ -79,7 +89,7 @@ class QuickGameScreen extends StatelessWidget {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: GameOff(
-                        onTap: gameService.start3SecondCountdown,
+                        onTap: quickGameController.start3SecondCountdown,
                       ),
                     ),
                   ),
@@ -87,11 +97,11 @@ class QuickGameScreen extends StatelessWidget {
                   bottom: 0,
                   width: width,
                   child: WrongCorrectButtons(
-                    correctChosen: () => gameService.answerChosen(
-                      chosenButton: Answer.correct,
+                    correctChosen: () => quickGameController.answerChosen(
+                      chosenAnswer: Answer.correct,
                     ),
-                    wrongChosen: () => gameService.answerChosen(
-                      chosenButton: Answer.wrong,
+                    wrongChosen: () => quickGameController.answerChosen(
+                      chosenAnswer: Answer.wrong,
                     ),
                   ),
                 ),

@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -5,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
+import '../../models/played_word/played_word.dart';
 import '../../routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
@@ -19,6 +23,10 @@ class QuickGameFinishedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+
+    final playedWords = ModalRoute.of(context)?.settings.arguments as List<PlayedWord>;
+    final correctAnswers = playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length.toString();
+    final wrongAnswers = playedWords.where((word) => word.chosenAnswer == Answer.wrong).toList().length.toString();
 
     return WillPopScope(
       onWillPop: () async {
@@ -63,12 +71,12 @@ class QuickGameFinishedScreen extends StatelessWidget {
                           style: ModerniAliasTextStyles.quickGameFinished,
                           children: [
                             TextSpan(
-                              text: gameService.correctAnswers.toString(),
+                              text: correctAnswers,
                               style: ModerniAliasTextStyles.quickGameFinishedBold,
                             ),
                             TextSpan(text: 'quickGameFinishedSecondString'.tr()),
                             TextSpan(
-                              text: gameService.wrongAnswers.toString(),
+                              text: wrongAnswers,
                               style: ModerniAliasTextStyles.quickGameFinishedBold,
                             ),
                             TextSpan(
@@ -100,7 +108,8 @@ class QuickGameFinishedScreen extends StatelessWidget {
                 right: 12,
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
-                    playedWords: gameService.playedWords,
+                    playedWords: playedWords,
+                    context: context,
                   ),
                   end: 0.8,
                   child: const IconButton(

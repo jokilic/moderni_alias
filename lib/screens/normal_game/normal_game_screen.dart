@@ -7,6 +7,7 @@ import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../models/arguments/normal_game_arguments.dart';
+import '../../providers.dart';
 import '../../services/dictionary_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
@@ -107,10 +108,10 @@ class NormalGameScreen extends ConsumerWidget {
                   width: width,
                   child: WrongCorrectButtons(
                     wrongChosen: () => normalGameController.answerChosen(
-                      chosenButton: Answer.wrong,
+                      chosenAnswer: Answer.wrong,
                     ),
                     correctChosen: () => normalGameController.answerChosen(
-                      chosenButton: Answer.correct,
+                      chosenAnswer: Answer.correct,
                     ),
                   ),
                 ),

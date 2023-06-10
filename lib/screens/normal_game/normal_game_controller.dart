@@ -19,17 +19,17 @@ import '../start_game/start_game_controller.dart';
 import 'widgets/show_scores.dart';
 
 final currentlyPlayingTeamProvider = StateProvider<Team>((_) => Team(name: ''));
-final currentGameProvider = StateProvider<Game>((_) => Game.none);
-final countdownTimerFillColorProvider = StateProvider<Color>((_) => ModerniAliasColors.blueColor);
 final tieBreakTeamsProvider = StateProvider<List<Team>?>((_) => null);
-final playedWordsProvider = StateProvider<List<PlayedWord>>((_) => []);
-final counter3SecondsProvider = StateProvider<int>((_) => 0);
 
 final normalGameProvider = Provider.family<NormalGameController, NormalGameArguments>(
-  (ref, arguments) => NormalGameController(
-    ref,
-    arguments: arguments,
-  ),
+  (ref, arguments) {
+    final normalGameController = NormalGameController(
+      ref,
+      arguments: arguments,
+    );
+    ref.onDispose(normalGameController.dispose);
+    return normalGameController;
+  },
 );
 
 class NormalGameController {
@@ -58,6 +58,17 @@ class NormalGameController {
   Timer? soundTimer;
 
   NormalGameStats? normalGameStats;
+
+  ///
+  /// DISPOSE
+  ///
+
+  void dispose() {
+    greenTimer?.cancel();
+    yellowTimer?.cancel();
+    redTimer?.cancel();
+    soundTimer?.cancel();
+  }
 
   ///
   /// TIMERS & COUNTDOWN
@@ -236,7 +247,7 @@ class NormalGameController {
   /// ANSWER
   ///
 
-  void answerChosen({required Answer chosenButton}) {
+  void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
     if (ref.read(currentGameProvider.notifier).state == Game.none) {
       start3SecondCountdown();
@@ -255,10 +266,10 @@ class NormalGameController {
     /// 4. Get another random word
 
     /// Play proper sound
-    playAnswerSound(chosenButton: chosenButton);
+    playAnswerSound(chosenAnswer: chosenAnswer);
 
     /// Player chose the `Correct` button
-    if (chosenButton == Answer.correct) {
+    if (chosenAnswer == Answer.correct) {
       correctAnswers++;
       ref.read(currentlyPlayingTeamProvider.notifier).state
         ..points += 1
@@ -277,7 +288,7 @@ class NormalGameController {
     ref.read(playedWordsProvider.notifier).state.add(
           PlayedWord(
             word: ref.read(dictionaryProvider),
-            chosenAnswer: chosenButton,
+            chosenAnswer: chosenAnswer,
           ),
         );
 
@@ -286,8 +297,8 @@ class NormalGameController {
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenButton}) {
-    if (chosenButton == Answer.correct) {
+  void playAnswerSound({required Answer chosenAnswer}) {
+    if (chosenAnswer == Answer.correct) {
       ref.read(correctPlayerProvider).load();
       ref.read(correctPlayerProvider).play();
     } else {

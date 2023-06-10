@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../models/normal_game_stats/normal_game_stats.dart';
+import '../../../routing.dart';
 import '../../../widgets/game_title.dart';
-import '../../normal_game_stats/normal_game_stats_screen.dart';
 import '../stats_notifier.dart';
 import 'stats_value_widget.dart';
 
@@ -47,9 +47,9 @@ class StatsNormalSection extends ConsumerWidget {
                 text: '$time\n($textTime)',
                 value: index + 1,
                 valueLeft: true,
-                onPressed: () => Navigator.of(context).pushNamed(
-                  NormalGameStatsScreen.routeName,
-                  arguments: normalGame,
+                onPressed: () => goToNormalGameStatsScreen(
+                  context,
+                  normalGameStats: normalGame,
                 ),
               );
             },

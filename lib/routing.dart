@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'models/arguments/normal_game_arguments.dart';
+import 'models/normal_game_stats/normal_game_stats.dart';
+import 'models/played_word/played_word.dart';
+import 'models/quick_game_stats/quick_game_stats.dart';
 import 'models/team/team.dart';
 import 'screens/general_info/general_info_screen.dart';
 import 'screens/home/home_screen.dart';
@@ -85,8 +88,9 @@ void goToQuickGameScreen(BuildContext context) => Navigator.of(context).pushName
     );
 
 ///
-void goToQuickGameFinishedScreen(BuildContext context) => Navigator.of(context).pushNamed(
+void goToQuickGameFinishedScreen(BuildContext context, {required List<PlayedWord> playedWords}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.quickGameFinishedScreen,
+      arguments: playedWords,
     );
 
 ///
@@ -95,11 +99,13 @@ void goToStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
     );
 
 ///
-void goToNormalGameStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
+void goToNormalGameStatsScreen(BuildContext context, {required NormalGameStats normalGameStats}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameStatsScreen,
+      arguments: normalGameStats,
     );
 
 ///
-void goToQuickGameStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
+void goToQuickGameStatsScreen(BuildContext context, {required QuickGameStats quickGameStats}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.quickGameStatsScreen,
+      arguments: quickGameStats,
     );
