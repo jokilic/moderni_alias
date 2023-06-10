@@ -38,13 +38,16 @@ class ModerniAlias extends ConsumerWidget {
         supportedLocales: const [Locale('hr'), Locale('en')],
         path: ModerniAliasTranslations.folderLocation,
         fallbackLocale: const Locale('hr'),
-        child: MaterialApp(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          onGenerateTitle: (_) => 'appNameString'.tr(),
-          routes: routes,
-          theme: theme,
+        child: Builder(
+          builder: (context) => MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            onGenerateTitle: (_) => 'appNameString'.tr(),
+            routes: routes,
+            initialRoute: ModerniAliasRoutes.homeScreen,
+            theme: theme,
+          ),
         ),
       );
 }
