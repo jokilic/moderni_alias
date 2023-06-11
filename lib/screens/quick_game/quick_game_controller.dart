@@ -53,7 +53,7 @@ class QuickGameController {
       startTime: DateTime.now(),
       endTime: DateTime.now(),
       round: Round(playedWords: []),
-      language: ref.read(chosenDictionaryProvider.notifier).state,
+      language: ref.read(chosenDictionaryProvider),
     );
   }
 
@@ -119,7 +119,7 @@ class QuickGameController {
       (timer) {
         ref.read(counter3SecondsProvider.notifier).state -= 1;
 
-        if (ref.read(counter3SecondsProvider.notifier).state == 0) {
+        if (ref.read(counter3SecondsProvider) == 0) {
           timer.cancel();
         }
       },
@@ -132,7 +132,7 @@ class QuickGameController {
 
   /// Reset variables and start the round
   void startRound() {
-    ref.read(playedWordsProvider.notifier).state.clear();
+    ref.read(playedWordsProvider).clear();
 
     ref.read(currentGameProvider.notifier).state = Game.quick;
     ref.read(countdownTimerFillColorProvider.notifier).state = ModerniAliasColors.blueColor;
@@ -147,7 +147,7 @@ class QuickGameController {
     updateHiveStats();
     goToQuickGameFinishedScreen(
       context,
-      playedWords: ref.read(playedWordsProvider.notifier).state,
+      playedWords: ref.read(playedWordsProvider),
     );
   }
 
@@ -157,13 +157,13 @@ class QuickGameController {
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider.notifier).state == Game.none) {
+    if (ref.read(currentGameProvider) == Game.none) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider.notifier).state == Game.starting) {
+    if (ref.read(currentGameProvider) == Game.starting) {
       return;
     }
 
@@ -177,7 +177,7 @@ class QuickGameController {
     playAnswerSound(chosenAnswer: chosenAnswer);
 
     /// Add answer to list of `playedWords` (for showing in the end of the round)
-    ref.read(playedWordsProvider.notifier).state.add(
+    ref.read(playedWordsProvider).add(
           PlayedWord(
             word: ref.read(dictionaryProvider),
             chosenAnswer: chosenAnswer,
@@ -208,7 +208,7 @@ class QuickGameController {
     quickGameStats = quickGameStats.copyWith(
       endTime: DateTime.now(),
       round: Round(
-        playedWords: List.from(ref.read(playedWordsProvider.notifier).state),
+        playedWords: List.from(ref.read(playedWordsProvider)),
       ),
     );
     ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats);

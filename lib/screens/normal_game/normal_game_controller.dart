@@ -155,7 +155,7 @@ class NormalGameController {
   void startRound({required Game chosenGame}) {
     correctAnswers = 0;
     wrongAnswers = 0;
-    ref.read(playedWordsProvider.notifier).state.clear();
+    ref.read(playedWordsProvider).clear();
 
     ref.read(currentGameProvider.notifier).state = chosenGame;
     ref.read(countdownTimerFillColorProvider.notifier).state = ModerniAliasColors.blueColor;
@@ -188,7 +188,7 @@ class NormalGameController {
     /// There are no teams with enough points, continue playing the game
     if (teamsWithEnoughPoints.isEmpty) {
       continueGame(
-        ref.read(teamsProvider.notifier).state,
+        ref.read(teamsProvider),
         context: context,
       );
       return;
@@ -199,7 +199,7 @@ class NormalGameController {
     ///
 
     /// Round is not finished, continue playing the game
-    final activeTeams = ref.read(tieBreakTeamsProvider.notifier).state ?? ref.read(teamsProvider.notifier).state;
+    final activeTeams = ref.read(tieBreakTeamsProvider) ?? ref.read(teamsProvider) ?? [];
     if (roundNotDone(activeTeams)) {
       continueGame(activeTeams, context: context);
     }
@@ -214,7 +214,7 @@ class NormalGameController {
   }
 
   /// Returns a list of `Teams` who have enough points to win the game
-  List<Team> getTeamsWithEnoughPoints() => ref.read(teamsProvider.notifier).state.where((team) => team.points >= ref.read(pointsToWinProvider)).toList();
+  List<Team> getTeamsWithEnoughPoints() => ref.read(teamsProvider).where((team) => team.points >= ref.read(pointsToWinProvider)).toList();
 
   // Find all teams that are tied for first place
   List<Team> getTiedTeams(List<Team> teamsWithEnoughPoints) {
@@ -224,13 +224,13 @@ class NormalGameController {
 
   /// Checks if current round is finished
   bool roundNotDone(List<Team> teamsToCheck) {
-    final currentTeamIndex = teamsToCheck.indexOf(ref.read(currentlyPlayingTeamProvider.notifier).state);
+    final currentTeamIndex = teamsToCheck.indexOf(ref.read(currentlyPlayingTeamProvider));
 
     /// Find the maximum points among the teams with enough points
     final maxPoints = teamsToCheck.map((team) => team.points).reduce(max);
 
     /// Check if the current team has reached the maximum points but is not the last team to play
-    return ref.read(currentlyPlayingTeamProvider.notifier).state.points <= maxPoints && currentTeamIndex < teamsToCheck.length - 1;
+    return ref.read(currentlyPlayingTeamProvider).points <= maxPoints && currentTeamIndex < teamsToCheck.length - 1;
   }
 
   /// Game went into tie break, handle accordingly
@@ -249,7 +249,7 @@ class NormalGameController {
     updateHiveStats(gameType: Game.none);
 
     final currentTeamIndex = playingTeams.indexOf(
-      ref.read(currentlyPlayingTeamProvider.notifier).state,
+      ref.read(currentlyPlayingTeamProvider),
     );
     ref.read(currentlyPlayingTeamProvider.notifier).state = currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0];
 
@@ -268,13 +268,13 @@ class NormalGameController {
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider.notifier).state == Game.none) {
+    if (ref.read(currentGameProvider) == Game.none) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider.notifier).state == Game.starting) {
+    if (ref.read(currentGameProvider) == Game.starting) {
       return;
     }
 
@@ -290,7 +290,7 @@ class NormalGameController {
     /// Player chose the `Correct` button
     if (chosenAnswer == Answer.correct) {
       correctAnswers++;
-      ref.read(currentlyPlayingTeamProvider.notifier).state
+      ref.read(currentlyPlayingTeamProvider)
         ..points += 1
         ..correctPoints += 1;
     }
@@ -298,13 +298,13 @@ class NormalGameController {
     /// Player chose the `Wrong` button
     else {
       wrongAnswers++;
-      ref.read(currentlyPlayingTeamProvider.notifier).state
+      ref.read(currentlyPlayingTeamProvider)
         ..points -= 1
         ..wrongPoints += 1;
     }
 
     /// Add answer to list of `playedWords` (for showing in the end of the round)
-    ref.read(playedWordsProvider.notifier).state.add(
+    ref.read(playedWordsProvider).add(
           PlayedWord(
             word: ref.read(dictionaryProvider),
             chosenAnswer: chosenAnswer,
@@ -333,8 +333,8 @@ class NormalGameController {
   /// Shows scores sheet and dismisses it after some time
   Future<void> showScoresSheet(BuildContext context) async {
     showScores(
-      teams: ref.read(teamsProvider.notifier).state,
-      playedWords: ref.read(playedWordsProvider.notifier).state,
+      teams: ref.read(teamsProvider),
+      playedWords: ref.read(playedWordsProvider),
       dismissible: false,
       context: context,
     );
@@ -353,8 +353,8 @@ class NormalGameController {
       rounds: [
         ...normalGameStats.rounds,
         Round(
-          playedWords: List.from(ref.read(playedWordsProvider.notifier).state),
-          playingTeam: ref.read(currentlyPlayingTeamProvider.notifier).state,
+          playedWords: List.from(ref.read(playedWordsProvider)),
+          playingTeam: ref.read(currentlyPlayingTeamProvider),
         ),
       ],
     );
