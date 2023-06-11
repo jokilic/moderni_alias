@@ -1,39 +1,39 @@
 import 'package:timeago/timeago.dart';
 
 ///
-/// Croatian messages
+/// CROATIAN TIMEAGO MESSAGES
 ///
 class HrMessagesTimeago implements LookupMessages {
   @override
-  String prefixAgo() => '';
+  String prefixAgo() => 'prije';
   @override
-  String prefixFromNow() => '';
+  String prefixFromNow() => 'od';
   @override
-  String suffixAgo() => 'ago';
+  String suffixAgo() => '';
   @override
-  String suffixFromNow() => 'from now';
+  String suffixFromNow() => 'od sad';
   @override
-  String lessThanOneMinute(int seconds) => 'a moment';
+  String lessThanOneMinute(int seconds) => 'trenutka';
   @override
-  String aboutAMinute(int minutes) => 'a minute';
+  String aboutAMinute(int minutes) => 'oko minute';
   @override
-  String minutes(int minutes) => '$minutes minutes';
+  String minutes(int minutes) => '$minutes minuta';
   @override
-  String aboutAnHour(int minutes) => 'about an hour';
+  String aboutAnHour(int minutes) => 'jedan sat';
   @override
-  String hours(int hours) => '$hours hours';
+  String hours(int hours) => '$hours sati';
   @override
-  String aDay(int hours) => 'a day';
+  String aDay(int hours) => 'dan';
   @override
-  String days(int days) => '$days days';
+  String days(int days) => '$days dana';
   @override
-  String aboutAMonth(int days) => 'about a month';
+  String aboutAMonth(int days) => 'mjesec dana';
   @override
-  String months(int months) => '$months months';
+  String months(int months) => '$months mjeseci';
   @override
-  String aboutAYear(int year) => 'about a year';
+  String aboutAYear(int year) => 'godine dana';
   @override
-  String years(int years) => '$years years';
+  String years(int years) => '$years godina';
   @override
   String wordSeparator() => ' ';
 }
