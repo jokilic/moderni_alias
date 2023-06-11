@@ -17,6 +17,10 @@ import 'screens/quick_game_stats/quick_game_stats_screen.dart';
 import 'screens/start_game/start_game_screen.dart';
 import 'screens/stats/stats_screen.dart';
 
+///
+/// ROUTE
+///
+
 final routes = {
   ModerniAliasRoutes.homeScreen: (context) => HomeScreen(),
   ModerniAliasRoutes.generalInfoScreen: (context) => GeneralInfoScreen(),
@@ -30,6 +34,10 @@ final routes = {
   ModerniAliasRoutes.normalGameStatsScreen: (context) => NormalGameStatsScreen(),
   ModerniAliasRoutes.quickGameStatsScreen: (context) => QuickGameStatsScreen(),
 };
+
+///
+/// ROUTE NAMES
+///
 
 class ModerniAliasRoutes {
   static const homeScreen = '/home';
@@ -46,6 +54,9 @@ class ModerniAliasRoutes {
 }
 
 ///
+/// NAVIGATION
+///
+
 void goToHomeScreen(BuildContext context, {bool popEverything = false}) => !popEverything
     ? Navigator.of(context).pushNamed(
         ModerniAliasRoutes.homeScreen,
@@ -55,56 +66,46 @@ void goToHomeScreen(BuildContext context, {bool popEverything = false}) => !popE
         (_) => false,
       );
 
-///
 void goToGeneralInfoScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.generalInfoScreen,
     );
 
-///
 void goToHowToPlayScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.howToPlayScreen,
     );
 
-///
 void goToStartGameScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.startGameScreen,
     );
 
-///
 void goToNormalGameScreen(BuildContext context, {required NormalGameArguments arguments}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameScreen,
       arguments: arguments,
     );
 
-///
 void goToNormalGameFinishedScreen(BuildContext context, {required Team winner}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameFinishedScreen,
       arguments: winner,
     );
 
-///
 void goToQuickGameScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.quickGameScreen,
     );
 
-///
 void goToQuickGameFinishedScreen(BuildContext context, {required List<PlayedWord> playedWords}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.quickGameFinishedScreen,
       arguments: playedWords,
     );
 
-///
 void goToStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.statsScreen,
     );
 
-///
 void goToNormalGameStatsScreen(BuildContext context, {required NormalGameStats normalGameStats}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameStatsScreen,
       arguments: normalGameStats,
     );
 
-///
 void goToQuickGameStatsScreen(BuildContext context, {required QuickGameStats quickGameStats}) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.quickGameStatsScreen,
       arguments: quickGameStats,
