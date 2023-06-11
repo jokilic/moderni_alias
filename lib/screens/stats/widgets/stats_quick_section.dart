@@ -11,7 +11,7 @@ import 'stats_value_widget.dart';
 class StatsQuickSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statsNotifier = ref.watch(statsProvider(context.locale.languageCode).notifier);
+    final statsNotifier = ref.watch(statsProvider.notifier);
 
     final now = DateTime.now();
     final sortedGames = List<QuickGameStats>.from(statsNotifier.quickGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));

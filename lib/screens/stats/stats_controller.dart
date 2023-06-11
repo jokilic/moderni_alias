@@ -13,19 +13,19 @@ import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-final statsProvider = NotifierProvider.autoDispose.family<StatsController, int?, String>(
+final statsProvider = NotifierProvider.autoDispose<StatsController, int?>(
   StatsController.new,
   name: 'StatsProvider',
 );
 
-class StatsController extends AutoDisposeFamilyNotifier<int?, String> {
+class StatsController extends AutoDisposeNotifier<int?> {
   ///
   /// INIT
   ///
 
   @override
-  int? build(locale) {
-    init(locale);
+  int? build() {
+    init();
     return null;
   }
 
@@ -63,15 +63,16 @@ class StatsController extends AutoDisposeFamilyNotifier<int?, String> {
   /// INIT
   ///
 
-  void init(String locale) {
+  void init() {
     logger = ref.watch(loggerProvider);
     hive = ref.watch(hiveProvider);
 
-    logger.wtf(locale);
-
     pageController = PageController();
 
-    initializeDateFormatting(locale);
+    initializeDateFormatting('en');
+    initializeDateFormatting('hr');
+
+    setLocaleMessages('en', EnMessages());
     setLocaleMessages('hr', FrMessages());
 
     normalGameStats = hive.getNormalGameStatsFromBox();

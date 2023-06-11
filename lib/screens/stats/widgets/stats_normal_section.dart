@@ -12,7 +12,7 @@ import 'stats_value_widget.dart';
 class StatsNormalSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statsNotifier = ref.watch(statsProvider(context.locale.languageCode).notifier);
+    final statsNotifier = ref.watch(statsProvider.notifier);
 
     final now = DateTime.now();
     final sortedGames = List<NormalGameStats>.from(statsNotifier.normalGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));

@@ -8,10 +8,8 @@ import 'stats_segmented_value_widget.dart';
 class StatsSegmentedWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = context.locale.languageCode;
-
-    final currentIndex = ref.watch(statsProvider(locale));
-    final statsNotifier = ref.watch(statsProvider(locale).notifier);
+    final currentIndex = ref.watch(statsProvider);
+    final statsNotifier = ref.watch(statsProvider.notifier);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
