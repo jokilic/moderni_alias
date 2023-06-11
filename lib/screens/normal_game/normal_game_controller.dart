@@ -18,7 +18,7 @@ import '../start_game/start_game_controller.dart';
 import 'widgets/show_scores.dart';
 
 final currentlyPlayingTeamProvider = StateProvider.autoDispose<Team>(
-  (_) => Team(name: ''),
+  (ref) => ref.read(teamsProvider).first,
   name: 'CurrentlyPlayingTeamProvider',
 );
 final tieBreakTeamsProvider = StateProvider.autoDispose<List<Team>?>(
