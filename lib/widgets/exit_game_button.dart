@@ -34,7 +34,7 @@ class _ExitGameButtonState extends State<ExitGameButton> with SingleTickerProvid
           (status) {
             /// Animation is completed, exit game
             if (status == AnimationStatus.completed) {
-              goToHomeScreen(context, popEverything: true);
+              goToHomeScreen(context);
             }
           },
         );

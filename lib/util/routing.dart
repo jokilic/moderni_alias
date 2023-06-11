@@ -56,14 +56,10 @@ class ModerniAliasRoutes {
 /// NAVIGATION
 ///
 
-void goToHomeScreen(BuildContext context, {bool popEverything = false}) => !popEverything
-    ? Navigator.of(context).pushNamed(
-        ModerniAliasRoutes.homeScreen,
-      )
-    : Navigator.of(context).pushNamedAndRemoveUntil(
-        ModerniAliasRoutes.homeScreen,
-        (_) => false,
-      );
+void goToHomeScreen(BuildContext context) => Navigator.of(context).pushNamedAndRemoveUntil(
+      ModerniAliasRoutes.homeScreen,
+      (_) => false,
+    );
 
 void goToGeneralInfoScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.generalInfoScreen,

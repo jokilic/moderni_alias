@@ -46,7 +46,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        goToHomeScreen(context, popEverything: true);
+        goToHomeScreen(context);
         return true;
       },
       child: Scaffold(
@@ -111,7 +111,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                           const SizedBox(height: 20),
                           PlayButton(
                             text: 'quickGameFinishedExitString'.tr().toUpperCase(),
-                            onPressed: () => goToHomeScreen(context, popEverything: true),
+                            onPressed: () => goToHomeScreen(context),
                           ),
                         ],
                       ),
