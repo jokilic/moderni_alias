@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:timeago/timeago.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
@@ -12,19 +13,19 @@ import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-final statsProvider = NotifierProvider.autoDispose<StatsController, int?>(
+final statsProvider = NotifierProvider.autoDispose.family<StatsController, int?, String>(
   StatsController.new,
   name: 'StatsProvider',
 );
 
-class StatsController extends AutoDisposeNotifier<int?> {
+class StatsController extends AutoDisposeFamilyNotifier<int?, String> {
   ///
   /// INIT
   ///
 
   @override
-  int? build() {
-    init();
+  int? build(locale) {
+    init(locale);
     return null;
   }
 
@@ -62,14 +63,16 @@ class StatsController extends AutoDisposeNotifier<int?> {
   /// INIT
   ///
 
-  void init() {
+  void init(String locale) {
     logger = ref.watch(loggerProvider);
     hive = ref.watch(hiveProvider);
 
+    logger.wtf(locale);
+
     pageController = PageController();
 
-    initializeDateFormatting('en');
-    initializeDateFormatting('hr');
+    initializeDateFormatting(locale);
+    setLocaleMessages('hr', FrMessages());
 
     normalGameStats = hive.getNormalGameStatsFromBox();
     quickGameStats = hive.getQuickGameStatsFromBox();

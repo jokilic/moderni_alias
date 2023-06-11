@@ -8,7 +8,7 @@ import '../dictionary/croatian/verbs.dart';
 import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
-import '../providers.dart';
+import '../util/providers.dart';
 import 'logger_service.dart';
 
 final chosenDictionaryProvider = StateProvider<Flag>(

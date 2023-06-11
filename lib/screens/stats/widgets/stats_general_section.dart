@@ -9,7 +9,7 @@ import 'stats_value_widget.dart';
 class StatsGeneralSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statsNotifier = ref.watch(statsProvider.notifier);
+    final statsNotifier = ref.watch(statsProvider(context.locale.languageCode).notifier);
 
     return ListView(
       physics: const BouncingScrollPhysics(),

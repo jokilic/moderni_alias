@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
-import '../../../routing.dart';
+import '../../../util/routing.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
 class InfoButton extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'constants/colors.dart';
+import '../constants/colors.dart';
 
 final theme = ThemeData(
   useMaterial3: true,

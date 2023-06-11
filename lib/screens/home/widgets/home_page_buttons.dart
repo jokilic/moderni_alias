@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../routing.dart';
+import '../../../util/routing.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/play_button.dart';
 import 'stats_button.dart';

@@ -8,10 +8,10 @@ import '../../constants/enums.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
-import '../../providers.dart';
-import '../../routing.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../util/providers.dart';
+import '../../util/routing.dart';
 
 final quickGameProvider = Provider.autoDispose<QuickGameController>(
   (ref) {

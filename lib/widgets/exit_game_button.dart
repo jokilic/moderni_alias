@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../constants/strings.dart';
 import '../constants/text_styles.dart';
-import '../routing.dart';
+import '../util/routing.dart';
 import 'animated_gesture_detector.dart';
 
 class ExitGameButton extends StatefulWidget {

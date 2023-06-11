@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
-import '../../providers.dart';
 import '../../services/dictionary_service.dart';
+import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';

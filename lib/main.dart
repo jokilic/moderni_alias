@@ -5,10 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'constants/strings.dart';
-import 'routing.dart';
 import 'services/hive_service.dart';
 import 'services/logger_service.dart';
-import 'theme.dart';
+import 'util/routing.dart';
+import 'util/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

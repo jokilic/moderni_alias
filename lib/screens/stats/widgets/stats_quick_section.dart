@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/quick_game_stats/quick_game_stats.dart';
-import '../../../routing.dart';
+import '../../../util/routing.dart';
 import '../../../widgets/game_title.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
@@ -11,7 +11,7 @@ import 'stats_value_widget.dart';
 class StatsQuickSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statsNotifier = ref.watch(statsProvider.notifier);
+    final statsNotifier = ref.watch(statsProvider(context.locale.languageCode).notifier);
 
     final now = DateTime.now();
     final sortedGames = List<QuickGameStats>.from(statsNotifier.quickGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
