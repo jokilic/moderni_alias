@@ -58,7 +58,7 @@ void showScores({
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemCount: teams.length,
-                    itemBuilder: (context, index) => AnimatedListView(
+                    itemBuilder: (_, index) => AnimatedListView(
                       fastAnimations: true,
                       index: index,
                       child: HighscoreValue(
@@ -85,7 +85,7 @@ void showScores({
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemCount: playedWords.length,
-                    itemBuilder: (context, index) => AnimatedListView(
+                    itemBuilder: (_, index) => AnimatedListView(
                       fastAnimations: true,
                       index: index,
                       child: PlayedWordValue(

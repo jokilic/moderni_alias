@@ -26,6 +26,7 @@ class StartGameScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chosenDictionary = ref.watch(chosenDictionaryProvider);
     final teams = ref.watch(teamsProvider);
+    final teamsLength = ref.watch(teamsLengthProvider);
     final pointsToWin = ref.watch(pointsToWinProvider);
     final lengthOfRound = ref.watch(lengthOfRoundProvider);
     final validationMessage = ref.watch(validationMessageProvider);
@@ -70,21 +71,21 @@ class StartGameScreen extends ConsumerWidget {
                         updateValue: () => startGameController.updateNumberOfTeams(
                           chosenNumber: 2,
                         ),
-                        isActive: teams.length == 2,
+                        isActive: teamsLength == 2,
                       ),
                       createNumberOfTeamsButton(
                         chosenNumberOfTeams: 3,
                         updateValue: () => startGameController.updateNumberOfTeams(
                           chosenNumber: 3,
                         ),
-                        isActive: teams.length == 3,
+                        isActive: teamsLength == 3,
                       ),
                       createNumberOfTeamsButton(
                         chosenNumberOfTeams: 4,
                         updateValue: () => startGameController.updateNumberOfTeams(
                           chosenNumber: 4,
                         ),
-                        isActive: teams.length == 4,
+                        isActive: teamsLength == 4,
                       ),
                     ],
                   ),
@@ -143,8 +144,8 @@ class StartGameScreen extends ConsumerWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: teams.length,
-                      itemBuilder: (context, index) {
+                      itemCount: teamsLength,
+                      itemBuilder: (_, index) {
                         final team = teams[index];
 
                         return AnimatedListView(
@@ -153,7 +154,7 @@ class StartGameScreen extends ConsumerWidget {
                           child: NameOfTeam(
                             key: ValueKey(team),
                             hintText: 'teamNameString'.tr(),
-                            textInputAction: index == teams.length - 1 ? TextInputAction.done : TextInputAction.next,
+                            textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
                             onChanged: (value) => startGameController.teamNameUpdated(
                               passedTeam: team,
                               value: value,

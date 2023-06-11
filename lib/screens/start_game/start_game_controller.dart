@@ -9,6 +9,10 @@ final teamsProvider = StateProvider.autoDispose<List<Team>>(
   (_) => [for (var i = 0; i < 2; i++) Team(name: '')],
   name: 'TeamsProvider',
 );
+final teamsLengthProvider = StateProvider.autoDispose<int>(
+  (ref) => ref.watch(teamsProvider).length,
+  name: 'TeamsLengthProvider',
+);
 final pointsToWinProvider = StateProvider.autoDispose<int>(
   (_) => 50,
   name: 'PointsToWinProvider',
@@ -43,9 +47,12 @@ class StartGameController {
   }
 
   /// Called when the user taps on the number of teams in [StartGame]
-  void updateNumberOfTeams({required int chosenNumber}) => ref.read(teamsProvider.notifier).state
-    ..clear()
-    ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '')]);
+  void updateNumberOfTeams({required int chosenNumber}) {
+    ref.read(teamsProvider.notifier).state
+      ..clear()
+      ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '')]);
+    ref.read(teamsLengthProvider.notifier).state = chosenNumber;
+  }
 
   /// Called when the user writes on the text field and adds a team name
   void teamNameUpdated({required Team passedTeam, required String value}) => ref.read(teamsProvider).firstWhere((team) => team == passedTeam).name = value;
