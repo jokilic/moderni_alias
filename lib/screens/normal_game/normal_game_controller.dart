@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/enums.dart';
-import '../../models/arguments/normal_game_arguments.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
@@ -27,12 +26,9 @@ final tieBreakTeamsProvider = StateProvider.autoDispose<List<Team>?>(
   name: 'TieBreakTeamsProvider',
 );
 
-final normalGameProvider = Provider.autoDispose.family<NormalGameController, NormalGameArguments>(
-  (ref, arguments) {
-    final normalGameController = NormalGameController(
-      ref,
-      arguments: arguments,
-    );
+final normalGameProvider = Provider.autoDispose<NormalGameController>(
+  (ref) {
+    final normalGameController = NormalGameController(ref);
     ref.onDispose(normalGameController.dispose);
     return normalGameController;
   },
@@ -41,12 +37,8 @@ final normalGameProvider = Provider.autoDispose.family<NormalGameController, Nor
 
 class NormalGameController {
   final ProviderRef ref;
-  final NormalGameArguments arguments;
 
-  NormalGameController(
-    this.ref, {
-    required this.arguments,
-  }) {
+  NormalGameController(this.ref) {
     init();
   }
 
@@ -76,11 +68,11 @@ class NormalGameController {
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
-      teams: List.from(arguments.teams),
+      teams: List.from(ref.read(teamsProvider)),
       rounds: [],
-      lengthOfRound: arguments.lengthOfRound,
-      pointsToWin: arguments.pointsToWin,
-      language: arguments.chosenDictionary,
+      lengthOfRound: ref.read(lengthOfRoundProvider),
+      pointsToWin: ref.read(pointsToWinProvider),
+      language: ref.read(chosenDictionaryProvider),
     );
   }
 
@@ -101,20 +93,22 @@ class NormalGameController {
 
   /// Returns a Timer with the specified length and color
   Timer makeTimer({required double chosenSeconds, required Color chosenColor}) => Timer(
-        Duration(seconds: arguments.lengthOfRound - chosenSeconds.round()),
+        Duration(seconds: ref.read(lengthOfRoundProvider) - chosenSeconds.round()),
         () => ref.read(countdownTimerFillColorProvider.notifier).state = chosenColor,
       );
 
   /// Sets the variables and starts the time countdown
   void startTimer() {
+    final lengthOfRound = ref.read(lengthOfRoundProvider);
+
     /// Set the time when the colors in the circular timer change
-    greenSeconds = arguments.lengthOfRound * 0.6;
-    yellowSeconds = arguments.lengthOfRound * 0.4;
-    redSeconds = arguments.lengthOfRound * 0.15;
+    greenSeconds = lengthOfRound * 0.6;
+    yellowSeconds = lengthOfRound * 0.4;
+    redSeconds = lengthOfRound * 0.15;
 
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
-      Duration(seconds: arguments.lengthOfRound - 5),
+      Duration(seconds: lengthOfRound - 5),
       () {
         ref.read(countdownPlayerProvider).load();
         ref.read(countdownPlayerProvider).play();
@@ -220,7 +214,7 @@ class NormalGameController {
   }
 
   /// Returns a list of `Teams` who have enough points to win the game
-  List<Team> getTeamsWithEnoughPoints() => ref.read(teamsProvider.notifier).state.where((team) => team.points >= arguments.pointsToWin).toList();
+  List<Team> getTeamsWithEnoughPoints() => ref.read(teamsProvider.notifier).state.where((team) => team.points >= ref.read(pointsToWinProvider)).toList();
 
   // Find all teams that are tied for first place
   List<Team> getTiedTeams(List<Team> teamsWithEnoughPoints) {

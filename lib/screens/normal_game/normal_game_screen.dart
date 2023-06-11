@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import './widgets/show_scores.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
-import '../../models/arguments/normal_game_arguments.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
@@ -15,6 +14,7 @@ import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
+import '../start_game/start_game_controller.dart';
 import 'normal_game_controller.dart';
 import 'widgets/normal_game_info_section.dart';
 
@@ -28,14 +28,12 @@ class NormalGameScreen extends ConsumerWidget {
     final countdownTimerFillColor = ref.watch(countdownTimerFillColorProvider);
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
+    final lengthOfRound = ref.watch(lengthOfRoundProvider);
+    final teams = ref.watch(teamsProvider);
 
     final currentWord = ref.watch(dictionaryProvider);
 
-    final normalGameController = ref.watch(
-      normalGameProvider(
-        ModalRoute.of(context)?.settings.arguments as NormalGameArguments,
-      ),
-    );
+    final normalGameController = ref.watch(normalGameProvider);
 
     return WillPopScope(
       onWillPop: () => exitGameModal(context),
@@ -52,7 +50,7 @@ class NormalGameScreen extends ConsumerWidget {
                     currentlyPlayingTeam: currentlyPlayingTeam,
                     exitGame: () => exitGameModal(context),
                     showScores: () => showScores(
-                      teams: normalGameController.arguments.teams,
+                      teams: teams,
                       playedWords: playedWords,
                       context: context,
                     ),
@@ -69,7 +67,7 @@ class NormalGameScreen extends ConsumerWidget {
                       child: GameOn(
                         currentWord: currentWord,
                         fillColor: countdownTimerFillColor,
-                        length: normalGameController.arguments.lengthOfRound,
+                        length: lengthOfRound,
                         onComplete: () => normalGameController.stopGameCheckWinner(context),
                       ),
                     ),

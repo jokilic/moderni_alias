@@ -10,7 +10,6 @@ import './widgets/number_of_teams_button.dart';
 import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
-import '../../models/arguments/normal_game_arguments.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
@@ -185,15 +184,7 @@ class StartGameScreen extends ConsumerWidget {
                       onPressed: () {
                         /// Validation successfull, go to [NormalGameScreen]
                         if (startGameController.validateMainGame()) {
-                          goToNormalGameScreen(
-                            context,
-                            arguments: NormalGameArguments(
-                              chosenDictionary: chosenDictionary,
-                              teams: teams,
-                              pointsToWin: pointsToWin,
-                              lengthOfRound: lengthOfRound,
-                            ),
-                          );
+                          goToNormalGameScreen(context);
                         }
                       },
                     ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/arguments/normal_game_arguments.dart';
 import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
@@ -78,9 +77,8 @@ void goToStartGameScreen(BuildContext context) => Navigator.of(context).pushName
       ModerniAliasRoutes.startGameScreen,
     );
 
-void goToNormalGameScreen(BuildContext context, {required NormalGameArguments arguments}) => Navigator.of(context).pushNamed(
+void goToNormalGameScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameScreen,
-      arguments: arguments,
     );
 
 void goToNormalGameFinishedScreen(BuildContext context, {required Team winner}) => Navigator.of(context).pushNamed(
