@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import './widgets/my_quick_portfolio.dart';
-import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
+import '../../constants/websites.dart';
 import '../../services/app_info_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';

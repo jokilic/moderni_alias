@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/strings.dart';
+import '../../../constants/images.dart';
+import '../../../constants/websites.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/play_button.dart';

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
-import '../constants/strings.dart';
+import '../constants/animations.dart';
+import '../constants/durations.dart';
 
 class Confetti extends StatefulWidget {
   final Duration waitDuration;

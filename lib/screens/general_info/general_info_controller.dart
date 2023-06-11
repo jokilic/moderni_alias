@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../constants/strings.dart';
+import '../../constants/sounds.dart';
 
 final generalInfoProvider = Provider.autoDispose<GeneralInfoController>(
   (_) => GeneralInfoController(),

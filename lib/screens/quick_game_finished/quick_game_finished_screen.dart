@@ -8,8 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/durations.dart';
 import '../../constants/enums.dart';
-import '../../constants/strings.dart';
+import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../util/providers.dart';
@@ -76,7 +77,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        ModerniAliasImages.clapImage,
+                        ModerniAliasIcons.clapImage,
                         height: 220,
                       ),
                       const SizedBox(height: 30),

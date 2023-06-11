@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
-import '../../constants/strings.dart';
+import '../../constants/icons.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/team/team.dart';
 import '../../widgets/background_image.dart';
@@ -74,7 +74,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                       'textTime': textTime,
                     },
                   ),
-                  icon: ModerniAliasImages.clockImage,
+                  icon: ModerniAliasIcons.clockImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
@@ -88,7 +88,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                       'language': language,
                     },
                   ),
-                  icon: normalGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
+                  icon: normalGame.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
                   size: 58,
                 ),
                 const SizedBox(height: 16),
@@ -103,7 +103,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                       'lengthOfRound': '${normalGame.lengthOfRound}',
                     },
                   ),
-                  icon: ModerniAliasImages.hourglassImage,
+                  icon: ModerniAliasIcons.hourglassImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
@@ -117,7 +117,7 @@ class NormalGameStatsScreen extends StatelessWidget {
                       'pointsToWin': '${normalGame.pointsToWin}',
                     },
                   ),
-                  icon: ModerniAliasImages.pointsImage,
+                  icon: ModerniAliasIcons.pointsImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(

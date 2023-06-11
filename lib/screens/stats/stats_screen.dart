@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/strings.dart';
+import '../../constants/durations.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
 import 'stats_controller.dart';

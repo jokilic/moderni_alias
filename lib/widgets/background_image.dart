@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/strings.dart';
+import '../constants/images.dart';
 
 class BackgroundImage extends StatelessWidget {
   final Widget? child;

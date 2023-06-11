@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/strings.dart';
+import '../../../constants/durations.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
 import '../../normal_game/widgets/played_word_value.dart';

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../constants/strings.dart';
+import '../constants/icons.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
 
@@ -22,7 +22,7 @@ class HeroTitle extends StatelessWidget {
               alignment: Alignment.topLeft,
               padding: const EdgeInsets.only(left: 32),
               child: SvgPicture.asset(
-                ModerniAliasImages.conversationUpImage,
+                ModerniAliasIcons.conversationUpImage,
                 width: 70,
               ),
             ),
@@ -66,7 +66,7 @@ class HeroTitle extends StatelessWidget {
               alignment: Alignment.bottomRight,
               padding: const EdgeInsets.only(right: 32),
               child: SvgPicture.asset(
-                ModerniAliasImages.conversationDownImage,
+                ModerniAliasIcons.conversationDownImage,
                 width: 70,
               ),
             ),

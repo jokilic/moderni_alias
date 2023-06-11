@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
-import '../../constants/strings.dart';
+import '../../constants/icons.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -50,7 +50,7 @@ class QuickGameStatsScreen extends StatelessWidget {
                       'textTime': textTime,
                     },
                   ),
-                  icon: ModerniAliasImages.clockImage,
+                  icon: ModerniAliasIcons.clockImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(
@@ -64,7 +64,7 @@ class QuickGameStatsScreen extends StatelessWidget {
                       'language': language,
                     },
                   ),
-                  icon: quickGame.language == Flag.croatia ? ModerniAliasImages.croatiaImageColor : ModerniAliasImages.unitedKingdomImageColor,
+                  icon: quickGame.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
                   size: 58,
                 ),
                 const SizedBox(height: 16),
@@ -75,7 +75,7 @@ class QuickGameStatsScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 StatsTextIconWidget(
                   text: 'statsLengthOfRoundQuickText'.tr(),
-                  icon: ModerniAliasImages.hourglassImage,
+                  icon: ModerniAliasIcons.hourglassImage,
                 ),
                 const SizedBox(height: 16),
                 GameTitle(

@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timeago/timeago.dart';
 
+import '../../constants/durations.dart';
 import '../../constants/enums.dart';
-import '../../constants/strings.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';

@@ -1,7 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/strings.dart';
+import '../constants/durations.dart';
 import '../constants/text_styles.dart';
 
 class GameOn extends StatelessWidget {

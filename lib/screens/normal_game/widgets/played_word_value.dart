@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/enums.dart';
-import '../../../constants/strings.dart';
+import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 
 class PlayedWordValue extends StatelessWidget {
@@ -37,7 +37,7 @@ class PlayedWordValue extends StatelessWidget {
             SizedBox(
               width: width * 0.1,
               child: SvgPicture.asset(
-                chosenAnswer == Answer.correct ? ModerniAliasImages.correctImage : ModerniAliasImages.wrongImage,
+                chosenAnswer == Answer.correct ? ModerniAliasIcons.correctImage : ModerniAliasIcons.wrongImage,
                 colorFilter: const ColorFilter.mode(
                   ModerniAliasColors.whiteColor,
                   BlendMode.srcIn,

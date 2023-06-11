@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './game_button.dart';
-import '../constants/strings.dart';
+import '../constants/icons.dart';
 
 class WrongCorrectButtons extends StatelessWidget {
   final Function() wrongChosen;
@@ -17,14 +17,14 @@ class WrongCorrectButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GameButton(
-            svgIconPath: ModerniAliasImages.wrongImage,
+            svgIconPath: ModerniAliasIcons.wrongImage,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(24),
             ),
             onTap: wrongChosen,
           ),
           GameButton(
-            svgIconPath: ModerniAliasImages.correctImage,
+            svgIconPath: ModerniAliasIcons.correctImage,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(24),
             ),

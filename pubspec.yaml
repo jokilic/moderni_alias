@@ -46,7 +46,7 @@ dependency_overrides:
   intl: 0.18.1 # Because of easy_localization: 3.0.2
 
 # Configuration for 'flutter_launcher_icons'
-# Run icon generation with 'flutter pub run flutter_launcher_icons:main'
+# Run icon generation with 'dart run flutter_launcher_icons:main'
 flutter_icons:
   android: true
   ios: true
@@ -55,12 +55,11 @@ flutter_icons:
   adaptive_icon_foreground: 'assets/icon.png'
 
 # Configuration for 'flutter_native_splash'
-# Run splash screen generation with 'flutter pub run flutter_native_splash:create'
+# Run splash screen generation with 'dart run flutter_native_splash:create'
 flutter_native_splash:
   android: true
   ios: true
-  color: '#182F3F'
-  image: 'assets/icon.png'
+  background_image: 'assets/splash.png'
 
 flutter:
   uses-material-design: true

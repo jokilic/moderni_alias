@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import './highscore_value.dart';
-import '../../../constants/strings.dart';
+import '../../../constants/images.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/played_word/played_word.dart';
 import '../../../models/team/team.dart';

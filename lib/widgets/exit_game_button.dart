@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../constants/strings.dart';
+import '../constants/durations.dart';
 import '../constants/text_styles.dart';
 import '../util/routing.dart';
 import 'animated_gesture_detector.dart';

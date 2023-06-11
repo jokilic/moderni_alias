@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import './widgets/show_scores.dart';
+import '../../constants/durations.dart';
 import '../../constants/enums.dart';
-import '../../constants/strings.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';

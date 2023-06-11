@@ -7,8 +7,9 @@ import './widgets/length_of_round_button.dart';
 import './widgets/name_of_team.dart';
 import './widgets/number_of_points.dart';
 import './widgets/number_of_teams_button.dart';
+import '../../constants/durations.dart';
 import '../../constants/enums.dart';
-import '../../constants/strings.dart';
+import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/routing.dart';
@@ -49,14 +50,14 @@ class StartGameScreen extends ConsumerWidget {
                     children: [
                       createFlagButton(
                         countryName: 'dictionaryCroatianString'.tr(),
-                        flagImage: ModerniAliasImages.croatiaImage,
+                        flagImage: ModerniAliasIcons.croatiaImage,
                         selectedCountry: Flag.croatia,
                         updateValue: () => startGameController.updateDictionary(Flag.croatia),
                         isActive: chosenDictionary == Flag.croatia,
                       ),
                       createFlagButton(
                         countryName: 'dictionaryEnglishString'.tr(),
-                        flagImage: ModerniAliasImages.unitedKingdomImage,
+                        flagImage: ModerniAliasIcons.unitedKingdomImage,
                         selectedCountry: Flag.unitedKingdom,
                         updateValue: () => startGameController.updateDictionary(Flag.unitedKingdom),
                         isActive: chosenDictionary == Flag.unitedKingdom,

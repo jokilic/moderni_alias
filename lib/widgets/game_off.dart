@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../constants/strings.dart';
+import '../constants/durations.dart';
+import '../constants/icons.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
 import 'animated_gesture_detector.dart';
@@ -39,7 +40,7 @@ class GameOff extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                ModerniAliasImages.clickImage,
+                ModerniAliasIcons.clickImage,
                 height: 136,
               ),
               const SizedBox(height: 16),

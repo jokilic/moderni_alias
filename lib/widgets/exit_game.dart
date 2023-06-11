@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import './exit_game_button.dart';
-import '../constants/strings.dart';
+import '../constants/images.dart';
 import '../constants/text_styles.dart';
 import 'animated_column.dart';
 

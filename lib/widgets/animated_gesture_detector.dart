@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/strings.dart';
+import '../constants/durations.dart';
 
 class AnimatedGestureDetector extends StatefulWidget {
   final Function()? onTap;

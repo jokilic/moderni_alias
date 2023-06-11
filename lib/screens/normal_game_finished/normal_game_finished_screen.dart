@@ -8,7 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
-import '../../constants/strings.dart';
+import '../../constants/durations.dart';
+import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../models/team/team.dart';
 import '../../util/providers.dart';
@@ -59,7 +60,7 @@ class NormalGameFinishedScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          ModerniAliasImages.clapImage,
+                          ModerniAliasIcons.clapImage,
                           height: 220,
                         ),
                         const SizedBox(height: 30),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../constants/strings.dart';
+import '../constants/durations.dart';
 
 class AnimatedColumn extends StatelessWidget {
   final List<Widget> children;
