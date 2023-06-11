@@ -46,7 +46,6 @@ The goal is to have 10 000.
 
 - [ ] Test the app after Riverpod refactor
 - [ ] Increase number of words in the dictionary
-- [ ] Update splash screen
 - [ ] Run `dart_code_metrics`
 - [ ] When creating teams, autogenerate team names if the user taps a button
 - [ ] Add 'Speed game' / 'Time game'
