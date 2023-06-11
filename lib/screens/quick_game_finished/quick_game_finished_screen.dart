@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
@@ -11,6 +12,7 @@ import '../../constants/enums.dart';
 import '../../constants/strings.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
+import '../../providers.dart';
 import '../../routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
@@ -18,10 +20,24 @@ import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
 import '../../widgets/play_button.dart';
 import '../normal_game/widgets/show_scores.dart';
+import '../quick_game/quick_game_controller.dart';
 
-class QuickGameFinishedScreen extends StatelessWidget {
+class QuickGameFinishedScreen extends ConsumerWidget {
+  void restartGame(BuildContext context, WidgetRef ref) {
+    /// Restart providers
+    ref
+      ..invalidate(currentGameProvider)
+      ..invalidate(countdownTimerFillColorProvider)
+      ..invalidate(playedWordsProvider)
+      ..invalidate(counter3SecondsProvider)
+      ..invalidate(quickGameProvider);
+
+    /// Go to [QuickGameScreen]
+    goToQuickGameScreen(context);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.sizeOf(context);
 
     final playedWords = ModalRoute.of(context)?.settings.arguments as List<PlayedWord>;
@@ -90,12 +106,12 @@ class QuickGameFinishedScreen extends StatelessWidget {
                         children: [
                           PlayButton(
                             text: 'quickGameFinishedPlayAgainString'.tr().toUpperCase(),
-                            onPressed: () => goToQuickGameScreen(context),
+                            onPressed: () => restartGame(context, ref),
                           ),
                           const SizedBox(height: 20),
                           PlayButton(
                             text: 'quickGameFinishedExitString'.tr().toUpperCase(),
-                            onPressed: () => goToHomeScreen(context),
+                            onPressed: () => goToHomeScreen(context, popEverything: true),
                           ),
                         ],
                       ),

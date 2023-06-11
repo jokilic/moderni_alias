@@ -20,9 +20,11 @@ class NormalGameStatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final normalGame = ModalRoute.of(context)?.settings.arguments as NormalGameStats;
 
-    final date = DateFormat('d. MMMM', context.locale.languageCode).format(normalGame.startTime);
-    final time = DateFormat('HH:mm', context.locale.languageCode).format(normalGame.startTime);
-    final textTime = timeago.format(normalGame.startTime);
+    final locale = context.locale.languageCode;
+
+    final date = DateFormat('d. MMMM', locale).format(normalGame.startTime);
+    final time = DateFormat('HH:mm', locale).format(normalGame.startTime);
+    final textTime = timeago.format(normalGame.startTime, locale: locale);
     final language = normalGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
     final sortedTeams = List<Team>.from(normalGame.teams)..sort((a, b) => b.points.compareTo(a.points));
 

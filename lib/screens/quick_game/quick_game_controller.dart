@@ -25,7 +25,9 @@ final quickGameProvider = Provider.autoDispose<QuickGameController>(
 class QuickGameController {
   final ProviderRef ref;
 
-  QuickGameController(this.ref);
+  QuickGameController(this.ref) {
+    init();
+  }
 
   ///
   /// VARIABLES
@@ -40,7 +42,20 @@ class QuickGameController {
   Timer? redTimer;
   Timer? soundTimer;
 
-  QuickGameStats? quickGameStats;
+  late QuickGameStats quickGameStats;
+
+  ///
+  /// INIT
+  ///
+
+  void init() {
+    quickGameStats = QuickGameStats(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      round: Round(playedWords: []),
+      language: ref.read(chosenDictionaryProvider.notifier).state,
+    );
+  }
 
   ///
   /// DISPOSE
@@ -64,7 +79,7 @@ class QuickGameController {
       );
 
   /// Sets the variables and starts the time countdown
-  void startCountdown() {
+  void startTimer() {
     /// Set the time when the colors in the circular timer change
     greenSeconds = 60 * 0.6;
     yellowSeconds = 60 * 0.4;
@@ -124,7 +139,7 @@ class QuickGameController {
 
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
-    startCountdown();
+    startTimer();
   }
 
   /// Goes to the confetti screen and shows info about the round
@@ -190,14 +205,12 @@ class QuickGameController {
 
   /// Update stats and store them in [Hive]
   void updateHiveStats() {
-    if (quickGameStats != null) {
-      quickGameStats = quickGameStats!.copyWith(
-        endTime: DateTime.now(),
-        round: Round(
-          playedWords: List.from(ref.read(playedWordsProvider.notifier).state),
-        ),
-      );
-      ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats!);
-    }
+    quickGameStats = quickGameStats.copyWith(
+      endTime: DateTime.now(),
+      round: Round(
+        playedWords: List.from(ref.read(playedWordsProvider.notifier).state),
+      ),
+    );
+    ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats);
   }
 }

@@ -12,12 +12,12 @@ import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-final statsProvider = NotifierProvider.autoDispose<StatsNotifier, int?>(
-  StatsNotifier.new,
+final statsProvider = NotifierProvider.autoDispose<StatsController, int?>(
+  StatsController.new,
   name: 'StatsProvider',
 );
 
-class StatsNotifier extends AutoDisposeNotifier<int?> {
+class StatsController extends AutoDisposeNotifier<int?> {
   ///
   /// INIT
   ///

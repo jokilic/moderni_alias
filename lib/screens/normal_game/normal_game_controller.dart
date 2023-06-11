@@ -46,7 +46,9 @@ class NormalGameController {
   NormalGameController(
     this.ref, {
     required this.arguments,
-  });
+  }) {
+    init();
+  }
 
   ///
   /// VARIABLES
@@ -64,7 +66,23 @@ class NormalGameController {
   Timer? redTimer;
   Timer? soundTimer;
 
-  NormalGameStats? normalGameStats;
+  late NormalGameStats normalGameStats;
+
+  ///
+  /// INIT
+  ///
+
+  void init() {
+    normalGameStats = NormalGameStats(
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      teams: List.from(arguments.teams),
+      rounds: [],
+      lengthOfRound: arguments.lengthOfRound,
+      pointsToWin: arguments.pointsToWin,
+      language: arguments.chosenDictionary,
+    );
+  }
 
   ///
   /// DISPOSE
@@ -88,7 +106,7 @@ class NormalGameController {
       );
 
   /// Sets the variables and starts the time countdown
-  void startCountdown() {
+  void startTimer() {
     /// Set the time when the colors in the circular timer change
     greenSeconds = arguments.lengthOfRound * 0.6;
     yellowSeconds = arguments.lengthOfRound * 0.4;
@@ -150,7 +168,7 @@ class NormalGameController {
 
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
-    startCountdown();
+    startTimer();
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
@@ -336,21 +354,19 @@ class NormalGameController {
 
   /// Update stats and store them in [Hive]
   void updateHiveStats({required Game gameType}) {
-    if (normalGameStats != null) {
-      normalGameStats = normalGameStats!.copyWith(
-        endTime: gameType == Game.normal ? DateTime.now() : null,
-        rounds: [
-          ...normalGameStats!.rounds,
-          Round(
-            playedWords: List.from(ref.read(playedWordsProvider.notifier).state),
-            playingTeam: ref.read(currentlyPlayingTeamProvider.notifier).state,
-          ),
-        ],
-      );
+    normalGameStats = normalGameStats.copyWith(
+      endTime: gameType == Game.normal ? DateTime.now() : null,
+      rounds: [
+        ...normalGameStats.rounds,
+        Round(
+          playedWords: List.from(ref.read(playedWordsProvider.notifier).state),
+          playingTeam: ref.read(currentlyPlayingTeamProvider.notifier).state,
+        ),
+      ],
+    );
 
-      if (gameType == Game.normal) {
-        ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats!);
-      }
+    if (gameType == Game.normal) {
+      ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
     }
   }
 }

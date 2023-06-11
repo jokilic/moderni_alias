@@ -16,16 +16,17 @@ final chosenDictionaryProvider = StateProvider<Flag>(
   name: 'ChosenDictionaryProvider',
 );
 
-final dictionaryProvider = NotifierProvider.autoDispose<DictionaryNotifier, String>(
+final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(
   DictionaryNotifier.new,
   name: 'DictionaryProvider',
 );
 
-class DictionaryNotifier extends AutoDisposeNotifier<String> {
+class DictionaryNotifier extends Notifier<String> {
   @override
   String build() {
     init();
-    return '';
+    state = '';
+    return getRandomWord();
   }
 
   ///
@@ -57,10 +58,7 @@ class DictionaryNotifier extends AutoDisposeNotifier<String> {
 
   void init() {
     logger = ref.watch(loggerProvider);
-
     currentDictionary = [...croatianDictionary];
-
-    state = getRandomWord();
   }
 
   ///

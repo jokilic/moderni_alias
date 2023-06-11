@@ -9,19 +9,19 @@ import 'constants/enums.dart';
 import 'constants/strings.dart';
 import 'models/played_word/played_word.dart';
 
-final randomProvider = Provider.autoDispose<Random>(
+final randomProvider = Provider<Random>(
   (_) => Random(),
   name: 'RandomProvider',
 );
-final correctPlayerProvider = Provider.autoDispose<AudioPlayer>(
+final correctPlayerProvider = Provider<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.correct, preload: false),
   name: 'CorrectPlayerProvider',
 );
-final wrongPlayerProvider = Provider.autoDispose<AudioPlayer>(
+final wrongPlayerProvider = Provider<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.wrong, preload: false),
   name: 'WrongPlayerProvider',
 );
-final countdownPlayerProvider = Provider.autoDispose<AudioPlayer>(
+final countdownPlayerProvider = Provider<AudioPlayer>(
   (_) => AudioPlayer()..setAsset(ModerniAliasSounds.timer, preload: false),
   name: 'CountdownPlayerProvider',
 );

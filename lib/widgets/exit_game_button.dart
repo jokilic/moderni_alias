@@ -20,51 +20,58 @@ class ExitGameButton extends StatefulWidget {
 }
 
 class _ExitGameButtonState extends State<ExitGameButton> with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
+  AnimationController? controller;
 
   @override
   void initState() {
     super.initState();
 
-    controller = AnimationController(
-      vsync: this,
-      duration: ModerniAliasDurations.slowAnimation,
-    )..addStatusListener(
-        (status) {
-          /// Animation is completed, exit game
-          if (status == AnimationStatus.completed) {
-            goToHomeScreen(context, popEverything: true);
-          }
-        },
-      );
+    if (widget.onPressed == null) {
+      controller = AnimationController(
+        vsync: this,
+        duration: ModerniAliasDurations.slowAnimation,
+      )..addStatusListener(
+          (status) {
+            /// Animation is completed, exit game
+            if (status == AnimationStatus.completed) {
+              goToHomeScreen(context, popEverything: true);
+            }
+          },
+        );
+    }
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    controller?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) => Listener(
-        onPointerDown: (_) => controller.forward(),
-        onPointerUp: (_) => controller.reverse(),
-        child: AnimatedBuilder(
-          animation: controller,
-          builder: (_, child) => Container(
-            decoration: BoxDecoration(
-              color: ModerniAliasColors.whiteColor.withOpacity(
-                controller.value,
+        onPointerDown: (_) => widget.onPressed == null ? controller?.forward() : null,
+        onPointerUp: (_) => widget.onPressed == null ? controller?.reverse() : null,
+        child: widget.onPressed == null && controller != null
+            ? AnimatedBuilder(
+                animation: controller!,
+                builder: (_, child) => Container(
+                  decoration: BoxDecoration(
+                    color: ModerniAliasColors.whiteColor.withOpacity(
+                      controller!.value,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: ExitTextButton(
+                    animationController: controller,
+                    onPressed: widget.onPressed,
+                    text: widget.text,
+                  ),
+                ),
+              )
+            : ExitTextButton(
+                onPressed: widget.onPressed,
+                text: widget.text,
               ),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: ExitTextButton(
-              animationController: controller,
-              onPressed: widget.onPressed,
-              text: widget.text,
-            ),
-          ),
-        ),
       );
 }
 

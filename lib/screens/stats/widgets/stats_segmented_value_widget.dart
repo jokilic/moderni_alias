@@ -31,12 +31,14 @@ class StatsSegmentedValueWidget extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(
-                  text,
-                  style: ModerniAliasTextStyles.statsSegmentedControl,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                FittedBox(
+                  child: Text(
+                    text,
+                    style: ModerniAliasTextStyles.statsSegmentedControl,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 AnimatedOpacity(

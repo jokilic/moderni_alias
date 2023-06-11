@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/quick_game_stats/quick_game_stats.dart';
 import '../../../routing.dart';
 import '../../../widgets/game_title.dart';
-import '../stats_notifier.dart';
+import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
 class StatsQuickSection extends ConsumerWidget {

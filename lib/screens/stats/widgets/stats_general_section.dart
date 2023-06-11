@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../widgets/game_title.dart';
-import '../stats_notifier.dart';
+import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
 class StatsGeneralSection extends ConsumerWidget {

@@ -6,7 +6,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import '../../../models/normal_game_stats/normal_game_stats.dart';
 import '../../../routing.dart';
 import '../../../widgets/game_title.dart';
-import '../stats_notifier.dart';
+import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
 class StatsNormalSection extends ConsumerWidget {
@@ -39,9 +39,11 @@ class StatsNormalSection extends ConsumerWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: statsNotifier.normalGameStats.length,
             itemBuilder: (_, index) {
+              final locale = context.locale.languageCode;
+
               final normalGame = sortedGames[index];
-              final time = DateFormat('d. MMMM - HH:mm', context.locale.languageCode).format(normalGame.startTime);
-              final textTime = timeago.format(normalGame.startTime);
+              final time = DateFormat('d. MMMM - HH:mm', locale).format(normalGame.startTime);
+              final textTime = timeago.format(normalGame.startTime, locale: locale);
 
               return StatsValueWidget(
                 text: '$time\n($textTime)',

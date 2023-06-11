@@ -19,10 +19,12 @@ class QuickGameStatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final quickGame = ModalRoute.of(context)?.settings.arguments as QuickGameStats;
 
-    final date = DateFormat('d. MMMM', context.locale.languageCode).format(quickGame.startTime);
-    final time = DateFormat('HH:mm', context.locale.languageCode).format(quickGame.startTime);
-    final textTime = timeago.format(quickGame.startTime);
-    final language = quickGame.language == Flag.croatia ? 'Croatian' : 'English';
+    final locale = context.locale.languageCode;
+
+    final date = DateFormat('d. MMMM', locale).format(quickGame.startTime);
+    final time = DateFormat('HH:mm', locale).format(quickGame.startTime);
+    final textTime = timeago.format(quickGame.startTime, locale: locale);
+    final language = quickGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
 
     return Scaffold(
       body: BackgroundImage(
