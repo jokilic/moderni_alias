@@ -50,28 +50,25 @@ class StartGameController {
   /// Called when the user writes on the text field and adds a team name
   void teamNameUpdated({required Team passedTeam, required String value}) => ref.read(teamsProvider).firstWhere((team) => team == passedTeam).name = value;
 
-  /// Called when the user taps the 'Play' button
-  bool validateMainGame() {
-    /// Check if any of team names are same
-    final duplicateTeamsList = <Team>[];
-    ref.read(teamsProvider).map((team) {
-      if (duplicateTeamsList.contains(team)) {
-        ref.read(validationMessageProvider.notifier).state = 'teamNamesSameString'.tr();
-        return false;
-      } else {
-        duplicateTeamsList.add(team);
-      }
-    }).toList();
+  /// Checks if there are [Team] with the same `name` or with empty `name`
+  bool validateTeams() {
+    final teams = ref.read(teamsProvider);
 
-    /// Check if any of the teams has an empty name
-    ref.read(teamsProvider).map((team) {
-      if (team.name.isEmpty) {
-        ref.read(validationMessageProvider.notifier).state = 'teamNamesMissingString'.tr();
-        return false;
-      }
-    }).toList();
+    final nameSet = teams.map((team) => team.name).toSet();
 
-    /// Validation passed successfully
+    /// Found a team with an empty name
+    if (teams.any((team) => team.name.isEmpty)) {
+      ref.read(validationMessageProvider.notifier).state = 'teamNamesMissingString'.tr();
+      return false;
+    }
+
+    /// Found teams with the same name
+    if (nameSet.length != teams.length) {
+      ref.read(validationMessageProvider.notifier).state = 'teamNamesSameString'.tr();
+      return false;
+    }
+
+    /// No teams with the same name or empty names found
     ref.read(validationMessageProvider.notifier).state = null;
     return true;
   }

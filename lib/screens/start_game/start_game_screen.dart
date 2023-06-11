@@ -183,7 +183,7 @@ class StartGameScreen extends ConsumerWidget {
                       text: 'playTheGameString'.tr().toUpperCase(),
                       onPressed: () {
                         /// Validation successfull, go to [NormalGameScreen]
-                        if (startGameController.validateMainGame()) {
+                        if (startGameController.validateTeams()) {
                           goToNormalGameScreen(context);
                         }
                       },
