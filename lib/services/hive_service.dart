@@ -10,13 +10,7 @@ import '../models/team/team.dart';
 import 'logger_service.dart';
 
 final hiveProvider = Provider<HiveService>(
-  (ref) {
-    final hiveService = HiveService(
-      ref.watch(loggerProvider),
-    );
-    ref.onDispose(hiveService.dispose);
-    return hiveService;
-  },
+  (_) => throw UnimplementedError(),
   name: 'HiveProvider',
 );
 

@@ -19,17 +19,20 @@ class RoundAdapter extends TypeAdapter<Round> {
     return Round(
       playedWords: (fields[1] as List).cast<PlayedWord>(),
       playingTeam: fields[2] as Team?,
+      audioRecording: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Round obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(1)
       ..write(obj.playedWords)
       ..writeByte(2)
-      ..write(obj.playingTeam);
+      ..write(obj.playingTeam)
+      ..writeByte(3)
+      ..write(obj.audioRecording);
   }
 
   @override

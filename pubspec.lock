@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.16"
+  audio_waveforms:
+    dependency: "direct main"
+    description:
+      name: audio_waveforms
+      sha256: f2f81e256c5c03b64e2861e0323a77e1b6790c256c73393b671214c9846260fc
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -537,7 +545,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: "3087813781ab814e4157b172f1a11c46be20179fcc9bea043e0fba36bc0acaa2"
@@ -648,6 +656,62 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  record:
+    dependency: "direct main"
+    description:
+      name: record
+      sha256: "06346ef88a7d86a1d5baa8558c371d4d2f3b0b8b7c1b964161dbad061fd8b89b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0-beta.1"
+  record_android:
+    dependency: transitive
+    description:
+      name: record_android
+      sha256: c268416a03757004f9b13b4f75572b99d9086145a45db0ce8d857abbd0fdbae1
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-beta.1+1"
+  record_darwin:
+    dependency: transitive
+    description:
+      name: record_darwin
+      sha256: "70f409d4eba78f5f8ac5ac134d87499fbb238e17d475d60984dbcf8c21b818c5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-beta.1+4"
+  record_linux:
+    dependency: transitive
+    description:
+      name: record_linux
+      sha256: "3dd8ae62a2cdb2d2100a0f37447f11f540c67adc59b629704c603e0d9288adc5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
+  record_platform_interface:
+    dependency: transitive
+    description:
+      name: record_platform_interface
+      sha256: "33b0cd8a7d3770dae2596da0571f6767452795dd08202927d13b442c0470bff7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  record_web:
+    dependency: transitive
+    description:
+      name: record_web
+      sha256: "25570594a4b3e75809dabc44f804f6d1c7aabb11abb6b2c709e00f64e2f659cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-beta.1+1"
+  record_windows:
+    dependency: transitive
+    description:
+      name: record_windows
+      sha256: fd7eae80743257b02b51f7c418b8eac8af42c87c9ba393ac0b81d9afe41aabf8
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-beta.1+1"
   rive:
     dependency: "direct main"
     description:

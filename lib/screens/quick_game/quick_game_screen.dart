@@ -37,6 +37,9 @@ class QuickGameScreen extends ConsumerWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
+                ///
+                /// TOP - EXIT & SCORES BUTTONS
+                ///
                 Positioned(
                   top: 0,
                   width: width,
@@ -50,6 +53,10 @@ class QuickGameScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
+
+                ///
+                /// PLAYING GAME
+                ///
                 if (currentGame == Game.quick)
                   Positioned(
                     top: -75,
@@ -66,6 +73,10 @@ class QuickGameScreen extends ConsumerWidget {
                       ),
                     ),
                   )
+
+                ///
+                /// COUNTDOWN
+                ///
                 else if (currentGame == Game.starting)
                   Positioned(
                     top: -75,
@@ -80,6 +91,10 @@ class QuickGameScreen extends ConsumerWidget {
                       ),
                     ),
                   )
+
+                ///
+                /// TAP TO START GAME
+                ///
                 else
                   Positioned(
                     top: -75,
@@ -93,6 +108,10 @@ class QuickGameScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
+
+                ///
+                /// BOTTOM - ANSWERS BUTTONS
+                ///
                 Positioned(
                   bottom: 0,
                   width: width,

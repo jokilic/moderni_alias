@@ -41,6 +41,9 @@ class NormalGameScreen extends ConsumerWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
+                ///
+                /// TOP - EXIT & SCORES BUTTONS
+                ///
                 Positioned(
                   top: 0,
                   width: width,
@@ -54,6 +57,10 @@ class NormalGameScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
+
+                ///
+                /// PLAYING GAME
+                ///
                 if (currentGame == Game.normal)
                   Positioned(
                     top: -75,
@@ -70,6 +77,10 @@ class NormalGameScreen extends ConsumerWidget {
                       ),
                     ),
                   )
+
+                ///
+                /// COUNTDOWN
+                ///
                 else if (currentGame == Game.starting)
                   Positioned(
                     top: -75,
@@ -87,6 +98,10 @@ class NormalGameScreen extends ConsumerWidget {
                       ),
                     ),
                   )
+
+                ///
+                /// TAP TO START GAME
+                ///
                 else
                   Positioned(
                     top: -75,
@@ -100,6 +115,10 @@ class NormalGameScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
+
+                ///
+                /// BOTTOM - ANSWERS BUTTONS
+                ///
                 Positioned(
                   bottom: 0,
                   width: width,

@@ -7,6 +7,7 @@ import 'package:stack_trace/stack_trace.dart';
 import 'constants/translations.dart';
 import 'services/hive_service.dart';
 import 'services/logger_service.dart';
+import 'services/path_provider_service.dart';
 import 'util/routing.dart';
 import 'util/theme.dart';
 
@@ -37,8 +38,9 @@ Future<void> main() async {
     SystemUiOverlayStyle.light,
   );
 
-  /// Initialize [Logger] & [Hive]
+  /// Initialize [Logger], [Path] & [Hive]
   final logger = LoggerService();
+  final path = PathProviderService(logger);
   final hive = HiveService(logger);
 
   /// Run the app, let's go!
@@ -46,6 +48,7 @@ Future<void> main() async {
     ProviderScope(
       overrides: [
         loggerProvider.overrideWithValue(logger),
+        pathProvider.overrideWithValue(path),
         hiveProvider.overrideWithValue(hive),
       ],
       observers: [

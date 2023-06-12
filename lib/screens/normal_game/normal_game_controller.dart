@@ -10,8 +10,10 @@ import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
+import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
 import '../start_game/start_game_controller.dart';
@@ -131,8 +133,8 @@ class NormalGameController {
     );
   }
 
-  /// Counts down the 3 seconds before starting new round
-  void start3SecondCountdown() {
+  /// Counts down the 3 seconds before starting new round & starts audio recording
+  Future<void> start3SecondCountdown() async {
     ref.read(currentGameProvider.notifier).state = Game.starting;
     ref.read(counter3SecondsProvider.notifier).state = 3;
 
@@ -146,6 +148,19 @@ class NormalGameController {
         }
       },
     );
+
+    await startAudioRecording();
+  }
+
+  ///
+  /// RECORD
+  ///
+
+  /// Generates proper `path` and starts audio recording
+  Future<void> startAudioRecording() async {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
+    await ref.read(audioRecordProvider).startRecording(path);
   }
 
   ///
@@ -348,7 +363,7 @@ class NormalGameController {
   ///
 
   /// Update stats and store them in [Hive]
-  void updateHiveStats({required Game gameType}) {
+  Future<void> updateHiveStats({required Game gameType}) async {
     normalGameStats = normalGameStats.copyWith(
       endTime: gameType == Game.normal ? DateTime.now() : null,
       rounds: [
@@ -356,12 +371,13 @@ class NormalGameController {
         Round(
           playedWords: List.from(ref.read(playedWordsProvider)),
           playingTeam: ref.read(currentlyPlayingTeamProvider),
+          audioRecording: await ref.read(audioRecordProvider).stopRecording(),
         ),
       ],
     );
 
     if (gameType == Game.normal) {
-      ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
+      await ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
     }
   }
 }
