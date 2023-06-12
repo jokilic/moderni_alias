@@ -10,11 +10,13 @@ class StatsWordsExpansionWidget extends StatefulWidget {
   final int index;
   final Round round;
   final String someWords;
+  final Function()? playPressed;
 
   const StatsWordsExpansionWidget({
     required this.index,
     required this.round,
     required this.someWords,
+    this.playPressed,
   });
 
   @override
@@ -81,15 +83,6 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
         ),
         children: [
           ///
-          /// AUDIO RECORDING
-          ///
-          if (widget.round.audioRecording != null)
-            Text(
-              widget.round.audioRecording!,
-              style: ModerniAliasTextStyles.highscore,
-            ),
-
-          ///
           /// WORDS
           ///
           ...List.generate(
@@ -103,6 +96,23 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
               );
             },
           ),
+
+          ///
+          /// AUDIO RECORDING
+          ///
+          if (widget.playPressed != null) ...[
+            Center(
+              child: Text(
+                widget.round.audioRecording!,
+                style: ModerniAliasTextStyles.highscore,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            IconButton.filledTonal(
+              onPressed: widget.playPressed,
+              icon: const Icon(Icons.play_arrow_rounded),
+            ),
+          ],
         ],
       );
 }

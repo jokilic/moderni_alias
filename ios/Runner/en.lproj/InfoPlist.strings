@@ -1,0 +1,6 @@
+<plist version="1.0">
+    <dict>
+        <key>NSMicrophoneUsageDescription</key>
+		<string>Moderni Alias needs microphone permission in order to record your voice while you play the game</string>
+    </dict>
+</plist>

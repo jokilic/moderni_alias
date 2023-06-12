@@ -6,7 +6,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import '../../../models/normal_game_stats/normal_game_stats.dart';
 import '../../../util/routing.dart';
 import '../../../widgets/game_title.dart';
-import '../../normal_game_stats/normal_game_stats_screen.dart';
+import '../../normal_game_stats/normal_game_stats_controller.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
@@ -51,7 +51,7 @@ class StatsNormalSection extends ConsumerWidget {
                 value: index + 1,
                 valueLeft: true,
                 onPressed: () {
-                  ref.watch(normalGameStatsProvider.notifier).state = normalGame;
+                  ref.watch(normalGameStatsProvider.notifier).updateNormalGameStats(normalGame);
                   goToNormalGameStatsScreen(context);
                 },
               );

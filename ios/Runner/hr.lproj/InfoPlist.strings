@@ -1,0 +1,6 @@
+<plist version="1.0">
+    <dict>
+        <key>NSMicrophoneUsageDescription</key>
+		<string>Moderni Alias treba pristup mikrofonu ako želite da se snimaju zvukovi vaše igre</string>
+    </dict>
+</plist>

@@ -5,7 +5,6 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
-import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/team/team.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -13,11 +12,7 @@ import '../../widgets/hero_title.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
-
-final normalGameStatsProvider = StateProvider.autoDispose<NormalGameStats?>(
-  (_) => null,
-  name: 'NormalGameStatsProvider',
-);
+import 'normal_game_stats_controller.dart';
 
 class NormalGameStatsScreen extends ConsumerWidget {
   @override
@@ -144,6 +139,7 @@ class NormalGameStatsScreen extends ConsumerWidget {
                         index: index,
                         round: round,
                         someWords: someWords,
+                        playPressed: round.audioRecording != null ? () => ref.read(normalGameStatsProvider.notifier).toggleAudio(round.audioRecording!) : null,
                       );
                     },
                   ),

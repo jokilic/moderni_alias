@@ -20,10 +20,6 @@ final statsProvider = NotifierProvider.autoDispose<StatsController, int?>(
 );
 
 class StatsController extends AutoDisposeNotifier<int?> {
-  ///
-  /// INIT
-  ///
-
   @override
   int? build() {
     init();
