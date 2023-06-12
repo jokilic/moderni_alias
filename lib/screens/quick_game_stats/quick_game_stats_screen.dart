@@ -13,7 +13,10 @@ import '../normal_game/widgets/played_word_value.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 
-final quickGameStatsProvider = StateProvider.autoDispose<QuickGameStats?>((_) => null);
+final quickGameStatsProvider = StateProvider.autoDispose<QuickGameStats?>(
+  (_) => null,
+  name: 'QuickGameStatsProvider',
+);
 
 class QuickGameStatsScreen extends ConsumerWidget {
   @override

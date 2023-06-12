@@ -14,7 +14,10 @@ import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
 
-final normalGameStatsProvider = StateProvider.autoDispose<NormalGameStats?>((_) => null);
+final normalGameStatsProvider = StateProvider.autoDispose<NormalGameStats?>(
+  (_) => null,
+  name: 'NormalGameStatsProvider',
+);
 
 class NormalGameStatsScreen extends ConsumerWidget {
   @override
