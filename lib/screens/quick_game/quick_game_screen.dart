@@ -76,7 +76,7 @@ class QuickGameScreen extends ConsumerWidget {
                       switchOutCurve: Curves.easeIn,
                       child: GameStarting(
                         currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        onComplete: quickGameController.startRound,
+                        onComplete: () => quickGameController.startRound(lengthOfRound: 60),
                       ),
                     ),
                   )

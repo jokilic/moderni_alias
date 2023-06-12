@@ -79,15 +79,15 @@ class QuickGameController {
       );
 
   /// Sets the variables and starts the time countdown
-  void startTimer() {
+  void startTimer(int lengthOfRound) {
     /// Set the time when the colors in the circular timer change
-    greenSeconds = 60 * 0.6;
-    yellowSeconds = 60 * 0.4;
-    redSeconds = 60 * 0.15;
+    greenSeconds = lengthOfRound * 0.6;
+    yellowSeconds = lengthOfRound * 0.4;
+    redSeconds = lengthOfRound * 0.15;
 
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
-      const Duration(seconds: 60 - 5),
+      Duration(seconds: lengthOfRound - 5),
       () {
         ref.read(countdownPlayerProvider).load();
         ref.read(countdownPlayerProvider).play();
@@ -131,7 +131,7 @@ class QuickGameController {
   ///
 
   /// Reset variables and start the round
-  void startRound() {
+  void startRound({required int lengthOfRound}) {
     ref.read(playedWordsProvider).clear();
 
     ref.read(currentGameProvider.notifier).state = Game.quick;
@@ -139,7 +139,7 @@ class QuickGameController {
 
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
-    startTimer();
+    startTimer(lengthOfRound);
   }
 
   /// Goes to the confetti screen and shows info about the round

@@ -92,15 +92,13 @@ class NormalGameController {
   ///
 
   /// Returns a Timer with the specified length and color
-  Timer makeTimer({required double chosenSeconds, required Color chosenColor}) => Timer(
-        Duration(seconds: ref.read(lengthOfRoundProvider) - chosenSeconds.round()),
+  Timer makeTimer({required double chosenSeconds, required Color chosenColor, required int lengthOfRound}) => Timer(
+        Duration(seconds: lengthOfRound - chosenSeconds.round()),
         () => ref.read(countdownTimerFillColorProvider.notifier).state = chosenColor,
       );
 
   /// Sets the variables and starts the time countdown
-  void startTimer() {
-    final lengthOfRound = ref.read(lengthOfRoundProvider);
-
+  void startTimer(int lengthOfRound) {
     /// Set the time when the colors in the circular timer change
     greenSeconds = lengthOfRound * 0.6;
     yellowSeconds = lengthOfRound * 0.4;
@@ -119,14 +117,17 @@ class NormalGameController {
     greenTimer = makeTimer(
       chosenSeconds: greenSeconds,
       chosenColor: ModerniAliasColors.greenColor,
+      lengthOfRound: lengthOfRound,
     );
     yellowTimer = makeTimer(
       chosenSeconds: yellowSeconds,
       chosenColor: ModerniAliasColors.yellowColor,
+      lengthOfRound: lengthOfRound,
     );
     redTimer = makeTimer(
       chosenSeconds: redSeconds,
       chosenColor: ModerniAliasColors.redColor,
+      lengthOfRound: lengthOfRound,
     );
   }
 
@@ -140,7 +141,7 @@ class NormalGameController {
       (timer) {
         ref.read(counter3SecondsProvider.notifier).state -= 1;
 
-        if (ref.read(counter3SecondsProvider.notifier).state == 0) {
+        if (ref.read(counter3SecondsProvider) == 0) {
           timer.cancel();
         }
       },
@@ -152,7 +153,7 @@ class NormalGameController {
   ///
 
   /// Reset variables and start the round
-  void startRound({required Game chosenGame}) {
+  void startRound({required Game chosenGame, required int lengthOfRound}) {
     correctAnswers = 0;
     wrongAnswers = 0;
     ref.read(playedWordsProvider).clear();
@@ -162,7 +163,7 @@ class NormalGameController {
 
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
-    startTimer();
+    startTimer(lengthOfRound);
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)

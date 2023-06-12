@@ -82,6 +82,7 @@ class NormalGameScreen extends ConsumerWidget {
                         currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
                         onComplete: () => normalGameController.startRound(
                           chosenGame: Game.normal,
+                          lengthOfRound: ref.read(lengthOfRoundProvider),
                         ),
                       ),
                     ),
