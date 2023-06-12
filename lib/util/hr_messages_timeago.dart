@@ -17,7 +17,7 @@ class HrMessagesTimeago implements LookupMessages {
   @override
   String aboutAMinute(int minutes) => 'oko minute';
   @override
-  String minutes(int minutes) => '$minutes minuta';
+  String minutes(int minutes) => minutes >= 1 && minutes <= 4 ? '$minutes minute' : '$minutes minuta';
   @override
   String aboutAnHour(int minutes) => 'jedan sat';
   @override

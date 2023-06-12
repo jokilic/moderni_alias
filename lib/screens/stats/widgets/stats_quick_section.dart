@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../models/quick_game_stats/quick_game_stats.dart';
 import '../../../util/routing.dart';
@@ -39,11 +40,14 @@ class StatsQuickSection extends ConsumerWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: statsNotifier.quickGameStats.length,
             itemBuilder: (_, index) {
+              final locale = context.locale.languageCode;
+
               final quickGame = sortedGames[index];
-              final time = DateFormat('d. MMMM - HH:mm', context.locale.languageCode).format(quickGame.startTime);
+              final time = DateFormat('d. MMMM - HH:mm', locale).format(quickGame.startTime);
+              final textTime = timeago.format(quickGame.startTime, locale: locale);
 
               return StatsValueWidget(
-                text: time,
+                text: '$time\n($textTime)',
                 value: index + 1,
                 valueLeft: true,
                 onPressed: () {

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
+import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
@@ -26,6 +27,8 @@ class QuickGameScreen extends ConsumerWidget {
     final counter3Seconds = ref.watch(counter3SecondsProvider);
 
     final currentWord = ref.watch(dictionaryProvider);
+
+    ref.watch(audioRecordProvider);
 
     final quickGameController = ref.watch(quickGameProvider);
 
