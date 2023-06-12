@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/normal_game_stats/normal_game_stats.dart';
@@ -15,24 +16,32 @@ import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import '../screens/quick_game_stats/quick_game_stats_screen.dart';
 import '../screens/start_game/start_game_screen.dart';
 import '../screens/stats/stats_screen.dart';
+import 'fade_page_route.dart';
 
 ///
-/// ROUTE
+/// ROUTES
 ///
 
-final routes = {
-  ModerniAliasRoutes.homeScreen: (context) => HomeScreen(),
-  ModerniAliasRoutes.generalInfoScreen: (context) => GeneralInfoScreen(),
-  ModerniAliasRoutes.howToPlayScreen: (context) => HowToPlayScreen(),
-  ModerniAliasRoutes.startGameScreen: (context) => StartGameScreen(),
-  ModerniAliasRoutes.normalGameScreen: (context) => NormalGameScreen(),
-  ModerniAliasRoutes.normalGameFinishedScreen: (context) => NormalGameFinishedScreen(),
-  ModerniAliasRoutes.quickGameScreen: (context) => QuickGameScreen(),
-  ModerniAliasRoutes.quickGameFinishedScreen: (context) => QuickGameFinishedScreen(),
-  ModerniAliasRoutes.statsScreen: (context) => StatsScreen(),
-  ModerniAliasRoutes.normalGameStatsScreen: (context) => NormalGameStatsScreen(),
-  ModerniAliasRoutes.quickGameStatsScreen: (context) => QuickGameStatsScreen(),
-};
+Route onGenerateRoute(RouteSettings settings) {
+  final route = switch (settings.name) {
+    ModerniAliasRoutes.homeScreen => HomeScreen(),
+    ModerniAliasRoutes.generalInfoScreen => GeneralInfoScreen(),
+    ModerniAliasRoutes.howToPlayScreen => HowToPlayScreen(),
+    ModerniAliasRoutes.startGameScreen => StartGameScreen(),
+    ModerniAliasRoutes.normalGameScreen => NormalGameScreen(),
+    ModerniAliasRoutes.normalGameFinishedScreen => NormalGameFinishedScreen(),
+    ModerniAliasRoutes.quickGameScreen => QuickGameScreen(),
+    ModerniAliasRoutes.quickGameFinishedScreen => QuickGameFinishedScreen(),
+    ModerniAliasRoutes.statsScreen => StatsScreen(),
+    ModerniAliasRoutes.normalGameStatsScreen => NormalGameStatsScreen(),
+    ModerniAliasRoutes.quickGameStatsScreen => QuickGameStatsScreen(),
+    _ => HomeScreen(),
+  };
+
+  return FadePageRoute(
+    builder: (context) => route,
+  );
+}
 
 ///
 /// ROUTE NAMES

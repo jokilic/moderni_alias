@@ -69,7 +69,7 @@ class ModerniAlias extends ConsumerWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             onGenerateTitle: (_) => 'appNameString'.tr(),
-            routes: routes,
+            onGenerateRoute: onGenerateRoute,
             initialRoute: ModerniAliasRoutes.homeScreen,
             theme: theme,
           ),
