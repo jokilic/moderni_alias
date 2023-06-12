@@ -1,5 +1,3 @@
-// ignore_for_file: cast_nullable_to_non_nullable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

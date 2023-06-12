@@ -21,7 +21,7 @@ final currentlyPlayingTeamProvider = StateProvider.autoDispose<Team>(
   (ref) => ref.read(teamsProvider).first,
   name: 'CurrentlyPlayingTeamProvider',
 );
-final tieBreakTeamsProvider = StateProvider.autoDispose<List<Team>?>(
+final tieBreakTeamsProvider = StateProvider<List<Team>?>(
   (_) => null,
   name: 'TieBreakTeamsProvider',
 );
@@ -259,7 +259,7 @@ class NormalGameController {
   /// Ends game and goes to [NormalGameFinishedScreen]
   void endGame(Team winner, {required BuildContext context}) {
     updateHiveStats(gameType: Game.normal);
-    goToNormalGameFinishedScreen(context, winner: winner);
+    goToNormalGameFinishedScreen(context);
   }
 
   ///

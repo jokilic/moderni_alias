@@ -1,5 +1,3 @@
-// ignore_for_file: cast_nullable_to_non_nullable
-
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -12,7 +10,6 @@ import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
-import '../../models/played_word/played_word.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
@@ -41,7 +38,8 @@ class QuickGameFinishedScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.sizeOf(context);
 
-    final playedWords = ModalRoute.of(context)?.settings.arguments as List<PlayedWord>;
+    final playedWords = ref.watch(playedWordsProvider);
+
     final correctAnswers = playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length.toString();
     final wrongAnswers = playedWords.where((word) => word.chosenAnswer == Answer.wrong).toList().length.toString();
 

@@ -1,5 +1,3 @@
-// ignore_for_file: cast_nullable_to_non_nullable
-
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +9,6 @@ import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
-import '../../models/team/team.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
@@ -19,11 +16,12 @@ import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
 import '../normal_game/widgets/show_scores.dart';
+import '../start_game/start_game_controller.dart';
 
 class NormalGameFinishedScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final winningTeam = ModalRoute.of(context)?.settings.arguments as Team;
+    final winningTeam = ref.watch(teamsProvider).reduce((a, b) => a.points > b.points ? a : b);
 
     return WillPopScope(
       onWillPop: () async {

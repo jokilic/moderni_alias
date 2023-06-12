@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/quick_game_stats/quick_game_stats.dart';
 import '../../../util/routing.dart';
 import '../../../widgets/game_title.dart';
+import '../../quick_game_stats/quick_game_stats_screen.dart';
 import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
@@ -45,10 +46,10 @@ class StatsQuickSection extends ConsumerWidget {
                 text: time,
                 value: index + 1,
                 valueLeft: true,
-                onPressed: () => goToQuickGameStatsScreen(
-                  context,
-                  quickGameStats: quickGame,
-                ),
+                onPressed: () {
+                  ref.watch(quickGameStatsProvider.notifier).state = quickGame;
+                  goToQuickGameStatsScreen(context);
+                },
               );
             },
           ),

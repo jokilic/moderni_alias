@@ -145,10 +145,7 @@ class QuickGameController {
   /// Goes to the confetti screen and shows info about the round
   void endGame(BuildContext context) {
     updateHiveStats();
-    goToQuickGameFinishedScreen(
-      context,
-      playedWords: ref.read(playedWordsProvider),
-    );
+    goToQuickGameFinishedScreen(context);
   }
 
   ///

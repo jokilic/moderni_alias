@@ -152,5 +152,6 @@
     "statsPointsToWinText": "Players had to guess {pointsToWin} points to win.",
     "statsWordsTitle": "And the words?",
     "statsCorrectQuick": "Correct",
-    "statsWrongQuick": "Quick"
+    "statsWrongQuick": "Quick",
+    "statsFailedToLoad": "`Stats failed to load"
 }

@@ -152,5 +152,6 @@
     "statsPointsToWinText": "Trebali ste pogoditi {pointsToWin} riječi za pobjedu.",
     "statsWordsTitle": "Što je s riječima?",
     "statsCorrectQuick": "Točno",
-    "statsWrongQuick": "Krivo"
+    "statsWrongQuick": "Krivo",
+    "statsFailedToLoad": "`Prošla igra se nije učitala"
 }
