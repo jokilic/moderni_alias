@@ -79,16 +79,30 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
             size: 32,
           ),
         ),
-        children: List.generate(
-          widget.round.playedWords.length,
-          (index) {
-            final playedWord = widget.round.playedWords[index];
+        children: [
+          ///
+          /// AUDIO RECORDING
+          ///
+          if (widget.round.audioRecording != null)
+            Text(
+              widget.round.audioRecording!,
+              style: ModerniAliasTextStyles.highscore,
+            ),
 
-            return PlayedWordValue(
-              word: playedWord.word,
-              chosenAnswer: playedWord.chosenAnswer,
-            );
-          },
-        ),
+          ///
+          /// WORDS
+          ///
+          ...List.generate(
+            widget.round.playedWords.length,
+            (index) {
+              final playedWord = widget.round.playedWords[index];
+
+              return PlayedWordValue(
+                word: playedWord.word,
+                chosenAnswer: playedWord.chosenAnswer,
+              );
+            },
+          ),
+        ],
       );
 }
