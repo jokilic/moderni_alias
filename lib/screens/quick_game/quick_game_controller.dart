@@ -8,8 +8,10 @@ import '../../constants/enums.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
+import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
 
@@ -110,7 +112,7 @@ class QuickGameController {
   }
 
   /// Counts down the 3 seconds before starting new round
-  void start3SecondCountdown() {
+  Future<void> start3SecondCountdown() async {
     ref.read(currentGameProvider.notifier).state = Game.starting;
     ref.read(counter3SecondsProvider.notifier).state = 3;
 
@@ -124,6 +126,19 @@ class QuickGameController {
         }
       },
     );
+
+    await startAudioRecording();
+  }
+
+  ///
+  /// RECORD
+  ///
+
+  /// Generates proper `path` and starts audio recording
+  Future<void> startAudioRecording() async {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
+    await ref.read(audioRecordProvider).startRecording(path);
   }
 
   ///
@@ -201,13 +216,14 @@ class QuickGameController {
   ///
 
   /// Update stats and store them in [Hive]
-  void updateHiveStats() {
+  Future<void> updateHiveStats() async {
     quickGameStats = quickGameStats.copyWith(
       endTime: DateTime.now(),
       round: Round(
         playedWords: List.from(ref.read(playedWordsProvider)),
+        audioRecording: await ref.read(audioRecordProvider).stopRecording(),
       ),
     );
-    ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats);
+    await ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats);
   }
 }
