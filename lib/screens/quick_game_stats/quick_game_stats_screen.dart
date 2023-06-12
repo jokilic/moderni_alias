@@ -5,18 +5,14 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
-import '../../models/quick_game_stats/quick_game_stats.dart';
+import '../../constants/text_styles.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
 import '../normal_game/widgets/played_word_value.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
-
-final quickGameStatsProvider = StateProvider.autoDispose<QuickGameStats?>(
-  (_) => null,
-  name: 'QuickGameStatsProvider',
-);
+import 'quick_game_stats_controller.dart';
 
 class QuickGameStatsScreen extends ConsumerWidget {
   @override
@@ -106,6 +102,10 @@ class QuickGameStatsScreen extends ConsumerWidget {
                     smallTitle: true,
                   ),
                   const SizedBox(height: 16),
+
+                  ///
+                  /// WORDS
+                  ///
                   ...List.generate(
                     quickGameStats.round.playedWords.length,
                     (index) {
@@ -117,6 +117,24 @@ class QuickGameStatsScreen extends ConsumerWidget {
                       );
                     },
                   ),
+                  const SizedBox(height: 16),
+
+                  ///
+                  /// AUDIO RECORDING
+                  ///
+                  if (quickGameStats.round.audioRecording != null) ...[
+                    Center(
+                      child: Text(
+                        quickGameStats.round.audioRecording!,
+                        style: ModerniAliasTextStyles.highscore,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    IconButton.filledTonal(
+                      onPressed: () => ref.read(quickGameStatsProvider.notifier).toggleAudio(quickGameStats.round.audioRecording!),
+                      icon: const Icon(Icons.play_arrow_rounded),
+                    ),
+                  ],
                   const SizedBox(height: 40),
                 ],
               ),

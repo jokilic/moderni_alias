@@ -5,17 +5,17 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../models/normal_game_stats/normal_game_stats.dart';
+import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/logger_service.dart';
 
-final normalGameStatsProvider = NotifierProvider.autoDispose<NormalGameStatsController, NormalGameStats?>(
-  NormalGameStatsController.new,
-  name: 'NormalGameStatsProvider',
+final quickGameStatsProvider = NotifierProvider.autoDispose<QuickGameStatsController, QuickGameStats?>(
+  QuickGameStatsController.new,
+  name: 'QuickGameStatsProvider',
 );
 
-class NormalGameStatsController extends AutoDisposeNotifier<NormalGameStats?> {
+class QuickGameStatsController extends AutoDisposeNotifier<QuickGameStats?> {
   @override
-  NormalGameStats? build() {
+  QuickGameStats? build() {
     init();
     ref.onDispose(dispose);
     return null;
@@ -63,8 +63,8 @@ class NormalGameStatsController extends AutoDisposeNotifier<NormalGameStats?> {
     }
   }
 
-  /// Updates state with new [NormalGameStats]
-  void updateState(NormalGameStats? newState) {
+  /// Updates state with new [QuickGameStats]
+  void updateState(QuickGameStats? newState) {
     state = newState;
   }
 }

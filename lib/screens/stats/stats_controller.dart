@@ -23,6 +23,7 @@ class StatsController extends AutoDisposeNotifier<int?> {
   @override
   int? build() {
     init();
+    ref.onDispose(dispose);
     return null;
   }
 
@@ -80,6 +81,14 @@ class StatsController extends AutoDisposeNotifier<int?> {
 
     /// Calculate stats
     calculateValues();
+  }
+
+  ///
+  /// DISPOSE
+  ///
+
+  void dispose() {
+    pageController.dispose();
   }
 
   ///
