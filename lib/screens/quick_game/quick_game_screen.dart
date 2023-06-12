@@ -7,7 +7,6 @@ import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
-import '../../widgets/fade_animation.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
@@ -30,85 +29,83 @@ class QuickGameScreen extends ConsumerWidget {
 
     final quickGameController = ref.watch(quickGameProvider);
 
-    return FadeAnimation(
-      child: WillPopScope(
-        onWillPop: () => exitGameModal(context),
-        child: Scaffold(
-          body: BackgroundImage(
-            child: SafeArea(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: 0,
-                    width: width,
-                    child: QuickGameInfoSection(
-                      correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
-                      wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
-                      exitGame: () => exitGameModal(context),
-                      showScores: () => showScores(
-                        playedWords: ref.read(playedWordsProvider),
-                        context: context,
-                      ),
+    return WillPopScope(
+      onWillPop: () => exitGameModal(context),
+      child: Scaffold(
+        body: BackgroundImage(
+          child: SafeArea(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  top: 0,
+                  width: width,
+                  child: QuickGameInfoSection(
+                    correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
+                    wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
+                    exitGame: () => exitGameModal(context),
+                    showScores: () => showScores(
+                      playedWords: ref.read(playedWordsProvider),
+                      context: context,
                     ),
                   ),
-                  if (currentGame == Game.quick)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOn(
-                          currentWord: currentWord,
-                          fillColor: countdownTimerFillColor,
-                          length: 60,
-                          onComplete: () => quickGameController.endGame(context),
-                        ),
-                      ),
-                    )
-                  else if (currentGame == Game.starting)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameStarting(
-                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                          onComplete: quickGameController.startRound,
-                        ),
-                      ),
-                    )
-                  else
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOff(
-                          onTap: quickGameController.start3SecondCountdown,
-                        ),
-                      ),
-                    ),
+                ),
+                if (currentGame == Game.quick)
                   Positioned(
+                    top: -75,
                     bottom: 0,
-                    width: width,
-                    child: WrongCorrectButtons(
-                      correctChosen: () => quickGameController.answerChosen(
-                        chosenAnswer: Answer.correct,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: GameOn(
+                        currentWord: currentWord,
+                        fillColor: countdownTimerFillColor,
+                        length: 60,
+                        onComplete: () => quickGameController.endGame(context),
                       ),
-                      wrongChosen: () => quickGameController.answerChosen(
-                        chosenAnswer: Answer.wrong,
+                    ),
+                  )
+                else if (currentGame == Game.starting)
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: GameStarting(
+                        currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                        onComplete: quickGameController.startRound,
+                      ),
+                    ),
+                  )
+                else
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: GameOff(
+                        onTap: quickGameController.start3SecondCountdown,
                       ),
                     ),
                   ),
-                ],
-              ),
+                Positioned(
+                  bottom: 0,
+                  width: width,
+                  child: WrongCorrectButtons(
+                    correctChosen: () => quickGameController.answerChosen(
+                      chosenAnswer: Answer.correct,
+                    ),
+                    wrongChosen: () => quickGameController.answerChosen(
+                      chosenAnswer: Answer.wrong,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

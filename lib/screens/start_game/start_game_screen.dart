@@ -16,7 +16,6 @@ import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_list_view.dart';
 import '../../widgets/background_image.dart';
-import '../../widgets/fade_animation.dart';
 import '../../widgets/flag_button.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
@@ -35,167 +34,165 @@ class StartGameScreen extends ConsumerWidget {
 
     final startGameController = ref.watch(startGameProvider);
 
-    return FadeAnimation(
-      child: Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
-            child: SizedBox(
-              height: double.infinity,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: AnimatedColumn(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GameTitle('dictionaryString'.tr()),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        createFlagButton(
-                          countryName: 'dictionaryCroatianString'.tr(),
-                          flagImage: ModerniAliasIcons.croatiaImage,
-                          selectedCountry: Flag.croatia,
-                          updateValue: () => startGameController.updateDictionary(Flag.croatia),
-                          isActive: chosenDictionary == Flag.croatia,
+    return Scaffold(
+      body: BackgroundImage(
+        child: SafeArea(
+          child: SizedBox(
+            height: double.infinity,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: AnimatedColumn(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GameTitle('dictionaryString'.tr()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      createFlagButton(
+                        countryName: 'dictionaryCroatianString'.tr(),
+                        flagImage: ModerniAliasIcons.croatiaImage,
+                        selectedCountry: Flag.croatia,
+                        updateValue: () => startGameController.updateDictionary(Flag.croatia),
+                        isActive: chosenDictionary == Flag.croatia,
+                      ),
+                      createFlagButton(
+                        countryName: 'dictionaryEnglishString'.tr(),
+                        flagImage: ModerniAliasIcons.unitedKingdomImage,
+                        selectedCountry: Flag.unitedKingdom,
+                        updateValue: () => startGameController.updateDictionary(Flag.unitedKingdom),
+                        isActive: chosenDictionary == Flag.unitedKingdom,
+                      ),
+                    ],
+                  ),
+                  GameTitle('teamsString'.tr()),
+                  HorizontalScroll(
+                    [
+                      createNumberOfTeamsButton(
+                        chosenNumberOfTeams: 2,
+                        updateValue: () => startGameController.updateNumberOfTeams(
+                          chosenNumber: 2,
                         ),
-                        createFlagButton(
-                          countryName: 'dictionaryEnglishString'.tr(),
-                          flagImage: ModerniAliasIcons.unitedKingdomImage,
-                          selectedCountry: Flag.unitedKingdom,
-                          updateValue: () => startGameController.updateDictionary(Flag.unitedKingdom),
-                          isActive: chosenDictionary == Flag.unitedKingdom,
+                        isActive: teamsLength == 2,
+                      ),
+                      createNumberOfTeamsButton(
+                        chosenNumberOfTeams: 3,
+                        updateValue: () => startGameController.updateNumberOfTeams(
+                          chosenNumber: 3,
                         ),
-                      ],
-                    ),
-                    GameTitle('teamsString'.tr()),
-                    HorizontalScroll(
-                      [
-                        createNumberOfTeamsButton(
-                          chosenNumberOfTeams: 2,
-                          updateValue: () => startGameController.updateNumberOfTeams(
-                            chosenNumber: 2,
-                          ),
-                          isActive: teamsLength == 2,
+                        isActive: teamsLength == 3,
+                      ),
+                      createNumberOfTeamsButton(
+                        chosenNumberOfTeams: 4,
+                        updateValue: () => startGameController.updateNumberOfTeams(
+                          chosenNumber: 4,
                         ),
-                        createNumberOfTeamsButton(
-                          chosenNumberOfTeams: 3,
-                          updateValue: () => startGameController.updateNumberOfTeams(
-                            chosenNumber: 3,
-                          ),
-                          isActive: teamsLength == 3,
-                        ),
-                        createNumberOfTeamsButton(
-                          chosenNumberOfTeams: 4,
-                          updateValue: () => startGameController.updateNumberOfTeams(
-                            chosenNumber: 4,
-                          ),
-                          isActive: teamsLength == 4,
-                        ),
-                      ],
-                    ),
-                    GameTitle('numberOfPointsString'.tr()),
-                    HorizontalScroll(
-                      [
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 25,
-                          updateValue: () => ref.read(pointsToWinProvider.notifier).state = 25,
-                          isActive: pointsToWin == 25,
-                        ),
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 50,
-                          updateValue: () => ref.read(pointsToWinProvider.notifier).state = 50,
-                          isActive: pointsToWin == 50,
-                        ),
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 75,
-                          updateValue: () => ref.read(pointsToWinProvider.notifier).state = 75,
-                          isActive: pointsToWin == 75,
-                        ),
-                        createNumberOfPointsButton(
-                          chosenNumberOfPoints: 100,
-                          updateValue: () => ref.read(pointsToWinProvider.notifier).state = 100,
-                          isActive: pointsToWin == 100,
-                        ),
-                      ],
-                    ),
-                    GameTitle('lengthOfRoundString'.tr()),
-                    HorizontalScroll(
-                      [
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 20,
-                          updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 20,
-                          isActive: lengthOfRound == 20,
-                        ),
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 45,
-                          updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 45,
-                          isActive: lengthOfRound == 45,
-                        ),
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 60,
-                          updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 60,
-                          isActive: lengthOfRound == 60,
-                        ),
-                        createLengthOfRoundButton(
-                          chosenLengthOfRound: 90,
-                          updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
-                          isActive: lengthOfRound == 90,
-                        ),
-                      ],
-                    ),
-                    GameTitle('teamNamesString'.tr()),
-                    AnimationLimiter(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: teamsLength,
-                        itemBuilder: (_, index) {
-                          final team = teams[index];
+                        isActive: teamsLength == 4,
+                      ),
+                    ],
+                  ),
+                  GameTitle('numberOfPointsString'.tr()),
+                  HorizontalScroll(
+                    [
+                      createNumberOfPointsButton(
+                        chosenNumberOfPoints: 25,
+                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 25,
+                        isActive: pointsToWin == 25,
+                      ),
+                      createNumberOfPointsButton(
+                        chosenNumberOfPoints: 50,
+                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 50,
+                        isActive: pointsToWin == 50,
+                      ),
+                      createNumberOfPointsButton(
+                        chosenNumberOfPoints: 75,
+                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 75,
+                        isActive: pointsToWin == 75,
+                      ),
+                      createNumberOfPointsButton(
+                        chosenNumberOfPoints: 100,
+                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 100,
+                        isActive: pointsToWin == 100,
+                      ),
+                    ],
+                  ),
+                  GameTitle('lengthOfRoundString'.tr()),
+                  HorizontalScroll(
+                    [
+                      createLengthOfRoundButton(
+                        chosenLengthOfRound: 20,
+                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 20,
+                        isActive: lengthOfRound == 20,
+                      ),
+                      createLengthOfRoundButton(
+                        chosenLengthOfRound: 45,
+                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 45,
+                        isActive: lengthOfRound == 45,
+                      ),
+                      createLengthOfRoundButton(
+                        chosenLengthOfRound: 60,
+                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 60,
+                        isActive: lengthOfRound == 60,
+                      ),
+                      createLengthOfRoundButton(
+                        chosenLengthOfRound: 90,
+                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
+                        isActive: lengthOfRound == 90,
+                      ),
+                    ],
+                  ),
+                  GameTitle('teamNamesString'.tr()),
+                  AnimationLimiter(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: teamsLength,
+                      itemBuilder: (_, index) {
+                        final team = teams[index];
 
-                          return AnimatedListView(
-                            fastAnimations: true,
-                            index: index,
-                            child: NameOfTeam(
-                              key: ValueKey(team),
-                              hintText: 'teamNameString'.tr(),
-                              textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
-                              onChanged: (value) => startGameController.teamNameUpdated(
-                                passedTeam: team,
-                                value: value,
-                              ),
+                        return AnimatedListView(
+                          fastAnimations: true,
+                          index: index,
+                          child: NameOfTeam(
+                            key: ValueKey(team),
+                            hintText: 'teamNameString'.tr(),
+                            textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
+                            onChanged: (value) => startGameController.teamNameUpdated(
+                              passedTeam: team,
+                              value: value,
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Center(
-                        child: AnimatedSwitcher(
-                          duration: ModerniAliasDurations.animation,
-                          child: Text(
-                            key: ValueKey(validationMessage),
-                            validationMessage ?? '',
-                            style: ModerniAliasTextStyles.validation,
-                            textAlign: TextAlign.center,
                           ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Center(
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.animation,
+                        child: Text(
+                          key: ValueKey(validationMessage),
+                          validationMessage ?? '',
+                          style: ModerniAliasTextStyles.validation,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: PlayButton(
-                        text: 'playTheGameString'.tr().toUpperCase(),
-                        onPressed: () {
-                          /// Validation successfull, go to [NormalGameScreen]
-                          if (startGameController.validateTeams()) {
-                            goToNormalGameScreen(context);
-                          }
-                        },
-                      ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: PlayButton(
+                      text: 'playTheGameString'.tr().toUpperCase(),
+                      onPressed: () {
+                        /// Validation successfull, go to [NormalGameScreen]
+                        if (startGameController.validateTeams()) {
+                          goToNormalGameScreen(context);
+                        }
+                      },
                     ),
-                    const SizedBox(height: 50),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 50),
+                ],
               ),
             ),
           ),

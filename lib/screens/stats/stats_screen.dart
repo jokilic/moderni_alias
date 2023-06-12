@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/durations.dart';
 import '../../widgets/background_image.dart';
-import '../../widgets/fade_animation.dart';
 import '../../widgets/hero_title.dart';
 import 'stats_controller.dart';
 import 'widgets/stats_general_section.dart';
@@ -19,41 +18,39 @@ class StatsScreen extends ConsumerWidget {
     final currentIndex = ref.watch(statsProvider);
     final statsNotifier = ref.watch(statsProvider.notifier);
 
-    return FadeAnimation(
-      child: Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
-            child: SizedBox(
-              height: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 32),
-                  HeroTitle(smallText: 'statsTitle'.tr()),
-                  const SizedBox(height: 32),
-                  StatsSegmentedWidget(),
-                  const SizedBox(height: 24),
-                  Expanded(
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.animation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: currentIndex != null
-                          ? PageView(
-                              controller: statsNotifier.pageController,
-                              onPageChanged: statsNotifier.pageChanged,
-                              children: [
-                                StatsGeneralSection(),
-                                StatsNormalSection(),
-                                StatsQuickSection(),
-                              ],
-                            )
-                          : StatsInfoSection(),
-                    ),
+    return Scaffold(
+      body: BackgroundImage(
+        child: SafeArea(
+          child: SizedBox(
+            height: double.infinity,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 32),
+                HeroTitle(smallText: 'statsTitle'.tr()),
+                const SizedBox(height: 32),
+                StatsSegmentedWidget(),
+                const SizedBox(height: 24),
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: ModerniAliasDurations.animation,
+                    switchInCurve: Curves.easeIn,
+                    switchOutCurve: Curves.easeIn,
+                    child: currentIndex != null
+                        ? PageView(
+                            controller: statsNotifier.pageController,
+                            onPageChanged: statsNotifier.pageChanged,
+                            children: [
+                              StatsGeneralSection(),
+                              StatsNormalSection(),
+                              StatsQuickSection(),
+                            ],
+                          )
+                        : StatsInfoSection(),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
