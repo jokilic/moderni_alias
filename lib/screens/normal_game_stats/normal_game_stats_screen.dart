@@ -7,6 +7,7 @@ import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/team/team.dart';
+import '../../services/logger_service.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
@@ -33,6 +34,8 @@ class NormalGameStatsScreen extends ConsumerWidget {
       final textTime = timeago.format(normalGameStats.startTime, locale: locale);
       final language = normalGameStats.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
       final sortedTeams = List<Team>.from(normalGameStats.teams)..sort((a, b) => b.points.compareTo(a.points));
+
+      ref.read(loggerProvider).wtf(normalGameStats.rounds.first.audioRecording);
 
       return Scaffold(
         body: BackgroundImage(

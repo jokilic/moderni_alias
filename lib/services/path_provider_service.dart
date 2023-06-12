@@ -31,7 +31,5 @@ class PathProviderService {
 
   Future<void> init() async {
     appDocDirectory = await getApplicationDocumentsDirectory().then((directory) => directory.path);
-
-    logger.wtf('appDocDirectory: $appDocDirectory');
   }
 }

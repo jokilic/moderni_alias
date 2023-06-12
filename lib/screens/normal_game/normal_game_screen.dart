@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import './widgets/show_scores.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
+import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
@@ -30,6 +31,8 @@ class NormalGameScreen extends ConsumerWidget {
     final teams = ref.watch(teamsProvider);
 
     final currentWord = ref.watch(dictionaryProvider);
+
+    ref.watch(audioRecordProvider);
 
     final normalGameController = ref.watch(normalGameProvider);
 

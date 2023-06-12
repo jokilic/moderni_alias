@@ -27,37 +27,51 @@ class AudioRecordService {
   AudioRecordService({
     required this.logger,
     required this.path,
-  });
+  }) {
+    init();
+  }
 
   ///
   /// VARIABLES
   ///
 
-  late final record = AudioRecorder();
+  AudioRecorder? record;
+
+  ///
+  /// INIT
+  ///
+
+  Future<void> init() async {
+    record = AudioRecorder();
+    await askRecordPermission();
+  }
 
   ///
   /// DISPOSE
   ///
 
   void dispose() {
-    record.dispose();
+    record?.dispose();
   }
 
   ///
   /// METHODS
   ///
 
+  /// Asks for permission and returns value
+  Future<bool> askRecordPermission() async => await record?.hasPermission() ?? false;
+
   /// If permission is granted, records audio
   Future<void> startRecording(String path) async {
     /// Check for audio record permission
-    final hasPermission = await record.hasPermission();
+    final hasPermission = await askRecordPermission();
 
     /// Start recording
     if (hasPermission) {
-      await record.start(const RecordConfig(), path: path);
+      await record?.start(const RecordConfig(), path: path);
     }
   }
 
   /// Stops recording and returns `path` of the file
-  Future<String?> stopRecording() async => record.stop();
+  Future<String?> stopRecording() async => record?.stop();
 }
