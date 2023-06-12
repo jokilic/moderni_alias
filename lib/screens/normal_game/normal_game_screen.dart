@@ -10,6 +10,7 @@ import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
+import '../../widgets/fade_animation.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
@@ -35,85 +36,87 @@ class NormalGameScreen extends ConsumerWidget {
 
     final normalGameController = ref.watch(normalGameProvider);
 
-    return WillPopScope(
-      onWillPop: () => exitGameModal(context),
-      child: Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned(
-                  top: 0,
-                  width: width,
-                  child: NormalGameInfoSection(
-                    currentlyPlayingTeam: currentlyPlayingTeam,
-                    exitGame: () => exitGameModal(context),
-                    showScores: () => showScores(
-                      teams: teams,
-                      playedWords: playedWords,
-                      context: context,
-                    ),
-                  ),
-                ),
-                if (currentGame == Game.normal)
+    return FadeAnimation(
+      child: WillPopScope(
+        onWillPop: () => exitGameModal(context),
+        child: Scaffold(
+          body: BackgroundImage(
+            child: SafeArea(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
                   Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameOn(
-                        currentWord: currentWord,
-                        fillColor: countdownTimerFillColor,
-                        length: lengthOfRound,
-                        onComplete: () => normalGameController.stopGameCheckWinner(context),
+                    top: 0,
+                    width: width,
+                    child: NormalGameInfoSection(
+                      currentlyPlayingTeam: currentlyPlayingTeam,
+                      exitGame: () => exitGameModal(context),
+                      showScores: () => showScores(
+                        teams: teams,
+                        playedWords: playedWords,
+                        context: context,
                       ),
                     ),
-                  )
-                else if (currentGame == Game.starting)
-                  Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameStarting(
-                        currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        onComplete: () => normalGameController.startRound(
-                          chosenGame: Game.normal,
+                  ),
+                  if (currentGame == Game.normal)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOn(
+                          currentWord: currentWord,
+                          fillColor: countdownTimerFillColor,
+                          length: lengthOfRound,
+                          onComplete: () => normalGameController.stopGameCheckWinner(context),
+                        ),
+                      ),
+                    )
+                  else if (currentGame == Game.starting)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameStarting(
+                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                          onComplete: () => normalGameController.startRound(
+                            chosenGame: Game.normal,
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOff(
+                          onTap: normalGameController.start3SecondCountdown,
                         ),
                       ),
                     ),
-                  )
-                else
                   Positioned(
-                    top: -75,
                     bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameOff(
-                        onTap: normalGameController.start3SecondCountdown,
+                    width: width,
+                    child: WrongCorrectButtons(
+                      wrongChosen: () => normalGameController.answerChosen(
+                        chosenAnswer: Answer.wrong,
+                      ),
+                      correctChosen: () => normalGameController.answerChosen(
+                        chosenAnswer: Answer.correct,
                       ),
                     ),
                   ),
-                Positioned(
-                  bottom: 0,
-                  width: width,
-                  child: WrongCorrectButtons(
-                    wrongChosen: () => normalGameController.answerChosen(
-                      chosenAnswer: Answer.wrong,
-                    ),
-                    correctChosen: () => normalGameController.answerChosen(
-                      chosenAnswer: Answer.correct,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

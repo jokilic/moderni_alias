@@ -8,6 +8,7 @@ import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../widgets/background_image.dart';
+import '../../widgets/fade_animation.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
 import '../normal_game/widgets/played_word_value.dart';
@@ -26,93 +27,95 @@ class QuickGameStatsScreen extends StatelessWidget {
     final textTime = timeago.format(quickGame.startTime, locale: locale);
     final language = quickGame.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
 
-    return Scaffold(
-      body: BackgroundImage(
-        child: SafeArea(
-          child: SizedBox(
-            height: double.infinity,
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                const SizedBox(height: 32),
-                const HeroTitle(),
-                const SizedBox(height: 24),
-                GameTitle(
-                  'statsWhenTitle'.tr(),
-                  smallTitle: true,
-                ),
-                const SizedBox(height: 8),
-                StatsTextIconWidget(
-                  text: 'statsWhenText'.tr(
-                    namedArgs: {
-                      'date': date,
-                      'time': time,
-                      'textTime': textTime,
-                    },
+    return FadeAnimation(
+      child: Scaffold(
+        body: BackgroundImage(
+          child: SafeArea(
+            child: SizedBox(
+              height: double.infinity,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const SizedBox(height: 32),
+                  const HeroTitle(),
+                  const SizedBox(height: 24),
+                  GameTitle(
+                    'statsWhenTitle'.tr(),
+                    smallTitle: true,
                   ),
-                  icon: ModerniAliasIcons.clockImage,
-                ),
-                const SizedBox(height: 16),
-                GameTitle(
-                  'statsLanguageTitle'.tr(),
-                  smallTitle: true,
-                ),
-                const SizedBox(height: 8),
-                StatsTextIconWidget(
-                  text: 'statsLanguageText'.tr(
-                    namedArgs: {
-                      'language': language,
-                    },
+                  const SizedBox(height: 8),
+                  StatsTextIconWidget(
+                    text: 'statsWhenText'.tr(
+                      namedArgs: {
+                        'date': date,
+                        'time': time,
+                        'textTime': textTime,
+                      },
+                    ),
+                    icon: ModerniAliasIcons.clockImage,
                   ),
-                  icon: quickGame.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
-                  size: 58,
-                ),
-                const SizedBox(height: 16),
-                GameTitle(
-                  'statsLengthOfRoundTitle'.tr(),
-                  smallTitle: true,
-                ),
-                const SizedBox(height: 8),
-                StatsTextIconWidget(
-                  text: 'statsLengthOfRoundQuickText'.tr(),
-                  icon: ModerniAliasIcons.hourglassImage,
-                ),
-                const SizedBox(height: 16),
-                GameTitle(
-                  'statsPointsToWinQuickTitle'.tr(),
-                  smallTitle: true,
-                ),
-                const SizedBox(height: 8),
-                StatsValueWidget(
-                  text: 'statsCorrectQuick'.tr(),
-                  value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.correct).length,
-                  bigText: true,
-                ),
-                const SizedBox(height: 8),
-                StatsValueWidget(
-                  text: 'statsWrongQuick'.tr(),
-                  value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.wrong).length,
-                  bigText: true,
-                ),
-                const SizedBox(height: 16),
-                GameTitle(
-                  'statsWordsTitle'.tr(),
-                  smallTitle: true,
-                ),
-                const SizedBox(height: 16),
-                ...List.generate(
-                  quickGame.round.playedWords.length,
-                  (index) {
-                    final playedWord = quickGame.round.playedWords[index];
+                  const SizedBox(height: 16),
+                  GameTitle(
+                    'statsLanguageTitle'.tr(),
+                    smallTitle: true,
+                  ),
+                  const SizedBox(height: 8),
+                  StatsTextIconWidget(
+                    text: 'statsLanguageText'.tr(
+                      namedArgs: {
+                        'language': language,
+                      },
+                    ),
+                    icon: quickGame.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
+                    size: 58,
+                  ),
+                  const SizedBox(height: 16),
+                  GameTitle(
+                    'statsLengthOfRoundTitle'.tr(),
+                    smallTitle: true,
+                  ),
+                  const SizedBox(height: 8),
+                  StatsTextIconWidget(
+                    text: 'statsLengthOfRoundQuickText'.tr(),
+                    icon: ModerniAliasIcons.hourglassImage,
+                  ),
+                  const SizedBox(height: 16),
+                  GameTitle(
+                    'statsPointsToWinQuickTitle'.tr(),
+                    smallTitle: true,
+                  ),
+                  const SizedBox(height: 8),
+                  StatsValueWidget(
+                    text: 'statsCorrectQuick'.tr(),
+                    value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.correct).length,
+                    bigText: true,
+                  ),
+                  const SizedBox(height: 8),
+                  StatsValueWidget(
+                    text: 'statsWrongQuick'.tr(),
+                    value: quickGame.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.wrong).length,
+                    bigText: true,
+                  ),
+                  const SizedBox(height: 16),
+                  GameTitle(
+                    'statsWordsTitle'.tr(),
+                    smallTitle: true,
+                  ),
+                  const SizedBox(height: 16),
+                  ...List.generate(
+                    quickGame.round.playedWords.length,
+                    (index) {
+                      final playedWord = quickGame.round.playedWords[index];
 
-                    return PlayedWordValue(
-                      word: playedWord.word,
-                      chosenAnswer: playedWord.chosenAnswer,
-                    );
-                  },
-                ),
-                const SizedBox(height: 40),
-              ],
+                      return PlayedWordValue(
+                        word: playedWord.word,
+                        chosenAnswer: playedWord.chosenAnswer,
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),
