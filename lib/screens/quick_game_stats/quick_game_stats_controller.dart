@@ -28,6 +28,8 @@ class QuickGameStatsController extends AutoDisposeNotifier<QuickGameStats?> {
   late final LoggerService logger;
   late final AudioPlayer audioPlayer;
 
+  String? currentPath;
+
   ///
   /// INIT
   ///
@@ -51,16 +53,17 @@ class QuickGameStatsController extends AutoDisposeNotifier<QuickGameStats?> {
 
   /// Plays / pauses audio file
   Future<void> toggleAudio(String path) async {
-    /// Pause audio file
-    if (audioPlayer.playing) {
-      await audioPlayer.pause();
+    /// User tapped the already active audio
+    if (currentPath == path) {
+      unawaited(audioPlayer.playing ? audioPlayer.pause() : audioPlayer.play());
+      return;
     }
 
-    /// Play audio file
-    else {
-      await audioPlayer.setFilePath(path, preload: false);
-      unawaited(audioPlayer.play());
-    }
+    /// User tapped new audio, play it
+    currentPath = path;
+    await audioPlayer.stop();
+    await audioPlayer.setFilePath(path, preload: false);
+    unawaited(audioPlayer.play());
   }
 
   /// Updates state with new [QuickGameStats]
