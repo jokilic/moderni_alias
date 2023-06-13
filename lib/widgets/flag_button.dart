@@ -67,7 +67,7 @@ Widget createFlagButton({
   required String countryName,
   required Flag selectedCountry,
   required String flagImage,
-  required Function() updateValue,
+  required Function() onTap,
   required bool isActive,
 }) =>
     FlagButton(
@@ -75,5 +75,5 @@ Widget createFlagButton({
       backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
       color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
       flagImage: flagImage,
-      onTap: updateValue,
+      onTap: onTap,
     );

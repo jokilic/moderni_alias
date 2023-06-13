@@ -6,7 +6,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 
 class GameButton extends StatelessWidget {
   final Function() onTap;
-  final int number;
+  final String value;
   final Color color;
   final Color backgroundColor;
   final double horizontalPadding;
@@ -15,7 +15,7 @@ class GameButton extends StatelessWidget {
 
   const GameButton({
     required this.onTap,
-    required this.number,
+    required this.value,
     required this.color,
     required this.backgroundColor,
     required this.horizontalPadding,
@@ -46,7 +46,7 @@ class GameButton extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  number.toString(),
+                  value,
                   style: ModerniAliasTextStyles.gameButton.copyWith(
                     fontSize: fontSize,
                     color: color,

@@ -52,14 +52,14 @@ class StartGameScreen extends ConsumerWidget {
                         countryName: 'dictionaryCroatianString'.tr(),
                         flagImage: ModerniAliasIcons.croatiaImage,
                         selectedCountry: Flag.croatia,
-                        updateValue: () => startGameController.updateDictionary(Flag.croatia),
+                        onTap: () => startGameController.updateDictionary(Flag.croatia),
                         isActive: chosenDictionary == Flag.croatia,
                       ),
                       createFlagButton(
                         countryName: 'dictionaryEnglishString'.tr(),
                         flagImage: ModerniAliasIcons.unitedKingdomImage,
                         selectedCountry: Flag.unitedKingdom,
-                        updateValue: () => startGameController.updateDictionary(Flag.unitedKingdom),
+                        onTap: () => startGameController.updateDictionary(Flag.unitedKingdom),
                         isActive: chosenDictionary == Flag.unitedKingdom,
                       ),
                     ],
@@ -68,22 +68,22 @@ class StartGameScreen extends ConsumerWidget {
                   HorizontalScroll(
                     [
                       createNumberOfTeamsButton(
-                        chosenNumberOfTeams: 2,
-                        updateValue: () => startGameController.updateNumberOfTeams(
+                        value: '2',
+                        onTap: () => startGameController.updateNumberOfTeams(
                           chosenNumber: 2,
                         ),
                         isActive: teamsLength == 2,
                       ),
                       createNumberOfTeamsButton(
-                        chosenNumberOfTeams: 3,
-                        updateValue: () => startGameController.updateNumberOfTeams(
+                        value: '3',
+                        onTap: () => startGameController.updateNumberOfTeams(
                           chosenNumber: 3,
                         ),
                         isActive: teamsLength == 3,
                       ),
                       createNumberOfTeamsButton(
-                        chosenNumberOfTeams: 4,
-                        updateValue: () => startGameController.updateNumberOfTeams(
+                        value: '4',
+                        onTap: () => startGameController.updateNumberOfTeams(
                           chosenNumber: 4,
                         ),
                         isActive: teamsLength == 4,
@@ -94,23 +94,23 @@ class StartGameScreen extends ConsumerWidget {
                   HorizontalScroll(
                     [
                       createNumberOfPointsButton(
-                        chosenNumberOfPoints: 25,
-                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 25,
+                        value: '25',
+                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 25,
                         isActive: pointsToWin == 25,
                       ),
                       createNumberOfPointsButton(
-                        chosenNumberOfPoints: 50,
-                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 50,
+                        value: '50',
+                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 50,
                         isActive: pointsToWin == 50,
                       ),
                       createNumberOfPointsButton(
-                        chosenNumberOfPoints: 75,
-                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 75,
+                        value: '75',
+                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 75,
                         isActive: pointsToWin == 75,
                       ),
                       createNumberOfPointsButton(
-                        chosenNumberOfPoints: 100,
-                        updateValue: () => ref.read(pointsToWinProvider.notifier).state = 100,
+                        value: '100',
+                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 100,
                         isActive: pointsToWin == 100,
                       ),
                     ],
@@ -119,23 +119,28 @@ class StartGameScreen extends ConsumerWidget {
                   HorizontalScroll(
                     [
                       createLengthOfRoundButton(
-                        chosenLengthOfRound: 20,
-                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 20,
+                        value: '20',
+                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 20,
                         isActive: lengthOfRound == 20,
                       ),
                       createLengthOfRoundButton(
-                        chosenLengthOfRound: 45,
-                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 45,
+                        value: '45',
+                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 45,
                         isActive: lengthOfRound == 45,
                       ),
                       createLengthOfRoundButton(
-                        chosenLengthOfRound: 60,
-                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 60,
+                        value: '60',
+                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 60,
                         isActive: lengthOfRound == 60,
                       ),
                       createLengthOfRoundButton(
-                        chosenLengthOfRound: 90,
-                        updateValue: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
+                        value: '90',
+                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
+                        isActive: lengthOfRound == 90,
+                      ),
+                      createLengthOfRoundButton(
+                        value: '•••',
+                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
                         isActive: lengthOfRound == 90,
                       ),
                     ],

@@ -4,8 +4,8 @@ import '../../../constants/colors.dart';
 import 'game_button.dart';
 
 Widget createNumberOfPointsButton({
-  required int chosenNumberOfPoints,
-  required Function() updateValue,
+  required String value,
+  required Function() onTap,
   required bool isActive,
 }) =>
     GameButton(
@@ -13,7 +13,7 @@ Widget createNumberOfPointsButton({
       color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
       fontSize: 24,
       horizontalPadding: 12,
-      number: chosenNumberOfPoints,
-      onTap: updateValue,
+      value: value,
+      onTap: onTap,
       size: 80,
     );

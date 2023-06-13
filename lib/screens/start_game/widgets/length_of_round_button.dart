@@ -4,8 +4,8 @@ import '../../../constants/colors.dart';
 import 'game_button.dart';
 
 Widget createLengthOfRoundButton({
-  required int chosenLengthOfRound,
-  required Function() updateValue,
+  required String value,
+  required Function() onTap,
   required bool isActive,
 }) =>
     GameButton(
@@ -13,7 +13,7 @@ Widget createLengthOfRoundButton({
       color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
       fontSize: 24,
       horizontalPadding: 12,
-      number: chosenLengthOfRound,
-      onTap: updateValue,
+      value: value,
+      onTap: onTap,
       size: 80,
     );
