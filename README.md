@@ -45,6 +45,5 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] When creating teams, autogenerate team names if the user taps a button
 - [ ] Add 'Speed game' / 'Time game'
 - [ ] Record audio for each round and put it in Stats

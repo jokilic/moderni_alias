@@ -153,12 +153,16 @@ class StartGameScreen extends ConsumerWidget {
                           fastAnimations: true,
                           index: index,
                           child: NameOfTeam(
+                            textEditingController: team.textEditingController,
                             key: ValueKey(team),
                             hintText: 'teamNameString'.tr(),
                             textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
                             onChanged: (value) => startGameController.teamNameUpdated(
                               passedTeam: team,
                               value: value,
+                            ),
+                            randomizePressed: () => startGameController.randomizeTeamName(
+                              passedTeam: team,
                             ),
                           ),
                         );

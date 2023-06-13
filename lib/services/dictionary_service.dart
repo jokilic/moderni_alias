@@ -8,6 +8,7 @@ import '../dictionary/croatian/verbs.dart';
 import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
+import '../util/capitalize_string.dart';
 import '../util/providers.dart';
 import 'logger_service.dart';
 
@@ -87,5 +88,19 @@ class DictionaryNotifier extends Notifier<String> {
 
     /// Return randomized word from the dictionary
     return state = currentDictionary[ref.read(randomProvider).nextInt(currentDictionary.length)];
+  }
+
+  /// Takes words from the dictionary and returns a random team name
+  String getRandomTeamName() {
+    /// Random adjective
+    final adjective = ref.read(chosenDictionaryProvider) == Flag.croatia
+        ? pridjevi[ref.read(randomProvider).nextInt(pridjevi.length)]
+        : adjectives[ref.read(randomProvider).nextInt(adjectives.length)];
+
+    /// Random noun
+    final noun =
+        ref.read(chosenDictionaryProvider) == Flag.croatia ? imenice[ref.read(randomProvider).nextInt(imenice.length)] : nouns[ref.read(randomProvider).nextInt(nouns.length)];
+
+    return capitalizeFirstLetter('$adjective $noun');
   }
 }

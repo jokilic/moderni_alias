@@ -18,6 +18,7 @@ class TeamAdapter extends TypeAdapter<Team> {
     };
     return Team(
       name: fields[1] as String,
+      textEditingController: fields[5] as TextEditingController,
       points: fields[2] as int,
       correctPoints: fields[3] as int,
       wrongPoints: fields[4] as int,
@@ -27,7 +28,7 @@ class TeamAdapter extends TypeAdapter<Team> {
   @override
   void write(BinaryWriter writer, Team obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
@@ -35,7 +36,9 @@ class TeamAdapter extends TypeAdapter<Team> {
       ..writeByte(3)
       ..write(obj.correctPoints)
       ..writeByte(4)
-      ..write(obj.wrongPoints);
+      ..write(obj.wrongPoints)
+      ..writeByte(5)
+      ..write(obj.textEditingController);
   }
 
   @override

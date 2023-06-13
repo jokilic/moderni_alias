@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
@@ -6,7 +7,7 @@ import '../../models/team/team.dart';
 import '../../services/dictionary_service.dart';
 
 final teamsProvider = StateProvider.autoDispose<List<Team>>(
-  (_) => [for (var i = 0; i < 2; i++) Team(name: '')],
+  (_) => [for (var i = 0; i < 2; i++) Team(name: '', textEditingController: TextEditingController())],
   name: 'TeamsProvider',
 );
 final teamsLengthProvider = StateProvider.autoDispose<int>(
@@ -50,7 +51,7 @@ class StartGameController {
   void updateNumberOfTeams({required int chosenNumber}) {
     ref.read(teamsProvider.notifier).state
       ..clear()
-      ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '')]);
+      ..addAll([for (var i = 0; i < chosenNumber; i++) Team(name: '', textEditingController: TextEditingController())]);
     ref.read(teamsLengthProvider.notifier).state = chosenNumber;
   }
 
@@ -60,7 +61,6 @@ class StartGameController {
   /// Checks if there are [Team] with the same `name` or with empty `name`
   bool validateTeams() {
     final teams = ref.read(teamsProvider);
-
     final nameSet = teams.map((team) => team.name).toSet();
 
     /// Found a team with an empty name
@@ -78,5 +78,13 @@ class StartGameController {
     /// No teams with the same name or empty names found
     ref.read(validationMessageProvider.notifier).state = null;
     return true;
+  }
+
+  /// Takes words from the dictionary and randomizes team names
+  void randomizeTeamName({required Team passedTeam}) {
+    final randomName = ref.read(dictionaryProvider.notifier).getRandomTeamName();
+
+    teamNameUpdated(passedTeam: passedTeam, value: randomName);
+    passedTeam.textEditingController.text = randomName;
   }
 }

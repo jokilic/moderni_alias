@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'team.g.dart';
@@ -16,8 +17,12 @@ class Team extends HiveObject {
   @HiveField(4)
   int wrongPoints;
 
+  @HiveField(5)
+  TextEditingController textEditingController;
+
   Team({
     required this.name,
+    required this.textEditingController,
     this.points = 0,
     this.correctPoints = 0,
     this.wrongPoints = 0,
@@ -28,14 +33,16 @@ class Team extends HiveObject {
     int? points,
     int? correctPoints,
     int? wrongPoints,
+    TextEditingController? textEditingController,
   }) =>
       Team(
         name: name ?? this.name,
         points: points ?? this.points,
         correctPoints: correctPoints ?? this.correctPoints,
         wrongPoints: wrongPoints ?? this.wrongPoints,
+        textEditingController: textEditingController ?? this.textEditingController,
       );
 
   @override
-  String toString() => 'Team(name: $name, points: $points, correctPoints: $correctPoints, wrongPoints: $wrongPoints)';
+  String toString() => 'Team(name: $name, points: $points, correctPoints: $correctPoints, wrongPoints: $wrongPoints, textEditingController: $textEditingController)';
 }

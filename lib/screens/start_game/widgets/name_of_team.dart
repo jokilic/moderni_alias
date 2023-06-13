@@ -5,12 +5,16 @@ import '../../../constants/text_styles.dart';
 
 class NameOfTeam extends StatelessWidget {
   final String hintText;
+  final TextEditingController textEditingController;
   final Function(String value) onChanged;
+  final Function() randomizePressed;
   final TextInputAction textInputAction;
 
   const NameOfTeam({
     required this.hintText,
+    required this.textEditingController,
     required this.onChanged,
+    required this.randomizePressed,
     required this.textInputAction,
     Key? key,
   }) : super(key: key);
@@ -22,11 +26,20 @@ class NameOfTeam extends StatelessWidget {
           vertical: 12,
         ),
         child: TextField(
+          controller: textEditingController,
           textInputAction: textInputAction,
           onChanged: onChanged,
           style: ModerniAliasTextStyles.teamNameTextField,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
+            suffixIcon: IconButton(
+              onPressed: randomizePressed,
+              icon: const Icon(
+                Icons.casino_rounded,
+                size: 30,
+                color: ModerniAliasColors.whiteColor,
+              ),
+            ),
             border: InputBorder.none,
             focusedBorder: buildInputBorder(),
             enabledBorder: buildInputBorder(),
