@@ -68,7 +68,12 @@ class AudioRecordService {
 
     /// Start recording
     if (hasPermission) {
-      await record?.start(const RecordConfig(), path: path);
+      /// Wrap it in `try / catch` because some devices don't have a microphone
+      try {
+        await record?.start(const RecordConfig(), path: path);
+      } catch (e) {
+        logger.e('Error in startRecording()\n$e');
+      }
     }
   }
 

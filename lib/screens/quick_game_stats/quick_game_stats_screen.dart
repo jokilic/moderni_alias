@@ -14,9 +14,20 @@ import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import 'quick_game_stats_controller.dart';
 
-class QuickGameStatsScreen extends ConsumerWidget {
+class QuickGameStatsScreen extends ConsumerStatefulWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _QuickGameStatsScreenState();
+}
+
+class _QuickGameStatsScreenState extends ConsumerState<QuickGameStatsScreen> {
+  @override
+  void dispose() {
+    ref.invalidate(quickGameStatsProvider);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final quickGameStats = ref.watch(quickGameStatsProvider);
 
     /// `QuickGameStats` are properly passed, show screen

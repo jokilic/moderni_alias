@@ -14,9 +14,20 @@ import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
 import 'normal_game_stats_controller.dart';
 
-class NormalGameStatsScreen extends ConsumerWidget {
+class NormalGameStatsScreen extends ConsumerStatefulWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _NormalGameStatsScreenState();
+}
+
+class _NormalGameStatsScreenState extends ConsumerState<NormalGameStatsScreen> {
+  @override
+  void dispose() {
+    ref.invalidate(normalGameStatsProvider);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final normalGameStats = ref.watch(normalGameStatsProvider);
 
     /// `NormalGameStats` are properly passed, show screen
