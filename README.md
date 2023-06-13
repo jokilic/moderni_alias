@@ -45,5 +45,6 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] Add 'Speed game' / 'Time game'
 - [ ] Record audio for each round and put it in Stats
+- [ ] Add 'Speed game' / 'Time game'
+- [ ] Add a widget for custom input for Teams, NumberOfPoints and LengthOfRound
