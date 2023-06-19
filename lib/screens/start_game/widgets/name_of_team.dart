@@ -19,6 +19,14 @@ class NameOfTeam extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  // Make Input Border
+  UnderlineInputBorder buildInputBorder() => const UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: ModerniAliasColors.whiteColor,
+          width: 2,
+        ),
+      );
+
   @override
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(
@@ -52,11 +60,3 @@ class NameOfTeam extends StatelessWidget {
         ),
       );
 }
-
-// Make Input Border
-UnderlineInputBorder buildInputBorder() => const UnderlineInputBorder(
-      borderSide: BorderSide(
-        color: ModerniAliasColors.whiteColor,
-        width: 2,
-      ),
-    );

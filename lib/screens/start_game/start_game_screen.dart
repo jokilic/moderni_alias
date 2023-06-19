@@ -21,6 +21,7 @@ import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
 import 'start_game_controller.dart';
 import 'widgets/horizontal_row.dart';
+import 'widgets/show_custom_value_sheet.dart';
 
 class StartGameScreen extends ConsumerWidget {
   @override
@@ -140,8 +141,11 @@ class StartGameScreen extends ConsumerWidget {
                       ),
                       createLengthOfRoundButton(
                         value: '•••',
-                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
-                        isActive: lengthOfRound == 90,
+                        onTap: () => showCustomValueSheet(
+                          title: 'lengthOfRoundString'.tr(),
+                          context: context,
+                        ),
+                        isActive: lengthOfRound != 20 && lengthOfRound != 45 && lengthOfRound != 60 && lengthOfRound != 90,
                       ),
                     ],
                   ),
