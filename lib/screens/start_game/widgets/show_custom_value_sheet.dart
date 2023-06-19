@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
@@ -9,7 +7,9 @@ import '../../../widgets/animated_column.dart';
 
 void showCustomValueSheet({
   required String title,
+  required String hintText,
   required BuildContext context,
+  required Function(String value) onValueSaved,
   bool dismissible = true,
 }) =>
     showModalBottomSheet(
@@ -52,10 +52,10 @@ void showCustomValueSheet({
             CustomValueTextField(
               textEditingController: TextEditingController(),
               onSubmitted: (value) {
-                log(value);
+                onValueSaved(value);
                 Navigator.of(context).pop();
               },
-              hintText: 'Hello',
+              hintText: hintText,
             ),
             const SizedBox(height: 32),
           ],
