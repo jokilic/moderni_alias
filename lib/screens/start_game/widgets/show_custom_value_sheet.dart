@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/images.dart';
 import '../../../constants/text_styles.dart';
+import '../../../util/number_input_formatter.dart';
 import '../../../widgets/animated_column.dart';
 
 void showCustomValueSheet({
   required String title,
   required String hintText,
   required BuildContext context,
-  required Function(String value) onValueSaved,
+  required Function(int value) onValueSaved,
+  required int lowestNumber,
+  required int highestNumber,
   bool dismissible = true,
 }) =>
     showModalBottomSheet(
@@ -50,12 +54,17 @@ void showCustomValueSheet({
             /// TEXT FIELD
             ///
             CustomValueTextField(
-              textEditingController: TextEditingController(),
               onSubmitted: (value) {
-                onValueSaved(value);
-                Navigator.of(context).pop();
+                final number = int.parse(value);
+
+                if (number >= 1 && number <= 1000) {
+                  onValueSaved(number);
+                  Navigator.of(context).pop();
+                }
               },
               hintText: hintText,
+              highestNumber: highestNumber,
+              lowestNumber: lowestNumber,
             ),
             const SizedBox(height: 32),
           ],
@@ -64,14 +73,16 @@ void showCustomValueSheet({
     );
 
 class CustomValueTextField extends StatelessWidget {
-  final TextEditingController textEditingController;
   final Function(String value) onSubmitted;
   final String hintText;
+  final int lowestNumber;
+  final int highestNumber;
 
   const CustomValueTextField({
-    required this.textEditingController,
     required this.onSubmitted,
     required this.hintText,
+    required this.lowestNumber,
+    required this.highestNumber,
     Key? key,
   }) : super(key: key);
 
@@ -90,7 +101,16 @@ class CustomValueTextField extends StatelessWidget {
           vertical: 12,
         ),
         child: TextField(
-          controller: textEditingController,
+          autofocus: true,
+          keyboardType: const TextInputType.numberWithOptions(signed: true),
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            NumberInputFormatter(
+              lowestNumber: lowestNumber,
+              highestNumber: highestNumber,
+              textLength: 3,
+            ),
+          ],
           textInputAction: TextInputAction.done,
           onSubmitted: onSubmitted,
           style: ModerniAliasTextStyles.teamNameTextField,

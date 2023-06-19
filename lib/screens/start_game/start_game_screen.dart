@@ -143,8 +143,10 @@ class StartGameScreen extends ConsumerWidget {
                         value: lengthOfRound == 20 || lengthOfRound == 45 || lengthOfRound == 60 || lengthOfRound == 90 ? '•••' : '$lengthOfRound',
                         onTap: () => showCustomValueSheet(
                           title: 'lengthOfRoundString'.tr(),
-                          hintText: 'Enter a number',
-                          onValueSaved: (value) => ref.read(lengthOfRoundProvider.notifier).state = int.parse(value),
+                          hintText: 'Broj između 1 - 1000',
+                          onValueSaved: (value) => ref.read(lengthOfRoundProvider.notifier).state = value,
+                          lowestNumber: 1,
+                          highestNumber: 1000,
                           context: context,
                         ),
                         isActive: lengthOfRound != 20 && lengthOfRound != 45 && lengthOfRound != 60 && lengthOfRound != 90,
