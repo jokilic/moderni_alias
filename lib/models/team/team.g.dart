@@ -28,7 +28,7 @@ class TeamAdapter extends TypeAdapter<Team> {
   @override
   void write(BinaryWriter writer, Team obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
@@ -36,18 +36,25 @@ class TeamAdapter extends TypeAdapter<Team> {
       ..writeByte(3)
       ..write(obj.correctPoints)
       ..writeByte(4)
-      ..write(obj.wrongPoints)
-      ..writeByte(5)
-      ..write(obj.textEditingController);
+      ..write(obj.wrongPoints);
+
+    // writer
+    //   ..writeByte(5)
+    //   ..writeByte(1)
+    //   ..write(obj.name)
+    //   ..writeByte(2)
+    //   ..write(obj.points)
+    //   ..writeByte(3)
+    //   ..write(obj.correctPoints)
+    //   ..writeByte(4)
+    //   ..write(obj.wrongPoints)
+    //   ..writeByte(5)
+    //   ..write(obj.textEditingController);
   }
 
   @override
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TeamAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is TeamAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
