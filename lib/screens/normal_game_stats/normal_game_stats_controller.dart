@@ -55,7 +55,11 @@ class NormalGameStatsController extends AutoDisposeNotifier<NormalGameStats?> {
   Future<void> toggleAudio(String path) async {
     /// User tapped the already active audio
     if (currentPath == path) {
-      unawaited(audioPlayer.playing ? audioPlayer.pause() : audioPlayer.play());
+      if (audioPlayer.playing) {
+        await audioPlayer.pause();
+      } else {
+        await audioPlayer.play();
+      }
       return;
     }
 

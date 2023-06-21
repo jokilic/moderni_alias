@@ -18,7 +18,7 @@ class TeamAdapter extends TypeAdapter<Team> {
     };
     return Team(
       name: fields[1] as String,
-      textEditingController: fields[5] as TextEditingController,
+      textEditingController: TextEditingController(),
       points: fields[2] as int,
       correctPoints: fields[3] as int,
       wrongPoints: fields[4] as int,
@@ -37,19 +37,6 @@ class TeamAdapter extends TypeAdapter<Team> {
       ..write(obj.correctPoints)
       ..writeByte(4)
       ..write(obj.wrongPoints);
-
-    // writer
-    //   ..writeByte(5)
-    //   ..writeByte(1)
-    //   ..write(obj.name)
-    //   ..writeByte(2)
-    //   ..write(obj.points)
-    //   ..writeByte(3)
-    //   ..write(obj.correctPoints)
-    //   ..writeByte(4)
-    //   ..write(obj.wrongPoints)
-    //   ..writeByte(5)
-    //   ..write(obj.textEditingController);
   }
 
   @override

@@ -137,7 +137,7 @@ class QuickGameController {
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
+    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp.wav';
     await ref.read(audioRecordProvider).startRecording(path);
   }
 

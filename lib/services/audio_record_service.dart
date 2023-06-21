@@ -63,8 +63,6 @@ class AudioRecordService {
 
   /// If permission is granted, records audio
   Future<void> startRecording(String path) async {
-    logger.wtf('[AUDIO] Recording started - path: $path');
-
     /// Check for audio record permission
     final hasPermission = await askRecordPermission();
 
@@ -72,7 +70,12 @@ class AudioRecordService {
     if (hasPermission) {
       /// Wrap it in `try / catch` because some devices don't have a microphone
       try {
-        await record?.start(const RecordConfig(), path: path);
+        await record?.start(
+          const RecordConfig(
+            encoder: AudioEncoder.wav,
+          ),
+          path: path,
+        );
       } catch (e) {
         logger.e('Error in startRecording()\n$e');
       }
@@ -80,9 +83,5 @@ class AudioRecordService {
   }
 
   /// Stops recording and returns `path` of the file
-  Future<String?> stopRecording() async {
-    final path = await record?.stop();
-    logger.e('[AUDIO] Recording stopped - path: $path');
-    return path;
-  }
+  Future<String?> stopRecording() async => await record?.stop();
 }
