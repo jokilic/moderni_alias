@@ -31,7 +31,7 @@ dependencies:
   logger: 1.4.0 # Small, easy to use and extensible logger which prints beautiful logs
   package_info_plus: 4.0.2 # To get the app version and show on the relevant screen
   path_provider: 2.0.15 # For finding commonly used locations on the filesystem
-  record: 5.0.0-beta.1 # Audio recorder from microphone to a given file path or stream
+  record: 5.0.0-beta.2 # Audio recorder from microphone to a given file path or stream
   rive: 0.11.2 # Renders Rive animations in Flutter
   timeago: 3.4.0 # To show when were last games played
   url_launcher: 6.1.11 # Used to launch URLs in native browser

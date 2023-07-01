@@ -83,5 +83,12 @@ class AudioRecordService {
   }
 
   /// Stops recording and returns `path` of the file
-  Future<String?> stopRecording() async => await record?.stop();
+  Future<String?> stopRecording() async {
+    try {
+      return await record?.stop();
+    } catch (e) {
+      logger.e('Error in stopRecording()\n$e');
+    }
+    return null;
+  }
 }
