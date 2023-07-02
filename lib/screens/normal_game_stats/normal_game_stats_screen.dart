@@ -9,29 +9,22 @@ import '../../models/team/team.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
+import '../stats/stats_controller.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
 import 'normal_game_stats_controller.dart';
 
-class NormalGameStatsScreen extends ConsumerStatefulWidget {
+class NormalGameStatsScreen extends ConsumerWidget {
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _NormalGameStatsScreenState();
-}
-
-class _NormalGameStatsScreenState extends ConsumerState<NormalGameStatsScreen> {
-  @override
-  void dispose() {
-    ref.invalidate(normalGameStatsProvider);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final normalGameStats = ref.watch(normalGameStatsProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final normalGameStatsState = ref.watch(statsProvider.notifier).activeNormalGameStats;
 
     /// `NormalGameStats` are properly passed, show screen
-    if (normalGameStats != null) {
+    if (normalGameStatsState != null) {
+      final normalGameStatsPro = ref.watch(normalGameStatsProvider(normalGameStatsState));
+      final normalGameStats = normalGameStatsPro.normalGameStats;
+
       final locale = context.locale.languageCode;
 
       final date = DateFormat('d. MMMM', locale).format(normalGameStats.startTime);
@@ -150,7 +143,7 @@ class _NormalGameStatsScreenState extends ConsumerState<NormalGameStatsScreen> {
                         index: index,
                         round: round,
                         someWords: someWords,
-                        playPressed: round.audioRecording != null ? () => ref.read(normalGameStatsProvider.notifier).toggleAudio(round.audioRecording!) : null,
+                        playPressed: round.audioRecording != null ? () => normalGameStatsPro.toggleAudio(round.audioRecording!) : null,
                       );
                     },
                   ),

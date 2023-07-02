@@ -57,6 +57,9 @@ class StatsController extends AutoDisposeNotifier<int?> {
   var averageWrongAnswersRounds = 0;
   var averageAnswersRounds = 0;
 
+  NormalGameStats? activeNormalGameStats;
+  QuickGameStats? activeQuickGameStats;
+
   ///
   /// INIT
   ///
