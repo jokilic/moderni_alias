@@ -385,9 +385,7 @@ class NormalGameController {
   /// Stores the audio file to application directory
   Future<String?> saveAudioFile() async {
     try {
-      final audioPath = await ref.read(audioRecordProvider).stopRecording();
-      ref.read(loggerProvider).v('AudioPath saved: $audioPath');
-      return audioPath;
+      return await ref.read(audioRecordProvider).stopRecording();
     } catch (e) {
       ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
     }
