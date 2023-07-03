@@ -46,5 +46,9 @@ The goal is to have 10 000.
 
 - [ ] Increase number of words in the dictionary
 - [ ] Record audio for each round and put it in Stats
+    - [ ] Live audio widget during Normal game
+    - [ ] Live audio widget during Quick game
+    - [ ] Audio widget in Quick game stats
+    - [ ] Stats screens - maybe put an animated play / pause icon (scale animation)
 - [ ] Add 'Speed game' / 'Time game'
 - [ ] Add a widget for custom input for Teams, NumberOfPoints and LengthOfRound
