@@ -40,12 +40,15 @@ class NameOfTeam extends StatelessWidget {
           style: ModerniAliasTextStyles.teamNameTextField,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
-            suffixIcon: IconButton(
-              onPressed: randomizePressed,
-              icon: const Icon(
-                Icons.casino_rounded,
-                size: 30,
-                color: ModerniAliasColors.whiteColor,
+            suffixIcon: Focus(
+              descendantsAreTraversable: false,
+              child: IconButton(
+                onPressed: randomizePressed,
+                icon: const Icon(
+                  Icons.casino_rounded,
+                  size: 30,
+                  color: ModerniAliasColors.whiteColor,
+                ),
               ),
             ),
             border: InputBorder.none,
