@@ -143,7 +143,6 @@ class NormalGameStatsScreen extends ConsumerWidget {
                         index: index,
                         round: round,
                         someWords: someWords,
-                        playPressed: round.audioRecording != null ? () => normalGameStatsPro.toggleAudio(round.audioRecording!) : null,
                       );
                     },
                   ),

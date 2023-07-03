@@ -1,31 +1,107 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/durations.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
+import '../../../widgets/animated_gesture_detector.dart';
 import '../../normal_game/widgets/played_word_value.dart';
 
 class StatsWordsExpansionWidget extends StatefulWidget {
   final int index;
   final Round round;
   final String someWords;
-  final Function()? playPressed;
 
   const StatsWordsExpansionWidget({
     required this.index,
     required this.round,
     required this.someWords,
-    this.playPressed,
   });
 
   @override
   State<StatsWordsExpansionWidget> createState() => _StatsWordsExpansionWidgetState();
 }
 
-class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
+class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> with SingleTickerProviderStateMixin {
   var showSubtitle = true;
   var turns = 0.0;
+  var isPlaying = false;
+
+  PlayerController? audioController;
+  late final AnimationController iconAnimationController;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeAnimation();
+    initializeAudio();
+  }
+
+  Future<void> initializeAnimation() async {
+    /// Icon animation (play / pause)
+    iconAnimationController = AnimationController(
+      duration: ModerniAliasDurations.animation,
+      vsync: this,
+    );
+  }
+
+  /// If there's an `audioRecording`, initialize `audioController` and show the Waveform widget
+  Future<void> initializeAudio() async {
+    if (widget.round.audioRecording != null) {
+      audioController = PlayerController();
+      await audioController?.preparePlayer(path: widget.round.audioRecording!);
+      audioController?.onPlayerStateChanged.listen(audioControllerListener);
+    }
+  }
+
+  /// Triggered whenever [PlayerState] in `audioController` changes
+  void audioControllerListener(PlayerState event) {
+    if (event.isInitialised || event.isPaused || event.isStopped) {
+      animateBackward();
+    }
+
+    if (event.isPlaying) {
+      animateForward();
+    }
+  }
+
+  /// Play / pause current `audioController`
+  Future<void> toggleAudio() async {
+    switch (audioController?.playerState) {
+      case PlayerState.initialized:
+        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        break;
+      case PlayerState.paused:
+        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        break;
+      case PlayerState.playing:
+        await audioController?.pausePlayer();
+        break;
+      case PlayerState.stopped:
+        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        break;
+
+      default:
+        await audioController?.startPlayer(finishMode: FinishMode.pause);
+    }
+  }
+
+  /// Animates the play / pause icon forward
+  void animateForward() {
+    if (mounted) {
+      iconAnimationController.forward();
+      isPlaying = true;
+    }
+  }
+
+  /// Animates the play / pause icon backward
+  void animateBackward() {
+    if (mounted) {
+      iconAnimationController.reverse();
+      isPlaying = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
@@ -100,19 +176,49 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> {
           ///
           /// AUDIO RECORDING
           ///
-          if (widget.playPressed != null) ...[
-            Center(
-              child: Text(
-                widget.round.audioRecording!,
-                style: ModerniAliasTextStyles.highscore,
-                textAlign: TextAlign.center,
+          if (audioController != null) ...[
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 36),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: AudioFileWaveforms(
+                      size: Size(MediaQuery.sizeOf(context).width, 48),
+                      playerController: audioController!,
+                      continuousWaveform: false,
+                      playerWaveStyle: const PlayerWaveStyle(
+                        fixedWaveColor: ModerniAliasColors.whiteColor,
+                        liveWaveColor: ModerniAliasColors.whiteColor,
+                        scaleFactor: 200,
+                        showSeekLine: false,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  AnimatedGestureDetector(
+                    onTap: toggleAudio,
+                    child: InkWell(
+                      onTap: () {},
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.play_pause,
+                        progress: iconAnimationController,
+                        color: ModerniAliasColors.whiteColor,
+                        size: 48,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            IconButton.filledTonal(
-              onPressed: widget.playPressed,
-              icon: const Icon(Icons.play_arrow_rounded),
             ),
           ],
         ],
       );
+
+  @override
+  void dispose() {
+    iconAnimationController.dispose();
+    audioController?.dispose();
+    super.dispose();
+  }
 }

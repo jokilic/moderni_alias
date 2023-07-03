@@ -42,8 +42,8 @@ class QuickGameStatsController {
   /// DISPOSE
   ///
 
-  void dispose() {
-    audioPlayer.dispose();
+  Future<void> dispose() async {
+    await audioPlayer.dispose();
   }
 
   ///
