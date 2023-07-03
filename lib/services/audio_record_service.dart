@@ -27,7 +27,9 @@ class AudioRecordService {
   AudioRecordService({
     required this.logger,
     required this.path,
-  });
+  }) {
+    init();
+  }
 
   ///
   /// VARIABLES
