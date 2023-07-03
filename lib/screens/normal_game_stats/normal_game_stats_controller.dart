@@ -54,11 +54,7 @@ class NormalGameStatsController {
   Future<void> toggleAudio(String path) async {
     /// User tapped the already active audio
     if (currentPath == path) {
-      if (audioPlayer.playing) {
-        await audioPlayer.pause();
-      } else {
-        await audioPlayer.play();
-      }
+      unawaited(audioPlayer.playing ? audioPlayer.pause() : audioPlayer.play());
       return;
     }
 

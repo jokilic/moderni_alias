@@ -1,5 +1,3 @@
-// ignore_for_file: use_setters_to_change_properties
-
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,36 +6,37 @@ import 'package:just_audio/just_audio.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../services/logger_service.dart';
 
-final quickGameStatsProvider = NotifierProvider.autoDispose<QuickGameStatsController, QuickGameStats?>(
-  QuickGameStatsController.new,
+final quickGameStatsProvider = Provider.autoDispose.family<QuickGameStatsController, QuickGameStats>(
+  (ref, quickGameStats) {
+    final quickGameStatsController = QuickGameStatsController(
+      quickGameStats: quickGameStats,
+      logger: ref.watch(loggerProvider),
+    );
+    ref.onDispose(quickGameStatsController.dispose);
+    return quickGameStatsController;
+  },
   name: 'QuickGameStatsProvider',
 );
 
-class QuickGameStatsController extends AutoDisposeNotifier<QuickGameStats?> {
-  @override
-  QuickGameStats? build() {
-    init();
-    ref.onDispose(dispose);
-    return null;
-  }
+class QuickGameStatsController {
+  ///
+  /// CONSTRUCTOR
+  ///
+
+  final QuickGameStats quickGameStats;
+  final LoggerService logger;
+
+  QuickGameStatsController({
+    required this.quickGameStats,
+    required this.logger,
+  });
 
   ///
   /// VARIABLES
   ///
 
-  late final LoggerService logger;
-  late final AudioPlayer audioPlayer;
-
+  late final audioPlayer = AudioPlayer();
   String? currentPath;
-
-  ///
-  /// INIT
-  ///
-
-  void init() {
-    logger = ref.watch(loggerProvider);
-    audioPlayer = AudioPlayer();
-  }
 
   ///
   /// DISPOSE
@@ -64,10 +63,5 @@ class QuickGameStatsController extends AutoDisposeNotifier<QuickGameStats?> {
     await audioPlayer.stop();
     await audioPlayer.setFilePath(path, preload: false);
     unawaited(audioPlayer.play());
-  }
-
-  /// Updates state with new [QuickGameStats]
-  void updateState(QuickGameStats? newState) {
-    state = newState;
   }
 }

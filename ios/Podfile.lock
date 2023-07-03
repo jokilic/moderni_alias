@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   record_darwin: 1f6619f2abac4d1ca91d3eeab038c980d76f1517
   rive_common: 60ae7896ab40f9513974f36f015de33f70d2c5c5
-  shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
 PODFILE CHECKSUM: 94b700da46e2c82b6cf27a42198057964de975ce

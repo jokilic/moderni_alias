@@ -10,28 +10,21 @@ import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
 import '../normal_game/widgets/played_word_value.dart';
+import '../stats/stats_controller.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import 'quick_game_stats_controller.dart';
 
-class QuickGameStatsScreen extends ConsumerStatefulWidget {
+class QuickGameStatsScreen extends ConsumerWidget {
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _QuickGameStatsScreenState();
-}
-
-class _QuickGameStatsScreenState extends ConsumerState<QuickGameStatsScreen> {
-  @override
-  void dispose() {
-    ref.invalidate(quickGameStatsProvider);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final quickGameStats = ref.watch(quickGameStatsProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quickGameStatsState = ref.watch(statsProvider.notifier).activeQuickGameStats;
 
     /// `QuickGameStats` are properly passed, show screen
-    if (quickGameStats != null) {
+    if (quickGameStatsState != null) {
+      final quickGameStatsPro = ref.watch(quickGameStatsProvider(quickGameStatsState));
+      final quickGameStats = quickGameStatsPro.quickGameStats;
+
       final locale = context.locale.languageCode;
 
       final date = DateFormat('d. MMMM', locale).format(quickGameStats.startTime);
@@ -142,7 +135,9 @@ class _QuickGameStatsScreenState extends ConsumerState<QuickGameStatsScreen> {
                       ),
                     ),
                     IconButton.filledTonal(
-                      onPressed: () => ref.read(quickGameStatsProvider.notifier).toggleAudio(quickGameStats.round.audioRecording!),
+                      onPressed: () => quickGameStatsPro.toggleAudio(
+                        quickGameStats.round.audioRecording!,
+                      ),
                       icon: const Icon(Icons.play_arrow_rounded),
                     ),
                   ],
