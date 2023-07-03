@@ -13,6 +13,7 @@ import '../../models/team/team.dart';
 import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
@@ -362,7 +363,7 @@ class NormalGameController {
   /// HIVE
   ///
 
-  /// Update stats and store them in [Hive]
+  /// Save audio file and update stats and store them in [Hive]
   Future<void> updateHiveStats({required Game gameType}) async {
     normalGameStats = normalGameStats.copyWith(
       endTime: gameType == Game.normal ? DateTime.now() : null,
@@ -371,7 +372,7 @@ class NormalGameController {
         Round(
           playedWords: List.from(ref.read(playedWordsProvider)),
           playingTeam: ref.read(currentlyPlayingTeamProvider),
-          audioRecording: await ref.read(audioRecordProvider).stopRecording(),
+          audioRecording: await saveAudioFile(),
         ),
       ],
     );
@@ -379,5 +380,17 @@ class NormalGameController {
     if (gameType == Game.normal) {
       await ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
     }
+  }
+
+  /// Stores the audio file to application directory
+  Future<String?> saveAudioFile() async {
+    try {
+      final audioPath = await ref.read(audioRecordProvider).stopRecording();
+      ref.read(loggerProvider).v('AudioPath saved: $audioPath');
+      return audioPath;
+    } catch (e) {
+      ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
+    }
+    return null;
   }
 }

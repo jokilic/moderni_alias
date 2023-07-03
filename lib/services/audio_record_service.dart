@@ -27,9 +27,7 @@ class AudioRecordService {
   AudioRecordService({
     required this.logger,
     required this.path,
-  }) {
-    init();
-  }
+  });
 
   ///
   /// VARIABLES
@@ -41,17 +39,22 @@ class AudioRecordService {
   /// INIT
   ///
 
-  Future<void> init() async {
+  Future<bool> init() async {
+    /// Initialize [AudioRecorder]
+    await record?.dispose();
+    record = null;
     record = AudioRecorder();
-    await askRecordPermission();
+
+    /// Check for audio record permission
+    return askRecordPermission();
   }
 
   ///
   /// DISPOSE
   ///
 
-  void dispose() {
-    record?.dispose();
+  Future<void> dispose() async {
+    await record?.dispose();
   }
 
   ///
@@ -61,10 +64,10 @@ class AudioRecordService {
   /// Asks for permission and returns value
   Future<bool> askRecordPermission() async => await record?.hasPermission() ?? false;
 
-  /// If permission is granted, records audio
+  /// Starts recording audio
   Future<void> startRecording(String path) async {
-    /// Check for audio record permission
-    final hasPermission = await askRecordPermission();
+    /// Initialize & check for permission
+    final hasPermission = await init();
 
     /// Start recording
     if (hasPermission) {
