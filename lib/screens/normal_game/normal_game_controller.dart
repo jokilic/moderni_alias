@@ -88,6 +88,7 @@ class NormalGameController {
     yellowTimer?.cancel();
     redTimer?.cancel();
     soundTimer?.cancel();
+    ref.invalidate(tieBreakTeamsProvider);
   }
 
   ///
