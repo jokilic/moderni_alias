@@ -44,8 +44,8 @@ The goal is to have 10 000.
 
 ## Things I still want to do 👷‍♂️
 
-- [ ] Increase number of words in the dictionary
 - [x] Add a widget for custom input for Teams, NumberOfPoints and LengthOfRound
+- [ ] Update profile picture with repeating video
 - [ ] Record audio for each round and put it in Stats
     - [ ] Live audio widget during Normal game
     - [ ] Live audio widget during Quick game
@@ -53,4 +53,5 @@ The goal is to have 10 000.
     - [ ] Stats screens - maybe put an animated play / pause icon (scale animation)
     - [ ] Maybe move recording logic to `audio_waveforms`
     - [ ] In that case, remove `record` and `just_audio`
+    - [ ] Check if WriteStorage permissions are necessary
 - [ ] Add 'Speed game' / 'Time game'

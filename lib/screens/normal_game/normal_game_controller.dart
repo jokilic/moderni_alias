@@ -263,21 +263,22 @@ class NormalGameController {
   }
 
   /// Continues tie break with proper teams
-  void continueGame(List<Team> playingTeams, {required BuildContext context}) {
-    updateHiveStats(gameType: Game.none);
+  Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
+    await showScoresSheet(context);
+
+    await updateHiveStats(gameType: Game.none);
 
     final currentTeamIndex = playingTeams.indexOf(
       ref.read(currentlyPlayingTeamProvider),
     );
     ref.read(currentlyPlayingTeamProvider.notifier).state = currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0];
-
-    showScoresSheet(context);
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
-  void endGame(Team winner, {required BuildContext context}) {
-    updateHiveStats(gameType: Game.normal);
+  Future<void> endGame(Team winner, {required BuildContext context}) async {
     goToNormalGameFinishedScreen(context);
+    await Future.delayed(const Duration(seconds: 3));
+    await updateHiveStats(gameType: Game.normal);
   }
 
   ///
