@@ -114,6 +114,18 @@ class StartGameScreen extends ConsumerWidget {
                         onTap: () => ref.read(pointsToWinProvider.notifier).state = 100,
                         isActive: pointsToWin == 100,
                       ),
+                      createNumberOfPointsButton(
+                        value: pointsToWin == 25 || pointsToWin == 50 || pointsToWin == 75 || pointsToWin == 100 ? '•••' : '$pointsToWin',
+                        onTap: () => showCustomValueSheet(
+                          title: 'numberOfPointsString'.tr(),
+                          hintText: '${'numberBetweenString'.tr()} 1 - 1000',
+                          onValueSaved: (value) => ref.read(pointsToWinProvider.notifier).state = value,
+                          lowestNumber: 1,
+                          highestNumber: 1000,
+                          context: context,
+                        ),
+                        isActive: pointsToWin != 25 && pointsToWin != 50 && pointsToWin != 75 && pointsToWin != 100,
+                      ),
                     ],
                   ),
                   GameTitle('lengthOfRoundString'.tr()),
@@ -143,7 +155,7 @@ class StartGameScreen extends ConsumerWidget {
                         value: lengthOfRound == 20 || lengthOfRound == 45 || lengthOfRound == 60 || lengthOfRound == 90 ? '•••' : '$lengthOfRound',
                         onTap: () => showCustomValueSheet(
                           title: 'lengthOfRoundString'.tr(),
-                          hintText: 'Broj između 1 - 1000',
+                          hintText: '${'numberBetweenString'.tr()} 1 - 1000',
                           onValueSaved: (value) => ref.read(lengthOfRoundProvider.notifier).state = value,
                           lowestNumber: 1,
                           highestNumber: 1000,
