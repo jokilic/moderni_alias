@@ -45,7 +45,7 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Increase number of words in the dictionary
-- [ ] Add a widget for custom input for Teams, NumberOfPoints and LengthOfRound
+- [x] Add a widget for custom input for Teams, NumberOfPoints and LengthOfRound
 - [ ] Record audio for each round and put it in Stats
     - [ ] Live audio widget during Normal game
     - [ ] Live audio widget during Quick game

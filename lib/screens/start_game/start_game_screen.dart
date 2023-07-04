@@ -89,6 +89,20 @@ class StartGameScreen extends ConsumerWidget {
                         ),
                         isActive: teamsLength == 4,
                       ),
+                      createNumberOfTeamsButton(
+                        value: teamsLength < 5 ? '•••' : '$teamsLength',
+                        onTap: () => showCustomValueSheet(
+                          title: 'teamsString'.tr(),
+                          hintText: '${'numberBetweenString'.tr()} 2 - 10',
+                          onValueSaved: (value) => startGameController.updateNumberOfTeams(
+                            chosenNumber: value,
+                          ),
+                          lowestNumber: 2,
+                          highestNumber: 10,
+                          context: context,
+                        ),
+                        isActive: teamsLength >= 5,
+                      ),
                     ],
                   ),
                   GameTitle('numberOfPointsString'.tr()),

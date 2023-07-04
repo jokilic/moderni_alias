@@ -57,7 +57,7 @@ void showCustomValueSheet({
               onSubmitted: (value) {
                 final number = int.parse(value);
 
-                if (number >= 1 && number <= 1000) {
+                if (number >= lowestNumber && number <= highestNumber) {
                   onValueSaved(number);
                   Navigator.of(context).pop();
                 }
