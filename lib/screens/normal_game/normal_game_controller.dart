@@ -275,10 +275,9 @@ class NormalGameController {
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
-  Future<void> endGame(Team winner, {required BuildContext context}) async {
+  void endGame(Team winner, {required BuildContext context}) {
+    updateHiveStats(gameType: Game.normal);
     goToNormalGameFinishedScreen(context);
-    await Future.delayed(const Duration(seconds: 3));
-    await updateHiveStats(gameType: Game.normal);
   }
 
   ///

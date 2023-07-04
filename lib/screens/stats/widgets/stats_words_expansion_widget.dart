@@ -12,11 +12,13 @@ class StatsWordsExpansionWidget extends StatefulWidget {
   final int index;
   final Round round;
   final String someWords;
+  final bool quickGameStats;
 
   const StatsWordsExpansionWidget({
     required this.index,
     required this.round,
     required this.someWords,
+    this.quickGameStats = false,
   });
 
   @override
@@ -103,117 +105,134 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     }
   }
 
-  @override
-  Widget build(BuildContext context) => ExpansionTile(
-        onExpansionChanged: (value) => setState(() {
-          showSubtitle = !value;
-          turns = value ? 0.5 : 0;
-        }),
-        shape: const RoundedRectangleBorder(),
-        tilePadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
+  /// Widgets which are shown when opening expansion tile / when viewing [QuickGameStats]
+  List<Widget> buildExpansionTileChildren() => [
+        ///
+        /// WORDS
+        ///
+        ...List.generate(
+          widget.round.playedWords.length,
+          (index) {
+            final playedWord = widget.round.playedWords[index];
+
+            return PlayedWordValue(
+              word: playedWord.word,
+              chosenAnswer: playedWord.chosenAnswer,
+            );
+          },
         ),
-        childrenPadding: const EdgeInsets.only(top: 8, bottom: 16),
-        leading: Container(
-          padding: const EdgeInsets.all(6),
-          constraints: const BoxConstraints(
-            minHeight: 36,
-            minWidth: 36,
-          ),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: ModerniAliasColors.whiteColor,
-          ),
-          child: Text(
-            '${widget.index + 1}',
-            style: ModerniAliasTextStyles.statsNumber.copyWith(
-              fontSize: 24,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        subtitle: showSubtitle
-            ? Text(
-                '${widget.someWords}...',
-                style: ModerniAliasTextStyles.stats.copyWith(
-                  fontSize: 16,
+
+        ///
+        /// AUDIO RECORDING
+        ///
+        if (audioController != null) ...[
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36),
+            child: Row(
+              children: [
+                Expanded(
+                  child: AudioFileWaveforms(
+                    size: Size(MediaQuery.sizeOf(context).width, 48),
+                    playerController: audioController!,
+                    continuousWaveform: false,
+                    playerWaveStyle: const PlayerWaveStyle(
+                      fixedWaveColor: ModerniAliasColors.whiteColor,
+                      liveWaveColor: ModerniAliasColors.whiteColor,
+                      scaleFactor: 144,
+                      showSeekLine: false,
+                    ),
+                  ),
                 ),
-              )
-            : null,
-        title: Text(
-          '${widget.round.playingTeam?.name}',
-          style: ModerniAliasTextStyles.stats.copyWith(
+                const SizedBox(width: 20),
+                AnimatedGestureDetector(
+                  onTap: toggleAudio,
+                  child: InkWell(
+                    onTap: () {},
+                    child: AnimatedIcon(
+                      icon: AnimatedIcons.play_pause,
+                      progress: iconAnimationController,
+                      color: ModerniAliasColors.whiteColor,
+                      size: 48,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ];
+
+  @override
+  Widget build(BuildContext context) {
+    ///
+    /// JUST THE WORDS
+    ///
+    if (widget.quickGameStats) {
+      return Column(
+        children: buildExpansionTileChildren(),
+      );
+    }
+
+    ///
+    /// EXPANSION TILE
+    ///
+    return ExpansionTile(
+      onExpansionChanged: (value) => setState(() {
+        showSubtitle = !value;
+        turns = value ? 0.5 : 0;
+      }),
+      shape: const RoundedRectangleBorder(),
+      tilePadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      childrenPadding: const EdgeInsets.only(top: 8, bottom: 16),
+      leading: Container(
+        padding: const EdgeInsets.all(6),
+        constraints: const BoxConstraints(
+          minHeight: 36,
+          minWidth: 36,
+        ),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: ModerniAliasColors.whiteColor,
+        ),
+        child: Text(
+          '${widget.index + 1}',
+          style: ModerniAliasTextStyles.statsNumber.copyWith(
             fontSize: 24,
           ),
+          textAlign: TextAlign.center,
         ),
-        trailing: AnimatedRotation(
-          turns: turns,
-          duration: ModerniAliasDurations.fastAnimation,
-          curve: Curves.easeIn,
-          child: const Icon(
-            Icons.arrow_drop_down_circle,
-            color: ModerniAliasColors.whiteColor,
-            size: 32,
-          ),
-        ),
-        children: [
-          ///
-          /// WORDS
-          ///
-          ...List.generate(
-            widget.round.playedWords.length,
-            (index) {
-              final playedWord = widget.round.playedWords[index];
-
-              return PlayedWordValue(
-                word: playedWord.word,
-                chosenAnswer: playedWord.chosenAnswer,
-              );
-            },
-          ),
-
-          ///
-          /// AUDIO RECORDING
-          ///
-          if (audioController != null) ...[
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: AudioFileWaveforms(
-                      size: Size(MediaQuery.sizeOf(context).width, 48),
-                      playerController: audioController!,
-                      continuousWaveform: false,
-                      playerWaveStyle: const PlayerWaveStyle(
-                        fixedWaveColor: ModerniAliasColors.whiteColor,
-                        liveWaveColor: ModerniAliasColors.whiteColor,
-                        scaleFactor: 144,
-                        showSeekLine: false,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  AnimatedGestureDetector(
-                    onTap: toggleAudio,
-                    child: InkWell(
-                      onTap: () {},
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.play_pause,
-                        progress: iconAnimationController,
-                        color: ModerniAliasColors.whiteColor,
-                        size: 48,
-                      ),
-                    ),
-                  ),
-                ],
+      ),
+      subtitle: showSubtitle
+          ? Text(
+              '${widget.someWords}...',
+              style: ModerniAliasTextStyles.stats.copyWith(
+                fontSize: 16,
               ),
-            ),
-          ],
-        ],
-      );
+            )
+          : null,
+      title: Text(
+        '${widget.round.playingTeam?.name}',
+        style: ModerniAliasTextStyles.stats.copyWith(
+          fontSize: 24,
+        ),
+      ),
+      trailing: AnimatedRotation(
+        turns: turns,
+        duration: ModerniAliasDurations.fastAnimation,
+        curve: Curves.easeIn,
+        child: const Icon(
+          Icons.arrow_drop_down_circle,
+          color: ModerniAliasColors.whiteColor,
+          size: 32,
+        ),
+      ),
+      children: buildExpansionTileChildren(),
+    );
+  }
 
   @override
   void dispose() {
