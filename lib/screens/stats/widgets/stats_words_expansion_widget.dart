@@ -25,27 +25,44 @@ class StatsWordsExpansionWidget extends StatefulWidget {
   State<StatsWordsExpansionWidget> createState() => _StatsWordsExpansionWidgetState();
 }
 
-class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> with SingleTickerProviderStateMixin {
+class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> with TickerProviderStateMixin {
   var showSubtitle = true;
   var turns = 0.0;
   var isPlaying = false;
 
   PlayerController? audioController;
   late final AnimationController iconAnimationController;
+  late final AnimationController scaleAnimationController;
+  late final Animation scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-    initializeAnimation();
+    initializeAnimations();
     initializeAudio();
   }
 
-  Future<void> initializeAnimation() async {
-    /// Icon animation (play / pause)
+  Future<void> initializeAnimations() async {
+    /// Icon toggle animation (play / pause)
     iconAnimationController = AnimationController(
       duration: ModerniAliasDurations.animation,
       vsync: this,
     );
+
+    /// Scale icon animation (play / pause)
+    scaleAnimationController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    scaleAnimation = Tween<double>(begin: 1, end: 1.25).animate(
+      CurvedAnimation(
+        parent: scaleAnimationController,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    await scaleAnimationController.repeat(reverse: true);
   }
 
   /// If there's an `audioRecording`, initialize `audioController` and show the Waveform widget
@@ -59,10 +76,12 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// Triggered whenever [PlayerState] in `audioController` changes
   void audioControllerListener(PlayerState event) {
+    /// Show play icon
     if (event.isInitialised || event.isPaused || event.isStopped) {
       animateBackward();
     }
 
+    /// Show pause icon
     if (event.isPlaying) {
       animateForward();
     }
@@ -93,6 +112,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   void animateForward() {
     if (mounted) {
       iconAnimationController.forward();
+      scaleAnimationController.stop();
       isPlaying = true;
     }
   }
@@ -101,6 +121,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   void animateBackward() {
     if (mounted) {
       iconAnimationController.reverse();
+      scaleAnimationController.repeat(reverse: true);
       isPlaying = false;
     }
   }
@@ -149,11 +170,18 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                   onTap: toggleAudio,
                   child: InkWell(
                     onTap: () {},
-                    child: AnimatedIcon(
-                      icon: AnimatedIcons.play_pause,
-                      progress: iconAnimationController,
-                      color: ModerniAliasColors.whiteColor,
-                      size: 48,
+                    child: AnimatedBuilder(
+                      animation: scaleAnimation,
+                      builder: (_, child) => Transform.scale(
+                        scale: scaleAnimation.value,
+                        child: child,
+                      ),
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.play_pause,
+                        progress: iconAnimationController,
+                        color: ModerniAliasColors.whiteColor,
+                        size: 48,
+                      ),
                     ),
                   ),
                 ),
@@ -237,6 +265,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   @override
   void dispose() {
     iconAnimationController.dispose();
+    scaleAnimationController.dispose();
     audioController?.dispose();
     super.dispose();
   }
