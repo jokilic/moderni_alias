@@ -190,7 +190,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                       playerWaveStyle: const PlayerWaveStyle(
                         fixedWaveColor: ModerniAliasColors.whiteColor,
                         liveWaveColor: ModerniAliasColors.whiteColor,
-                        scaleFactor: 200,
+                        scaleFactor: 144,
                         showSeekLine: false,
                       ),
                     ),
