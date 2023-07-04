@@ -42,6 +42,9 @@ class NameOfTeam extends StatelessWidget {
           decoration: InputDecoration(
             suffixIcon: Focus(
               descendantsAreTraversable: false,
+              descendantsAreFocusable: false,
+              canRequestFocus: false,
+              skipTraversal: true,
               child: IconButton(
                 onPressed: randomizePressed,
                 icon: const Icon(
