@@ -1,5 +1,5 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:record/record.dart';
 
 import 'logger_service.dart';
 import 'path_provider_service.dart';
@@ -35,17 +35,17 @@ class AudioRecordService {
   /// VARIABLES
   ///
 
-  AudioRecorder? record;
+  RecorderController? recorderController;
 
   ///
   /// INIT
   ///
 
   Future<bool> init() async {
-    /// Initialize [AudioRecorder]
-    await record?.dispose();
-    record = null;
-    record = AudioRecorder();
+    /// Initialize [RecorderController]
+    recorderController?.dispose();
+    recorderController = null;
+    recorderController = RecorderController();
 
     /// Check for audio record permission
     return askRecordPermission();
@@ -55,8 +55,8 @@ class AudioRecordService {
   /// DISPOSE
   ///
 
-  Future<void> dispose() async {
-    await record?.dispose();
+  void dispose() {
+    recorderController?.dispose();
   }
 
   ///
@@ -64,7 +64,7 @@ class AudioRecordService {
   ///
 
   /// Asks for permission and returns value
-  Future<bool> askRecordPermission() async => await record?.hasPermission() ?? false;
+  Future<bool> askRecordPermission() async => await recorderController?.checkPermission() ?? false;
 
   /// Starts recording audio
   Future<void> startRecording(String path) async {
@@ -75,11 +75,10 @@ class AudioRecordService {
     if (hasPermission) {
       /// Wrap it in `try / catch` because some devices don't have a microphone
       try {
-        await record?.start(
-          const RecordConfig(
-            encoder: AudioEncoder.wav,
-          ),
+        await recorderController?.record(
           path: path,
+          bitRate: 128000,
+          sampleRate: 44100,
         );
       } catch (e) {
         logger.e('Error in startRecording()\n$e');
@@ -90,7 +89,7 @@ class AudioRecordService {
   /// Stops recording and returns `path` of the file
   Future<String?> stopRecording() async {
     try {
-      return await record?.stop();
+      return await recorderController?.stop();
     } catch (e) {
       logger.e('Error in stopRecording()\n$e');
     }
