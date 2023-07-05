@@ -34,6 +34,7 @@ dependencies:
   rive: 0.11.2 # Renders Rive animations in Flutter
   timeago: 3.4.0 # To show when were last games played
   url_launcher: 6.1.11 # Used to launch URLs in native browser
+  video_player: 2.7.0 # Used to play videos
 
 dev_dependencies:
   build_runner: 2.4.5 # Used for code generation
@@ -73,6 +74,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/translations/
+    - assets/videos/
 
   fonts:
     - family: Sen

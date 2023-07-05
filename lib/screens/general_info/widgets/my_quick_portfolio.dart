@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/images.dart';
 import '../../../constants/websites.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/play_button.dart';
 import '../general_info_controller.dart';
+import 'video_widget.dart';
 
 class MyQuickPortfolio extends ConsumerWidget {
   @override
@@ -25,14 +24,18 @@ class MyQuickPortfolio extends ConsumerWidget {
                 child: GestureDetector(
                   onLongPress: ref.read(generalInfoProvider).playBoomBaby,
                   behavior: HitTestBehavior.translucent,
-                  child: const CircleAvatar(
-                    backgroundColor: ModerniAliasColors.whiteColor,
-                    radius: 85,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(
-                        ModerniAliasImages.josipImage,
+                  child: Container(
+                    height: 160,
+                    width: 160,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: ModerniAliasColors.whiteColor,
+                        width: 2,
                       ),
-                      radius: 82,
+                      shape: BoxShape.circle,
+                    ),
+                    child: ClipOval(
+                      child: VideoWidget(),
                     ),
                   ),
                 ),
