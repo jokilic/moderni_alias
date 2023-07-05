@@ -161,7 +161,7 @@ class NormalGameController {
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp.wav';
+    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
     await ref.read(audioRecordProvider).startRecording(path);
   }
 
