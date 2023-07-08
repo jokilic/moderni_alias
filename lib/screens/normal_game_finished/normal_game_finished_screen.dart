@@ -91,6 +91,7 @@ class NormalGameFinishedScreen extends ConsumerWidget {
                 right: 12,
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
+                    teams: ref.read(teamsProvider),
                     playedWords: ref.read(playedWordsProvider),
                     context: context,
                   ),

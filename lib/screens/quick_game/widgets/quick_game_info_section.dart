@@ -1,7 +1,10 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
+import '../../../services/audio_record_service.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
 class QuickGameInfoSection extends StatelessWidget {
@@ -37,6 +40,24 @@ class QuickGameInfoSection extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            Consumer(
+              builder: (_, ref, __) {
+                final audioRecorderController = ref.watch(audioRecorderControllerProvider);
+
+                return AudioWaveforms(
+                  recorderController: audioRecorderController,
+                  size: Size(MediaQuery.sizeOf(context).width, 48),
+                  padding: const EdgeInsets.symmetric(horizontal: 104),
+                  waveStyle: const WaveStyle(
+                    waveColor: ModerniAliasColors.whiteColor,
+                    middleLineColor: ModerniAliasColors.whiteColor,
+                    scaleFactor: 48,
+                    extendWaveform: true,
+                    showMiddleLine: false,
+                  ),
+                );
+              },
             ),
             Positioned(
               right: 20,

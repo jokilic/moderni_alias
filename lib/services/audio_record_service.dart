@@ -5,15 +5,21 @@ import 'logger_service.dart';
 import 'path_provider_service.dart';
 
 final audioRecordProvider = Provider.autoDispose<AudioRecordService>(
-  (ref) {
-    final audioRecordService = AudioRecordService(
-      logger: ref.watch(loggerProvider),
-      path: ref.watch(pathProvider),
-    );
-    ref.onDispose(audioRecordService.dispose);
-    return audioRecordService;
-  },
+  (ref) => AudioRecordService(
+    recorderController: ref.watch(audioRecorderControllerProvider),
+    logger: ref.watch(loggerProvider),
+    path: ref.watch(pathProvider),
+  ),
   name: 'AudioRecordProvider',
+);
+
+final audioRecorderControllerProvider = Provider.autoDispose<RecorderController>(
+  (ref) {
+    final controller = RecorderController();
+    ref.onDispose(controller.dispose);
+    return controller;
+  },
+  name: 'AudioRecorderControllerProvider',
 );
 
 class AudioRecordService {
@@ -21,42 +27,16 @@ class AudioRecordService {
   /// CONSTRUCTOR
   ///
 
+  final RecorderController recorderController;
   final LoggerService logger;
   final PathProviderService path;
 
   AudioRecordService({
+    required this.recorderController,
     required this.logger,
     required this.path,
   }) {
-    init();
-  }
-
-  ///
-  /// VARIABLES
-  ///
-
-  RecorderController? recorderController;
-
-  ///
-  /// INIT
-  ///
-
-  Future<bool> init() async {
-    /// Initialize [RecorderController]
-    recorderController?.dispose();
-    recorderController = null;
-    recorderController = RecorderController();
-
-    /// Check for audio record permission
-    return askRecordPermission();
-  }
-
-  ///
-  /// DISPOSE
-  ///
-
-  void dispose() {
-    recorderController?.dispose();
+    askRecordPermission();
   }
 
   ///
@@ -64,18 +44,18 @@ class AudioRecordService {
   ///
 
   /// Asks for permission and returns value
-  Future<bool> askRecordPermission() async => await recorderController?.checkPermission() ?? false;
+  Future<bool> askRecordPermission() async => recorderController.checkPermission();
 
   /// Starts recording audio
   Future<void> startRecording(String path) async {
-    /// Initialize & check for permission
-    final hasPermission = await init();
+    /// Check for permission
+    final hasPermission = await askRecordPermission();
 
     /// Start recording
     if (hasPermission) {
       /// Wrap it in `try / catch` because some devices don't have a microphone
       try {
-        await recorderController?.record(
+        await recorderController.record(
           path: path,
           bitRate: 128000,
           sampleRate: 44100,
@@ -89,7 +69,7 @@ class AudioRecordService {
   /// Stops recording and returns `path` of the file
   Future<String?> stopRecording() async {
     try {
-      return await recorderController?.stop();
+      return await recorderController.stop();
     } catch (e) {
       logger.e('Error in stopRecording()\n$e');
     }

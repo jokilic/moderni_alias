@@ -40,6 +40,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     super.initState();
     initializeAnimations();
     initializeAudio();
+    setState(() {});
   }
 
   Future<void> initializeAnimations() async {
