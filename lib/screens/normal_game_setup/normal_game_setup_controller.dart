@@ -27,27 +27,27 @@ final validationMessageProvider = StateProvider.autoDispose<String?>(
   name: 'ValidationMessageProvider',
 );
 
-final startGameProvider = Provider.autoDispose<StartGameController>(
-  StartGameController.new,
-  name: 'StartGameProvider',
+final normalGameSetupProvider = Provider.autoDispose<NormalGameSetupController>(
+  NormalGameSetupController.new,
+  name: 'NormalGameSetupProvider',
 );
 
-class StartGameController {
+class NormalGameSetupController {
   final ProviderRef ref;
 
-  StartGameController(this.ref);
+  NormalGameSetupController(this.ref);
 
   ///
   /// METHODS
   ///
 
-  /// Called when the user taps on the flag in [StartGame]
+  /// Called when the user taps on the flag in [NormalGameSetupScreen]
   void updateDictionary(Flag chosenFlag) {
     ref.read(chosenDictionaryProvider.notifier).state = chosenFlag;
     ref.read(dictionaryProvider.notifier).refillCurrentDictionary();
   }
 
-  /// Called when the user taps on the number of teams in [StartGame]
+  /// Called when the user taps on the number of teams in [NormalGameSetupScreen]
   void updateNumberOfTeams({required int chosenNumber}) {
     ref.read(teamsProvider.notifier).state
       ..clear()

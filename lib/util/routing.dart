@@ -10,7 +10,7 @@ import '../screens/normal_game_stats/normal_game_stats_screen.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import '../screens/quick_game_stats/quick_game_stats_screen.dart';
-import '../screens/start_game/start_game_screen.dart';
+import '../screens/normal_game_setup/normal_game_setup_screen.dart';
 import '../screens/stats/stats_screen.dart';
 import 'fade_page_route.dart';
 
@@ -23,7 +23,7 @@ Route onGenerateRoute(RouteSettings settings) {
     ModerniAliasRoutes.homeScreen => HomeScreen(),
     ModerniAliasRoutes.generalInfoScreen => GeneralInfoScreen(),
     ModerniAliasRoutes.howToPlayScreen => HowToPlayScreen(),
-    ModerniAliasRoutes.startGameScreen => StartGameScreen(),
+    ModerniAliasRoutes.normalGameSetupScreen => NormalGameSetupScreen(),
     ModerniAliasRoutes.normalGameScreen => NormalGameScreen(),
     ModerniAliasRoutes.normalGameFinishedScreen => NormalGameFinishedScreen(),
     ModerniAliasRoutes.quickGameScreen => QuickGameScreen(),
@@ -47,7 +47,7 @@ class ModerniAliasRoutes {
   static const homeScreen = '/home';
   static const generalInfoScreen = '/general_info';
   static const howToPlayScreen = '/how_to_play';
-  static const startGameScreen = '/start_game';
+  static const normalGameSetupScreen = '/normal_game_setup';
   static const normalGameScreen = '/normal_game';
   static const normalGameFinishedScreen = '/normal_game_finished';
   static const quickGameScreen = '/quick_game';
@@ -74,8 +74,8 @@ void goToHowToPlayScreen(BuildContext context) => Navigator.of(context).pushName
       ModerniAliasRoutes.howToPlayScreen,
     );
 
-void goToStartGameScreen(BuildContext context) => Navigator.of(context).pushNamed(
-      ModerniAliasRoutes.startGameScreen,
+void goToNormalGameSetupScreen(BuildContext context) => Navigator.of(context).pushNamed(
+      ModerniAliasRoutes.normalGameSetupScreen,
     );
 
 void goToNormalGameScreen(BuildContext context) => Navigator.of(context).pushNamed(

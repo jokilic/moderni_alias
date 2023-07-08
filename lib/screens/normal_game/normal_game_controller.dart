@@ -17,7 +17,7 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
-import '../start_game/start_game_controller.dart';
+import '../normal_game_setup/normal_game_setup_controller.dart';
 import 'widgets/show_scores.dart';
 
 final currentlyPlayingTeamProvider = StateProvider.autoDispose<Team>(

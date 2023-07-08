@@ -19,11 +19,11 @@ import '../../widgets/background_image.dart';
 import '../../widgets/flag_button.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
-import 'start_game_controller.dart';
+import 'normal_game_setup_controller.dart';
 import 'widgets/horizontal_row.dart';
 import 'widgets/show_custom_value_sheet.dart';
 
-class StartGameScreen extends ConsumerWidget {
+class NormalGameSetupScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chosenDictionary = ref.watch(chosenDictionaryProvider);
@@ -33,7 +33,7 @@ class StartGameScreen extends ConsumerWidget {
     final lengthOfRound = ref.watch(lengthOfRoundProvider);
     final validationMessage = ref.watch(validationMessageProvider);
 
-    final startGameController = ref.watch(startGameProvider);
+    final normalGameSetupController = ref.watch(normalGameSetupProvider);
 
     return Scaffold(
       body: BackgroundImage(
@@ -53,14 +53,14 @@ class StartGameScreen extends ConsumerWidget {
                         countryName: 'dictionaryCroatianString'.tr(),
                         flagImage: ModerniAliasIcons.croatiaImage,
                         selectedCountry: Flag.croatia,
-                        onTap: () => startGameController.updateDictionary(Flag.croatia),
+                        onTap: () => normalGameSetupController.updateDictionary(Flag.croatia),
                         isActive: chosenDictionary == Flag.croatia,
                       ),
                       createFlagButton(
                         countryName: 'dictionaryEnglishString'.tr(),
                         flagImage: ModerniAliasIcons.unitedKingdomImage,
                         selectedCountry: Flag.unitedKingdom,
-                        onTap: () => startGameController.updateDictionary(Flag.unitedKingdom),
+                        onTap: () => normalGameSetupController.updateDictionary(Flag.unitedKingdom),
                         isActive: chosenDictionary == Flag.unitedKingdom,
                       ),
                     ],
@@ -70,21 +70,21 @@ class StartGameScreen extends ConsumerWidget {
                     [
                       createNumberOfTeamsButton(
                         value: '2',
-                        onTap: () => startGameController.updateNumberOfTeams(
+                        onTap: () => normalGameSetupController.updateNumberOfTeams(
                           chosenNumber: 2,
                         ),
                         isActive: teamsLength == 2,
                       ),
                       createNumberOfTeamsButton(
                         value: '3',
-                        onTap: () => startGameController.updateNumberOfTeams(
+                        onTap: () => normalGameSetupController.updateNumberOfTeams(
                           chosenNumber: 3,
                         ),
                         isActive: teamsLength == 3,
                       ),
                       createNumberOfTeamsButton(
                         value: '4',
-                        onTap: () => startGameController.updateNumberOfTeams(
+                        onTap: () => normalGameSetupController.updateNumberOfTeams(
                           chosenNumber: 4,
                         ),
                         isActive: teamsLength == 4,
@@ -94,7 +94,7 @@ class StartGameScreen extends ConsumerWidget {
                         onTap: () => showCustomValueSheet(
                           title: 'teamsString'.tr(),
                           hintText: '${'numberBetweenString'.tr()} 2 - 10',
-                          onValueSaved: (value) => startGameController.updateNumberOfTeams(
+                          onValueSaved: (value) => normalGameSetupController.updateNumberOfTeams(
                             chosenNumber: value,
                           ),
                           lowestNumber: 2,
@@ -196,11 +196,11 @@ class StartGameScreen extends ConsumerWidget {
                             key: ValueKey(team),
                             hintText: 'teamNameString'.tr(),
                             textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
-                            onChanged: (value) => startGameController.teamNameUpdated(
+                            onChanged: (value) => normalGameSetupController.teamNameUpdated(
                               passedTeam: team,
                               value: value,
                             ),
-                            randomizePressed: () => startGameController.randomizeTeamName(
+                            randomizePressed: () => normalGameSetupController.randomizeTeamName(
                               passedTeam: team,
                             ),
                           ),
@@ -228,7 +228,7 @@ class StartGameScreen extends ConsumerWidget {
                       text: 'playTheGameString'.tr().toUpperCase(),
                       onPressed: () {
                         /// Validation successfull, go to [NormalGameScreen]
-                        if (startGameController.validateTeams()) {
+                        if (normalGameSetupController.validateTeams()) {
                           goToNormalGameScreen(context);
                         }
                       },
