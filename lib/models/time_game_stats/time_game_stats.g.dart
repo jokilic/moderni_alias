@@ -1,44 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'team.dart';
+part of 'time_game_stats.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TeamAdapter extends TypeAdapter<Team> {
+class TimeGameStatsAdapter extends TypeAdapter<TimeGameStats> {
   @override
-  final int typeId = 3;
+  final int typeId = 8;
 
   @override
-  Team read(BinaryReader reader) {
+  TimeGameStats read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Team(
-      name: fields[1] as String,
-      textEditingController: fields[5] as TextEditingController,
-      points: fields[2] as int,
-      correctPoints: fields[3] as int,
-      wrongPoints: fields[4] as int,
+    return TimeGameStats(
+      startTime: fields[1] as DateTime,
+      endTime: fields[2] as DateTime,
+      teams: (fields[3] as List).cast<Team>(),
+      rounds: (fields[4] as List).cast<Round>(),
+      language: fields[5] as Flag,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Team obj) {
+  void write(BinaryWriter writer, TimeGameStats obj) {
     writer
       ..writeByte(5)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.startTime)
       ..writeByte(2)
-      ..write(obj.points)
+      ..write(obj.endTime)
       ..writeByte(3)
-      ..write(obj.correctPoints)
+      ..write(obj.teams)
       ..writeByte(4)
-      ..write(obj.wrongPoints)
+      ..write(obj.rounds)
       ..writeByte(5)
-      ..write(obj.textEditingController);
+      ..write(obj.language);
   }
 
   @override
@@ -47,7 +47,7 @@ class TeamAdapter extends TypeAdapter<Team> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TeamAdapter &&
+      other is TimeGameStatsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

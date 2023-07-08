@@ -17,13 +17,8 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
-import '../normal_game_setup/normal_game_setup_controller.dart';
 import 'widgets/show_scores.dart';
 
-final currentlyPlayingTeamProvider = StateProvider.autoDispose<Team>(
-  (ref) => ref.read(teamsProvider).first,
-  name: 'CurrentlyPlayingTeamProvider',
-);
 final tieBreakTeamsProvider = StateProvider<List<Team>?>(
   (_) => null,
   name: 'TieBreakTeamsProvider',
@@ -152,17 +147,6 @@ class NormalGameController {
     );
 
     await startAudioRecording();
-  }
-
-  ///
-  /// RECORD
-  ///
-
-  /// Generates proper `path` and starts audio recording
-  Future<void> startAudioRecording() async {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
-    await ref.read(audioRecordProvider).startRecording(path);
   }
 
   ///
@@ -361,6 +345,27 @@ class NormalGameController {
   }
 
   ///
+  /// RECORD
+  ///
+
+  /// Generates proper `path` and starts audio recording
+  Future<void> startAudioRecording() async {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
+    await ref.read(audioRecordProvider).startRecording(path);
+  }
+
+  /// Stores the audio file to application directory
+  Future<String?> saveAudioFile() async {
+    try {
+      return await ref.read(audioRecordProvider).stopRecording();
+    } catch (e) {
+      ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
+    }
+    return null;
+  }
+
+  ///
   /// HIVE
   ///
 
@@ -381,15 +386,5 @@ class NormalGameController {
     if (gameType == Game.normal) {
       await ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
     }
-  }
-
-  /// Stores the audio file to application directory
-  Future<String?> saveAudioFile() async {
-    try {
-      return await ref.read(audioRecordProvider).stopRecording();
-    } catch (e) {
-      ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
-    }
-    return null;
   }
 }

@@ -6,6 +6,7 @@ enum Game {
   none,
   normal,
   quick,
+  time,
   starting,
 }
 

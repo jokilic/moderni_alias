@@ -5,27 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constants/enums.dart';
 import '../../models/team/team.dart';
 import '../../services/dictionary_service.dart';
-
-final teamsProvider = StateProvider.autoDispose<List<Team>>(
-  (_) => [for (var i = 0; i < 2; i++) Team(name: '', textEditingController: TextEditingController())],
-  name: 'TeamsProvider',
-);
-final teamsLengthProvider = StateProvider.autoDispose<int>(
-  (ref) => ref.watch(teamsProvider).length,
-  name: 'TeamsLengthProvider',
-);
-final pointsToWinProvider = StateProvider.autoDispose<int>(
-  (_) => 50,
-  name: 'PointsToWinProvider',
-);
-final lengthOfRoundProvider = StateProvider.autoDispose<int>(
-  (_) => 60,
-  name: 'LengthOfRoundProvider',
-);
-final validationMessageProvider = StateProvider.autoDispose<String?>(
-  (_) => null,
-  name: 'ValidationMessageProvider',
-);
+import '../../util/providers.dart';
 
 final normalGameSetupProvider = Provider.autoDispose<NormalGameSetupController>(
   NormalGameSetupController.new,

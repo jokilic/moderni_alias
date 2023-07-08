@@ -7,6 +7,7 @@ import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
 import '../models/round/round.dart';
 import '../models/team/team.dart';
+import '../models/time_game_stats/time_game_stats.dart';
 import 'logger_service.dart';
 
 final hiveProvider = Provider<HiveService>(
@@ -31,6 +32,7 @@ class HiveService {
 
   late final Box<NormalGameStats> normalGameStatsBox;
   late final Box<QuickGameStats> quickGameStatsBox;
+  late final Box<TimeGameStats> timeGameStatsBox;
 
   ///
   /// INIT
@@ -49,6 +51,7 @@ class HiveService {
 
     normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
     quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');
+    timeGameStatsBox = await Hive.openBox<TimeGameStats>('timeGameStatsBox');
   }
 
   ///
@@ -58,6 +61,7 @@ class HiveService {
   Future<void> dispose() async {
     await normalGameStatsBox.close();
     await quickGameStatsBox.close();
+    await timeGameStatsBox.close();
     await Hive.close();
   }
 
@@ -76,4 +80,10 @@ class HiveService {
 
   /// Called to get all [QuickGameStats] values from [Hive]
   List<QuickGameStats> getQuickGameStatsFromBox() => quickGameStatsBox.values.toList();
+
+  /// Called to add a new [TimeGameStats] value to [Hive]
+  Future<void> addTimeGameStatsToBox({required TimeGameStats timeGameStats}) async => timeGameStatsBox.add(timeGameStats);
+
+  /// Called to get all [TimeGameStats] values from [Hive]
+  List<TimeGameStats> getTimeGameStatsFromBox() => timeGameStatsBox.values.toList();
 }

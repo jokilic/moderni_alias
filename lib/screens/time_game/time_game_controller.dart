@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../models/played_word/played_word.dart';
-import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
+import '../../models/time_game_stats/time_game_stats.dart';
 import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
@@ -15,20 +14,21 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
+import '../normal_game/widgets/show_scores.dart';
 
-final quickGameProvider = Provider.autoDispose<QuickGameController>(
+final timeGameProvider = Provider.autoDispose<TimeGameController>(
   (ref) {
-    final quickGameController = QuickGameController(ref);
-    ref.onDispose(quickGameController.dispose);
-    return quickGameController;
+    final timeGameController = TimeGameController(ref);
+    ref.onDispose(timeGameController.dispose);
+    return timeGameController;
   },
-  name: 'QuickGameProvider',
+  name: 'TimeGameProvider',
 );
 
-class QuickGameController {
+class TimeGameController {
   final ProviderRef ref;
 
-  QuickGameController(this.ref) {
+  TimeGameController(this.ref) {
     init();
   }
 
@@ -36,26 +36,23 @@ class QuickGameController {
   /// VARIABLES
   ///
 
-  var greenSeconds = 0.0;
-  var yellowSeconds = 0.0;
-  var redSeconds = 0.0;
+  var correctAnswers = 0;
+  var wrongAnswers = 0;
 
-  Timer? greenTimer;
-  Timer? yellowTimer;
-  Timer? redTimer;
-  Timer? soundTimer;
+  Timer? timer;
 
-  late QuickGameStats quickGameStats;
+  late TimeGameStats timeGameStats;
 
   ///
   /// INIT
   ///
 
   void init() {
-    quickGameStats = QuickGameStats(
+    timeGameStats = TimeGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
-      round: Round(playedWords: []),
+      teams: List.from(ref.read(teamsProvider)),
+      rounds: [],
       language: ref.read(chosenDictionaryProvider),
     );
   }
@@ -65,52 +62,18 @@ class QuickGameController {
   ///
 
   void dispose() {
-    greenTimer?.cancel();
-    yellowTimer?.cancel();
-    redTimer?.cancel();
-    soundTimer?.cancel();
+    timer?.cancel();
   }
 
   ///
-  /// TIMERS & COUNTDOWN
+  /// TIMER & COUNTDOWN
   ///
 
-  /// Returns a Timer with the specified length and color
-  Timer makeTimer({required double chosenSeconds, required Color chosenColor}) => Timer(
-        Duration(seconds: 60 - chosenSeconds.round()),
-        () => ref.read(countdownTimerFillColorProvider.notifier).state = chosenColor,
+  /// Sets the variables and starts the Timer
+  void startTimer() => timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (timer) => ref.read(loggerProvider).wtf('TIME: ${timer.tick}'),
       );
-
-  /// Sets the variables and starts the time countdown
-  void startTimer(int lengthOfRound) {
-    /// Set the time when the colors in the circular timer change
-    greenSeconds = lengthOfRound * 0.6;
-    yellowSeconds = lengthOfRound * 0.4;
-    redSeconds = lengthOfRound * 0.15;
-
-    /// Initialize timer that runs when the round is about to end
-    soundTimer = Timer(
-      Duration(seconds: lengthOfRound - 5),
-      () {
-        ref.read(countdownPlayerProvider).load();
-        ref.read(countdownPlayerProvider).play();
-      },
-    );
-
-    /// Initialize timers that change colors
-    greenTimer = makeTimer(
-      chosenSeconds: greenSeconds,
-      chosenColor: ModerniAliasColors.greenColor,
-    );
-    yellowTimer = makeTimer(
-      chosenSeconds: yellowSeconds,
-      chosenColor: ModerniAliasColors.yellowColor,
-    );
-    redTimer = makeTimer(
-      chosenSeconds: redSeconds,
-      chosenColor: ModerniAliasColors.redColor,
-    );
-  }
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
@@ -136,21 +99,46 @@ class QuickGameController {
   ///
 
   /// Reset variables and start the round
-  void startRound({required int lengthOfRound}) {
+  void startRound() {
+    correctAnswers = 0;
+    wrongAnswers = 0;
     ref.read(playedWordsProvider).clear();
 
-    ref.read(currentGameProvider.notifier).state = Game.quick;
-    ref.read(countdownTimerFillColorProvider.notifier).state = ModerniAliasColors.blueColor;
-
+    ref.read(currentGameProvider.notifier).state = Game.time;
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
-    startTimer(lengthOfRound);
+    startTimer();
+  }
+
+  /// Gets called when the game is on hold (round ended, waiting for new round start)
+  void gameStopped() {
+    ref.read(currentGameProvider.notifier).state = Game.none;
+    timer?.cancel();
+  }
+
+  /// Continues game with next team
+  Future<void> continueGame({required BuildContext context}) async {
+    gameStopped();
+
+    await showScoresSheet(context);
+
+    await updateHiveStats(gameType: Game.none);
+
+    final currentTeamIndex = ref.read(teamsProvider).indexOf(
+          ref.read(currentlyPlayingTeamProvider),
+        );
+
+    if (currentTeamIndex < ref.read(teamsProvider).length - 1) {
+      ref.read(currentlyPlayingTeamProvider.notifier).state = ref.read(teamsProvider)[currentTeamIndex + 1];
+    } else {
+      endGame(context);
+    }
   }
 
   /// Goes to the confetti screen and shows info about the round
   void endGame(BuildContext context) {
-    updateHiveStats();
-    goToQuickGameFinishedScreen(context);
+    updateHiveStats(gameType: Game.time);
+    goToTimeGameFinishedScreen(context);
   }
 
   ///
@@ -202,6 +190,22 @@ class QuickGameController {
   }
 
   ///
+  /// SCORES SHEET
+  ///
+
+  /// Shows scores sheet and dismisses it after some time
+  Future<void> showScoresSheet(BuildContext context) async {
+    showScores(
+      teams: ref.read(teamsProvider),
+      playedWords: ref.read(playedWordsProvider),
+      dismissible: false,
+      context: context,
+    );
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.of(context).pop();
+  }
+
+  ///
   /// RECORD
   ///
 
@@ -226,15 +230,23 @@ class QuickGameController {
   /// HIVE
   ///
 
-  /// Update stats and store them in [Hive]
-  Future<void> updateHiveStats() async {
-    quickGameStats = quickGameStats.copyWith(
-      endTime: DateTime.now(),
-      round: Round(
-        playedWords: List.from(ref.read(playedWordsProvider)),
-        audioRecording: await saveAudioFile(),
-      ),
+  /// Save audio file and update stats and store them in [Hive]
+  Future<void> updateHiveStats({required Game gameType}) async {
+    timeGameStats = timeGameStats.copyWith(
+      endTime: gameType == Game.time ? DateTime.now() : null,
+      rounds: [
+        ...timeGameStats.rounds,
+        Round(
+          playedWords: List.from(ref.read(playedWordsProvider)),
+          playingTeam: ref.read(currentlyPlayingTeamProvider),
+          audioRecording: await saveAudioFile(),
+          time: DateTime.now(),
+        ),
+      ],
     );
-    await ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats);
+
+    if (gameType == Game.time) {
+      await ref.read(hiveProvider).addTimeGameStatsToBox(timeGameStats: timeGameStats);
+    }
   }
 }

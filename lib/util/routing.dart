@@ -12,6 +12,8 @@ import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import '../screens/quick_game_stats/quick_game_stats_screen.dart';
 import '../screens/stats/stats_screen.dart';
+import '../screens/time_game/time_game_screen.dart';
+import '../screens/time_game_finished/time_game_finished_screen.dart';
 import 'fade_page_route.dart';
 
 ///
@@ -28,6 +30,8 @@ Route onGenerateRoute(RouteSettings settings) {
     ModerniAliasRoutes.normalGameFinishedScreen => NormalGameFinishedScreen(),
     ModerniAliasRoutes.quickGameScreen => QuickGameScreen(),
     ModerniAliasRoutes.quickGameFinishedScreen => QuickGameFinishedScreen(),
+    ModerniAliasRoutes.timeGameScreen => TimeGameScreen(),
+    ModerniAliasRoutes.timeGameFinishedScreen => TimeGameFinishedScreen(),
     ModerniAliasRoutes.statsScreen => StatsScreen(),
     ModerniAliasRoutes.normalGameStatsScreen => NormalGameStatsScreen(),
     ModerniAliasRoutes.quickGameStatsScreen => QuickGameStatsScreen(),
@@ -52,6 +56,8 @@ class ModerniAliasRoutes {
   static const normalGameFinishedScreen = '/normal_game_finished';
   static const quickGameScreen = '/quick_game';
   static const quickGameFinishedScreen = '/quick_game_finished';
+  static const timeGameScreen = '/time_game';
+  static const timeGameFinishedScreen = '/time_game_finished';
   static const statsScreen = '/stats';
   static const normalGameStatsScreen = '/normal_game_stats';
   static const quickGameStatsScreen = '/quick_game_stats';
@@ -92,6 +98,14 @@ void goToQuickGameScreen(BuildContext context) => Navigator.of(context).pushName
 
 void goToQuickGameFinishedScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.quickGameFinishedScreen,
+    );
+
+void goToTimeGameScreen(BuildContext context) => Navigator.of(context).pushNamed(
+      ModerniAliasRoutes.timeGameScreen,
+    );
+
+void goToTimeGameFinishedScreen(BuildContext context) => Navigator.of(context).pushNamed(
+      ModerniAliasRoutes.timeGameFinishedScreen,
     );
 
 void goToStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(

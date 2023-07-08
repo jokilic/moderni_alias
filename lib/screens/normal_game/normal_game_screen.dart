@@ -13,7 +13,6 @@ import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
-import '../normal_game_setup/normal_game_setup_controller.dart';
 import 'normal_game_controller.dart';
 import 'widgets/normal_game_info_section.dart';
 

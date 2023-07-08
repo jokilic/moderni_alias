@@ -12,6 +12,7 @@ import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../services/dictionary_service.dart';
+import '../../util/providers.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_list_view.dart';
