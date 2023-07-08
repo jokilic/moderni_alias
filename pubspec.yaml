@@ -23,7 +23,7 @@ dependencies:
   easy_localization: 3.0.2 # Localization
   flutter_staggered_animations: 1.1.1 # Used for animating widgets
   flutter_riverpod: 2.3.6 # State management, dependency injection, etc.
-  flutter_svg: 2.0.6 # SVG rendering library
+  flutter_svg: 2.0.7 # SVG rendering library
   hive: 2.2.3 # Used to store data for Stats
   hive_flutter: 1.1.0 # Easier integration of Hive with Flutter
   intl: 0.18.1 # Used for date formatting
@@ -32,8 +32,8 @@ dependencies:
   package_info_plus: 4.0.2 # To get the app version and show on the relevant screen
   path_provider: 2.0.15 # For finding commonly used locations on the filesystem
   rive: 0.11.2 # Renders Rive animations in Flutter
-  timeago: 3.4.0 # To show when were last games played
-  url_launcher: 6.1.11 # Used to launch URLs in native browser
+  timeago: 3.5.0 # To show when were last games played
+  url_launcher: 6.1.12 # Used to launch URLs in native browser
   video_player: 2.7.0 # Used to play videos
 
 dev_dependencies:
