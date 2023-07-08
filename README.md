@@ -44,7 +44,4 @@ The goal is to have 10 000.
 
 ## Things I still want to do 👷‍♂️
 
-- [ ] Record audio for each round and put it in Stats
-    - [ ] Live audio widget during Normal game
-    - [ ] Live audio widget during Quick game
 - [ ] Add 'Speed game' / 'Time game'
