@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constants/enums.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
+import '../../models/team/team.dart';
 import '../../models/time_game_stats/time_game_stats.dart';
 import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
@@ -72,7 +73,9 @@ class TimeGameController {
   /// Sets the variables and starts the Timer
   void startTimer() => timer = Timer.periodic(
         const Duration(seconds: 1),
-        (timer) => ref.read(loggerProvider).wtf('TIME: ${timer.tick}'),
+        (timer) => ref.read(timeGameTimerProvider.notifier).state = Duration(
+          seconds: timer.tick,
+        ),
       );
 
   /// Counts down the 3 seconds before starting new round
@@ -105,9 +108,33 @@ class TimeGameController {
     ref.read(playedWordsProvider).clear();
 
     ref.read(currentGameProvider.notifier).state = Game.time;
+    ref.read(timeGameTimerProvider.notifier).state = Duration.zero;
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     startTimer();
+  }
+
+  /// Checks if team has guessed the selected number of words
+  void checkRoundDone(BuildContext context) {
+    /// User has guessed the proper number of words, round is done
+    if (ref.read(currentlyPlayingTeamProvider).points >= ref.read(wordsToWinProvider)) {
+      gameStopped();
+
+      timer?.cancel();
+
+      final currentTeamIndex = ref.read(teamsProvider).indexOf(
+            ref.read(currentlyPlayingTeamProvider),
+          );
+
+      if (currentTeamIndex < ref.read(teamsProvider).length - 1) {
+        continueGame(
+          ref.read(teamsProvider),
+          context: context,
+        );
+      } else {
+        endGame(context);
+      }
+    }
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
@@ -117,9 +144,7 @@ class TimeGameController {
   }
 
   /// Continues game with next team
-  Future<void> continueGame({required BuildContext context}) async {
-    gameStopped();
-
+  Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
     await showScoresSheet(context);
 
     await updateHiveStats(gameType: Game.none);
@@ -127,12 +152,7 @@ class TimeGameController {
     final currentTeamIndex = ref.read(teamsProvider).indexOf(
           ref.read(currentlyPlayingTeamProvider),
         );
-
-    if (currentTeamIndex < ref.read(teamsProvider).length - 1) {
-      ref.read(currentlyPlayingTeamProvider.notifier).state = ref.read(teamsProvider)[currentTeamIndex + 1];
-    } else {
-      endGame(context);
-    }
+    ref.read(currentlyPlayingTeamProvider.notifier).state = ref.read(teamsProvider)[currentTeamIndex + 1];
   }
 
   /// Goes to the confetti screen and shows info about the round
@@ -145,7 +165,7 @@ class TimeGameController {
   /// ANSWER
   ///
 
-  void answerChosen({required Answer chosenAnswer}) {
+  void answerChosen({required Answer chosenAnswer, required BuildContext context}) {
     /// Game is not running, handle tapping answer
     if (ref.read(currentGameProvider) == Game.none) {
       start3SecondCountdown();
@@ -166,6 +186,20 @@ class TimeGameController {
     /// Play proper sound
     playAnswerSound(chosenAnswer: chosenAnswer);
 
+    /// Player chose the `Correct` button
+    if (chosenAnswer == Answer.correct) {
+      correctAnswers++;
+      ref.read(currentlyPlayingTeamProvider)
+        ..points += 1
+        ..correctPoints += 1;
+    }
+
+    /// Player chose the `Wrong` button
+    else {
+      wrongAnswers++;
+      ref.read(currentlyPlayingTeamProvider).wrongPoints += 1;
+    }
+
     /// Add answer to list of `playedWords` (for showing in the end of the round)
     ref.read(playedWordsProvider).add(
           PlayedWord(
@@ -173,6 +207,9 @@ class TimeGameController {
             chosenAnswer: chosenAnswer,
           ),
         );
+
+    /// Check if player has guessed the selected number of words
+    checkRoundDone(context);
 
     /// Get another random word
     ref.read(dictionaryProvider.notifier).getRandomWord();
@@ -240,7 +277,7 @@ class TimeGameController {
           playedWords: List.from(ref.read(playedWordsProvider)),
           playingTeam: ref.read(currentlyPlayingTeamProvider),
           audioRecording: await saveAudioFile(),
-          time: DateTime.now(),
+          duration: Duration.zero,
         ),
       ],
     );

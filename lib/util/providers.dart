@@ -53,6 +53,11 @@ final teamsLengthProvider = StateProvider.autoDispose<int>(
   name: 'TeamsLengthProvider',
 );
 
+final tieBreakTeamsProvider = StateProvider<List<Team>?>(
+  (_) => null,
+  name: 'TieBreakTeamsProvider',
+);
+
 ///
 /// GAME
 ///
@@ -74,6 +79,11 @@ final counter3SecondsProvider = StateProvider.autoDispose<int>(
 final countdownTimerFillColorProvider = StateProvider.autoDispose<Color>(
   (_) => ModerniAliasColors.blueColor,
   name: 'CountdownTimerFillColorProvider',
+);
+
+final timeGameTimerProvider = StateProvider<Duration>(
+  (_) => Duration.zero,
+  name: 'TimeGameTimerProvider',
 );
 
 ///

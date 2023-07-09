@@ -256,4 +256,16 @@ class ModerniAliasTextStyles {
     fontSize: 22,
     fontWeight: FontWeight.bold,
   );
+  static const timeGameClock = TextStyle(
+    fontFamily: 'Sen',
+    color: ModerniAliasColors.whiteColor,
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+  );
+  static const timeGameNumberOfWords = TextStyle(
+    fontFamily: 'Sen',
+    color: ModerniAliasColors.whiteColor,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
 }

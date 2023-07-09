@@ -17,28 +17,28 @@ class Round extends HiveObject {
   final String? audioRecording;
 
   @HiveField(4)
-  final DateTime? time;
+  final Duration? duration;
 
   Round({
     required this.playedWords,
     this.playingTeam,
     this.audioRecording,
-    this.time,
+    this.duration,
   });
 
   Round copyWith({
     List<PlayedWord>? playedWords,
     Team? playingTeam,
     String? audioRecording,
-    DateTime? time,
+    Duration? duration,
   }) =>
       Round(
         playedWords: playedWords ?? this.playedWords,
         playingTeam: playingTeam ?? this.playingTeam,
         audioRecording: audioRecording ?? this.audioRecording,
-        time: time ?? this.time,
+        duration: duration ?? this.duration,
       );
 
   @override
-  String toString() => 'Round(playedWords: $playedWords, playingTeam: $playingTeam, audioRecording: $audioRecording, time: $time)';
+  String toString() => 'Round(playedWords: $playedWords, playingTeam: $playingTeam, audioRecording: $audioRecording, duration: $duration)';
 }

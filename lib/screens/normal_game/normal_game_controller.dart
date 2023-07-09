@@ -19,11 +19,6 @@ import '../../util/providers.dart';
 import '../../util/routing.dart';
 import 'widgets/show_scores.dart';
 
-final tieBreakTeamsProvider = StateProvider<List<Team>?>(
-  (_) => null,
-  name: 'TieBreakTeamsProvider',
-);
-
 final normalGameProvider = Provider.autoDispose<NormalGameController>(
   (ref) {
     final normalGameController = NormalGameController(ref);
