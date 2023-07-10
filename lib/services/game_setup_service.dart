@@ -7,15 +7,15 @@ import '../../models/team/team.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 
-final normalGameSetupProvider = Provider.autoDispose<NormalGameSetupController>(
-  NormalGameSetupController.new,
-  name: 'NormalGameSetupProvider',
+final gameSetupProvider = Provider.autoDispose<GameSetupService>(
+  GameSetupService.new,
+  name: 'GameSetupProvider',
 );
 
-class NormalGameSetupController {
+class GameSetupService {
   final ProviderRef ref;
 
-  NormalGameSetupController(this.ref);
+  GameSetupService(this.ref);
 
   ///
   /// METHODS

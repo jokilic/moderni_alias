@@ -16,22 +16,20 @@ import '../../widgets/animated_list_view.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/flag_button.dart';
 import '../../widgets/game_setup/horizontal_row.dart';
-import '../../widgets/game_setup/length_of_round_button.dart';
 import '../../widgets/game_setup/name_of_team.dart';
-import '../../widgets/game_setup/number_of_points.dart';
 import '../../widgets/game_setup/number_of_teams_button.dart';
+import '../../widgets/game_setup/number_of_time_points.dart';
 import '../../widgets/game_setup/show_custom_value_sheet.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
 
-class NormalGameSetupScreen extends ConsumerWidget {
+class TimeGameSetupScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chosenDictionary = ref.watch(chosenDictionaryProvider);
     final teams = ref.watch(teamsProvider);
     final teamsLength = ref.watch(teamsLengthProvider);
-    final pointsToWin = ref.watch(pointsToWinProvider);
-    final lengthOfRound = ref.watch(lengthOfRoundProvider);
+    final wordsToWin = ref.watch(wordsToWinProvider);
     final validationMessage = ref.watch(validationMessageProvider);
 
     final gameSetupController = ref.watch(gameSetupProvider);
@@ -106,77 +104,40 @@ class NormalGameSetupScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  GameTitle('numberOfPointsString'.tr()),
+                  GameTitle('numberOfWordsString'.tr()),
                   HorizontalScroll(
                     [
-                      createNumberOfPointsButton(
+                      createNumberOfTimePointsButton(
+                        value: '5',
+                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 5,
+                        isActive: wordsToWin == 5,
+                      ),
+                      createNumberOfTimePointsButton(
+                        value: '10',
+                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 10,
+                        isActive: wordsToWin == 10,
+                      ),
+                      createNumberOfTimePointsButton(
                         value: '25',
-                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 25,
-                        isActive: pointsToWin == 25,
+                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 25,
+                        isActive: wordsToWin == 25,
                       ),
-                      createNumberOfPointsButton(
+                      createNumberOfTimePointsButton(
                         value: '50',
-                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 50,
-                        isActive: pointsToWin == 50,
+                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 50,
+                        isActive: wordsToWin == 50,
                       ),
-                      createNumberOfPointsButton(
-                        value: '75',
-                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 75,
-                        isActive: pointsToWin == 75,
-                      ),
-                      createNumberOfPointsButton(
-                        value: '100',
-                        onTap: () => ref.read(pointsToWinProvider.notifier).state = 100,
-                        isActive: pointsToWin == 100,
-                      ),
-                      createNumberOfPointsButton(
-                        value: pointsToWin == 25 || pointsToWin == 50 || pointsToWin == 75 || pointsToWin == 100 ? '•••' : '$pointsToWin',
+                      createNumberOfTimePointsButton(
+                        value: wordsToWin == 5 || wordsToWin == 10 || wordsToWin == 25 || wordsToWin == 50 ? '•••' : '$wordsToWin',
                         onTap: () => showCustomValueSheet(
-                          title: 'numberOfPointsString'.tr(),
-                          hintText: '${'numberBetweenString'.tr()} 5 - 1000',
-                          onValueSaved: (value) => ref.read(pointsToWinProvider.notifier).state = value,
-                          lowestNumber: 5,
-                          highestNumber: 1000,
+                          title: 'numberOfWordsString'.tr(),
+                          hintText: '${'numberBetweenString'.tr()} 2 - 100',
+                          onValueSaved: (value) => ref.read(wordsToWinProvider.notifier).state = value,
+                          lowestNumber: 2,
+                          highestNumber: 100,
                           context: context,
                         ),
-                        isActive: pointsToWin != 25 && pointsToWin != 50 && pointsToWin != 75 && pointsToWin != 100,
-                      ),
-                    ],
-                  ),
-                  GameTitle('lengthOfRoundString'.tr()),
-                  HorizontalScroll(
-                    [
-                      createLengthOfRoundButton(
-                        value: '20',
-                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 20,
-                        isActive: lengthOfRound == 20,
-                      ),
-                      createLengthOfRoundButton(
-                        value: '45',
-                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 45,
-                        isActive: lengthOfRound == 45,
-                      ),
-                      createLengthOfRoundButton(
-                        value: '60',
-                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 60,
-                        isActive: lengthOfRound == 60,
-                      ),
-                      createLengthOfRoundButton(
-                        value: '90',
-                        onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
-                        isActive: lengthOfRound == 90,
-                      ),
-                      createLengthOfRoundButton(
-                        value: lengthOfRound == 20 || lengthOfRound == 45 || lengthOfRound == 60 || lengthOfRound == 90 ? '•••' : '$lengthOfRound',
-                        onTap: () => showCustomValueSheet(
-                          title: 'lengthOfRoundString'.tr(),
-                          hintText: '${'numberBetweenString'.tr()} 5 - 1000',
-                          onValueSaved: (value) => ref.read(lengthOfRoundProvider.notifier).state = value,
-                          lowestNumber: 5,
-                          highestNumber: 1000,
-                          context: context,
-                        ),
-                        isActive: lengthOfRound != 20 && lengthOfRound != 45 && lengthOfRound != 60 && lengthOfRound != 90,
+                        isActive: wordsToWin != 5 && wordsToWin != 10 && wordsToWin != 25 && wordsToWin != 50,
                       ),
                     ],
                   ),
@@ -228,9 +189,9 @@ class NormalGameSetupScreen extends ConsumerWidget {
                     child: PlayButton(
                       text: 'playTheGameString'.tr().toUpperCase(),
                       onPressed: () {
-                        /// Validation successfull, go to [NormalGameScreen]
+                        /// Validation successfull, go to [TimeGameScreen]
                         if (gameSetupController.validateTeams()) {
-                          goToNormalGameScreen(context);
+                          goToTimeGameScreen(context);
                         }
                       },
                     ),

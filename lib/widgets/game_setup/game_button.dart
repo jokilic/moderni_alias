@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/text_styles.dart';
-import '../../../widgets/animated_gesture_detector.dart';
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
+import '../animated_gesture_detector.dart';
 
 class GameButton extends StatelessWidget {
   final Function() onTap;

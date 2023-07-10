@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
+import '../../constants/colors.dart';
 import 'game_button.dart';
 
-Widget createNumberOfPointsButton({
+Widget createNumberOfTimePointsButton({
   required String value,
   required Function() onTap,
   required bool isActive,

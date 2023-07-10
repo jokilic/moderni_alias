@@ -20,7 +20,7 @@ class HomePageButtons extends StatelessWidget {
             PlayButton(
               text: 'timeStartButtonString'.tr().toUpperCase(),
               horizontalPadding: 40,
-              onPressed: () => goToTimeGameScreen(context),
+              onPressed: () => goToTimeGameSetupScreen(context),
             ),
             const SizedBox(height: 25),
             PlayButton(

@@ -43,6 +43,7 @@ class HiveService {
     Hive
       ..registerAdapter(NormalGameStatsAdapter())
       ..registerAdapter(QuickGameStatsAdapter())
+      ..registerAdapter(TimeGameStatsAdapter())
       ..registerAdapter(TeamAdapter())
       ..registerAdapter(RoundAdapter())
       ..registerAdapter(PlayedWordAdapter())
