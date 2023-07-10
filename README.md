@@ -45,4 +45,6 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Add 'Speed game' / 'Time game'
+    - [ ] Stats - Ability to show all team who have lowest seconds in yellow
+    - [ ] Finished - Ability to show all teams who have lowest seconds
     - [ ] Sound when player has guessed the number of words
