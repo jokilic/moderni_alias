@@ -17,12 +17,12 @@ class StatsSegmentedWidget extends ConsumerWidget {
         children: [
           StatsSegmentedValueWidget(
             onPressed: () => statsNotifier.segmentedValuePressed(0),
-            text: 'statsInfoGeneral'.tr(),
+            text: 'statsInfoNormal'.tr(),
             isActive: currentIndex == 0 || currentIndex == null,
           ),
           StatsSegmentedValueWidget(
             onPressed: () => statsNotifier.segmentedValuePressed(1),
-            text: 'statsInfoNormal'.tr(),
+            text: 'statsInfoTime'.tr(),
             isActive: currentIndex == 1 || currentIndex == null,
           ),
           StatsSegmentedValueWidget(

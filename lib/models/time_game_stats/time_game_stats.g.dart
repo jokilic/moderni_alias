@@ -22,13 +22,14 @@ class TimeGameStatsAdapter extends TypeAdapter<TimeGameStats> {
       teams: (fields[3] as List).cast<Team>(),
       rounds: (fields[4] as List).cast<Round>(),
       language: fields[5] as Flag,
+      numberOfWords: fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, TimeGameStats obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(1)
       ..write(obj.startTime)
       ..writeByte(2)
@@ -38,7 +39,9 @@ class TimeGameStatsAdapter extends TypeAdapter<TimeGameStats> {
       ..writeByte(4)
       ..write(obj.rounds)
       ..writeByte(5)
-      ..write(obj.language);
+      ..write(obj.language)
+      ..writeByte(6)
+      ..write(obj.numberOfWords);
   }
 
   @override

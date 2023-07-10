@@ -7,6 +7,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 class StatsValueWidget extends StatelessWidget {
   final String text;
   final int? value;
+  final String? textValue;
   final bool bigText;
   final bool yellowCircle;
   final Function()? onPressed;
@@ -15,6 +16,7 @@ class StatsValueWidget extends StatelessWidget {
   const StatsValueWidget({
     required this.text,
     this.value,
+    this.textValue,
     this.bigText = false,
     this.yellowCircle = false,
     this.valueLeft = false,
@@ -41,11 +43,12 @@ class StatsValueWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (value != null && valueLeft) ...[
+                if (valueLeft && (value != null || textValue != null)) ...[
                   StatsValueContainer(
                     yellowCircle: yellowCircle,
-                    value: value,
+                    value: value != null ? value.toString() : textValue ?? '',
                     bigText: bigText,
+                    isNumber: value != null,
                   ),
                   const SizedBox(width: 20),
                 ],
@@ -57,12 +60,13 @@ class StatsValueWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (value != null && !valueLeft) ...[
+                if (!valueLeft && (value != null || textValue != null)) ...[
                   const SizedBox(width: 20),
                   StatsValueContainer(
                     yellowCircle: yellowCircle,
-                    value: value,
+                    value: value != null ? value.toString() : textValue ?? '',
                     bigText: bigText,
+                    isNumber: value != null,
                   ),
                 ],
               ],
@@ -74,13 +78,15 @@ class StatsValueWidget extends StatelessWidget {
 
 class StatsValueContainer extends StatelessWidget {
   final bool yellowCircle;
-  final int? value;
+  final String? value;
   final bool bigText;
+  final bool isNumber;
 
   const StatsValueContainer({
     required this.yellowCircle,
     required this.value,
     required this.bigText,
+    required this.isNumber,
   });
 
   @override
@@ -92,7 +98,8 @@ class StatsValueContainer extends StatelessWidget {
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: isNumber ? BoxShape.circle : BoxShape.rectangle,
+          borderRadius: isNumber ? null : BorderRadius.circular(100),
           color: yellowCircle ? ModerniAliasColors.yellowColor : ModerniAliasColors.whiteColor,
         ),
         child: Text(

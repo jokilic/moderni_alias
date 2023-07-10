@@ -23,12 +23,16 @@ class TimeGameStats extends HiveObject {
   @HiveField(5)
   final Flag language;
 
+  @HiveField(6)
+  final int numberOfWords;
+
   TimeGameStats({
     required this.startTime,
     required this.endTime,
     required this.teams,
     required this.rounds,
     required this.language,
+    required this.numberOfWords,
   });
 
   TimeGameStats copyWith({
@@ -37,6 +41,7 @@ class TimeGameStats extends HiveObject {
     List<Team>? teams,
     List<Round>? rounds,
     Flag? language,
+    int? numberOfWords,
   }) =>
       TimeGameStats(
         startTime: startTime ?? this.startTime,
@@ -44,8 +49,9 @@ class TimeGameStats extends HiveObject {
         teams: teams ?? this.teams,
         rounds: rounds ?? this.rounds,
         language: language ?? this.language,
+        numberOfWords: numberOfWords ?? this.numberOfWords,
       );
 
   @override
-  String toString() => 'TimeGameStats(startTime: $startTime, endTime: $endTime, teams: $teams, rounds: $rounds, language: $language)';
+  String toString() => 'TimeGameStats(startTime: $startTime, endTime: $endTime, teams: $teams, rounds: $rounds, language: $language, numberOfWords: $numberOfWords)';
 }

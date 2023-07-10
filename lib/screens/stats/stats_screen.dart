@@ -7,10 +7,10 @@ import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
 import 'stats_controller.dart';
 import 'widgets/stats_general_section.dart';
-import 'widgets/stats_info_section.dart';
 import 'widgets/stats_normal_section.dart';
 import 'widgets/stats_quick_section.dart';
 import 'widgets/stats_segmented_widget.dart';
+import 'widgets/stats_time_section.dart';
 
 class StatsScreen extends ConsumerWidget {
   @override
@@ -42,12 +42,12 @@ class StatsScreen extends ConsumerWidget {
                             controller: statsNotifier.pageController,
                             onPageChanged: statsNotifier.pageChanged,
                             children: [
-                              StatsGeneralSection(),
                               StatsNormalSection(),
+                              StatsTimeSection(),
                               StatsQuickSection(),
                             ],
                           )
-                        : StatsInfoSection(),
+                        : StatsGeneralSection(),
                   ),
                 ),
               ],

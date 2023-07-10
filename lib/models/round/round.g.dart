@@ -20,7 +20,7 @@ class RoundAdapter extends TypeAdapter<Round> {
       playedWords: (fields[1] as List).cast<PlayedWord>(),
       playingTeam: fields[2] as Team?,
       audioRecording: fields[3] as String?,
-      duration: fields[4] as Duration?,
+      durationSeconds: fields[4] as int?,
     );
   }
 
@@ -35,7 +35,7 @@ class RoundAdapter extends TypeAdapter<Round> {
       ..writeByte(3)
       ..write(obj.audioRecording)
       ..writeByte(4)
-      ..write(obj.duration);
+      ..write(obj.durationSeconds);
   }
 
   @override

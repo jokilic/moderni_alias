@@ -55,6 +55,7 @@ class TimeGameController {
       teams: List.from(ref.read(teamsProvider)),
       rounds: [],
       language: ref.read(chosenDictionaryProvider),
+      numberOfWords: ref.read(wordsToWinProvider),
     );
   }
 
@@ -277,7 +278,7 @@ class TimeGameController {
           playedWords: List.from(ref.read(playedWordsProvider)),
           playingTeam: ref.read(currentlyPlayingTeamProvider),
           audioRecording: await saveAudioFile(),
-          duration: Duration.zero,
+          durationSeconds: timer?.tick,
         ),
       ],
     );

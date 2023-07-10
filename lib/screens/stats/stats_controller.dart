@@ -10,6 +10,7 @@ import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
+import '../../models/time_game_stats/time_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/hr_messages_timeago.dart';
@@ -36,16 +37,21 @@ class StatsController extends AutoDisposeNotifier<int?> {
 
   late List<NormalGameStats> normalGameStats;
   late List<QuickGameStats> quickGameStats;
+  late List<TimeGameStats> timeGameStats;
 
   var totalNormalGames = 0;
+  var totalTimeGames = 0;
   var totalQuickGames = 0;
   var totalGames = 0;
 
   late PageController pageController;
 
   var totalCorrectAnswersNormalGames = 0;
+  var totalCorrectAnswersTimeGames = 0;
   var totalCorrectAnswersQuickGames = 0;
+
   var totalWrongAnswersNormalGames = 0;
+  var totalWrongAnswersTimeGames = 0;
   var totalWrongAnswersQuickGames = 0;
   var totalRounds = 0;
 
@@ -58,6 +64,7 @@ class StatsController extends AutoDisposeNotifier<int?> {
   var averageAnswersRounds = 0;
 
   NormalGameStats? activeNormalGameStats;
+  TimeGameStats? activeTimeGameStats;
   QuickGameStats? activeQuickGameStats;
 
   ///
@@ -81,6 +88,7 @@ class StatsController extends AutoDisposeNotifier<int?> {
     /// Get values from [Hive]
     normalGameStats = hive.getNormalGameStatsFromBox();
     quickGameStats = hive.getQuickGameStatsFromBox();
+    timeGameStats = hive.getTimeGameStatsFromBox();
 
     /// Calculate stats
     calculateValues();
@@ -103,7 +111,8 @@ class StatsController extends AutoDisposeNotifier<int?> {
     /// Calculate total games
     totalNormalGames = normalGameStats.length;
     totalQuickGames = quickGameStats.length;
-    totalGames = totalNormalGames + totalQuickGames;
+    totalTimeGames = timeGameStats.length;
+    totalGames = totalNormalGames + totalQuickGames + totalTimeGames;
 
     /// Calculate total correct and wrong answers in all normal games
     for (final normalGame in normalGameStats) {
@@ -121,13 +130,26 @@ class StatsController extends AutoDisposeNotifier<int?> {
       for (final playedWord in quickGame.round.playedWords) {
         playedWord.chosenAnswer == Answer.correct ? totalCorrectAnswersQuickGames += 1 : totalWrongAnswersQuickGames += 1;
       }
+
+      /// Calculate total correct and wrong answers in all time games
+      for (final timeGame in timeGameStats) {
+        for (final round in timeGame.rounds) {
+          totalRounds = totalRounds + 1;
+
+          for (final word in round.playedWords) {
+            word.chosenAnswer == Answer.correct ? totalCorrectAnswersTimeGames += 1 : totalWrongAnswersTimeGames += 1;
+          }
+        }
+      }
     }
 
     if (totalGames != 0) {
       /// Calculate average answers per game
-      totalAverageCorrectAnswers = (totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames) ~/ totalGames;
-      totalAverageWrongAnswers = (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames) ~/ totalGames;
-      totalAverageAnswers = ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames) + (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames)) ~/ totalGames;
+      totalAverageCorrectAnswers = (totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) ~/ totalGames;
+      totalAverageWrongAnswers = (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames + totalWrongAnswersTimeGames) ~/ totalGames;
+      totalAverageAnswers = ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) +
+              (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames + totalWrongAnswersTimeGames)) ~/
+          totalGames;
     }
 
     if (totalRounds != 0) {

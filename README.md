@@ -45,3 +45,4 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Add 'Speed game' / 'Time game'
+    - [ ] Sound when player has guessed the number of words

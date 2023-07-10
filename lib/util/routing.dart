@@ -15,6 +15,7 @@ import '../screens/stats/stats_screen.dart';
 import '../screens/time_game/time_game_screen.dart';
 import '../screens/time_game_finished/time_game_finished_screen.dart';
 import '../screens/time_game_setup/time_game_setup_screen.dart';
+import '../screens/time_game_stats/time_game_stats_screen.dart';
 import 'fade_page_route.dart';
 
 ///
@@ -36,6 +37,7 @@ Route onGenerateRoute(RouteSettings settings) {
     ModerniAliasRoutes.timeGameFinishedScreen => TimeGameFinishedScreen(),
     ModerniAliasRoutes.statsScreen => StatsScreen(),
     ModerniAliasRoutes.normalGameStatsScreen => NormalGameStatsScreen(),
+    ModerniAliasRoutes.timeGameStatsScreen => TimeGameStatsScreen(),
     ModerniAliasRoutes.quickGameStatsScreen => QuickGameStatsScreen(),
     _ => HomeScreen(),
   };
@@ -63,6 +65,7 @@ class ModerniAliasRoutes {
   static const timeGameFinishedScreen = '/time_game_finished';
   static const statsScreen = '/stats';
   static const normalGameStatsScreen = '/normal_game_stats';
+  static const timeGameStatsScreen = '/time_game_stats';
   static const quickGameStatsScreen = '/quick_game_stats';
 }
 
@@ -121,6 +124,10 @@ void goToStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
 
 void goToNormalGameStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
       ModerniAliasRoutes.normalGameStatsScreen,
+    );
+
+void goToTimeGameStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(
+      ModerniAliasRoutes.timeGameStatsScreen,
     );
 
 void goToQuickGameStatsScreen(BuildContext context) => Navigator.of(context).pushNamed(

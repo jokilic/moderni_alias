@@ -29,12 +29,16 @@ class StatsGeneralSection extends ConsumerWidget {
           value: statsNotifier.totalNormalGames,
         ),
         StatsValueWidget(
+          text: 'statsGeneralTimeGames'.tr(),
+          value: statsNotifier.totalTimeGames,
+        ),
+        StatsValueWidget(
           text: 'statsGeneralQuickGames'.tr(),
           value: statsNotifier.totalQuickGames,
         ),
         StatsValueWidget(
           text: 'statsGeneralAllGames'.tr(),
-          value: statsNotifier.totalNormalGames + statsNotifier.totalQuickGames,
+          value: statsNotifier.totalNormalGames + statsNotifier.totalTimeGames + statsNotifier.totalQuickGames,
           bigText: true,
         ),
 
@@ -52,16 +56,16 @@ class StatsGeneralSection extends ConsumerWidget {
 
         StatsValueWidget(
           text: 'statsCorrect'.tr(),
-          value: statsNotifier.totalCorrectAnswersNormalGames + statsNotifier.totalCorrectAnswersQuickGames,
+          value: statsNotifier.totalCorrectAnswersNormalGames + statsNotifier.totalCorrectAnswersTimeGames + statsNotifier.totalCorrectAnswersQuickGames,
         ),
         StatsValueWidget(
           text: 'statsWrong'.tr(),
-          value: statsNotifier.totalWrongAnswersNormalGames + statsNotifier.totalWrongAnswersQuickGames,
+          value: statsNotifier.totalWrongAnswersNormalGames + statsNotifier.totalWrongAnswersTimeGames + statsNotifier.totalWrongAnswersQuickGames,
         ),
         StatsValueWidget(
           text: 'statsAll'.tr(),
-          value: (statsNotifier.totalCorrectAnswersNormalGames + statsNotifier.totalCorrectAnswersQuickGames) +
-              (statsNotifier.totalWrongAnswersNormalGames + statsNotifier.totalWrongAnswersQuickGames),
+          value: (statsNotifier.totalCorrectAnswersNormalGames + statsNotifier.totalCorrectAnswersTimeGames + statsNotifier.totalCorrectAnswersQuickGames) +
+              (statsNotifier.totalWrongAnswersNormalGames + statsNotifier.totalWrongAnswersTimeGames + statsNotifier.totalWrongAnswersQuickGames),
           bigText: true,
         ),
 
