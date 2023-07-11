@@ -121,8 +121,6 @@ class TimeGameController {
     if (ref.read(currentlyPlayingTeamProvider).points >= ref.read(wordsToWinProvider)) {
       gameStopped();
 
-      timer?.cancel();
-
       final currentTeamIndex = ref.read(teamsProvider).indexOf(
             ref.read(currentlyPlayingTeamProvider),
           );
@@ -141,6 +139,8 @@ class TimeGameController {
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
     ref.read(currentGameProvider.notifier).state = Game.none;
+    ref.read(timeGameEndPlayerProvider).load();
+    ref.read(timeGameEndPlayerProvider).play();
     timer?.cancel();
   }
 

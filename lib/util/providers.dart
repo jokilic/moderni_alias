@@ -34,6 +34,11 @@ final countdownPlayerProvider = Provider<AudioPlayer>(
   name: 'CountdownPlayerProvider',
 );
 
+final timeGameEndPlayerProvider = Provider<AudioPlayer>(
+  (_) => AudioPlayer()..setAsset(ModerniAliasSounds.timeGameEnd, preload: false),
+  name: 'TimeGameEndPlayerProvider',
+);
+
 ///
 /// TEAMS
 ///
