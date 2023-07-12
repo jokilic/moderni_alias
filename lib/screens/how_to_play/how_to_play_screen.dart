@@ -107,6 +107,24 @@ class HowToPlayScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    GameTitle('howToTimeAliasTitleString'.tr()),
+                    StandardText(
+                      RichText(
+                        text: TextSpan(
+                          text: 'howToTimeAliasExplanationFirstString'.tr(),
+                          style: ModerniAliasTextStyles.howToPlay,
+                          children: [
+                            TextSpan(
+                              text: 'howToTimeAliasExplanationSecondString'.tr(),
+                              style: ModerniAliasTextStyles.howToPlayBoldRed,
+                            ),
+                            TextSpan(
+                              text: 'howToTimeAliasExplanationThirdString'.tr(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     GameTitle('howToQuickAliasTitleString'.tr()),
                     StandardText(
                       RichText(
