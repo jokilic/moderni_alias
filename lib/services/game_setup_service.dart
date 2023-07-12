@@ -66,5 +66,6 @@ class GameSetupService {
 
     teamNameUpdated(passedTeam: passedTeam, value: randomName);
     passedTeam.textEditingController.text = randomName;
+    passedTeam.textEditingController.selection = TextSelection.collapsed(offset: passedTeam.textEditingController.text.length);
   }
 }
