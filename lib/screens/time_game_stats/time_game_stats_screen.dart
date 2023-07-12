@@ -57,6 +57,11 @@ class TimeGameStatsScreen extends ConsumerWidget {
                     itemBuilder: (_, index) {
                       final round = sortedRounds[index];
 
+                      final isFastest = timeGameStatsPro.calculateRoundFastest(
+                        passedRound: round,
+                        fastestRound: sortedRounds.first,
+                      );
+
                       final duration =
                           '${Duration(seconds: round.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: round.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}';
 
@@ -64,7 +69,7 @@ class TimeGameStatsScreen extends ConsumerWidget {
                         text: round.playingTeam?.name ?? '',
                         textValue: duration,
                         bigText: true,
-                        yellowCircle: index == 0,
+                        yellowCircle: isFastest,
                       );
                     },
                   ),
@@ -144,7 +149,7 @@ class TimeGameStatsScreen extends ConsumerWidget {
       );
     }
 
-    /// `NormalGameStats` failed to load, show error screen
+    /// `TimeGameStats` failed to load, show error screen
     return Scaffold(
       body: BackgroundImage(
         child: SafeArea(
