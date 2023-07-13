@@ -6,7 +6,7 @@ import '../../../constants/durations.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
 import '../../../widgets/animated_gesture_detector.dart';
-import '../../normal_game/widgets/played_word_value.dart';
+import '../../../widgets/scores/played_word_value.dart';
 
 class StatsWordsExpansionWidget extends StatefulWidget {
   final int index;

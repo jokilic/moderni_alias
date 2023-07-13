@@ -3,12 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/text_styles.dart';
-import '../../../models/team/team.dart';
-import '../../../services/audio_record_service.dart';
-import '../../../widgets/animated_column.dart';
-import '../../../widgets/animated_gesture_detector.dart';
+import '../../constants/colors.dart';
+import '../../constants/text_styles.dart';
+import '../../models/team/team.dart';
+import '../../services/audio_record_service.dart';
+import '../animated_column.dart';
+import '../animated_gesture_detector.dart';
 
 class NormalGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;

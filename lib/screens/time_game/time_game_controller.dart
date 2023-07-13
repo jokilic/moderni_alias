@@ -15,7 +15,7 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
-import '../normal_game/widgets/show_scores.dart';
+import '../../widgets/scores/show_scores.dart';
 
 final timeGameProvider = Provider.autoDispose<TimeGameController>(
   (ref) {

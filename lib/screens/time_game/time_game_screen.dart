@@ -11,7 +11,7 @@ import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/wrong_correct_buttons.dart';
-import '../normal_game/widgets/show_scores.dart';
+import '../../widgets/scores/show_scores.dart';
 import 'time_game_controller.dart';
 import 'widgets/time_game_info_section.dart';
 import 'widgets/time_game_on.dart';

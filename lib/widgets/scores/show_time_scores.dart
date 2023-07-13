@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import './highscore_value.dart';
-import '../../../constants/images.dart';
-import '../../../constants/text_styles.dart';
-import '../../../models/played_word/played_word.dart';
-import '../../../models/team/team.dart';
-import '../../../widgets/animated_column.dart';
-import '../../../widgets/animated_list_view.dart';
+import '../../constants/images.dart';
+import '../../constants/text_styles.dart';
+import '../../models/played_word/played_word.dart';
+import '../../models/team/team.dart';
+import '../animated_column.dart';
+import '../animated_list_view.dart';
 import 'played_word_value.dart';
 
-void showScores({
+void showTimeScores({
   required List<PlayedWord> playedWords,
   required BuildContext context,
   List<Team>? teams,

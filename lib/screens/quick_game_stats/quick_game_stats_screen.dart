@@ -8,7 +8,7 @@ import '../../constants/icons.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
-import '../normal_game/widgets/played_word_value.dart';
+import '../../widgets/scores/played_word_value.dart';
 import '../stats/stats_controller.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';

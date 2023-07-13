@@ -15,7 +15,7 @@ import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../normal_game/widgets/show_scores.dart';
+import '../../widgets/scores/show_scores.dart';
 
 class NormalGameFinishedScreen extends ConsumerWidget {
   @override

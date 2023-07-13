@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants/colors.dart';
-import '../../../constants/enums.dart';
-import '../../../constants/icons.dart';
-import '../../../constants/text_styles.dart';
+import '../../constants/colors.dart';
+import '../../constants/enums.dart';
+import '../../constants/icons.dart';
+import '../../constants/text_styles.dart';
 
 class PlayedWordValue extends StatelessWidget {
   final String word;

@@ -17,7 +17,7 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
-import 'widgets/show_scores.dart';
+import '../../widgets/scores/show_scores.dart';
 
 final normalGameProvider = Provider.autoDispose<NormalGameController>(
   (ref) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/text_styles.dart';
+import '../../constants/text_styles.dart';
 
 class HighscoreValue extends StatelessWidget {
   final String teamName;
