@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../widgets/scores/show_scores.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../services/audio_record_service.dart';
@@ -12,9 +11,10 @@ import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
+import '../../widgets/scores/normal_game_info_section.dart';
+import '../../widgets/scores/show_scores.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'normal_game_controller.dart';
-import '../../widgets/scores/normal_game_info_section.dart';
 
 class NormalGameScreen extends ConsumerWidget {
   @override

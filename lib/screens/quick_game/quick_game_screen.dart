@@ -11,8 +11,8 @@ import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
-import '../../widgets/wrong_correct_buttons.dart';
 import '../../widgets/scores/show_scores.dart';
+import '../../widgets/wrong_correct_buttons.dart';
 import 'quick_game_controller.dart';
 import 'widgets/quick_game_info_section.dart';
 
