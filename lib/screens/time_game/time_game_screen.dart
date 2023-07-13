@@ -10,7 +10,7 @@ import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
 import '../../widgets/game_starting.dart';
-import '../../widgets/scores/show_scores.dart';
+import '../../widgets/scores/show_time_scores.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'time_game_controller.dart';
 import 'widgets/time_game_info_section.dart';
@@ -25,7 +25,6 @@ class TimeGameScreen extends ConsumerWidget {
     final currentGame = ref.watch(currentGameProvider);
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
-    final teams = ref.watch(teamsProvider);
 
     final currentWord = ref.watch(dictionaryProvider);
 
@@ -54,10 +53,9 @@ class TimeGameScreen extends ConsumerWidget {
                   child: TimeGameInfoSection(
                     currentlyPlayingTeam: currentlyPlayingTeam,
                     exitGame: () => exitGameModal(context),
-                    showScores: () => showScores(
-                      teams: teams,
+                    showScores: () => showTimeScores(
+                      context,
                       playedWords: playedWords,
-                      context: context,
                     ),
                   ),
                 ),

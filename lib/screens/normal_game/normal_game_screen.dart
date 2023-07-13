@@ -53,9 +53,9 @@ class NormalGameScreen extends ConsumerWidget {
                     currentlyPlayingTeam: currentlyPlayingTeam,
                     exitGame: () => exitGameModal(context),
                     showScores: () => showScores(
+                      context,
                       teams: teams,
                       playedWords: playedWords,
-                      context: context,
                     ),
                   ),
                 ),

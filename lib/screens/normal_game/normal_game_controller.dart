@@ -330,10 +330,10 @@ class NormalGameController {
   /// Shows scores sheet and dismisses it after some time
   Future<void> showScoresSheet(BuildContext context) async {
     showScores(
+      context,
       teams: ref.read(teamsProvider),
       playedWords: ref.read(playedWordsProvider),
       dismissible: false,
-      context: context,
     );
     await Future.delayed(const Duration(seconds: 3));
     Navigator.of(context).pop();

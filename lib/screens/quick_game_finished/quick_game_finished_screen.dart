@@ -123,8 +123,8 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                 right: 12,
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
+                    context,
                     playedWords: playedWords,
-                    context: context,
                   ),
                   end: 0.8,
                   child: const IconButton(

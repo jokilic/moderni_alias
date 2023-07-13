@@ -51,8 +51,8 @@ class QuickGameScreen extends ConsumerWidget {
                     wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
                     exitGame: () => exitGameModal(context),
                     showScores: () => showScores(
+                      context,
                       playedWords: ref.read(playedWordsProvider),
-                      context: context,
                     ),
                   ),
                 ),

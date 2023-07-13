@@ -11,9 +11,9 @@ import '../animated_column.dart';
 import '../animated_list_view.dart';
 import 'played_word_value.dart';
 
-void showScores({
+void showScores(
+  BuildContext context, {
   required List<PlayedWord> playedWords,
-  required BuildContext context,
   List<Team>? teams,
   bool dismissible = true,
 }) {
@@ -21,7 +21,25 @@ void showScores({
     showModalBottomSheet(
       context: context,
       isDismissible: dismissible,
-      builder: (context) => Container(
+      builder: (context) => ScoresModal(
+        teams: teams,
+        playedWords: playedWords,
+      ),
+    );
+  }
+}
+
+class ScoresModal extends StatelessWidget {
+  final List<Team>? teams;
+  final List<PlayedWord> playedWords;
+
+  const ScoresModal({
+    required this.teams,
+    required this.playedWords,
+  });
+
+  @override
+  Widget build(BuildContext context) => Container(
         width: double.infinity,
         padding: const EdgeInsets.only(
           top: 36,
@@ -57,13 +75,13 @@ void showScores({
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    itemCount: teams.length,
+                    itemCount: teams!.length,
                     itemBuilder: (_, index) => AnimatedListView(
                       fastAnimations: true,
                       index: index,
                       child: HighscoreValue(
-                        teamName: teams[index].name,
-                        points: teams[index].points,
+                        teamName: teams![index].name,
+                        points: '${teams![index].points}',
                       ),
                     ),
                   ),
@@ -99,7 +117,5 @@ void showScores({
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
 }

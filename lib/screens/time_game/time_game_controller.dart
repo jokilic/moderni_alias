@@ -15,7 +15,7 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
-import '../../widgets/scores/show_scores.dart';
+import '../../widgets/scores/show_time_scores.dart';
 
 final timeGameProvider = Provider.autoDispose<TimeGameController>(
   (ref) {
@@ -233,11 +233,10 @@ class TimeGameController {
 
   /// Shows scores sheet and dismisses it after some time
   Future<void> showScoresSheet(BuildContext context) async {
-    showScores(
-      teams: ref.read(teamsProvider),
+    showTimeScores(
+      context,
       playedWords: ref.read(playedWordsProvider),
       dismissible: false,
-      context: context,
     );
     await Future.delayed(const Duration(seconds: 3));
     Navigator.of(context).pop();

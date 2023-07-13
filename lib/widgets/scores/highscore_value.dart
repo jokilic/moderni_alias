@@ -4,7 +4,7 @@ import '../../constants/text_styles.dart';
 
 class HighscoreValue extends StatelessWidget {
   final String teamName;
-  final int points;
+  final String points;
 
   const HighscoreValue({
     required this.teamName,
@@ -12,35 +12,27 @@ class HighscoreValue extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 6),
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.fromLTRB(40, 0, 40, 6),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: width * 0.6,
+            Flexible(
+              flex: 4,
               child: Text(
                 teamName,
                 style: ModerniAliasTextStyles.highscore,
               ),
             ),
             const SizedBox(width: 16),
-            SizedBox(
-              width: width * 0.1,
+            Flexible(
               child: Text(
-                points.toString(),
+                points,
                 textAlign: TextAlign.center,
                 style: ModerniAliasTextStyles.highscore,
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
 }

@@ -16,7 +16,7 @@ import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../../widgets/scores/show_scores.dart';
+import '../../widgets/scores/show_time_scores.dart';
 import '../time_game/time_game_controller.dart';
 
 class TimeGameFinishedScreen extends ConsumerWidget {
@@ -114,10 +114,9 @@ class TimeGameFinishedScreen extends ConsumerWidget {
                 top: 48,
                 right: 12,
                 child: AnimatedGestureDetector(
-                  onTap: () => showScores(
-                    teams: ref.read(teamsProvider),
+                  onTap: () => showTimeScores(
+                    context,
                     playedWords: ref.read(playedWordsProvider),
-                    context: context,
                   ),
                   end: 0.8,
                   child: const IconButton(

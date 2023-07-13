@@ -90,9 +90,9 @@ class NormalGameFinishedScreen extends ConsumerWidget {
                 right: 12,
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
+                    context,
                     teams: ref.read(teamsProvider),
                     playedWords: ref.read(playedWordsProvider),
-                    context: context,
                   ),
                   end: 0.8,
                   child: const IconButton(
