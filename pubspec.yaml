@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 3.0.1+301
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
   flutter:
@@ -27,11 +27,11 @@ dependencies:
   hive: 2.2.3 # Used to store data for Stats
   hive_flutter: 1.1.0 # Easier integration of Hive with Flutter
   intl: 0.18.1 # Used for date formatting
-  just_audio: 0.9.34 # Used to play audio files
+  just_audio: 0.9.34 # Used to play audio files 
   logger: 1.4.0 # Small, easy to use and extensible logger which prints beautiful logs
   package_info_plus: 4.0.2 # To get the app version and show on the relevant screen
   path_provider: 2.0.15 # For finding commonly used locations on the filesystem
-  rive: 0.11.2 # Renders Rive animations in Flutter
+  rive: 0.11.4 # Renders Rive animations in Flutter
   timeago: 3.5.0 # To show when were last games played
   url_launcher: 6.1.12 # Used to launch URLs in native browser
   video_player: 2.7.0 # Used to play videos
