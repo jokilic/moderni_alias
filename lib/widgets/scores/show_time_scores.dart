@@ -20,20 +20,24 @@ void showTimeScores(
   BuildContext context, {
   required List<PlayedWord> playedWords,
   bool dismissible = true,
+  bool roundEnd = false,
 }) =>
     showModalBottomSheet(
       context: context,
       isDismissible: dismissible,
       builder: (context) => TimeScoresModal(
         playedWords: playedWords,
+        roundEnd: roundEnd,
       ),
     );
 
 class TimeScoresModal extends ConsumerWidget {
   final List<PlayedWord> playedWords;
+  final bool roundEnd;
 
   const TimeScoresModal({
     required this.playedWords,
+    this.roundEnd = false,
   });
 
   String calculateName({
@@ -63,7 +67,8 @@ class TimeScoresModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final teams = ref.watch(teamsProvider);
-    final rounds = ref.watch(timeGameProvider).timeGameStats.rounds;
+    final timeGameController = ref.watch(timeGameProvider);
+    final rounds = timeGameController.timeGameStats.rounds;
 
     final timeGameTimer = ref.watch(timeGameTimerProvider);
     final duration = '${timeGameTimer.inMinutes.toString().padLeft(2, '0')}:${(timeGameTimer.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -117,7 +122,7 @@ class TimeScoresModal extends ConsumerWidget {
                       teams: teams,
                       index: index,
                     ),
-                    points: currentlyPlayingTeamIndex == index && currentGame == Game.time
+                    points: currentlyPlayingTeamIndex == index && (!roundEnd ? currentGame == Game.time : true)
                         ? duration
                         : calculatePoints(
                             rounds: rounds,

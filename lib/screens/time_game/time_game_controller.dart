@@ -237,6 +237,7 @@ class TimeGameController {
       context,
       playedWords: ref.read(playedWordsProvider),
       dismissible: false,
+      roundEnd: true,
     );
     await Future.delayed(const Duration(seconds: 3));
     Navigator.of(context).pop();
