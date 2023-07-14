@@ -44,5 +44,4 @@ The goal is to have 10 000.
 
 ## Things I still want to do 👷‍♂️
 
-- [ ] Add 'Speed game' / 'Time game'
-    - [ ] ShowTimeScores - Scores are wrong when Game.none
+- [ ] More words
