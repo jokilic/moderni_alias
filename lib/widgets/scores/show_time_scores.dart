@@ -122,7 +122,7 @@ class TimeScoresModal extends ConsumerWidget {
                       teams: teams,
                       index: index,
                     ),
-                    points: currentlyPlayingTeamIndex == index && (!roundEnd ? currentGame == Game.time : true)
+                    points: currentlyPlayingTeamIndex == index && (roundEnd || currentGame == Game.time)
                         ? duration
                         : calculatePoints(
                             rounds: rounds,

@@ -91,7 +91,7 @@ class NormalGameFinishedScreen extends ConsumerWidget {
                 child: AnimatedGestureDetector(
                   onTap: () => showScores(
                     context,
-                    teams: ref.read(teamsProvider),
+                    teams: ref.read(teamsProvider)?..sort((a, b) => b.points.compareTo(a.points)),
                     playedWords: ref.read(playedWordsProvider),
                   ),
                   end: 0.8,
