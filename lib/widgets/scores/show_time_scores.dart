@@ -9,6 +9,7 @@ import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
+import '../../models/team/team.dart';
 import '../../screens/time_game/time_game_controller.dart';
 import '../../util/providers.dart';
 import '../animated_column.dart';
@@ -35,7 +36,22 @@ class TimeScoresModal extends ConsumerWidget {
     required this.playedWords,
   });
 
-  String calculatePoints({required List<Round>? rounds, required int index}) {
+  String calculateName({
+    required int index,
+    required List<Team> teams,
+    List<Round>? rounds,
+  }) {
+    if ((rounds?.length ?? 0) > index) {
+      return rounds?[index].playingTeam?.name ?? teams[index].name;
+    } else {
+      return teams[index].name;
+    }
+  }
+
+  String calculatePoints({
+    required int index,
+    List<Round>? rounds,
+  }) {
     if ((rounds?.length ?? 0) > index) {
       final duration = Duration(seconds: rounds?[index].durationSeconds ?? 0);
       return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -96,7 +112,11 @@ class TimeScoresModal extends ConsumerWidget {
                   fastAnimations: true,
                   index: index,
                   child: HighscoreValue(
-                    teamName: teams[index].name,
+                    teamName: calculateName(
+                      rounds: rounds,
+                      teams: teams,
+                      index: index,
+                    ),
                     points: currentlyPlayingTeamIndex == index && currentGame == Game.time
                         ? duration
                         : calculatePoints(

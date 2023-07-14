@@ -116,7 +116,7 @@ class TimeGameFinishedScreen extends ConsumerWidget {
                 child: AnimatedGestureDetector(
                   onTap: () => showTimeScores(
                     context,
-                    playedWords: ref.read(playedWordsProvider),
+                    playedWords: ref.watch(playedWordsProvider),
                   ),
                   end: 0.8,
                   child: const IconButton(
