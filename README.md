@@ -27,7 +27,8 @@ The teams interchange, and the team that first guesses the predetermined number 
 **Time game** ⏰
 
 Pick your teams and pick a number of words that have to be guessed.\
-The round starts and there's no time limit. There's a timer and you have all the time in the world to guess your words.\
+The round starts and there's no time limit. \
+There's a timer and you have all the time in the world to guess your words.\
 Skipping a word won't give you any negative points.\
 The team who guessed words in the shortest amount of time is the winner of the game.
 
