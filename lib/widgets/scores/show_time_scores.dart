@@ -21,6 +21,7 @@ void showTimeScores(
   required List<PlayedWord> playedWords,
   bool dismissible = true,
   bool roundEnd = false,
+  bool gameFinished = false,
 }) =>
     showModalBottomSheet(
       context: context,
@@ -28,16 +29,19 @@ void showTimeScores(
       builder: (context) => TimeScoresModal(
         playedWords: playedWords,
         roundEnd: roundEnd,
+        gameFinished: gameFinished,
       ),
     );
 
 class TimeScoresModal extends ConsumerWidget {
   final List<PlayedWord> playedWords;
   final bool roundEnd;
+  final bool gameFinished;
 
   const TimeScoresModal({
     required this.playedWords,
     this.roundEnd = false,
+    this.gameFinished = false,
   });
 
   String calculateName({
@@ -46,6 +50,9 @@ class TimeScoresModal extends ConsumerWidget {
     List<Round>? rounds,
   }) {
     if ((rounds?.length ?? 0) > index) {
+      if (gameFinished) {
+        rounds?.sort((a, b) => a.durationSeconds?.compareTo(b.durationSeconds ?? 0) ?? 0);
+      }
       return rounds?[index].playingTeam?.name ?? teams[index].name;
     } else {
       return teams[index].name;

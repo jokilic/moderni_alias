@@ -117,6 +117,7 @@ class TimeGameFinishedScreen extends ConsumerWidget {
                   onTap: () => showTimeScores(
                     context,
                     playedWords: ref.watch(playedWordsProvider),
+                    gameFinished: true,
                   ),
                   end: 0.8,
                   child: const IconButton(
