@@ -24,6 +24,13 @@ You're playing a classic game of Alias with multiple teams.\
 You pick the number of competing teams, length of the round and number of points to win.\
 The teams interchange, and the team that first guesses the predetermined number of words is the winner of the game and can enjoy in a sea of colorful confetti.
 
+** Time game** ⏰
+
+Pick your teams and pick a number of words that have to be guessed in order to win the game.\
+The round starts and there's no time limit. There's a timer and you have all the time in the world to guess your words.\
+Skipping a word won't give you any negative points.\
+The team who guessed words the fastest is the winner of the game.
+
 **Fast game** 🕹️
 
 You don't have time for teams, points or round lengths, but you got a craving for some word guessing?\
