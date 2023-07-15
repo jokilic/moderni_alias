@@ -96,32 +96,6 @@ class StatsGeneralSection extends ConsumerWidget {
         ),
 
         const SizedBox(height: 32),
-
-        ///
-        /// AVERAGE ANSWERS PER ROUND
-        ///
-        GameTitle(
-          'statsGeneralAverageRound'.tr(),
-          smallTitle: true,
-        ),
-
-        const SizedBox(height: 12),
-
-        StatsValueWidget(
-          text: 'statsCorrect'.tr(),
-          value: statsNotifier.averageCorrectAnswersRounds,
-        ),
-        StatsValueWidget(
-          text: 'statsWrong'.tr(),
-          value: statsNotifier.averageWrongAnswersRounds,
-        ),
-        StatsValueWidget(
-          text: 'statsAll'.tr(),
-          value: statsNotifier.averageAnswersRounds,
-          bigText: true,
-        ),
-
-        const SizedBox(height: 32),
       ],
     );
   }

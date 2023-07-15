@@ -59,10 +59,6 @@ class StatsController extends AutoDisposeNotifier<int?> {
   var totalAverageWrongAnswers = 0;
   var totalAverageAnswers = 0;
 
-  var averageCorrectAnswersRounds = 0;
-  var averageWrongAnswersRounds = 0;
-  var averageAnswersRounds = 0;
-
   NormalGameStats? activeNormalGameStats;
   TimeGameStats? activeTimeGameStats;
   QuickGameStats? activeQuickGameStats;
@@ -130,15 +126,15 @@ class StatsController extends AutoDisposeNotifier<int?> {
       for (final playedWord in quickGame.round.playedWords) {
         playedWord.chosenAnswer == Answer.correct ? totalCorrectAnswersQuickGames += 1 : totalWrongAnswersQuickGames += 1;
       }
+    }
 
-      /// Calculate total correct and wrong answers in all time games
-      for (final timeGame in timeGameStats) {
-        for (final round in timeGame.rounds) {
-          totalRounds = totalRounds + 1;
+    /// Calculate total correct and wrong answers in all time games
+    for (final timeGame in timeGameStats) {
+      for (final round in timeGame.rounds) {
+        totalRounds = totalRounds + 1;
 
-          for (final word in round.playedWords) {
-            word.chosenAnswer == Answer.correct ? totalCorrectAnswersTimeGames += 1 : totalWrongAnswersTimeGames += 1;
-          }
+        for (final word in round.playedWords) {
+          word.chosenAnswer == Answer.correct ? totalCorrectAnswersTimeGames += 1 : totalWrongAnswersTimeGames += 1;
         }
       }
     }
@@ -150,13 +146,6 @@ class StatsController extends AutoDisposeNotifier<int?> {
       totalAverageAnswers = ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) +
               (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames + totalWrongAnswersTimeGames)) ~/
           totalGames;
-    }
-
-    if (totalRounds != 0) {
-      /// Calculate average answers per round
-      averageCorrectAnswersRounds = totalCorrectAnswersNormalGames ~/ totalRounds;
-      averageWrongAnswersRounds = totalWrongAnswersNormalGames ~/ totalRounds;
-      averageAnswersRounds = (totalCorrectAnswersNormalGames + totalWrongAnswersNormalGames) ~/ totalRounds;
     }
   }
 
