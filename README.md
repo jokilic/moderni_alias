@@ -44,4 +44,4 @@ The goal is to have 10 000.
 
 ## Things I still want to do 👷‍♂️
 
-- [ ] More words
+- [ ] Add more words
