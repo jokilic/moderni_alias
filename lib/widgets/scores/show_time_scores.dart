@@ -49,11 +49,14 @@ class TimeScoresModal extends ConsumerWidget {
     required List<Team> teams,
     List<Round>? rounds,
   }) {
-    if ((rounds?.length ?? 0) > index) {
-      if (gameFinished) {
-        rounds?.sort((a, b) => a.durationSeconds?.compareTo(b.durationSeconds ?? 0) ?? 0);
-      }
-      return rounds?[index].playingTeam?.name ?? teams[index].name;
+    if (gameFinished) {
+      return teams[index].name;
+    }
+
+    final calculatedRounds = List.from(rounds ?? []);
+
+    if ((calculatedRounds.length) > index) {
+      return calculatedRounds[index].playingTeam?.name ?? teams[index].name;
     } else {
       return teams[index].name;
     }
@@ -61,14 +64,21 @@ class TimeScoresModal extends ConsumerWidget {
 
   String calculatePoints({
     required int index,
+    required List<Team> teams,
     List<Round>? rounds,
   }) {
-    if ((rounds?.length ?? 0) > index) {
-      final duration = Duration(seconds: rounds?[index].durationSeconds ?? 0);
-      return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
-    } else {
-      return '00:00';
+    final calculatedRounds = List<Round>.from(rounds ?? []);
+
+    final currentTeam = teams[index];
+    late Round? currentRound;
+    try {
+      currentRound = calculatedRounds.firstWhere((round) => round.playingTeam == currentTeam);
+    } catch (e) {
+      currentRound = null;
     }
+
+    final duration = Duration(seconds: currentRound?.durationSeconds ?? 0);
+    return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   @override
@@ -133,6 +143,7 @@ class TimeScoresModal extends ConsumerWidget {
                         ? duration
                         : calculatePoints(
                             rounds: rounds,
+                            teams: teams,
                             index: index,
                           ),
                   ),
