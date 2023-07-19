@@ -13,7 +13,6 @@ import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/time_game_stats/time_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../util/hr_messages_timeago.dart';
 
 final statsProvider = NotifierProvider.autoDispose<StatsController, int?>(
   StatsController.new,
@@ -79,7 +78,7 @@ class StatsController extends AutoDisposeNotifier<int?> {
 
     /// [Timeago] formatting
     setLocaleMessages('en', EnMessages());
-    setLocaleMessages('hr', HrMessagesTimeago());
+    setLocaleMessages('hr', HrMessages());
 
     /// Get values from [Hive]
     normalGameStats = hive.getNormalGameStatsFromBox();
