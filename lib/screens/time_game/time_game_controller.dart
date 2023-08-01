@@ -157,8 +157,8 @@ class TimeGameController {
   }
 
   /// Goes to the confetti screen and shows info about the round
-  void endGame(BuildContext context) {
-    updateHiveStats(gameType: Game.time);
+  Future<void> endGame(BuildContext context) async {
+    await updateHiveStats(gameType: Game.time);
     goToTimeGameFinishedScreen(context);
   }
 

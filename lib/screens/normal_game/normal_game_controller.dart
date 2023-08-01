@@ -237,7 +237,7 @@ class NormalGameController {
     if (tiedTeams.length > 1) {
       continueGame(tiedTeams, context: context);
     } else {
-      endGame(tiedTeams.first, context: context);
+      endGame(context);
     }
   }
 
@@ -254,8 +254,8 @@ class NormalGameController {
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
-  void endGame(Team winner, {required BuildContext context}) {
-    updateHiveStats(gameType: Game.normal);
+  Future<void> endGame(BuildContext context) async {
+    await updateHiveStats(gameType: Game.normal);
     goToNormalGameFinishedScreen(context);
   }
 

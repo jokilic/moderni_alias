@@ -15,22 +15,20 @@ class HighscoreValue extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 6),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              flex: 4,
+            Expanded(
               child: Text(
                 teamName,
                 style: ModerniAliasTextStyles.highscore,
               ),
             ),
             const SizedBox(width: 16),
-            Flexible(
-              child: Text(
-                points,
-                textAlign: TextAlign.center,
-                style: ModerniAliasTextStyles.highscore,
-              ),
+            Text(
+              points,
+              style: ModerniAliasTextStyles.highscore,
+              textAlign: TextAlign.center,
             ),
           ],
         ),

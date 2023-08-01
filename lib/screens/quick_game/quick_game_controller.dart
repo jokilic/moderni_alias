@@ -148,8 +148,8 @@ class QuickGameController {
   }
 
   /// Goes to the confetti screen and shows info about the round
-  void endGame(BuildContext context) {
-    updateHiveStats();
+  Future<void> endGame(BuildContext context) async {
+    await updateHiveStats();
     goToQuickGameFinishedScreen(context);
   }
 
