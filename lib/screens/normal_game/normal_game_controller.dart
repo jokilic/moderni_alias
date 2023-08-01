@@ -164,7 +164,7 @@ class NormalGameController {
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
-    ref.read(currentGameProvider.notifier).state = Game.none;
+    ref.read(currentGameProvider.notifier).state = Game.tapToStart;
     ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
 
     soundTimer?.cancel();
@@ -245,7 +245,7 @@ class NormalGameController {
   Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
     await showScoresSheet(context);
 
-    await updateHiveStats(gameType: Game.none);
+    await updateHiveStats(gameType: Game.tapToStart);
 
     final currentTeamIndex = playingTeams.indexOf(
       ref.read(currentlyPlayingTeamProvider),
@@ -255,6 +255,9 @@ class NormalGameController {
 
   /// Ends game and goes to [NormalGameFinishedScreen]
   Future<void> endGame(BuildContext context) async {
+    ref.read(currentGameProvider.notifier).state = Game.end;
+    ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
+
     await updateHiveStats(gameType: Game.normal);
     goToNormalGameFinishedScreen(context);
   }
@@ -265,7 +268,7 @@ class NormalGameController {
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == Game.none) {
+    if (ref.read(currentGameProvider) == Game.tapToStart) {
       start3SecondCountdown();
       return;
     }

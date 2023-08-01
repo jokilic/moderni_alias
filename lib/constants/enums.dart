@@ -3,11 +3,12 @@ import 'package:hive/hive.dart';
 part 'enums.g.dart';
 
 enum Game {
-  none,
+  tapToStart,
   normal,
   quick,
   time,
   starting,
+  end,
 }
 
 @HiveType(typeId: 7)

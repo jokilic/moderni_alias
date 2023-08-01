@@ -100,7 +100,7 @@ class TimeGameScreen extends ConsumerWidget {
                 ///
                 /// TAP TO START GAME
                 ///
-                else
+                else if (currentGame == Game.tapToStart)
                   Positioned(
                     top: -75,
                     bottom: 0,

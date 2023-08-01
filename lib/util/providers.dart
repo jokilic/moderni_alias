@@ -68,7 +68,7 @@ final tieBreakTeamsProvider = StateProvider<List<Team>?>(
 ///
 
 final currentGameProvider = StateProvider.autoDispose<Game>(
-  (_) => Game.none,
+  (_) => Game.tapToStart,
   name: 'CurrentGameProvider',
 );
 

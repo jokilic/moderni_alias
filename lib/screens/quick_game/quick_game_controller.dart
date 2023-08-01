@@ -149,6 +149,9 @@ class QuickGameController {
 
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame(BuildContext context) async {
+    ref.read(currentGameProvider.notifier).state = Game.end;
+    ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
+
     await updateHiveStats();
     goToQuickGameFinishedScreen(context);
   }
@@ -159,7 +162,7 @@ class QuickGameController {
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == Game.none) {
+    if (ref.read(currentGameProvider) == Game.tapToStart) {
       start3SecondCountdown();
       return;
     }
