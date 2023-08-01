@@ -24,8 +24,8 @@ class LoggerService {
   /// METHODS
   ///
 
-  /// Verbose log, grey color
-  void v(value) => logger.v(value);
+  /// Trace log, grey color
+  void t(value) => logger.t(value);
 
   /// 🐛 Debug log, blue color
   void d(value) => logger.d(value);
@@ -39,8 +39,8 @@ class LoggerService {
   /// ⛔ Error log, red color
   void e(value) => logger.e(value);
 
-  /// 👾 What a terrible failure error, purple color
-  void wtf(value) => logger.wtf(value);
+  /// 👾 Fatal error, purple color
+  void f(value) => logger.f(value);
 }
 
 class RiverpodLogger extends ProviderObserver {
@@ -50,13 +50,13 @@ class RiverpodLogger extends ProviderObserver {
 
   @override
   void didAddProvider(ProviderBase<Object?> provider, Object? value, ProviderContainer container) {
-    logger.v('✅ ${provider.name ?? provider.runtimeType} has been initialized');
+    logger.t('✅ ${provider.name ?? provider.runtimeType} has been initialized');
     super.didAddProvider(provider, value, container);
   }
 
   @override
   void didDisposeProvider(ProviderBase<Object?> provider, ProviderContainer container) {
-    logger.v('❌ ${provider.name ?? provider.runtimeType} has been disposed');
+    logger.t('❌ ${provider.name ?? provider.runtimeType} has been disposed');
     super.didDisposeProvider(provider, container);
   }
 }
