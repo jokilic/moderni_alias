@@ -1,6 +1,6 @@
-/* ----------
-- Durations -
----------- */
+///
+/// DURATIONS
+///
 
 class ModerniAliasDurations {
   static const animation = Duration(milliseconds: 400);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../constants/text_styles.dart';
 import 'animated_gesture_detector.dart';
 
 class PlayButton extends StatelessWidget {
@@ -23,7 +22,6 @@ class PlayButton extends StatelessWidget {
         child: TextButton(
           onPressed: null,
           style: TextButton.styleFrom(
-            foregroundColor: ModerniAliasColors.whiteColor,
             padding: EdgeInsets.symmetric(
               horizontal: horizontalPadding,
               vertical: verticalPadding,
@@ -32,14 +30,8 @@ class PlayButton extends StatelessWidget {
               color: ModerniAliasColors.whiteColor,
               width: 2,
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
           ),
-          child: Text(
-            text,
-            style: ModerniAliasTextStyles.playButton,
-          ),
+          child: Text(text),
         ),
       );
 }

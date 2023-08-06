@@ -1,6 +1,6 @@
-/* ----------
-- Websites -
----------- */
+///
+/// WEBSITES
+///
 
 class ModerniAliasWebsites {
   static const flutterWebsite = 'https://flutter.dev';

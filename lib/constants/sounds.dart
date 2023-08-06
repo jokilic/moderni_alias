@@ -1,6 +1,6 @@
-/* ----------
-- Sounds -
----------- */
+///
+/// SOUNDS
+///
 
 class ModerniAliasSounds {
   static const correct = 'assets/audio/correct.wav';

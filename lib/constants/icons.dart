@@ -1,6 +1,6 @@
-/* ----------
-- Icons -
----------- */
+///
+/// ICONS
+///
 
 class ModerniAliasIcons {
   static const clockImage = 'assets/icons/clock.webp';

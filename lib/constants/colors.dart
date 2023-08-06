@@ -1,8 +1,8 @@
 import 'package:flutter/painting.dart';
 
-/* ----------
-- Colors -
----------- */
+///
+/// COLORS
+///
 
 class ModerniAliasColors {
   static const darkBlueColor = Color(0xFF182F3F);
