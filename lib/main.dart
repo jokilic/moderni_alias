@@ -74,7 +74,7 @@ class ModerniAlias extends ConsumerWidget {
             onGenerateTitle: (_) => 'appNameString'.tr(),
             onGenerateRoute: onGenerateRoute,
             initialRoute: ModerniAliasRoutes.homeScreen,
-            theme: theme,
+            theme: ref.watch(themeProvider),
           ),
         ),
       );
