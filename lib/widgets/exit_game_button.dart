@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/colors.dart';
 import '../constants/durations.dart';
 import '../constants/text_styles.dart';
+import '../util/providers.dart';
 import '../util/routing.dart';
 import 'animated_gesture_detector.dart';
 
-class ExitGameButton extends StatefulWidget {
+class ExitGameButton extends ConsumerStatefulWidget {
   final String text;
   final Function()? onPressed;
 
@@ -16,10 +18,10 @@ class ExitGameButton extends StatefulWidget {
   });
 
   @override
-  State<ExitGameButton> createState() => _ExitGameButtonState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ExitGameButtonState();
 }
 
-class _ExitGameButtonState extends State<ExitGameButton> with SingleTickerProviderStateMixin {
+class _ExitGameButtonState extends ConsumerState<ExitGameButton> with SingleTickerProviderStateMixin {
   AnimationController? controller;
 
   @override
@@ -34,6 +36,7 @@ class _ExitGameButtonState extends State<ExitGameButton> with SingleTickerProvid
           (status) {
             /// Animation is completed, exit game
             if (status == AnimationStatus.completed) {
+              ref.read(countdownPlayerProvider).stop();
               goToHomeScreen(context);
             }
           },
