@@ -21,6 +21,7 @@ class _VideoWidgetState extends State<VideoWidget> {
 
     videoController
       ..setLooping(true)
+      ..setVolume(0)
       ..play();
   }
 
