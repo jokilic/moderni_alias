@@ -23,6 +23,7 @@
     "exitModalQuestionString": "Do you want to quit the current game?",
     "exitModalQuestionYes": "Yes",
     "exitModalQuestionNo": "No",
+    "exitModalQuestionHoldMe": "hold me",
     "scoresModalString": "Current scores",
     "playedWordsModalString": "Current words",
     "startGameOnPressString": "Tap here and start game",

@@ -12,6 +12,11 @@ class ModerniAliasTextStyles {
     fontSize: 18,
     fontWeight: FontWeight.bold,
   );
+  static const holdMeExitButton = TextStyle(
+    fontFamily: 'Sen',
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
   static const exitModal = TextStyle(
     fontFamily: 'Sen',
     fontSize: 22,
