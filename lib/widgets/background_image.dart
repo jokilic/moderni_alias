@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../constants/durations.dart';
 import '../constants/images.dart';
 
-class BackgroundImage extends StatelessWidget {
+final backgroundImageProvider = StateProvider<String>(
+  (_) => ModerniAliasImages.backgroundImage,
+  name: 'BackgroundImageProvider',
+);
+
+class BackgroundImage extends ConsumerWidget {
   final Widget? child;
 
   const BackgroundImage({
@@ -10,16 +17,24 @@ class BackgroundImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final image = ref.watch(backgroundImageProvider);
+
+    return AnimatedSwitcher(
+      duration: ModerniAliasDurations.animation,
+      switchInCurve: Curves.easeIn,
+      switchOutCurve: Curves.easeIn,
+      child: Container(
+        key: ValueKey(image),
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              ModerniAliasImages.backgroundImage,
-            ),
+            image: AssetImage(image),
             fit: BoxFit.cover,
           ),
         ),
         child: child,
-      );
+      ),
+    );
+  }
 }
