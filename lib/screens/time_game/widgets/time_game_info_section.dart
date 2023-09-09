@@ -50,7 +50,7 @@ class TimeGameInfoSection extends StatelessWidget {
                         waveStyle: const WaveStyle(
                           waveColor: ModerniAliasColors.whiteColor,
                           middleLineColor: ModerniAliasColors.whiteColor,
-                          scaleFactor: 32,
+                          scaleFactor: 24,
                           extendWaveform: true,
                           showMiddleLine: false,
                         ),
