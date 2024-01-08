@@ -32,8 +32,9 @@ class QuickGameScreen extends ConsumerWidget {
 
     final quickGameController = ref.watch(quickGameProvider);
 
-    return WillPopScope(
-      onWillPop: () => exitGameModal(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => exitGameModal(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(

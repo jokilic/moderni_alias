@@ -2,13 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import './highscore_value.dart';
 import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/team/team.dart';
 import '../animated_column.dart';
 import '../animated_list_view.dart';
+import './highscore_value.dart';
 import 'played_word_value.dart';
 
 void showScores(

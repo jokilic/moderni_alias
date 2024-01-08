@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './game_button.dart';
 import '../constants/icons.dart';
+import './game_button.dart';
 
 class WrongCorrectButtons extends StatelessWidget {
   final Function() wrongChosen;

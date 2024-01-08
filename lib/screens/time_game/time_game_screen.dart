@@ -36,8 +36,9 @@ class TimeGameScreen extends ConsumerWidget {
     final duration = '${timeGameTimer.inMinutes.toString().padLeft(2, '0')}:${(timeGameTimer.inSeconds % 60).toString().padLeft(2, '0')}';
     final numberOfGuessedWords = '${ref.read(currentlyPlayingTeamProvider).points} / ${ref.watch(wordsToWinProvider)}';
 
-    return WillPopScope(
-      onWillPop: () => exitGameModal(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => exitGameModal(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(

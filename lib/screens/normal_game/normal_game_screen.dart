@@ -35,8 +35,9 @@ class NormalGameScreen extends ConsumerWidget {
 
     final normalGameController = ref.watch(normalGameProvider);
 
-    return WillPopScope(
-      onWillPop: () => exitGameModal(context),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => exitGameModal(context),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(

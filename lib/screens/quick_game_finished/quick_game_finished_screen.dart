@@ -43,11 +43,9 @@ class QuickGameFinishedScreen extends ConsumerWidget {
     final correctAnswers = playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length.toString();
     final wrongAnswers = playedWords.where((word) => word.chosenAnswer == Answer.wrong).toList().length.toString();
 
-    return WillPopScope(
-      onWillPop: () async {
-        goToHomeScreen(context);
-        return true;
-      },
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => goToHomeScreen(context),
       child: Scaffold(
         body: BackgroundImage(
           child: Stack(

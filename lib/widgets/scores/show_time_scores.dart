@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import './highscore_value.dart';
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
@@ -14,6 +13,7 @@ import '../../screens/time_game/time_game_controller.dart';
 import '../../util/providers.dart';
 import '../animated_column.dart';
 import '../animated_list_view.dart';
+import './highscore_value.dart';
 import 'played_word_value.dart';
 
 void showTimeScores(

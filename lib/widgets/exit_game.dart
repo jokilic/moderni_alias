@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import './exit_game_button.dart';
 import '../constants/images.dart';
 import '../constants/text_styles.dart';
+import './exit_game_button.dart';
 import 'animated_column.dart';
 
 Future<bool> exitGameModal(BuildContext context) async {

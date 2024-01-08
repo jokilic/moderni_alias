@@ -47,11 +47,9 @@ class TimeGameFinishedScreen extends ConsumerWidget {
     );
     final teamNames = getTeamNamesFastestRounds(fastestRounds);
 
-    return WillPopScope(
-      onWillPop: () async {
-        goToHomeScreen(context);
-        return true;
-      },
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => goToHomeScreen(context),
       child: Scaffold(
         body: BackgroundImage(
           child: Stack(
