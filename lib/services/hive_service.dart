@@ -22,9 +22,7 @@ class HiveService {
 
   final LoggerService logger;
 
-  HiveService(this.logger) {
-    init();
-  }
+  HiveService(this.logger);
 
   ///
   /// VARIABLES
@@ -33,6 +31,7 @@ class HiveService {
   late final Box<NormalGameStats> normalGameStatsBox;
   late final Box<QuickGameStats> quickGameStatsBox;
   late final Box<TimeGameStats> timeGameStatsBox;
+  late final Box<String> backgroundBox;
 
   ///
   /// INIT
@@ -40,6 +39,7 @@ class HiveService {
 
   Future<void> init() async {
     await Hive.initFlutter();
+
     Hive
       ..registerAdapter(NormalGameStatsAdapter())
       ..registerAdapter(QuickGameStatsAdapter())
@@ -53,6 +53,7 @@ class HiveService {
     normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
     quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');
     timeGameStatsBox = await Hive.openBox<TimeGameStats>('timeGameStatsBox');
+    backgroundBox = await Hive.openBox<String>('backgroundBox');
   }
 
   ///
@@ -63,6 +64,8 @@ class HiveService {
     await normalGameStatsBox.close();
     await quickGameStatsBox.close();
     await timeGameStatsBox.close();
+    await backgroundBox.close();
+
     await Hive.close();
   }
 
@@ -87,4 +90,10 @@ class HiveService {
 
   /// Called to get all [TimeGameStats] values from [Hive]
   List<TimeGameStats> getTimeGameStatsFromBox() => timeGameStatsBox.values.toList();
+
+  /// Called to add a new `background` value to [Hive]
+  Future<void> addBackgroundToBox({required String background}) async => backgroundBox.put(0, background);
+
+  /// Called to get `background` from [Hive]
+  String? getBackgroundFromBox() => backgroundBox.get(0);
 }

@@ -42,6 +42,7 @@ Future<void> main() async {
   final logger = LoggerService();
   final path = PathProviderService(logger);
   final hive = HiveService(logger);
+  await hive.init();
 
   /// Run the app, let's go!
   runApp(

@@ -1,5 +1,3 @@
-// ignore_for_file: use_setters_to_change_properties
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,14 +5,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/durations.dart';
 import '../constants/images.dart';
+import '../services/hive_service.dart';
 
 final backgroundImageProvider = StateNotifierProvider<BackgroundImageNotifier, String>(
-  (_) => BackgroundImageNotifier(),
+  (ref) => BackgroundImageNotifier(
+    hive: ref.watch(hiveProvider),
+  ),
   name: 'BackgroundImageProvider',
 );
 
 class BackgroundImageNotifier extends StateNotifier<String> {
-  BackgroundImageNotifier() : super(ModerniAliasImages.stars);
+  final HiveService hive;
+
+  BackgroundImageNotifier({
+    required this.hive,
+  }) : super(hive.getBackgroundFromBox() ?? ModerniAliasImages.stars1);
 
   ///
   /// VARIABLES
@@ -23,9 +28,20 @@ class BackgroundImageNotifier extends StateNotifier<String> {
   late final random = Random();
 
   final backgrounds = [
-    ModerniAliasImages.stars,
+    ModerniAliasImages.stars1,
     ModerniAliasImages.stars2,
     ModerniAliasImages.stars3,
+    ModerniAliasImages.blurred1,
+    ModerniAliasImages.blurred2,
+    ModerniAliasImages.blurred3,
+    ModerniAliasImages.blurred4,
+    ModerniAliasImages.blurred5,
+    ModerniAliasImages.blurred6,
+    ModerniAliasImages.blurred7,
+    ModerniAliasImages.blurred8,
+    ModerniAliasImages.blurred9,
+    ModerniAliasImages.blurred10,
+    ModerniAliasImages.blurred11,
   ];
 
   ///
@@ -52,7 +68,10 @@ class BackgroundImageNotifier extends StateNotifier<String> {
   }
 
   /// Updates background to the passed one
-  void changeBackground(String newBackground) => state = newBackground;
+  Future<void> changeBackground(String newBackground) async {
+    state = newBackground;
+    await hive.addBackgroundToBox(background: newBackground);
+  }
 }
 
 class BackgroundImage extends ConsumerWidget {
