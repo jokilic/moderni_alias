@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,14 +32,16 @@ class HomePageButtons extends StatelessWidget {
               onPressed: () => goToQuickGameScreen(context),
             ),
             const SizedBox(height: 25),
-            Consumer(
-              builder: (context, ref, child) => PlayButton(
-                text: 'Change background'.toUpperCase(),
-                horizontalPadding: 40,
-                onPressed: ref.read(backgroundImageProvider.notifier).cycleBackgrounds,
+            if (kDebugMode) ...[
+              Consumer(
+                builder: (context, ref, child) => PlayButton(
+                  text: 'Change background'.toUpperCase(),
+                  horizontalPadding: 40,
+                  onPressed: ref.read(backgroundImageProvider.notifier).cycleBackgrounds,
+                ),
               ),
-            ),
-            const SizedBox(height: 25),
+              const SizedBox(height: 25),
+            ],
             StatsButton(),
             const SizedBox(height: 50),
           ],

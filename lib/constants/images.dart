@@ -3,9 +3,9 @@
 ///
 
 class ModerniAliasImages {
-  static const stars1 = 'assets/images/stars1.png';
-  static const stars2 = 'assets/images/stars2.png';
-  static const stars3 = 'assets/images/stars3.png';
+  static const stars1 = 'assets/images/stars1.webp';
+  static const stars2 = 'assets/images/stars2.webp';
+  static const stars3 = 'assets/images/stars3.webp';
 
   static const blurred1 = 'assets/images/blurred1.webp';
   static const blurred2 = 'assets/images/blurred2.webp';
@@ -18,4 +18,12 @@ class ModerniAliasImages {
   static const blurred9 = 'assets/images/blurred9.webp';
   static const blurred10 = 'assets/images/blurred10.webp';
   static const blurred11 = 'assets/images/blurred11.webp';
+  static const blurred12 = 'assets/images/blurred12.webp';
+  static const blurred13 = 'assets/images/blurred13.webp';
+  static const blurred14 = 'assets/images/blurred14.webp';
+  static const blurred15 = 'assets/images/blurred15.webp';
+  static const blurred16 = 'assets/images/blurred16.webp';
+  static const blurred17 = 'assets/images/blurred17.webp';
+  static const blurred18 = 'assets/images/blurred18.webp';
+  static const blurred19 = 'assets/images/blurred19.webp';
 }

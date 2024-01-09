@@ -42,6 +42,14 @@ class BackgroundImageNotifier extends StateNotifier<String> {
     ModerniAliasImages.blurred9,
     ModerniAliasImages.blurred10,
     ModerniAliasImages.blurred11,
+    ModerniAliasImages.blurred12,
+    ModerniAliasImages.blurred13,
+    ModerniAliasImages.blurred14,
+    ModerniAliasImages.blurred15,
+    ModerniAliasImages.blurred16,
+    ModerniAliasImages.blurred17,
+    ModerniAliasImages.blurred18,
+    ModerniAliasImages.blurred19,
   ];
 
   ///

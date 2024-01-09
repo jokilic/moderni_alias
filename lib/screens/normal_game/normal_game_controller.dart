@@ -87,7 +87,12 @@ class NormalGameController {
   ///
 
   /// Returns a Timer with the specified length and color
-  Timer makeTimer({required double chosenSeconds, required Color chosenColor, required int lengthOfRound}) => Timer(
+  Timer makeTimer({
+    required double chosenSeconds,
+    required Color chosenColor,
+    required int lengthOfRound,
+  }) =>
+      Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
         () => ref.read(countdownTimerFillColorProvider.notifier).state = chosenColor,
       );
