@@ -3,5 +3,5 @@
 ///
 
 class ModerniAliasImages {
-  static const backgroundImage = 'assets/images/background.webp';
+  static const backgroundImage = 'assets/images/background.png';
 }
