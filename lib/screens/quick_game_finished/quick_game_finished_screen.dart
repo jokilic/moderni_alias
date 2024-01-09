@@ -47,97 +47,100 @@ class QuickGameFinishedScreen extends ConsumerWidget {
       canPop: false,
       onPopInvoked: (_) => goToHomeScreen(context),
       child: Scaffold(
-        body: BackgroundImage(
-          child: Stack(
-            children: [
-              const Confetti(),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationX(pi),
-                child: const Confetti(
-                  waitDuration: ModerniAliasDurations.slowAnimation,
+        body: Stack(
+          children: [
+            const BackgroundImage(),
+            Stack(
+              children: [
+                const Confetti(),
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationX(pi),
+                  child: const Confetti(
+                    waitDuration: ModerniAliasDurations.slowAnimation,
+                  ),
                 ),
-              ),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(pi),
-                child: const Confetti(
-                  waitDuration: ModerniAliasDurations.verySlowAnimation,
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: const Confetti(
+                    waitDuration: ModerniAliasDurations.verySlowAnimation,
+                  ),
                 ),
-              ),
-              Center(
-                child: SizedBox(
-                  height: size.height,
-                  width: size.width * 0.8,
-                  child: AnimatedColumn(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        ModerniAliasIcons.clapImage,
-                        height: 220,
-                      ),
-                      const SizedBox(height: 30),
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          text: 'quickGameFinishedFirstString'.tr(),
-                          style: ModerniAliasTextStyles.quickGameFinished,
+                Center(
+                  child: SizedBox(
+                    height: size.height,
+                    width: size.width * 0.8,
+                    child: AnimatedColumn(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          ModerniAliasIcons.clapImage,
+                          height: 220,
+                        ),
+                        const SizedBox(height: 30),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: 'quickGameFinishedFirstString'.tr(),
+                            style: ModerniAliasTextStyles.quickGameFinished,
+                            children: [
+                              TextSpan(
+                                text: correctAnswers,
+                                style: ModerniAliasTextStyles.quickGameFinishedBold,
+                              ),
+                              TextSpan(text: 'quickGameFinishedSecondString'.tr()),
+                              TextSpan(
+                                text: wrongAnswers,
+                                style: ModerniAliasTextStyles.quickGameFinishedBold,
+                              ),
+                              TextSpan(
+                                text: 'quickGameFinishedThirdString'.tr(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 72),
+                        AnimatedColumn(
                           children: [
-                            TextSpan(
-                              text: correctAnswers,
-                              style: ModerniAliasTextStyles.quickGameFinishedBold,
+                            PlayButton(
+                              text: 'quickGameFinishedPlayAgainString'.tr().toUpperCase(),
+                              onPressed: () => restartGame(context, ref),
                             ),
-                            TextSpan(text: 'quickGameFinishedSecondString'.tr()),
-                            TextSpan(
-                              text: wrongAnswers,
-                              style: ModerniAliasTextStyles.quickGameFinishedBold,
-                            ),
-                            TextSpan(
-                              text: 'quickGameFinishedThirdString'.tr(),
+                            const SizedBox(height: 20),
+                            PlayButton(
+                              text: 'quickGameFinishedExitString'.tr().toUpperCase(),
+                              onPressed: () => goToHomeScreen(context),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 72),
-                      AnimatedColumn(
-                        children: [
-                          PlayButton(
-                            text: 'quickGameFinishedPlayAgainString'.tr().toUpperCase(),
-                            onPressed: () => restartGame(context, ref),
-                          ),
-                          const SizedBox(height: 20),
-                          PlayButton(
-                            text: 'quickGameFinishedExitString'.tr().toUpperCase(),
-                            onPressed: () => goToHomeScreen(context),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 48,
-                right: 12,
-                child: AnimatedGestureDetector(
-                  onTap: () => showScores(
-                    context,
-                    playedWords: playedWords,
-                    backgroundImage: ref.watch(backgroundImageProvider),
-                  ),
-                  end: 0.8,
-                  child: const IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.format_list_numbered_rounded,
-                      color: ModerniAliasColors.whiteColor,
-                      size: 30,
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+                Positioned(
+                  top: 48,
+                  right: 12,
+                  child: AnimatedGestureDetector(
+                    onTap: () => showScores(
+                      context,
+                      playedWords: playedWords,
+                      backgroundImage: ref.watch(backgroundImageProvider),
+                    ),
+                    end: 0.8,
+                    child: const IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.format_list_numbered_rounded,
+                        color: ModerniAliasColors.whiteColor,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

@@ -43,104 +43,107 @@ class TimeGameScreen extends ConsumerWidget {
         backgroundImage: ref.watch(backgroundImageProvider),
       ),
       child: Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                ///
-                /// TOP - EXIT & SCORES BUTTONS
-                ///
-                Positioned(
-                  top: 0,
-                  width: width,
-                  child: TimeGameInfoSection(
-                    currentlyPlayingTeam: currentlyPlayingTeam,
-                    exitGame: () => exitGameModal(
-                      context,
-                      backgroundImage: ref.watch(backgroundImageProvider),
-                    ),
-                    showScores: () => showTimeScores(
-                      context,
-                      playedWords: playedWords,
-                    ),
-                  ),
-                ),
-
-                ///
-                /// PLAYING GAME
-                ///
-                if (currentGame == Game.time)
+        body: Stack(
+          children: [
+            const BackgroundImage(),
+            SafeArea(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ///
+                  /// TOP - EXIT & SCORES BUTTONS
+                  ///
                   Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: TimeGameOn(
-                        currentWord: currentWord,
-                        time: duration,
-                        numberOfGuessedWords: numberOfGuessedWords,
+                    top: 0,
+                    width: width,
+                    child: TimeGameInfoSection(
+                      currentlyPlayingTeam: currentlyPlayingTeam,
+                      exitGame: () => exitGameModal(
+                        context,
+                        backgroundImage: ref.watch(backgroundImageProvider),
                       ),
-                    ),
-                  )
-
-                ///
-                /// COUNTDOWN
-                ///
-                else if (currentGame == Game.starting)
-                  Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameStarting(
-                        currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        onComplete: timeGameController.startRound,
-                      ),
-                    ),
-                  )
-
-                ///
-                /// TAP TO START GAME
-                ///
-                else if (currentGame == Game.tapToStart)
-                  Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameOff(
-                        onTap: timeGameController.start3SecondCountdown,
+                      showScores: () => showTimeScores(
+                        context,
+                        playedWords: playedWords,
                       ),
                     ),
                   ),
 
-                ///
-                /// BOTTOM - ANSWERS BUTTONS
-                ///
-                Positioned(
-                  bottom: 0,
-                  width: width,
-                  child: WrongCorrectButtons(
-                    wrongChosen: () => timeGameController.answerChosen(
-                      chosenAnswer: Answer.wrong,
-                      context: context,
+                  ///
+                  /// PLAYING GAME
+                  ///
+                  if (currentGame == Game.time)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: TimeGameOn(
+                          currentWord: currentWord,
+                          time: duration,
+                          numberOfGuessedWords: numberOfGuessedWords,
+                        ),
+                      ),
+                    )
+
+                  ///
+                  /// COUNTDOWN
+                  ///
+                  else if (currentGame == Game.starting)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameStarting(
+                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                          onComplete: timeGameController.startRound,
+                        ),
+                      ),
+                    )
+
+                  ///
+                  /// TAP TO START GAME
+                  ///
+                  else if (currentGame == Game.tapToStart)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOff(
+                          onTap: timeGameController.start3SecondCountdown,
+                        ),
+                      ),
                     ),
-                    correctChosen: () => timeGameController.answerChosen(
-                      chosenAnswer: Answer.correct,
-                      context: context,
+
+                  ///
+                  /// BOTTOM - ANSWERS BUTTONS
+                  ///
+                  Positioned(
+                    bottom: 0,
+                    width: width,
+                    child: WrongCorrectButtons(
+                      wrongChosen: () => timeGameController.answerChosen(
+                        chosenAnswer: Answer.wrong,
+                        context: context,
+                      ),
+                      correctChosen: () => timeGameController.answerChosen(
+                        chosenAnswer: Answer.correct,
+                        context: context,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

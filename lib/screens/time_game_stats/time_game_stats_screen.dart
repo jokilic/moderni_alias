@@ -34,8 +34,130 @@ class TimeGameStatsScreen extends ConsumerWidget {
       final sortedRounds = List<Round>.from(timeGameStats.rounds)..sort((a, b) => a.durationSeconds?.compareTo(b.durationSeconds ?? 0) ?? 0);
 
       return Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
+        body: Stack(
+          children: [
+            const BackgroundImage(),
+            SafeArea(
+              child: SizedBox(
+                height: double.infinity,
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const SizedBox(height: 32),
+                    const HeroTitle(),
+                    const SizedBox(height: 24),
+                    GameTitle(
+                      'statsWhoWonTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: sortedRounds.length,
+                      itemBuilder: (_, index) {
+                        final round = sortedRounds[index];
+
+                        final isFastest = timeGameStatsPro.calculateRoundFastest(
+                          passedRound: round,
+                          fastestRound: sortedRounds.first,
+                        );
+
+                        final duration =
+                            '${Duration(seconds: round.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: round.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}';
+
+                        return StatsValueWidget(
+                          text: round.playingTeam?.name ?? '',
+                          textValue: duration,
+                          bigText: true,
+                          yellowCircle: isFastest,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsWhenTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsWhenText'.tr(
+                        namedArgs: {
+                          'date': date,
+                          'time': time,
+                          'textTime': textTime,
+                        },
+                      ),
+                      icon: ModerniAliasIcons.clockImage,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsLanguageTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsLanguageText'.tr(
+                        namedArgs: {
+                          'language': language,
+                        },
+                      ),
+                      icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
+                      size: 58,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsNumberOfWordsTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsNumberOfWordsText'.tr(
+                        namedArgs: {
+                          'lengthOfWords': '${timeGameStats.numberOfWords}',
+                        },
+                      ),
+                      icon: ModerniAliasIcons.pointsImage,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsWordsTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: timeGameStats.rounds.length,
+                      itemBuilder: (_, index) {
+                        final round = timeGameStats.rounds[index];
+                        final someWords = round.playedWords.take(3).map((word) => word.word).join(', ');
+
+                        return StatsWordsExpansionWidget(
+                          index: index,
+                          round: round,
+                          someWords: someWords,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 40),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    /// `TimeGameStats` failed to load, show error screen
+    return Scaffold(
+      body: Stack(
+        children: [
+          const BackgroundImage(),
+          SafeArea(
             child: SizedBox(
               height: double.infinity,
               child: ListView(
@@ -45,131 +167,15 @@ class TimeGameStatsScreen extends ConsumerWidget {
                   const HeroTitle(),
                   const SizedBox(height: 24),
                   GameTitle(
-                    'statsWhoWonTitle'.tr(),
+                    'statsFailedToLoad'.tr(),
                     smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: sortedRounds.length,
-                    itemBuilder: (_, index) {
-                      final round = sortedRounds[index];
-
-                      final isFastest = timeGameStatsPro.calculateRoundFastest(
-                        passedRound: round,
-                        fastestRound: sortedRounds.first,
-                      );
-
-                      final duration =
-                          '${Duration(seconds: round.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: round.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}';
-
-                      return StatsValueWidget(
-                        text: round.playingTeam?.name ?? '',
-                        textValue: duration,
-                        bigText: true,
-                        yellowCircle: isFastest,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsWhenTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsWhenText'.tr(
-                      namedArgs: {
-                        'date': date,
-                        'time': time,
-                        'textTime': textTime,
-                      },
-                    ),
-                    icon: ModerniAliasIcons.clockImage,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsLanguageTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsLanguageText'.tr(
-                      namedArgs: {
-                        'language': language,
-                      },
-                    ),
-                    icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
-                    size: 58,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsNumberOfWordsTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsNumberOfWordsText'.tr(
-                      namedArgs: {
-                        'lengthOfWords': '${timeGameStats.numberOfWords}',
-                      },
-                    ),
-                    icon: ModerniAliasIcons.pointsImage,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsWordsTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: timeGameStats.rounds.length,
-                    itemBuilder: (_, index) {
-                      final round = timeGameStats.rounds[index];
-                      final someWords = round.playedWords.take(3).map((word) => word.word).join(', ');
-
-                      return StatsWordsExpansionWidget(
-                        index: index,
-                        round: round,
-                        someWords: someWords,
-                      );
-                    },
                   ),
                   const SizedBox(height: 40),
                 ],
               ),
             ),
           ),
-        ),
-      );
-    }
-
-    /// `TimeGameStats` failed to load, show error screen
-    return Scaffold(
-      body: BackgroundImage(
-        child: SafeArea(
-          child: SizedBox(
-            height: double.infinity,
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                const SizedBox(height: 32),
-                const HeroTitle(),
-                const SizedBox(height: 24),
-                GameTitle(
-                  'statsFailedToLoad'.tr(),
-                  smallTitle: true,
-                ),
-                const SizedBox(height: 40),
-              ],
-            ),
-          ),
-        ),
+        ],
       ),
     );
   }

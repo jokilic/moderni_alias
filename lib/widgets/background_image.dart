@@ -1,3 +1,5 @@
+// ignore_for_file: use_setters_to_change_properties
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -22,6 +24,8 @@ class BackgroundImageNotifier extends StateNotifier<String> {
 
   final backgrounds = [
     ModerniAliasImages.stars,
+    ModerniAliasImages.stars2,
+    ModerniAliasImages.stars3,
   ];
 
   ///
@@ -29,10 +33,10 @@ class BackgroundImageNotifier extends StateNotifier<String> {
   ///
 
   /// Goes through `backgrounds` and changes to the next background
-  void changeBackground() {
+  void cycleBackgrounds() {
     final index = backgrounds.indexOf(state);
     final newIndex = (index + 1) % backgrounds.length;
-    state = backgrounds[newIndex];
+    changeBackground(backgrounds[newIndex]);
   }
 
   /// Goes through `backgrounds` and changes to a random background
@@ -41,19 +45,20 @@ class BackgroundImageNotifier extends StateNotifier<String> {
     final randomIndex = random.nextInt(backgrounds.length);
 
     if (randomIndex == currentIndex) {
-      changeBackground();
+      cycleBackgrounds();
     } else {
-      state = backgrounds[randomIndex];
+      changeBackground(backgrounds[randomIndex]);
     }
   }
+
+  /// Updates background to the passed one
+  void changeBackground(String newBackground) => state = newBackground;
 }
 
 class BackgroundImage extends ConsumerWidget {
   final Widget? child;
 
-  const BackgroundImage({
-    required this.child,
-  });
+  const BackgroundImage({this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -65,6 +70,7 @@ class BackgroundImage extends ConsumerWidget {
       switchOutCurve: Curves.easeIn,
       child: Container(
         key: ValueKey(image),
+        height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(

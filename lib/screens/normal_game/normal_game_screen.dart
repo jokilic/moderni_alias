@@ -42,108 +42,111 @@ class NormalGameScreen extends ConsumerWidget {
         backgroundImage: ref.watch(backgroundImageProvider),
       ),
       child: Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                ///
-                /// TOP - EXIT & SCORES BUTTONS
-                ///
-                Positioned(
-                  top: 0,
-                  width: width,
-                  child: NormalGameInfoSection(
-                    currentlyPlayingTeam: currentlyPlayingTeam,
-                    exitGame: () => exitGameModal(
-                      context,
-                      backgroundImage: ref.watch(backgroundImageProvider),
-                    ),
-                    showScores: () => showScores(
-                      context,
-                      teams: teams,
-                      playedWords: playedWords,
-                      backgroundImage: ref.watch(backgroundImageProvider),
-                    ),
-                  ),
-                ),
-
-                ///
-                /// PLAYING GAME
-                ///
-                if (currentGame == Game.normal)
+        body: Stack(
+          children: [
+            const BackgroundImage(),
+            SafeArea(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ///
+                  /// TOP - EXIT & SCORES BUTTONS
+                  ///
                   Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameOn(
-                        currentWord: currentWord,
-                        fillColor: countdownTimerFillColor,
-                        length: lengthOfRound,
-                        onComplete: () => normalGameController.stopGameCheckWinner(context),
+                    top: 0,
+                    width: width,
+                    child: NormalGameInfoSection(
+                      currentlyPlayingTeam: currentlyPlayingTeam,
+                      exitGame: () => exitGameModal(
+                        context,
+                        backgroundImage: ref.watch(backgroundImageProvider),
+                      ),
+                      showScores: () => showScores(
+                        context,
+                        teams: teams,
+                        playedWords: playedWords,
+                        backgroundImage: ref.watch(backgroundImageProvider),
                       ),
                     ),
-                  )
+                  ),
 
-                ///
-                /// COUNTDOWN
-                ///
-                else if (currentGame == Game.starting)
-                  Positioned(
-                    top: -75,
-                    bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameStarting(
-                        currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        onComplete: () => normalGameController.startRound(
-                          chosenGame: Game.normal,
-                          lengthOfRound: ref.read(lengthOfRoundProvider),
+                  ///
+                  /// PLAYING GAME
+                  ///
+                  if (currentGame == Game.normal)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOn(
+                          currentWord: currentWord,
+                          fillColor: countdownTimerFillColor,
+                          length: lengthOfRound,
+                          onComplete: () => normalGameController.stopGameCheckWinner(context),
+                        ),
+                      ),
+                    )
+
+                  ///
+                  /// COUNTDOWN
+                  ///
+                  else if (currentGame == Game.starting)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameStarting(
+                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                          onComplete: () => normalGameController.startRound(
+                            chosenGame: Game.normal,
+                            lengthOfRound: ref.read(lengthOfRoundProvider),
+                          ),
+                        ),
+                      ),
+                    )
+
+                  ///
+                  /// TAP TO START GAME
+                  ///
+                  else if (currentGame == Game.tapToStart)
+                    Positioned(
+                      top: -75,
+                      bottom: 0,
+                      child: AnimatedSwitcher(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.easeIn,
+                        child: GameOff(
+                          onTap: normalGameController.start3SecondCountdown,
                         ),
                       ),
                     ),
-                  )
 
-                ///
-                /// TAP TO START GAME
-                ///
-                else if (currentGame == Game.tapToStart)
+                  ///
+                  /// BOTTOM - ANSWERS BUTTONS
+                  ///
                   Positioned(
-                    top: -75,
                     bottom: 0,
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.fastAnimation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: GameOff(
-                        onTap: normalGameController.start3SecondCountdown,
+                    width: width,
+                    child: WrongCorrectButtons(
+                      wrongChosen: () => normalGameController.answerChosen(
+                        chosenAnswer: Answer.wrong,
+                      ),
+                      correctChosen: () => normalGameController.answerChosen(
+                        chosenAnswer: Answer.correct,
                       ),
                     ),
                   ),
-
-                ///
-                /// BOTTOM - ANSWERS BUTTONS
-                ///
-                Positioned(
-                  bottom: 0,
-                  width: width,
-                  child: WrongCorrectButtons(
-                    wrongChosen: () => normalGameController.answerChosen(
-                      chosenAnswer: Answer.wrong,
-                    ),
-                    correctChosen: () => normalGameController.answerChosen(
-                      chosenAnswer: Answer.correct,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

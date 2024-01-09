@@ -35,175 +35,178 @@ class TimeGameSetupScreen extends ConsumerWidget {
     final gameSetupController = ref.watch(gameSetupProvider);
 
     return Scaffold(
-      body: BackgroundImage(
-        child: SafeArea(
-          child: SizedBox(
-            height: double.infinity,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: AnimatedColumn(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GameTitle('dictionaryString'.tr()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      createFlagButton(
-                        countryName: 'dictionaryCroatianString'.tr(),
-                        flagImage: ModerniAliasIcons.croatiaImage,
-                        selectedCountry: Flag.croatia,
-                        onTap: () => gameSetupController.updateDictionary(Flag.croatia),
-                        isActive: chosenDictionary == Flag.croatia,
-                      ),
-                      createFlagButton(
-                        countryName: 'dictionaryEnglishString'.tr(),
-                        flagImage: ModerniAliasIcons.unitedKingdomImage,
-                        selectedCountry: Flag.unitedKingdom,
-                        onTap: () => gameSetupController.updateDictionary(Flag.unitedKingdom),
-                        isActive: chosenDictionary == Flag.unitedKingdom,
-                      ),
-                    ],
-                  ),
-                  GameTitle('teamsString'.tr()),
-                  HorizontalScroll(
-                    [
-                      createNumberOfTeamsButton(
-                        value: '2',
-                        onTap: () => gameSetupController.updateNumberOfTeams(
-                          chosenNumber: 2,
+      body: Stack(
+        children: [
+          const BackgroundImage(),
+          SafeArea(
+            child: SizedBox(
+              height: double.infinity,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: AnimatedColumn(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GameTitle('dictionaryString'.tr()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        createFlagButton(
+                          countryName: 'dictionaryCroatianString'.tr(),
+                          flagImage: ModerniAliasIcons.croatiaImage,
+                          selectedCountry: Flag.croatia,
+                          onTap: () => gameSetupController.updateDictionary(Flag.croatia),
+                          isActive: chosenDictionary == Flag.croatia,
                         ),
-                        isActive: teamsLength == 2,
-                      ),
-                      createNumberOfTeamsButton(
-                        value: '3',
-                        onTap: () => gameSetupController.updateNumberOfTeams(
-                          chosenNumber: 3,
+                        createFlagButton(
+                          countryName: 'dictionaryEnglishString'.tr(),
+                          flagImage: ModerniAliasIcons.unitedKingdomImage,
+                          selectedCountry: Flag.unitedKingdom,
+                          onTap: () => gameSetupController.updateDictionary(Flag.unitedKingdom),
+                          isActive: chosenDictionary == Flag.unitedKingdom,
                         ),
-                        isActive: teamsLength == 3,
-                      ),
-                      createNumberOfTeamsButton(
-                        value: '4',
-                        onTap: () => gameSetupController.updateNumberOfTeams(
-                          chosenNumber: 4,
-                        ),
-                        isActive: teamsLength == 4,
-                      ),
-                      createNumberOfTeamsButton(
-                        value: teamsLength < 5 ? '•••' : '$teamsLength',
-                        onTap: () => showCustomValueSheet(
-                          title: 'teamsString'.tr(),
-                          hintText: '${'numberBetweenString'.tr()} 2 - 10',
-                          onValueSaved: (value) => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: value,
+                      ],
+                    ),
+                    GameTitle('teamsString'.tr()),
+                    HorizontalScroll(
+                      [
+                        createNumberOfTeamsButton(
+                          value: '2',
+                          onTap: () => gameSetupController.updateNumberOfTeams(
+                            chosenNumber: 2,
                           ),
-                          lowestNumber: 2,
-                          highestNumber: 10,
-                          backgroundImage: ref.watch(backgroundImageProvider),
-                          context: context,
+                          isActive: teamsLength == 2,
                         ),
-                        isActive: teamsLength >= 5,
-                      ),
-                    ],
-                  ),
-                  GameTitle('numberOfWordsString'.tr()),
-                  HorizontalScroll(
-                    [
-                      createNumberOfTimePointsButton(
-                        value: '5',
-                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 5,
-                        isActive: wordsToWin == 5,
-                      ),
-                      createNumberOfTimePointsButton(
-                        value: '10',
-                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 10,
-                        isActive: wordsToWin == 10,
-                      ),
-                      createNumberOfTimePointsButton(
-                        value: '25',
-                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 25,
-                        isActive: wordsToWin == 25,
-                      ),
-                      createNumberOfTimePointsButton(
-                        value: '50',
-                        onTap: () => ref.read(wordsToWinProvider.notifier).state = 50,
-                        isActive: wordsToWin == 50,
-                      ),
-                      createNumberOfTimePointsButton(
-                        value: wordsToWin == 5 || wordsToWin == 10 || wordsToWin == 25 || wordsToWin == 50 ? '•••' : '$wordsToWin',
-                        onTap: () => showCustomValueSheet(
-                          title: 'numberOfWordsString'.tr(),
-                          hintText: '${'numberBetweenString'.tr()} 2 - 100',
-                          onValueSaved: (value) => ref.read(wordsToWinProvider.notifier).state = value,
-                          lowestNumber: 2,
-                          highestNumber: 100,
-                          backgroundImage: ref.watch(backgroundImageProvider),
-                          context: context,
+                        createNumberOfTeamsButton(
+                          value: '3',
+                          onTap: () => gameSetupController.updateNumberOfTeams(
+                            chosenNumber: 3,
+                          ),
+                          isActive: teamsLength == 3,
                         ),
-                        isActive: wordsToWin != 5 && wordsToWin != 10 && wordsToWin != 25 && wordsToWin != 50,
-                      ),
-                    ],
-                  ),
-                  GameTitle('teamNamesString'.tr()),
-                  AnimationLimiter(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: teamsLength,
-                      itemBuilder: (_, index) {
-                        final team = teams[index];
+                        createNumberOfTeamsButton(
+                          value: '4',
+                          onTap: () => gameSetupController.updateNumberOfTeams(
+                            chosenNumber: 4,
+                          ),
+                          isActive: teamsLength == 4,
+                        ),
+                        createNumberOfTeamsButton(
+                          value: teamsLength < 5 ? '•••' : '$teamsLength',
+                          onTap: () => showCustomValueSheet(
+                            title: 'teamsString'.tr(),
+                            hintText: '${'numberBetweenString'.tr()} 2 - 10',
+                            onValueSaved: (value) => gameSetupController.updateNumberOfTeams(
+                              chosenNumber: value,
+                            ),
+                            lowestNumber: 2,
+                            highestNumber: 10,
+                            backgroundImage: ref.watch(backgroundImageProvider),
+                            context: context,
+                          ),
+                          isActive: teamsLength >= 5,
+                        ),
+                      ],
+                    ),
+                    GameTitle('numberOfWordsString'.tr()),
+                    HorizontalScroll(
+                      [
+                        createNumberOfTimePointsButton(
+                          value: '5',
+                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 5,
+                          isActive: wordsToWin == 5,
+                        ),
+                        createNumberOfTimePointsButton(
+                          value: '10',
+                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 10,
+                          isActive: wordsToWin == 10,
+                        ),
+                        createNumberOfTimePointsButton(
+                          value: '25',
+                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 25,
+                          isActive: wordsToWin == 25,
+                        ),
+                        createNumberOfTimePointsButton(
+                          value: '50',
+                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 50,
+                          isActive: wordsToWin == 50,
+                        ),
+                        createNumberOfTimePointsButton(
+                          value: wordsToWin == 5 || wordsToWin == 10 || wordsToWin == 25 || wordsToWin == 50 ? '•••' : '$wordsToWin',
+                          onTap: () => showCustomValueSheet(
+                            title: 'numberOfWordsString'.tr(),
+                            hintText: '${'numberBetweenString'.tr()} 2 - 100',
+                            onValueSaved: (value) => ref.read(wordsToWinProvider.notifier).state = value,
+                            lowestNumber: 2,
+                            highestNumber: 100,
+                            backgroundImage: ref.watch(backgroundImageProvider),
+                            context: context,
+                          ),
+                          isActive: wordsToWin != 5 && wordsToWin != 10 && wordsToWin != 25 && wordsToWin != 50,
+                        ),
+                      ],
+                    ),
+                    GameTitle('teamNamesString'.tr()),
+                    AnimationLimiter(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: teamsLength,
+                        itemBuilder: (_, index) {
+                          final team = teams[index];
 
-                        return AnimatedListView(
-                          fastAnimations: true,
-                          index: index,
-                          child: NameOfTeam(
-                            textEditingController: team.textEditingController,
-                            key: ValueKey(team),
-                            hintText: 'teamNameString'.tr(),
-                            textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
-                            onChanged: (value) => gameSetupController.teamNameUpdated(
-                              passedTeam: team,
-                              value: value,
+                          return AnimatedListView(
+                            fastAnimations: true,
+                            index: index,
+                            child: NameOfTeam(
+                              textEditingController: team.textEditingController,
+                              key: ValueKey(team),
+                              hintText: 'teamNameString'.tr(),
+                              textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
+                              onChanged: (value) => gameSetupController.teamNameUpdated(
+                                passedTeam: team,
+                                value: value,
+                              ),
+                              randomizePressed: () => gameSetupController.randomizeTeamName(
+                                passedTeam: team,
+                              ),
                             ),
-                            randomizePressed: () => gameSetupController.randomizeTeamName(
-                              passedTeam: team,
-                            ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.animation,
-                        child: Text(
-                          key: ValueKey(validationMessage),
-                          validationMessage ?? '',
-                          style: ModerniAliasTextStyles.validation,
-                          textAlign: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: AnimatedSwitcher(
+                          duration: ModerniAliasDurations.animation,
+                          child: Text(
+                            key: ValueKey(validationMessage),
+                            validationMessage ?? '',
+                            style: ModerniAliasTextStyles.validation,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: PlayButton(
-                      text: 'playTheGameString'.tr().toUpperCase(),
-                      onPressed: () {
-                        /// Validation successfull, go to [TimeGameScreen]
-                        if (gameSetupController.validateTeams()) {
-                          goToTimeGameScreen(context);
-                        }
-                      },
+                    Container(
+                      alignment: Alignment.center,
+                      child: PlayButton(
+                        text: 'playTheGameString'.tr().toUpperCase(),
+                        onPressed: () {
+                          /// Validation successfull, go to [TimeGameScreen]
+                          if (gameSetupController.validateTeams()) {
+                            goToTimeGameScreen(context);
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 50),
-                ],
+                    const SizedBox(height: 50),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

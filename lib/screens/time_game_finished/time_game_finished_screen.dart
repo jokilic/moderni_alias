@@ -51,85 +51,88 @@ class TimeGameFinishedScreen extends ConsumerWidget {
       canPop: false,
       onPopInvoked: (_) => goToHomeScreen(context),
       child: Scaffold(
-        body: BackgroundImage(
-          child: Stack(
-            children: [
-              const Confetti(),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationX(pi),
-                child: const Confetti(
-                  waitDuration: ModerniAliasDurations.slowAnimation,
+        body: Stack(
+          children: [
+            const BackgroundImage(),
+            Stack(
+              children: [
+                const Confetti(),
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationX(pi),
+                  child: const Confetti(
+                    waitDuration: ModerniAliasDurations.slowAnimation,
+                  ),
                 ),
-              ),
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(pi),
-                child: const Confetti(
-                  waitDuration: ModerniAliasDurations.verySlowAnimation,
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: const Confetti(
+                    waitDuration: ModerniAliasDurations.verySlowAnimation,
+                  ),
                 ),
-              ),
-              Align(
-                child: GestureDetector(
-                  onTap: () => goToHomeScreen(context),
-                  behavior: HitTestBehavior.translucent,
-                  child: SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.8,
-                    height: 500,
-                    child: AnimatedColumn(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          ModerniAliasIcons.clapImage,
-                          height: 220,
-                        ),
-                        const SizedBox(height: 30),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: fastestRounds.length == 1 ? 'timeGameFinishedOneWinnerFirstString'.tr() : 'timeGameFinishedOneWinnerFirstStringPlural'.tr(),
-                            style: ModerniAliasTextStyles.winnerFirst,
-                            children: [
-                              TextSpan(
-                                text: teamNames,
-                                style: ModerniAliasTextStyles.winnerTeam,
-                              ),
-                              TextSpan(text: 'timeGameFinishedOneWinnerSecondString'.tr()),
-                              TextSpan(
-                                text:
-                                    '${Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}.',
-                                style: ModerniAliasTextStyles.winnerPoints,
-                              ),
-                            ],
+                Align(
+                  child: GestureDetector(
+                    onTap: () => goToHomeScreen(context),
+                    behavior: HitTestBehavior.translucent,
+                    child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.8,
+                      height: 500,
+                      child: AnimatedColumn(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            ModerniAliasIcons.clapImage,
+                            height: 220,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 30),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: fastestRounds.length == 1 ? 'timeGameFinishedOneWinnerFirstString'.tr() : 'timeGameFinishedOneWinnerFirstStringPlural'.tr(),
+                              style: ModerniAliasTextStyles.winnerFirst,
+                              children: [
+                                TextSpan(
+                                  text: teamNames,
+                                  style: ModerniAliasTextStyles.winnerTeam,
+                                ),
+                                TextSpan(text: 'timeGameFinishedOneWinnerSecondString'.tr()),
+                                TextSpan(
+                                  text:
+                                      '${Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}.',
+                                  style: ModerniAliasTextStyles.winnerPoints,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                top: 48,
-                right: 12,
-                child: AnimatedGestureDetector(
-                  onTap: () => showTimeScores(
-                    context,
-                    playedWords: ref.watch(playedWordsProvider),
-                    gameFinished: true,
-                  ),
-                  end: 0.8,
-                  child: const IconButton(
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.format_list_numbered_rounded,
-                      color: ModerniAliasColors.whiteColor,
-                      size: 30,
+                Positioned(
+                  top: 48,
+                  right: 12,
+                  child: AnimatedGestureDetector(
+                    onTap: () => showTimeScores(
+                      context,
+                      playedWords: ref.watch(playedWordsProvider),
+                      gameFinished: true,
+                    ),
+                    end: 0.8,
+                    child: const IconButton(
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.format_list_numbered_rounded,
+                        color: ModerniAliasColors.whiteColor,
+                        size: 30,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );

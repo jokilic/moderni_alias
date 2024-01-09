@@ -10,31 +10,34 @@ import 'widgets/how_to_play_button.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: BackgroundImage(
-          child: SafeArea(
-            child: AnimatedColumn(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedColumn(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          HowToPlayButton(),
-                          const SizedBox(width: 8),
-                          InfoButton(),
-                        ],
+        body: Stack(
+          children: [
+            const BackgroundImage(),
+            SafeArea(
+              child: AnimatedColumn(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AnimatedColumn(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            HowToPlayButton(),
+                            const SizedBox(width: 8),
+                            InfoButton(),
+                          ],
+                        ),
                       ),
-                    ),
-                    const HeroTitle(),
-                  ],
-                ),
-                HomePageButtons(),
-              ],
+                      const HeroTitle(),
+                    ],
+                  ),
+                  HomePageButtons(),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       );
 }

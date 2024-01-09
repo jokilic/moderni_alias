@@ -19,41 +19,44 @@ class StatsScreen extends ConsumerWidget {
     final statsNotifier = ref.watch(statsProvider.notifier);
 
     return Scaffold(
-      body: BackgroundImage(
-        child: SafeArea(
-          child: SizedBox(
-            height: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 32),
-                HeroTitle(smallText: 'statsTitle'.tr()),
-                const SizedBox(height: 32),
-                StatsSegmentedWidget(),
-                const SizedBox(height: 24),
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: ModerniAliasDurations.animation,
-                    switchInCurve: Curves.easeIn,
-                    switchOutCurve: Curves.easeIn,
-                    child: currentIndex != null
-                        ? PageView(
-                            controller: statsNotifier.pageController,
-                            onPageChanged: statsNotifier.pageChanged,
-                            children: [
-                              StatsNormalSection(),
-                              StatsTimeSection(),
-                              StatsQuickSection(),
-                            ],
-                          )
-                        : StatsGeneralSection(),
+      body: Stack(
+        children: [
+          const BackgroundImage(),
+          SafeArea(
+            child: SizedBox(
+              height: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 32),
+                  HeroTitle(smallText: 'statsTitle'.tr()),
+                  const SizedBox(height: 32),
+                  StatsSegmentedWidget(),
+                  const SizedBox(height: 24),
+                  Expanded(
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.animation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: currentIndex != null
+                          ? PageView(
+                              controller: statsNotifier.pageController,
+                              onPageChanged: statsNotifier.pageChanged,
+                              children: [
+                                StatsNormalSection(),
+                                StatsTimeSection(),
+                                StatsQuickSection(),
+                              ],
+                            )
+                          : StatsGeneralSection(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
