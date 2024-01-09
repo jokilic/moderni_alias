@@ -123,6 +123,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                   onTap: () => showScores(
                     context,
                     playedWords: playedWords,
+                    backgroundImage: ref.watch(backgroundImageProvider),
                   ),
                   end: 0.8,
                   child: const IconButton(

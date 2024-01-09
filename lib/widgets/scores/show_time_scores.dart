@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/enums.dart';
-import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
@@ -13,6 +12,7 @@ import '../../screens/time_game/time_game_controller.dart';
 import '../../util/providers.dart';
 import '../animated_column.dart';
 import '../animated_list_view.dart';
+import '../background_image.dart';
 import './highscore_value.dart';
 import 'played_word_value.dart';
 
@@ -100,14 +100,14 @@ class TimeScoresModal extends ConsumerWidget {
         top: 36,
         bottom: 24,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-            ModerniAliasImages.backgroundImage,
+            ref.watch(backgroundImageProvider),
           ),
           fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.vertical(
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(24),
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/team/team.dart';
@@ -14,6 +13,7 @@ import 'played_word_value.dart';
 void showScores(
   BuildContext context, {
   required List<PlayedWord> playedWords,
+  required String backgroundImage,
   List<Team>? teams,
   bool dismissible = true,
 }) {
@@ -24,6 +24,7 @@ void showScores(
       builder: (context) => ScoresModal(
         teams: teams,
         playedWords: playedWords,
+        backgroundImage: backgroundImage,
       ),
     );
   }
@@ -32,10 +33,12 @@ void showScores(
 class ScoresModal extends StatelessWidget {
   final List<Team>? teams;
   final List<PlayedWord> playedWords;
+  final String backgroundImage;
 
   const ScoresModal({
     required this.teams,
     required this.playedWords,
+    required this.backgroundImage,
   });
 
   @override
@@ -45,14 +48,12 @@ class ScoresModal extends StatelessWidget {
           top: 36,
           bottom: 24,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              ModerniAliasImages.backgroundImage,
-            ),
+            image: AssetImage(backgroundImage),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.vertical(
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(24),
           ),
         ),

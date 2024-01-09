@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,25 +12,39 @@ final backgroundImageProvider = StateNotifierProvider<BackgroundImageNotifier, S
 );
 
 class BackgroundImageNotifier extends StateNotifier<String> {
-  BackgroundImageNotifier() : super(ModerniAliasImages.backgroundImage);
+  BackgroundImageNotifier() : super(ModerniAliasImages.stars);
 
   ///
   /// VARIABLES
   ///
 
+  late final random = Random();
+
   final backgrounds = [
-    ModerniAliasImages.backgroundImage,
+    ModerniAliasImages.stars,
   ];
 
   ///
   /// METHODS
   ///
 
-  /// Goes through `backgrounds` and changes active background
+  /// Goes through `backgrounds` and changes to the next background
   void changeBackground() {
     final index = backgrounds.indexOf(state);
     final newIndex = (index + 1) % backgrounds.length;
     state = backgrounds[newIndex];
+  }
+
+  /// Goes through `backgrounds` and changes to a random background
+  void randomWallpaper() {
+    final currentIndex = backgrounds.indexOf(state);
+    final randomIndex = random.nextInt(backgrounds.length);
+
+    if (randomIndex == currentIndex) {
+      changeBackground();
+    } else {
+      state = backgrounds[randomIndex];
+    }
   }
 }
 

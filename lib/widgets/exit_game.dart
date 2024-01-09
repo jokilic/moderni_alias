@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/images.dart';
 import '../constants/text_styles.dart';
 import './exit_game_button.dart';
 import 'animated_column.dart';
 
-Future<bool> exitGameModal(BuildContext context) async {
+Future<bool> exitGameModal(BuildContext context, {required String backgroundImage}) async {
   await showModalBottomSheet(
     context: context,
     builder: (context) => Container(
@@ -15,14 +14,12 @@ Future<bool> exitGameModal(BuildContext context) async {
         horizontal: 24,
         vertical: 36,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(
-            ModerniAliasImages.backgroundImage,
-          ),
+          image: AssetImage(backgroundImage),
           fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.vertical(
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(24),
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../constants/colors.dart';
-import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
 import '../../util/number_input_formatter.dart';
 import '../animated_column.dart';
@@ -14,6 +13,7 @@ void showCustomValueSheet({
   required Function(int value) onValueSaved,
   required int lowestNumber,
   required int highestNumber,
+  required String backgroundImage,
   bool dismissible = true,
 }) =>
     showModalBottomSheet(
@@ -26,14 +26,12 @@ void showCustomValueSheet({
           top: 36,
           bottom: MediaQuery.of(context).viewInsets.bottom + 24,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              ModerniAliasImages.backgroundImage,
-            ),
+            image: AssetImage(backgroundImage),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.vertical(
+          borderRadius: const BorderRadius.vertical(
             top: Radius.circular(24),
           ),
         ),

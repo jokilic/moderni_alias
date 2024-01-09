@@ -91,6 +91,7 @@ class NormalGameFinishedScreen extends ConsumerWidget {
                     context,
                     teams: ref.read(teamsProvider),
                     playedWords: ref.read(playedWordsProvider),
+                    backgroundImage: ref.watch(backgroundImageProvider),
                   ),
                   end: 0.8,
                   child: const IconButton(

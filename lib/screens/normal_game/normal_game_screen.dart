@@ -37,7 +37,10 @@ class NormalGameScreen extends ConsumerWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (_) => exitGameModal(context),
+      onPopInvoked: (_) => exitGameModal(
+        context,
+        backgroundImage: ref.watch(backgroundImageProvider),
+      ),
       child: Scaffold(
         body: BackgroundImage(
           child: SafeArea(
@@ -52,11 +55,15 @@ class NormalGameScreen extends ConsumerWidget {
                   width: width,
                   child: NormalGameInfoSection(
                     currentlyPlayingTeam: currentlyPlayingTeam,
-                    exitGame: () => exitGameModal(context),
+                    exitGame: () => exitGameModal(
+                      context,
+                      backgroundImage: ref.watch(backgroundImageProvider),
+                    ),
                     showScores: () => showScores(
                       context,
                       teams: teams,
                       playedWords: playedWords,
+                      backgroundImage: ref.watch(backgroundImageProvider),
                     ),
                   ),
                 ),

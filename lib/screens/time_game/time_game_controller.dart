@@ -15,6 +15,7 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
+import '../../widgets/background_image.dart';
 import '../../widgets/scores/show_time_scores.dart';
 
 final timeGameProvider = Provider.autoDispose<TimeGameController>(
@@ -142,6 +143,7 @@ class TimeGameController {
     ref.read(timeGameEndPlayerProvider).load();
     ref.read(timeGameEndPlayerProvider).play();
     timer?.cancel();
+    ref.read(backgroundImageProvider.notifier).randomWallpaper();
   }
 
   /// Continues game with next team
