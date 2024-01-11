@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
+import '../../constants/images.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
@@ -90,8 +91,10 @@ class TimeGameController {
       (timer) {
         ref.read(counter3SecondsProvider.notifier).state -= 1;
 
+        /// Timer is done, start round
         if (ref.read(counter3SecondsProvider) == 0) {
           timer.cancel();
+          startRound();
         }
       },
     );
@@ -161,7 +164,7 @@ class TimeGameController {
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame(BuildContext context) async {
     ref.read(currentGameProvider.notifier).state = Game.end;
-    ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
+    await ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
 
     await updateHiveStats(gameType: Game.time);
     goToTimeGameFinishedScreen(context);

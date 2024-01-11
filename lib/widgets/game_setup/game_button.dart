@@ -39,7 +39,7 @@ class GameButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: backgroundColor,
                 border: Border.all(
-                  color: ModerniAliasColors.whiteColor,
+                  color: ModerniAliasColors.white,
                   width: 4,
                 ),
                 borderRadius: BorderRadius.circular(24),

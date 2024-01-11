@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../services/audio_record_service.dart';
@@ -23,17 +24,15 @@ class NormalGameScreen extends ConsumerWidget {
 
     final currentlyPlayingTeam = ref.watch(currentlyPlayingTeamProvider);
     final currentGame = ref.watch(currentGameProvider);
-    final countdownTimerFillColor = ref.watch(countdownTimerFillColorProvider);
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
-    final lengthOfRound = ref.watch(lengthOfRoundProvider);
     final teams = ref.watch(teamsProvider);
 
     final currentWord = ref.watch(dictionaryProvider);
 
     ref.watch(audioRecordProvider);
 
-    final normalGameController = ref.watch(normalGameProvider);
+    final normalGameController = ref.watch(normalGameProvider(context));
 
     return PopScope(
       canPop: false,
@@ -83,9 +82,6 @@ class NormalGameScreen extends ConsumerWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
-                          fillColor: countdownTimerFillColor,
-                          length: lengthOfRound,
-                          onComplete: () => normalGameController.stopGameCheckWinner(context),
                         ),
                       ),
                     )
@@ -103,10 +99,6 @@ class NormalGameScreen extends ConsumerWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameStarting(
                           currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                          onComplete: () => normalGameController.startRound(
-                            chosenGame: Game.normal,
-                            lengthOfRound: ref.read(lengthOfRoundProvider),
-                          ),
                         ),
                       ),
                     )
@@ -140,6 +132,25 @@ class NormalGameScreen extends ConsumerWidget {
                       ),
                       correctChosen: () => normalGameController.answerChosen(
                         chosenAnswer: Answer.correct,
+                      ),
+                    ),
+                  ),
+
+                  ///
+                  /// BOTTOM - TIME COUNTER
+                  ///
+                  Positioned(
+                    bottom: 0,
+                    child: IgnorePointer(
+                      child: AnimatedContainer(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        curve: Curves.easeIn,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: ModerniAliasColors.white,
+                        ),
+                        height: 8,
+                        width: width - 8,
                       ),
                     ),
                   ),

@@ -159,8 +159,8 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                     playerController: audioController!,
                     continuousWaveform: false,
                     playerWaveStyle: const PlayerWaveStyle(
-                      fixedWaveColor: ModerniAliasColors.whiteColor,
-                      liveWaveColor: ModerniAliasColors.whiteColor,
+                      fixedWaveColor: ModerniAliasColors.white,
+                      liveWaveColor: ModerniAliasColors.white,
                       scaleFactor: 144,
                       showSeekLine: false,
                     ),
@@ -180,7 +180,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                       child: AnimatedIcon(
                         icon: AnimatedIcons.play_pause,
                         progress: iconAnimationController,
-                        color: ModerniAliasColors.whiteColor,
+                        color: ModerniAliasColors.white,
                         size: 48,
                       ),
                     ),
@@ -225,7 +225,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         ),
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: ModerniAliasColors.whiteColor,
+          color: ModerniAliasColors.white,
         ),
         child: Text(
           '${widget.index + 1}',
@@ -255,7 +255,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         curve: Curves.easeIn,
         child: const Icon(
           Icons.arrow_drop_down_circle,
-          color: ModerniAliasColors.whiteColor,
+          color: ModerniAliasColors.white,
           size: 32,
         ),
       ),

@@ -72,8 +72,8 @@ Widget createFlagButton({
 }) =>
     FlagButton(
       countryName: countryName,
-      backgroundColor: isActive ? ModerniAliasColors.whiteColor : Colors.transparent,
-      color: isActive ? ModerniAliasColors.darkBlueColor : ModerniAliasColors.whiteColor,
+      backgroundColor: isActive ? ModerniAliasColors.white : Colors.transparent,
+      color: isActive ? ModerniAliasColors.darkBlue : ModerniAliasColors.white,
       flagImage: flagImage,
       onTap: onTap,
     );

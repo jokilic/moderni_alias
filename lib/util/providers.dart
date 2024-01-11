@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../constants/colors.dart';
 import '../constants/enums.dart';
 import '../constants/sounds.dart';
 import '../models/played_word/played_word.dart';
@@ -80,11 +79,6 @@ final counter3SecondsProvider = StateProvider.autoDispose<int>(
 ///
 /// TIMER
 ///
-
-final countdownTimerFillColorProvider = StateProvider.autoDispose<Color>(
-  (_) => ModerniAliasColors.blueColor,
-  name: 'CountdownTimerFillColorProvider',
-);
 
 final timeGameTimerProvider = StateProvider<Duration>(
   (_) => Duration.zero,

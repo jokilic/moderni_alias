@@ -48,8 +48,8 @@ class TimeGameInfoSection extends StatelessWidget {
                         size: Size(MediaQuery.sizeOf(context).width, 48),
                         padding: const EdgeInsets.symmetric(horizontal: 56),
                         waveStyle: const WaveStyle(
-                          waveColor: ModerniAliasColors.whiteColor,
-                          middleLineColor: ModerniAliasColors.whiteColor,
+                          waveColor: ModerniAliasColors.white,
+                          middleLineColor: ModerniAliasColors.white,
                           scaleFactor: 24,
                           extendWaveform: true,
                           showMiddleLine: false,
@@ -69,7 +69,7 @@ class TimeGameInfoSection extends StatelessWidget {
                   onPressed: null,
                   icon: Icon(
                     Icons.close_rounded,
-                    color: ModerniAliasColors.whiteColor,
+                    color: ModerniAliasColors.white,
                     size: 30,
                   ),
                 ),
@@ -84,7 +84,7 @@ class TimeGameInfoSection extends StatelessWidget {
                   onPressed: null,
                   icon: Icon(
                     Icons.format_list_numbered_rounded,
-                    color: ModerniAliasColors.whiteColor,
+                    color: ModerniAliasColors.white,
                     size: 30,
                   ),
                 ),

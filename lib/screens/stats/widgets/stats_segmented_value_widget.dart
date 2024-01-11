@@ -23,7 +23,7 @@ class StatsSegmentedValueWidget extends StatelessWidget {
           child: TextButton(
             onPressed: null,
             style: TextButton.styleFrom(
-              foregroundColor: ModerniAliasColors.whiteColor,
+              foregroundColor: ModerniAliasColors.white,
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
@@ -48,7 +48,7 @@ class StatsSegmentedValueWidget extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: ModerniAliasColors.whiteColor,
+                      color: ModerniAliasColors.white,
                     ),
                     height: 5,
                     width: 28,

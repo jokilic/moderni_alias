@@ -13,7 +13,7 @@ class HowToPlayButton extends StatelessWidget {
           onPressed: null,
           icon: Icon(
             Icons.question_mark_rounded,
-            color: ModerniAliasColors.whiteColor,
+            color: ModerniAliasColors.white,
           ),
           iconSize: 36,
         ),

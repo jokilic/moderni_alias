@@ -22,7 +22,7 @@ class NameOfTeam extends StatelessWidget {
   // Make Input Border
   UnderlineInputBorder buildInputBorder() => const UnderlineInputBorder(
         borderSide: BorderSide(
-          color: ModerniAliasColors.whiteColor,
+          color: ModerniAliasColors.white,
           width: 2,
         ),
       );
@@ -50,7 +50,7 @@ class NameOfTeam extends StatelessWidget {
                 icon: const Icon(
                   Icons.casino_rounded,
                   size: 30,
-                  color: ModerniAliasColors.whiteColor,
+                  color: ModerniAliasColors.white,
                 ),
               ),
             ),
@@ -60,7 +60,7 @@ class NameOfTeam extends StatelessWidget {
             hintText: hintText,
             hintStyle: ModerniAliasTextStyles.nameOfTeamHint,
           ),
-          cursorColor: ModerniAliasColors.whiteColor,
+          cursorColor: ModerniAliasColors.white,
           cursorRadius: const Radius.circular(16),
           cursorWidth: 4,
         ),

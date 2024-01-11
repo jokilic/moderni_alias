@@ -13,7 +13,7 @@ class InfoButton extends StatelessWidget {
           onPressed: null,
           icon: Icon(
             Icons.info_outline_rounded,
-            color: ModerniAliasColors.whiteColor,
+            color: ModerniAliasColors.white,
           ),
           iconSize: 36,
         ),

@@ -29,7 +29,7 @@ class MyQuickPortfolio extends ConsumerWidget {
                     width: 160,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: ModerniAliasColors.whiteColor,
+                        color: ModerniAliasColors.white,
                         width: 2,
                       ),
                       shape: BoxShape.circle,

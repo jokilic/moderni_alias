@@ -5,12 +5,10 @@ import 'package:flutter/painting.dart';
 ///
 
 class ModerniAliasColors {
-  static const darkBlueColor = Color(0xFF182F3F);
-  static const whiteColor = Color(0xFFF1F1F1);
-  static const redColor = Color(0xFFB05654);
-  static const yellowColor = Color(0xFFBCB95B);
-  static const greenColor = Color(0xFF66BB6A);
-  static const blueColor = Color(0xFF4382B0);
-
-  static const flagColor = whiteColor;
+  static const darkBlue = Color(0xFF182F3F);
+  static const white = Color(0xFFF1F1F1);
+  static const red = Color(0xFFB05654);
+  static const yellow = Color(0xFFBCB95B);
+  static const green = Color(0xFF66BB6A);
+  static const blue = Color(0xFF4382B0);
 }

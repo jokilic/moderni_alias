@@ -27,7 +27,7 @@ class PlayButton extends StatelessWidget {
               vertical: verticalPadding,
             ),
             side: const BorderSide(
-              color: ModerniAliasColors.whiteColor,
+              color: ModerniAliasColors.white,
               width: 2,
             ),
           ),

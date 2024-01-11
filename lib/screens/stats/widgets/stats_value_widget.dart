@@ -31,7 +31,7 @@ class StatsValueWidget extends StatelessWidget {
           child: TextButton(
             onPressed: null,
             style: TextButton.styleFrom(
-              foregroundColor: ModerniAliasColors.whiteColor,
+              foregroundColor: ModerniAliasColors.white,
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 8,
@@ -100,7 +100,7 @@ class StatsValueContainer extends StatelessWidget {
         decoration: BoxDecoration(
           shape: isNumber ? BoxShape.circle : BoxShape.rectangle,
           borderRadius: isNumber ? null : BorderRadius.circular(100),
-          color: yellowCircle ? ModerniAliasColors.yellowColor : ModerniAliasColors.whiteColor,
+          color: yellowCircle ? ModerniAliasColors.yellow : ModerniAliasColors.white,
         ),
         child: Text(
           '$value',

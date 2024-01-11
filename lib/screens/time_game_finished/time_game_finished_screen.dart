@@ -124,7 +124,7 @@ class TimeGameFinishedScreen extends ConsumerWidget {
                       onPressed: null,
                       icon: Icon(
                         Icons.format_list_numbered_rounded,
-                        color: ModerniAliasColors.whiteColor,
+                        color: ModerniAliasColors.white,
                         size: 30,
                       ),
                     ),

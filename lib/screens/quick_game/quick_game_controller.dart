@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/colors.dart';
 import '../../constants/enums.dart';
+import '../../constants/images.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
@@ -15,10 +15,14 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
+import '../../widgets/background_image.dart';
 
-final quickGameProvider = Provider.autoDispose<QuickGameController>(
-  (ref) {
-    final quickGameController = QuickGameController(ref);
+final quickGameProvider = Provider.autoDispose.family<QuickGameController, BuildContext>(
+  (ref, context) {
+    final quickGameController = QuickGameController(
+      ref: ref,
+      context: context,
+    );
     ref.onDispose(quickGameController.dispose);
     return quickGameController;
   },
@@ -26,9 +30,13 @@ final quickGameProvider = Provider.autoDispose<QuickGameController>(
 );
 
 class QuickGameController {
+  final BuildContext context;
   final ProviderRef ref;
 
-  QuickGameController(this.ref) {
+  QuickGameController({
+    required this.context,
+    required this.ref,
+  }) {
     init();
   }
 
@@ -44,6 +52,8 @@ class QuickGameController {
   Timer? yellowTimer;
   Timer? redTimer;
   Timer? soundTimer;
+
+  Timer? gameTimer;
 
   late QuickGameStats quickGameStats;
 
@@ -69,6 +79,7 @@ class QuickGameController {
     yellowTimer?.cancel();
     redTimer?.cancel();
     soundTimer?.cancel();
+    gameTimer?.cancel();
   }
 
   ///
@@ -76,9 +87,13 @@ class QuickGameController {
   ///
 
   /// Returns a Timer with the specified length and color
-  Timer makeTimer({required double chosenSeconds, required Color chosenColor}) => Timer(
+  Timer makeTimer({
+    required double chosenSeconds,
+    required String background,
+  }) =>
+      Timer(
         Duration(seconds: 60 - chosenSeconds.round()),
-        () => ref.read(countdownTimerFillColorProvider.notifier).state = chosenColor,
+        () => ref.read(backgroundImageProvider.notifier).changeBackground(background),
       );
 
   /// Sets the variables and starts the time countdown
@@ -100,15 +115,29 @@ class QuickGameController {
     /// Initialize timers that change colors
     greenTimer = makeTimer(
       chosenSeconds: greenSeconds,
-      chosenColor: ModerniAliasColors.greenColor,
+      background: ModerniAliasImages.blurred3,
     );
     yellowTimer = makeTimer(
       chosenSeconds: yellowSeconds,
-      chosenColor: ModerniAliasColors.yellowColor,
+      background: ModerniAliasImages.blurred18,
     );
     redTimer = makeTimer(
       chosenSeconds: redSeconds,
-      chosenColor: ModerniAliasColors.redColor,
+      background: ModerniAliasImages.blurred2,
+    );
+
+    /// Start game timer
+    gameTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        final remainingSeconds = lengthOfRound - timer.tick;
+
+        /// Timer is done, end game
+        if (remainingSeconds == 0) {
+          timer.cancel();
+          endGame(context);
+        }
+      },
     );
   }
 
@@ -122,8 +151,10 @@ class QuickGameController {
       (timer) {
         ref.read(counter3SecondsProvider.notifier).state -= 1;
 
+        /// Timer is done, start round
         if (ref.read(counter3SecondsProvider) == 0) {
           timer.cancel();
+          startRound(lengthOfRound: 60);
         }
       },
     );
@@ -139,10 +170,10 @@ class QuickGameController {
   void startRound({required int lengthOfRound}) {
     ref.read(playedWordsProvider).clear();
 
-    ref.read(currentGameProvider.notifier).state = Game.quick;
-    ref.read(countdownTimerFillColorProvider.notifier).state = ModerniAliasColors.blueColor;
-
     ref.read(dictionaryProvider.notifier).getRandomWord();
+
+    ref.read(currentGameProvider.notifier).state = Game.quick;
+    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1);
 
     startTimer(lengthOfRound);
   }
@@ -150,7 +181,7 @@ class QuickGameController {
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame(BuildContext context) async {
     ref.read(currentGameProvider.notifier).state = Game.end;
-    ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
+    await ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
 
     await updateHiveStats();
     goToQuickGameFinishedScreen(context);

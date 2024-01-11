@@ -25,7 +25,6 @@ class QuickGameFinishedScreen extends ConsumerWidget {
     /// Restart providers
     ref
       ..invalidate(currentGameProvider)
-      ..invalidate(countdownTimerFillColorProvider)
       ..invalidate(playedWordsProvider)
       ..invalidate(counter3SecondsProvider)
       ..invalidate(quickGameProvider);
@@ -132,7 +131,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                       onPressed: null,
                       icon: Icon(
                         Icons.format_list_numbered_rounded,
-                        color: ModerniAliasColors.whiteColor,
+                        color: ModerniAliasColors.white,
                         size: 30,
                       ),
                     ),

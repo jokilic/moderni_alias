@@ -4,8 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/colors.dart';
 import '../../constants/enums.dart';
+import '../../constants/images.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
@@ -20,9 +20,12 @@ import '../../util/routing.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/scores/show_scores.dart';
 
-final normalGameProvider = Provider.autoDispose<NormalGameController>(
-  (ref) {
-    final normalGameController = NormalGameController(ref);
+final normalGameProvider = Provider.autoDispose.family<NormalGameController, BuildContext>(
+  (ref, context) {
+    final normalGameController = NormalGameController(
+      ref: ref,
+      context: context,
+    );
     ref.onDispose(normalGameController.dispose);
     return normalGameController;
   },
@@ -30,9 +33,13 @@ final normalGameProvider = Provider.autoDispose<NormalGameController>(
 );
 
 class NormalGameController {
+  final BuildContext context;
   final ProviderRef ref;
 
-  NormalGameController(this.ref) {
+  NormalGameController({
+    required this.context,
+    required this.ref,
+  }) {
     init();
   }
 
@@ -51,6 +58,8 @@ class NormalGameController {
   Timer? yellowTimer;
   Timer? redTimer;
   Timer? soundTimer;
+
+  Timer? gameTimer;
 
   late NormalGameStats normalGameStats;
 
@@ -79,6 +88,7 @@ class NormalGameController {
     yellowTimer?.cancel();
     redTimer?.cancel();
     soundTimer?.cancel();
+    gameTimer?.cancel();
     ref.invalidate(tieBreakTeamsProvider);
   }
 
@@ -89,12 +99,12 @@ class NormalGameController {
   /// Returns a Timer with the specified length and color
   Timer makeTimer({
     required double chosenSeconds,
-    required Color chosenColor,
     required int lengthOfRound,
+    required String background,
   }) =>
       Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => ref.read(countdownTimerFillColorProvider.notifier).state = chosenColor,
+        () => ref.read(backgroundImageProvider.notifier).changeBackground(background),
       );
 
   /// Sets the variables and starts the time countdown
@@ -116,18 +126,33 @@ class NormalGameController {
     /// Initialize timers that change colors
     greenTimer = makeTimer(
       chosenSeconds: greenSeconds,
-      chosenColor: ModerniAliasColors.greenColor,
       lengthOfRound: lengthOfRound,
+      background: ModerniAliasImages.blurred3,
     );
     yellowTimer = makeTimer(
       chosenSeconds: yellowSeconds,
-      chosenColor: ModerniAliasColors.yellowColor,
       lengthOfRound: lengthOfRound,
+      background: ModerniAliasImages.blurred18,
     );
     redTimer = makeTimer(
       chosenSeconds: redSeconds,
-      chosenColor: ModerniAliasColors.redColor,
       lengthOfRound: lengthOfRound,
+      background: ModerniAliasImages.blurred2,
+    );
+
+    /// Start game timer
+    gameTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        final remainingSeconds = lengthOfRound - timer.tick;
+        ref.read(loggerProvider).f(remainingSeconds);
+
+        /// Timer is done, stop round
+        if (remainingSeconds == 0) {
+          timer.cancel();
+          stopGameCheckWinner(context);
+        }
+      },
     );
   }
 
@@ -141,8 +166,13 @@ class NormalGameController {
       (timer) {
         ref.read(counter3SecondsProvider.notifier).state -= 1;
 
+        /// Timer is done, start round
         if (ref.read(counter3SecondsProvider) == 0) {
           timer.cancel();
+          startRound(
+            chosenGame: Game.normal,
+            lengthOfRound: ref.read(lengthOfRoundProvider),
+          );
         }
       },
     );
@@ -160,10 +190,10 @@ class NormalGameController {
     wrongAnswers = 0;
     ref.read(playedWordsProvider).clear();
 
-    ref.read(currentGameProvider.notifier).state = chosenGame;
-    ref.read(countdownTimerFillColorProvider.notifier).state = ModerniAliasColors.blueColor;
-
     ref.read(dictionaryProvider.notifier).getRandomWord();
+
+    ref.read(currentGameProvider.notifier).state = chosenGame;
+    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1);
 
     startTimer(lengthOfRound);
   }
@@ -171,12 +201,13 @@ class NormalGameController {
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
     ref.read(currentGameProvider.notifier).state = Game.tapToStart;
-    ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
+    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
 
     soundTimer?.cancel();
     greenTimer?.cancel();
     yellowTimer?.cancel();
     redTimer?.cancel();
+    gameTimer?.cancel();
   }
 
   /// Check if there's a winner
@@ -262,7 +293,7 @@ class NormalGameController {
   /// Ends game and goes to [NormalGameFinishedScreen]
   Future<void> endGame(BuildContext context) async {
     ref.read(currentGameProvider.notifier).state = Game.end;
-    ref.read(countdownTimerFillColorProvider.notifier).state = Colors.transparent;
+    await ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
 
     await updateHiveStats(gameType: Game.normal);
     goToNormalGameFinishedScreen(context);

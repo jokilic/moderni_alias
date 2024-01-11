@@ -23,13 +23,13 @@ class GameButton extends StatelessWidget {
             padding: const EdgeInsets.all(50),
             height: 150,
             decoration: BoxDecoration(
-              color: ModerniAliasColors.whiteColor.withOpacity(0.05),
+              color: ModerniAliasColors.white.withOpacity(0.05),
               borderRadius: borderRadius,
             ),
             child: SvgPicture.asset(
               svgIconPath,
               colorFilter: const ColorFilter.mode(
-                ModerniAliasColors.whiteColor,
+                ModerniAliasColors.white,
                 BlendMode.srcIn,
               ),
             ),

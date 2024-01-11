@@ -120,14 +120,14 @@ class ModerniAliasTextStyles {
   );
   static const statsNumber = TextStyle(
     fontFamily: 'Sen',
-    color: ModerniAliasColors.darkBlueColor,
+    color: ModerniAliasColors.darkBlue,
     fontSize: 20,
     fontWeight: FontWeight.bold,
     height: 1.4,
   );
   static const generalInfoBoldBlue = TextStyle(
     fontFamily: 'Sen',
-    color: ModerniAliasColors.blueColor,
+    color: ModerniAliasColors.blue,
     fontSize: 20,
     fontWeight: FontWeight.bold,
     height: 1.4,
@@ -146,14 +146,14 @@ class ModerniAliasTextStyles {
   );
   static const howToPlayBoldGreen = TextStyle(
     fontFamily: 'Sen',
-    color: ModerniAliasColors.greenColor,
+    color: ModerniAliasColors.green,
     fontSize: 20,
     fontWeight: FontWeight.bold,
     height: 1.4,
   );
   static const howToPlayBoldRed = TextStyle(
     fontFamily: 'Sen',
-    color: ModerniAliasColors.redColor,
+    color: ModerniAliasColors.red,
     fontSize: 20,
     fontWeight: FontWeight.bold,
     height: 1.4,
@@ -185,7 +185,7 @@ class ModerniAliasTextStyles {
   );
   static const quickCorrectScore = TextStyle(
     fontFamily: 'Sen',
-    color: ModerniAliasColors.blueColor,
+    color: ModerniAliasColors.blue,
     fontSize: 34,
     fontWeight: FontWeight.bold,
   );

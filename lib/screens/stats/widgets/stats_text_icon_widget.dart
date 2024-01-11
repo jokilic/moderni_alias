@@ -36,7 +36,7 @@ class StatsTextIconWidget extends StatelessWidget {
                   icon!,
                   width: size,
                   colorFilter: const ColorFilter.mode(
-                    ModerniAliasColors.whiteColor,
+                    ModerniAliasColors.white,
                     BlendMode.srcIn,
                   ),
                 )

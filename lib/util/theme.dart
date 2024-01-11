@@ -20,25 +20,25 @@ class ThemeNotifier extends StateNotifier<ThemeData> {
 
   ThemeData getPrimaryTheme() => ThemeData(
         useMaterial3: true,
-        primaryColor: ModerniAliasColors.darkBlueColor,
+        primaryColor: ModerniAliasColors.darkBlue,
         colorScheme: const ColorScheme.dark(
-          background: ModerniAliasColors.darkBlueColor,
+          background: ModerniAliasColors.darkBlue,
         ),
         canvasColor: Colors.transparent,
-        scaffoldBackgroundColor: ModerniAliasColors.darkBlueColor,
+        scaffoldBackgroundColor: ModerniAliasColors.darkBlue,
         fontFamily: 'Sen',
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             elevation: 0,
             textStyle: ModerniAliasTextStyles.playButton.copyWith(
-              color: ModerniAliasColors.whiteColor,
+              color: ModerniAliasColors.white,
             ),
             padding: const EdgeInsets.symmetric(
               horizontal: 24,
               vertical: 14,
             ),
-            foregroundColor: ModerniAliasColors.whiteColor,
-            disabledForegroundColor: ModerniAliasColors.whiteColor,
+            foregroundColor: ModerniAliasColors.white,
+            disabledForegroundColor: ModerniAliasColors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),

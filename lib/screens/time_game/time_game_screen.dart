@@ -101,7 +101,6 @@ class TimeGameScreen extends ConsumerWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameStarting(
                           currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                          onComplete: timeGameController.startRound,
                         ),
                       ),
                     )

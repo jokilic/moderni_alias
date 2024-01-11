@@ -70,7 +70,7 @@ class _ExitGameButtonState extends ConsumerState<ExitGameButton> with SingleTick
                 animation: controller!,
                 builder: (_, child) => Container(
                   decoration: BoxDecoration(
-                    color: ModerniAliasColors.whiteColor.withOpacity(
+                    color: ModerniAliasColors.white.withOpacity(
                       controller!.value,
                     ),
                     borderRadius: BorderRadius.circular(50),
@@ -113,13 +113,13 @@ class ExitTextButton extends StatelessWidget {
             TextButton(
               onPressed: null,
               style: TextButton.styleFrom(
-                foregroundColor: ModerniAliasColors.whiteColor,
+                foregroundColor: ModerniAliasColors.white,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 2,
                 ),
                 side: const BorderSide(
-                  color: ModerniAliasColors.whiteColor,
+                  color: ModerniAliasColors.white,
                   width: 2,
                 ),
                 shape: RoundedRectangleBorder(

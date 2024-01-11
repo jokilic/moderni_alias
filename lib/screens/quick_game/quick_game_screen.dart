@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../services/audio_record_service.dart';
@@ -22,7 +23,6 @@ class QuickGameScreen extends ConsumerWidget {
     final width = MediaQuery.sizeOf(context).width;
 
     final currentGame = ref.watch(currentGameProvider);
-    final countdownTimerFillColor = ref.watch(countdownTimerFillColorProvider);
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
 
@@ -30,7 +30,7 @@ class QuickGameScreen extends ConsumerWidget {
 
     ref.watch(audioRecordProvider);
 
-    final quickGameController = ref.watch(quickGameProvider);
+    final quickGameController = ref.watch(quickGameProvider(context));
 
     return PopScope(
       canPop: false,
@@ -80,9 +80,6 @@ class QuickGameScreen extends ConsumerWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
-                          fillColor: countdownTimerFillColor,
-                          length: 60,
-                          onComplete: () => quickGameController.endGame(context),
                         ),
                       ),
                     )
@@ -100,7 +97,6 @@ class QuickGameScreen extends ConsumerWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameStarting(
                           currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                          onComplete: () => quickGameController.startRound(lengthOfRound: 60),
                         ),
                       ),
                     )
@@ -134,6 +130,25 @@ class QuickGameScreen extends ConsumerWidget {
                       ),
                       wrongChosen: () => quickGameController.answerChosen(
                         chosenAnswer: Answer.wrong,
+                      ),
+                    ),
+                  ),
+
+                  ///
+                  /// BOTTOM - TIME COUNTER
+                  ///
+                  Positioned(
+                    bottom: 0,
+                    child: IgnorePointer(
+                      child: AnimatedContainer(
+                        duration: ModerniAliasDurations.fastAnimation,
+                        curve: Curves.easeIn,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: ModerniAliasColors.white,
+                        ),
+                        height: 8,
+                        width: width - 8,
                       ),
                     ),
                   ),
