@@ -104,7 +104,7 @@ class NormalGameController {
   }) =>
       Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => ref.read(backgroundImageProvider.notifier).changeBackground(background),
+        () => ref.read(backgroundImageProvider.notifier).changeBackground(background, isTemporary: true),
       );
 
   /// Sets the variables and starts the time countdown
@@ -193,7 +193,7 @@ class NormalGameController {
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     ref.read(currentGameProvider.notifier).state = chosenGame;
-    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1);
+    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1, isTemporary: true);
 
     startTimer(lengthOfRound);
   }
@@ -201,7 +201,7 @@ class NormalGameController {
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
     ref.read(currentGameProvider.notifier).state = Game.tapToStart;
-    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
+    ref.read(backgroundImageProvider.notifier).revertBackground();
 
     soundTimer?.cancel();
     greenTimer?.cancel();
@@ -293,7 +293,7 @@ class NormalGameController {
   /// Ends game and goes to [NormalGameFinishedScreen]
   Future<void> endGame(BuildContext context) async {
     ref.read(currentGameProvider.notifier).state = Game.end;
-    await ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
+    await ref.read(backgroundImageProvider.notifier).revertBackground();
 
     await updateHiveStats(gameType: Game.normal);
     goToNormalGameFinishedScreen(context);

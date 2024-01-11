@@ -93,7 +93,7 @@ class QuickGameController {
   }) =>
       Timer(
         Duration(seconds: 60 - chosenSeconds.round()),
-        () => ref.read(backgroundImageProvider.notifier).changeBackground(background),
+        () => ref.read(backgroundImageProvider.notifier).changeBackground(background, isTemporary: true),
       );
 
   /// Sets the variables and starts the time countdown
@@ -173,7 +173,7 @@ class QuickGameController {
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     ref.read(currentGameProvider.notifier).state = Game.quick;
-    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1);
+    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1, isTemporary: true);
 
     startTimer(lengthOfRound);
   }
@@ -181,7 +181,7 @@ class QuickGameController {
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame(BuildContext context) async {
     ref.read(currentGameProvider.notifier).state = Game.end;
-    await ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.stars1);
+    await ref.read(backgroundImageProvider.notifier).revertBackground();
 
     await updateHiveStats();
     goToQuickGameFinishedScreen(context);

@@ -60,7 +60,7 @@ class BackgroundImageNotifier extends StateNotifier<String> {
   void cycleBackgrounds() {
     final index = backgrounds.indexOf(state);
     final newIndex = (index + 1) % backgrounds.length;
-    changeBackground(backgrounds[newIndex]);
+    changeBackground(backgrounds[newIndex], isTemporary: false);
   }
 
   /// Goes through `backgrounds` and changes to a random background
@@ -71,15 +71,25 @@ class BackgroundImageNotifier extends StateNotifier<String> {
     if (randomIndex == currentIndex) {
       cycleBackgrounds();
     } else {
-      changeBackground(backgrounds[randomIndex]);
+      changeBackground(backgrounds[randomIndex], isTemporary: true);
     }
   }
 
   /// Updates background to the passed one
-  Future<void> changeBackground(String newBackground) async {
+  Future<void> changeBackground(String newBackground, {required bool isTemporary}) async {
     state = newBackground;
-    await hive.addBackgroundToBox(background: newBackground);
+
+    /// Store new background in [Hive]
+    if (!isTemporary) {
+      await hive.addBackgroundToBox(background: newBackground);
+    }
   }
+
+  /// Revert background to stored one
+  Future<void> revertBackground() async => changeBackground(
+        hive.getBackgroundFromBox() ?? ModerniAliasImages.stars1,
+        isTemporary: false,
+      );
 }
 
 class BackgroundImage extends ConsumerWidget {

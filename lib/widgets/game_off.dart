@@ -1,4 +1,3 @@
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -18,22 +17,9 @@ class GameOff extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        CircularCountDownTimer(
-          duration: 0,
-          width: size.width * 0.9,
-          height: size.height * 0.6,
-          ringColor: Colors.transparent,
-          fillColor: Colors.transparent,
-          strokeWidth: 36,
-          textStyle: ModerniAliasTextStyles.gameCircularCountdown,
-        ),
-        AnimatedGestureDetector(
+  Widget build(BuildContext context) => SizedBox(
+        width: MediaQuery.sizeOf(context).width - 40,
+        child: AnimatedGestureDetector(
           onTap: onTap,
           child: AnimatedColumn(
             fastAnimations: true,
@@ -57,7 +43,5 @@ class GameOff extends StatelessWidget {
             ],
           ),
         ),
-      ],
-    );
-  }
+      );
 }

@@ -8,6 +8,7 @@ import '../constants/text_styles.dart';
 import '../util/providers.dart';
 import '../util/routing.dart';
 import 'animated_gesture_detector.dart';
+import 'background_image.dart';
 
 class ExitGameButton extends ConsumerStatefulWidget {
   final String text;
@@ -48,6 +49,7 @@ class _ExitGameButtonState extends ConsumerState<ExitGameButton> with SingleTick
             /// Animation is completed, exit game
             if (status == AnimationStatus.completed) {
               ref.read(countdownPlayerProvider).stop();
+              ref.read(backgroundImageProvider.notifier).revertBackground();
               goToHomeScreen(context);
             }
           },
