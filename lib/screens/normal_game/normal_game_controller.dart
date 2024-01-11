@@ -89,7 +89,9 @@ class NormalGameController {
     redTimer?.cancel();
     soundTimer?.cancel();
     gameTimer?.cancel();
-    ref.invalidate(tieBreakTeamsProvider);
+    ref
+      ..invalidate(tieBreakTeamsProvider)
+      ..invalidate(gameSecondsProvider);
   }
 
   ///
@@ -144,12 +146,12 @@ class NormalGameController {
     gameTimer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        final remainingSeconds = lengthOfRound - timer.tick;
-        ref.read(loggerProvider).f(remainingSeconds);
+        ref.read(gameSecondsProvider.notifier).state = timer.tick;
 
         /// Timer is done, stop round
-        if (remainingSeconds == 0) {
+        if (lengthOfRound - timer.tick == 0) {
           timer.cancel();
+          ref.read(gameSecondsProvider.notifier).state = 0;
           stopGameCheckWinner(context);
         }
       },

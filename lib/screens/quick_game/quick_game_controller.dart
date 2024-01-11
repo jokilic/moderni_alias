@@ -80,6 +80,7 @@ class QuickGameController {
     redTimer?.cancel();
     soundTimer?.cancel();
     gameTimer?.cancel();
+    ref.invalidate(gameSecondsProvider);
   }
 
   ///
@@ -130,11 +131,12 @@ class QuickGameController {
     gameTimer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        final remainingSeconds = lengthOfRound - timer.tick;
+        ref.read(gameSecondsProvider.notifier).state = timer.tick;
 
         /// Timer is done, end game
-        if (remainingSeconds == 0) {
+        if (lengthOfRound - timer.tick == 0) {
           timer.cancel();
+          ref.read(gameSecondsProvider.notifier).state = 0;
           endGame(context);
         }
       },

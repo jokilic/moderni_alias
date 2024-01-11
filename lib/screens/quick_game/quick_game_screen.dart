@@ -25,6 +25,9 @@ class QuickGameScreen extends ConsumerWidget {
     final currentGame = ref.watch(currentGameProvider);
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
+    final gameSeconds = ref.watch(gameSecondsProvider);
+
+    final counterWidth = ((gameSeconds / 60) * width) - 8;
 
     final currentWord = ref.watch(dictionaryProvider);
 
@@ -141,6 +144,7 @@ class QuickGameScreen extends ConsumerWidget {
                   ///
                   Positioned(
                     bottom: 0,
+                    left: 0,
                     child: IgnorePointer(
                       child: AnimatedContainer(
                         duration: ModerniAliasDurations.fastAnimation,
@@ -150,7 +154,7 @@ class QuickGameScreen extends ConsumerWidget {
                           color: ModerniAliasColors.white,
                         ),
                         height: 8,
-                        width: width - 8,
+                        width: counterWidth <= 0 ? 0 : counterWidth,
                       ),
                     ),
                   ),
