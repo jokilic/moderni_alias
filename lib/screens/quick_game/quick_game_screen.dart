@@ -36,6 +36,7 @@ class QuickGameScreen extends ConsumerWidget {
       canPop: false,
       onPopInvoked: (_) => exitGameModal(
         context,
+        ref,
         backgroundImage: ref.watch(backgroundImageProvider),
       ),
       child: Scaffold(
@@ -57,6 +58,7 @@ class QuickGameScreen extends ConsumerWidget {
                       wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
                       exitGame: () => exitGameModal(
                         context,
+                        ref,
                         backgroundImage: ref.watch(backgroundImageProvider),
                       ),
                       showScores: () => showScores(

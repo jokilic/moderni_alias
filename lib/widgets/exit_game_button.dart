@@ -5,17 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/colors.dart';
 import '../constants/durations.dart';
 import '../constants/text_styles.dart';
-import '../util/providers.dart';
-import '../util/routing.dart';
 import 'animated_gesture_detector.dart';
-import 'background_image.dart';
 
 class ExitGameButton extends ConsumerStatefulWidget {
   final String text;
+  final Function()? exitGame;
   final Function()? onPressed;
 
   const ExitGameButton({
     required this.text,
+    this.exitGame,
     this.onPressed,
   });
 
@@ -47,10 +46,8 @@ class _ExitGameButtonState extends ConsumerState<ExitGameButton> with SingleTick
             }
 
             /// Animation is completed, exit game
-            if (status == AnimationStatus.completed) {
-              ref.read(countdownPlayerProvider).stop();
-              ref.read(backgroundImageProvider.notifier).revertBackground();
-              goToHomeScreen(context);
+            if (status == AnimationStatus.completed && widget.exitGame != null) {
+              widget.exitGame!();
             }
           },
         );

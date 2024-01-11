@@ -40,6 +40,7 @@ class TimeGameScreen extends ConsumerWidget {
       canPop: false,
       onPopInvoked: (_) => exitGameModal(
         context,
+        ref,
         backgroundImage: ref.watch(backgroundImageProvider),
       ),
       child: Scaffold(
@@ -60,6 +61,7 @@ class TimeGameScreen extends ConsumerWidget {
                       currentlyPlayingTeam: currentlyPlayingTeam,
                       exitGame: () => exitGameModal(
                         context,
+                        ref,
                         backgroundImage: ref.watch(backgroundImageProvider),
                       ),
                       showScores: () => showTimeScores(

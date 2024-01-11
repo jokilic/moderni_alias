@@ -1,11 +1,34 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/text_styles.dart';
+import '../screens/normal_game/normal_game_controller.dart';
+import '../screens/quick_game/quick_game_controller.dart';
+import '../screens/time_game/time_game_controller.dart';
+import '../util/providers.dart';
+import '../util/routing.dart';
 import './exit_game_button.dart';
 import 'animated_column.dart';
+import 'background_image.dart';
 
-Future<bool> exitGameModal(BuildContext context, {required String backgroundImage}) async {
+void disposeGames(BuildContext context, WidgetRef ref) {
+  ref
+    ..invalidate(normalGameProvider(context))
+    ..invalidate(timeGameProvider)
+    ..invalidate(quickGameProvider(context));
+
+  ref.read(countdownPlayerProvider).stop();
+  ref.read(backgroundImageProvider.notifier).revertBackground();
+
+  goToHomeScreen(context);
+}
+
+Future<bool> exitGameModal(
+  BuildContext context,
+  WidgetRef ref, {
+  required String backgroundImage,
+}) async {
   await showModalBottomSheet(
     context: context,
     builder: (context) => Container(
@@ -38,6 +61,7 @@ Future<bool> exitGameModal(BuildContext context, {required String backgroundImag
             children: [
               ExitGameButton(
                 text: 'exitModalQuestionYes'.tr(),
+                exitGame: () => disposeGames(context, ref),
               ),
               const SizedBox(width: 24),
               ExitGameButton(

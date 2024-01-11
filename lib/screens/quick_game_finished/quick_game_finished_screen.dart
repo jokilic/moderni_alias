@@ -27,7 +27,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
       ..invalidate(currentGameProvider)
       ..invalidate(playedWordsProvider)
       ..invalidate(counter3SecondsProvider)
-      ..invalidate(quickGameProvider);
+      ..invalidate(quickGameProvider(context));
 
     /// Go to [QuickGameScreen]
     goToQuickGameScreen(context);

@@ -38,6 +38,7 @@ class NormalGameScreen extends ConsumerWidget {
       canPop: false,
       onPopInvoked: (_) => exitGameModal(
         context,
+        ref,
         backgroundImage: ref.watch(backgroundImageProvider),
       ),
       child: Scaffold(
@@ -58,6 +59,7 @@ class NormalGameScreen extends ConsumerWidget {
                       currentlyPlayingTeam: currentlyPlayingTeam,
                       exitGame: () => exitGameModal(
                         context,
+                        ref,
                         backgroundImage: ref.watch(backgroundImageProvider),
                       ),
                       showScores: () => showScores(
