@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../services/audio_record_service.dart';
@@ -14,6 +13,7 @@ import '../../widgets/game_on.dart';
 import '../../widgets/game_starting.dart';
 import '../../widgets/scores/normal_game_info_section.dart';
 import '../../widgets/scores/show_scores.dart';
+import '../../widgets/time_counter.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'normal_game_controller.dart';
 
@@ -27,10 +27,7 @@ class NormalGameScreen extends ConsumerWidget {
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
     final lengthOfRound = ref.watch(lengthOfRoundProvider);
-    final gameSeconds = ref.watch(gameSecondsProvider);
     final teams = ref.watch(teamsProvider);
-
-    final counterWidth = ((gameSeconds / lengthOfRound) * width) - 8;
 
     final currentWord = ref.watch(dictionaryProvider);
 
@@ -149,15 +146,12 @@ class NormalGameScreen extends ConsumerWidget {
                     bottom: 0,
                     left: 0,
                     child: IgnorePointer(
-                      child: AnimatedContainer(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        curve: Curves.easeIn,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: ModerniAliasColors.white,
-                        ),
+                      child: SizedBox(
                         height: 8,
-                        width: counterWidth <= 0 ? 0 : counterWidth,
+                        width: width,
+                        child: TimeCounter(
+                          roundLength: lengthOfRound,
+                        ),
                       ),
                     ),
                   ),

@@ -98,11 +98,6 @@ final playedWordsProvider = StateProvider.autoDispose<List<PlayedWord>>(
 /// SETUP
 ///
 
-final gameSecondsProvider = StateProvider<int>(
-  (_) => 0,
-  name: 'GameSecondsProvider',
-);
-
 final pointsToWinProvider = StateProvider.autoDispose<int>(
   (_) => 50,
   name: 'PointsToWinProvider',
