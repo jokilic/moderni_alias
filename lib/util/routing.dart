@@ -11,6 +11,7 @@ import '../screens/normal_game_stats/normal_game_stats_screen.dart';
 import '../screens/quick_game/quick_game_screen.dart';
 import '../screens/quick_game_finished/quick_game_finished_screen.dart';
 import '../screens/quick_game_stats/quick_game_stats_screen.dart';
+import '../screens/settings/settings_screen.dart';
 import '../screens/stats/stats_screen.dart';
 import '../screens/time_game/time_game_screen.dart';
 import '../screens/time_game_finished/time_game_finished_screen.dart';
@@ -25,6 +26,7 @@ import 'fade_page_route.dart';
 Route onGenerateRoute(RouteSettings settings) {
   final route = switch (settings.name) {
     ModerniAliasRoutes.homeScreen => HomeScreen(),
+    ModerniAliasRoutes.settingsScreen => SettingsScreen(),
     ModerniAliasRoutes.generalInfoScreen => GeneralInfoScreen(),
     ModerniAliasRoutes.howToPlayScreen => HowToPlayScreen(),
     ModerniAliasRoutes.normalGameSetupScreen => NormalGameSetupScreen(),
@@ -53,6 +55,7 @@ Route onGenerateRoute(RouteSettings settings) {
 
 class ModerniAliasRoutes {
   static const homeScreen = '/home';
+  static const settingsScreen = '/settings';
   static const generalInfoScreen = '/general_info';
   static const howToPlayScreen = '/how_to_play';
   static const normalGameSetupScreen = '/normal_game_setup';
@@ -76,6 +79,10 @@ class ModerniAliasRoutes {
 void goToHomeScreen(BuildContext context) => Navigator.of(context).pushNamedAndRemoveUntil(
       ModerniAliasRoutes.homeScreen,
       (_) => false,
+    );
+
+void goToSettingsScreen(BuildContext context) => Navigator.of(context).pushNamed(
+      ModerniAliasRoutes.settingsScreen,
     );
 
 void goToGeneralInfoScreen(BuildContext context) => Navigator.of(context).pushNamed(

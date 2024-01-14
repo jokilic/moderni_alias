@@ -6,6 +6,7 @@ import '../../widgets/hero_title.dart';
 import './widgets/home_page_buttons.dart';
 import './widgets/info_button.dart';
 import 'widgets/how_to_play_button.dart';
+import 'widgets/settings_button.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -27,6 +28,8 @@ class HomeScreen extends StatelessWidget {
                             HowToPlayButton(),
                             const SizedBox(width: 8),
                             InfoButton(),
+                            const SizedBox(width: 8),
+                            SettingsButton(),
                           ],
                         ),
                       ),
