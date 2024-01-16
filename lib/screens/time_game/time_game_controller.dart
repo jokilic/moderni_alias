@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
+import '../../constants/images.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
@@ -80,6 +81,35 @@ class TimeGameController {
         ),
       );
 
+  /// Changes background depending on the percentage of solved words
+  void updateBackground() {
+    final percentageOfSolvedWords = 1 - (correctAnswers / ref.read(wordsToWinProvider));
+
+    /// Show green background
+    if (percentageOfSolvedWords <= 0.6 && percentageOfSolvedWords > 0.4) {
+      ref.read(backgroundImageProvider.notifier).changeBackground(
+            ModerniAliasImages.blurred3,
+            isTemporary: true,
+          );
+    }
+
+    /// Show yellow background
+    else if (percentageOfSolvedWords <= 0.4 && percentageOfSolvedWords > 0.15) {
+      ref.read(backgroundImageProvider.notifier).changeBackground(
+            ModerniAliasImages.blurred18,
+            isTemporary: true,
+          );
+    }
+
+    /// Show red background
+    else if (percentageOfSolvedWords <= 0.15) {
+      ref.read(backgroundImageProvider.notifier).changeBackground(
+            ModerniAliasImages.blurred2,
+            isTemporary: true,
+          );
+    }
+  }
+
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
     ref.read(currentGameProvider.notifier).state = Game.starting;
@@ -111,9 +141,15 @@ class TimeGameController {
     wrongAnswers = 0;
     ref.read(playedWordsProvider).clear();
 
+    ref.read(dictionaryProvider.notifier).getRandomWord();
+
     ref.read(currentGameProvider.notifier).state = Game.time;
     ref.read(timeGameTimerProvider.notifier).state = Duration.zero;
-    ref.read(dictionaryProvider.notifier).getRandomWord();
+
+    ref.read(backgroundImageProvider.notifier).changeBackground(
+          ModerniAliasImages.blurred1,
+          isTemporary: true,
+        );
 
     startTimer();
   }
@@ -142,6 +178,8 @@ class TimeGameController {
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
     ref.read(currentGameProvider.notifier).state = Game.tapToStart;
+    ref.read(backgroundImageProvider.notifier).revertBackground();
+
     ref.read(timeGameEndPlayerProvider).load();
     ref.read(timeGameEndPlayerProvider).play();
     timer?.cancel();
@@ -206,6 +244,9 @@ class TimeGameController {
       wrongAnswers++;
       ref.read(currentlyPlayingTeamProvider).wrongPoints += 1;
     }
+
+    /// Update background
+    updateBackground();
 
     /// Add answer to list of `playedWords` (for showing in the end of the round)
     ref.read(playedWordsProvider).add(

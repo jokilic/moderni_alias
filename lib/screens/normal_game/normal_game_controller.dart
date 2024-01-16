@@ -104,7 +104,10 @@ class NormalGameController {
   }) =>
       Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => ref.read(backgroundImageProvider.notifier).changeBackground(background, isTemporary: true),
+        () => ref.read(backgroundImageProvider.notifier).changeBackground(
+              background,
+              isTemporary: true,
+            ),
       );
 
   /// Sets the variables and starts the time countdown
@@ -190,7 +193,10 @@ class NormalGameController {
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     ref.read(currentGameProvider.notifier).state = chosenGame;
-    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1, isTemporary: true);
+    ref.read(backgroundImageProvider.notifier).changeBackground(
+          ModerniAliasImages.blurred1,
+          isTemporary: true,
+        );
 
     startTimer(lengthOfRound);
   }
