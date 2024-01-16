@@ -19,7 +19,7 @@ class BackgroundImageNotifier extends StateNotifier<String> {
 
   BackgroundImageNotifier({
     required this.hive,
-  }) : super(hive.getBackgroundFromBox() ?? ModerniAliasImages.stars1);
+  }) : super(hive.getBackgroundFromBox() ?? ModerniAliasImages.starsStandard);
 
   ///
   /// VARIABLES
@@ -28,28 +28,15 @@ class BackgroundImageNotifier extends StateNotifier<String> {
   late final random = Random();
 
   final backgrounds = [
-    ModerniAliasImages.stars1,
-    ModerniAliasImages.stars2,
-    ModerniAliasImages.stars3,
-    ModerniAliasImages.blurred1,
-    ModerniAliasImages.blurred2,
-    ModerniAliasImages.blurred3,
-    ModerniAliasImages.blurred4,
-    ModerniAliasImages.blurred5,
-    ModerniAliasImages.blurred6,
-    ModerniAliasImages.blurred7,
-    ModerniAliasImages.blurred8,
-    ModerniAliasImages.blurred9,
-    ModerniAliasImages.blurred10,
-    ModerniAliasImages.blurred11,
-    ModerniAliasImages.blurred12,
-    ModerniAliasImages.blurred13,
-    ModerniAliasImages.blurred14,
-    ModerniAliasImages.blurred15,
-    ModerniAliasImages.blurred16,
-    ModerniAliasImages.blurred17,
-    ModerniAliasImages.blurred18,
-    ModerniAliasImages.blurred19,
+    ModerniAliasImages.starsStandard,
+    ModerniAliasImages.starsDark,
+    ModerniAliasImages.starsLight,
+    ModerniAliasImages.blurredPurple,
+    ModerniAliasImages.blurredBlue,
+    ModerniAliasImages.blurredGreen,
+    ModerniAliasImages.blurredYellow,
+    ModerniAliasImages.blurredRed,
+    ModerniAliasImages.blurredGrey,
   ];
 
   ///
@@ -87,7 +74,7 @@ class BackgroundImageNotifier extends StateNotifier<String> {
 
   /// Revert background to stored one
   Future<void> revertBackground() async => changeBackground(
-        hive.getBackgroundFromBox() ?? ModerniAliasImages.stars1,
+        hive.getBackgroundFromBox() ?? ModerniAliasImages.starsStandard,
         isTemporary: false,
       );
 }

@@ -115,15 +115,15 @@ class QuickGameController {
     /// Initialize timers that change colors
     greenTimer = makeTimer(
       chosenSeconds: greenSeconds,
-      background: ModerniAliasImages.blurred3,
+      background: ModerniAliasImages.blurredGreen,
     );
     yellowTimer = makeTimer(
       chosenSeconds: yellowSeconds,
-      background: ModerniAliasImages.blurred18,
+      background: ModerniAliasImages.blurredYellow,
     );
     redTimer = makeTimer(
       chosenSeconds: redSeconds,
-      background: ModerniAliasImages.blurred2,
+      background: ModerniAliasImages.blurredRed,
     );
 
     /// Start game timer
@@ -171,7 +171,10 @@ class QuickGameController {
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     ref.read(currentGameProvider.notifier).state = Game.quick;
-    ref.read(backgroundImageProvider.notifier).changeBackground(ModerniAliasImages.blurred1, isTemporary: true);
+    ref.read(backgroundImageProvider.notifier).changeBackground(
+          ModerniAliasImages.blurredBlue,
+          isTemporary: true,
+        );
 
     startTimer(lengthOfRound);
   }

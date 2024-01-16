@@ -130,17 +130,17 @@ class NormalGameController {
     greenTimer = makeTimer(
       chosenSeconds: greenSeconds,
       lengthOfRound: lengthOfRound,
-      background: ModerniAliasImages.blurred3,
+      background: ModerniAliasImages.blurredGreen,
     );
     yellowTimer = makeTimer(
       chosenSeconds: yellowSeconds,
       lengthOfRound: lengthOfRound,
-      background: ModerniAliasImages.blurred18,
+      background: ModerniAliasImages.blurredYellow,
     );
     redTimer = makeTimer(
       chosenSeconds: redSeconds,
       lengthOfRound: lengthOfRound,
-      background: ModerniAliasImages.blurred2,
+      background: ModerniAliasImages.blurredRed,
     );
 
     /// Start game timer
@@ -194,7 +194,7 @@ class NormalGameController {
 
     ref.read(currentGameProvider.notifier).state = chosenGame;
     ref.read(backgroundImageProvider.notifier).changeBackground(
-          ModerniAliasImages.blurred1,
+          ModerniAliasImages.blurredBlue,
           isTemporary: true,
         );
 

@@ -88,7 +88,7 @@ class TimeGameController {
     /// Show green background
     if (percentageOfSolvedWords <= 0.6 && percentageOfSolvedWords > 0.4) {
       ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurred3,
+            ModerniAliasImages.blurredGreen,
             isTemporary: true,
           );
     }
@@ -96,7 +96,7 @@ class TimeGameController {
     /// Show yellow background
     else if (percentageOfSolvedWords <= 0.4 && percentageOfSolvedWords > 0.15) {
       ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurred18,
+            ModerniAliasImages.blurredYellow,
             isTemporary: true,
           );
     }
@@ -104,7 +104,7 @@ class TimeGameController {
     /// Show red background
     else if (percentageOfSolvedWords <= 0.15) {
       ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurred2,
+            ModerniAliasImages.blurredRed,
             isTemporary: true,
           );
     }
@@ -147,7 +147,7 @@ class TimeGameController {
     ref.read(timeGameTimerProvider.notifier).state = Duration.zero;
 
     ref.read(backgroundImageProvider.notifier).changeBackground(
-          ModerniAliasImages.blurred1,
+          ModerniAliasImages.blurredBlue,
           isTemporary: true,
         );
 
