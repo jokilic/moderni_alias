@@ -2,10 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../constants/enums.dart';
+import '../constants/images.dart';
 import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
 import '../models/round/round.dart';
+import '../models/settings/settings.dart';
 import '../models/team/team.dart';
 import '../models/time_game_stats/time_game_stats.dart';
 import 'logger_service.dart';
@@ -31,7 +33,7 @@ class HiveService {
   late final Box<NormalGameStats> normalGameStatsBox;
   late final Box<QuickGameStats> quickGameStatsBox;
   late final Box<TimeGameStats> timeGameStatsBox;
-  late final Box<String> backgroundBox;
+  late final Box<SettingsHive> settingsBox;
 
   ///
   /// INIT
@@ -48,12 +50,13 @@ class HiveService {
       ..registerAdapter(RoundAdapter())
       ..registerAdapter(PlayedWordAdapter())
       ..registerAdapter(AnswerAdapter())
-      ..registerAdapter(FlagAdapter());
+      ..registerAdapter(FlagAdapter())
+      ..registerAdapter(SettingsHiveAdapter());
 
     normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
     quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');
     timeGameStatsBox = await Hive.openBox<TimeGameStats>('timeGameStatsBox');
-    backgroundBox = await Hive.openBox<String>('backgroundBox');
+    settingsBox = await Hive.openBox<SettingsHive>('settingsBox');
   }
 
   ///
@@ -64,7 +67,7 @@ class HiveService {
     await normalGameStatsBox.close();
     await quickGameStatsBox.close();
     await timeGameStatsBox.close();
-    await backgroundBox.close();
+    await settingsBox.close();
 
     await Hive.close();
   }
@@ -91,9 +94,14 @@ class HiveService {
   /// Called to get all [TimeGameStats] values from [Hive]
   List<TimeGameStats> getTimeGameStatsFromBox() => timeGameStatsBox.values.toList();
 
-  /// Called to add a new `background` value to [Hive]
-  Future<void> addBackgroundToBox({required String background}) async => backgroundBox.put(0, background);
+  /// Called to add a new `Settings` value to [Hive]
+  Future<void> addSettingsToBox(SettingsHive settingsHive) async => settingsBox.put(0, settingsHive);
 
-  /// Called to get `background` from [Hive]
-  String? getBackgroundFromBox() => backgroundBox.get(0);
+  /// Called to get `Settings` from [Hive]
+  SettingsHive getSettingsFromBox() =>
+      settingsBox.get(0) ??
+      SettingsHive(
+        background: ModerniAliasImages.starsStandard,
+        useDynamicBackgrounds: true,
+      );
 }

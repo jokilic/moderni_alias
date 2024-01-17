@@ -19,7 +19,7 @@ class BackgroundImageNotifier extends StateNotifier<String> {
 
   BackgroundImageNotifier({
     required this.hive,
-  }) : super(hive.getBackgroundFromBox() ?? ModerniAliasImages.starsStandard);
+  }) : super(hive.getSettingsFromBox().background);
 
   ///
   /// VARIABLES
@@ -68,13 +68,18 @@ class BackgroundImageNotifier extends StateNotifier<String> {
 
     /// Store new background in [Hive]
     if (!isTemporary) {
-      await hive.addBackgroundToBox(background: newBackground);
+      final oldSettings = hive.getSettingsFromBox();
+      await hive.addSettingsToBox(
+        oldSettings.copyWith(
+          background: newBackground,
+        ),
+      );
     }
   }
 
   /// Revert background to stored one
   Future<void> revertBackground() async => changeBackground(
-        hive.getBackgroundFromBox() ?? ModerniAliasImages.starsStandard,
+        hive.getSettingsFromBox().background,
         isTemporary: false,
       );
 }

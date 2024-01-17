@@ -8,11 +8,13 @@ import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
+import 'settings_controller.dart';
 import 'widgets/settings_backgrounds_widget.dart';
 
 class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsProvider);
     final activeBackground = ref.watch(backgroundImageProvider);
     final backgrounds = ref.watch(backgroundImageProvider.notifier).backgrounds;
 
@@ -41,7 +43,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 40),
                     AnimatedGestureDetector(
-                      onTap: () {},
+                      onTap: ref.read(settingsProvider.notifier).useDynamicBackgroundsPressed,
                       child: ListTile(
                         title: const Text(
                           'Dynamic backgrounds',
@@ -62,13 +64,13 @@ class SettingsScreen extends ConsumerWidget {
                               width: 4,
                             ),
                             borderRadius: BorderRadius.circular(16),
-                            color: Colors.transparent,
+                            color: settings.useDynamicBackgrounds ? ModerniAliasColors.white : Colors.transparent,
                           ),
-                          child: const AnimatedOpacity(
-                            opacity: 1,
+                          child: AnimatedOpacity(
+                            opacity: settings.useDynamicBackgrounds ? 1 : 0,
                             duration: ModerniAliasDurations.fastAnimation,
                             curve: Curves.easeIn,
-                            child: Icon(
+                            child: const Icon(
                               Icons.check_rounded,
                               color: ModerniAliasColors.darkBlue,
                               size: 32,
