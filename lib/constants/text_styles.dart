@@ -239,4 +239,16 @@ class ModerniAliasTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+  static const settingsTitle = TextStyle(
+    fontFamily: 'Sen',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    height: 1.4,
+  );
+  static const settingsSubtitle = TextStyle(
+    fontFamily: 'Sen',
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    height: 1.55,
+  );
 }

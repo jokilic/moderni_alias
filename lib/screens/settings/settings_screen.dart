@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/durations.dart';
+import '../../constants/text_styles.dart';
 import '../../widgets/animated_column.dart';
+import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import 'widgets/settings_backgrounds_widget.dart';
@@ -24,6 +28,7 @@ class SettingsScreen extends ConsumerWidget {
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 40),
                     const GameTitle('Background'),
                     const SizedBox(height: 20),
                     SettingsBackgroundsWidget(
@@ -33,6 +38,44 @@ class SettingsScreen extends ConsumerWidget {
                             newBackground,
                             isTemporary: false,
                           ),
+                    ),
+                    const SizedBox(height: 40),
+                    AnimatedGestureDetector(
+                      onTap: () {},
+                      child: ListTile(
+                        title: const Text(
+                          'Dynamic backgrounds',
+                          style: ModerniAliasTextStyles.settingsTitle,
+                        ),
+                        subtitle: const Text(
+                          'During games, the background will be changed dynamically',
+                          style: ModerniAliasTextStyles.settingsSubtitle,
+                        ),
+                        trailing: AnimatedContainer(
+                          duration: ModerniAliasDurations.fastAnimation,
+                          curve: Curves.easeIn,
+                          height: 44,
+                          width: 44,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: ModerniAliasColors.white,
+                              width: 4,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.transparent,
+                          ),
+                          child: const AnimatedOpacity(
+                            opacity: 1,
+                            duration: ModerniAliasDurations.fastAnimation,
+                            curve: Curves.easeIn,
+                            child: Icon(
+                              Icons.check_rounded,
+                              color: ModerniAliasColors.darkBlue,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

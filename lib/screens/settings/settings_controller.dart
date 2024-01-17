@@ -1,8 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final settingsProvider = Provider<SettingsController>(
-  (_) => SettingsController(),
+import '../../services/hive_service.dart';
+
+final settingsProvider = Provider.autoDispose<SettingsController>(
+  (ref) => SettingsController(
+    hive: ref.watch(hiveProvider),
+  ),
   name: 'SettingsProvider',
 );
 
-class SettingsController {}
+class SettingsController {
+  final HiveService hive;
+
+  SettingsController({
+    required this.hive,
+  });
+}
