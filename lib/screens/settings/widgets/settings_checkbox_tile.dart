@@ -9,13 +9,13 @@ class SettingsCheckboxTile extends StatelessWidget {
   final Function() onPressed;
   final String title;
   final String subtitle;
-  final bool isActive;
+  final bool? isActive;
 
   const SettingsCheckboxTile({
     required this.onPressed,
     required this.title,
     required this.subtitle,
-    required this.isActive,
+    this.isActive,
   });
 
   @override
@@ -30,31 +30,42 @@ class SettingsCheckboxTile extends StatelessWidget {
             subtitle,
             style: ModerniAliasTextStyles.settingsSubtitle,
           ),
-          trailing: AnimatedContainer(
-            margin: const EdgeInsets.only(left: 24),
-            duration: ModerniAliasDurations.fastAnimation,
-            curve: Curves.easeIn,
-            height: 44,
-            width: 44,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: ModerniAliasColors.white,
-                width: 4,
-              ),
-              borderRadius: BorderRadius.circular(16),
-              color: isActive ? ModerniAliasColors.white : Colors.transparent,
-            ),
-            child: AnimatedOpacity(
-              opacity: isActive ? 1 : 0,
-              duration: ModerniAliasDurations.fastAnimation,
-              curve: Curves.easeIn,
-              child: const Icon(
-                Icons.check_rounded,
-                color: ModerniAliasColors.darkBlue,
-                size: 32,
-              ),
-            ),
-          ),
+          trailing: isActive != null
+              ? AnimatedContainer(
+                  margin: const EdgeInsets.only(left: 24),
+                  duration: ModerniAliasDurations.fastAnimation,
+                  curve: Curves.easeIn,
+                  height: 44,
+                  width: 44,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ModerniAliasColors.white,
+                      width: 4,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    color: isActive! ? ModerniAliasColors.white : Colors.transparent,
+                  ),
+                  child: AnimatedOpacity(
+                    opacity: isActive! ? 1 : 0,
+                    duration: ModerniAliasDurations.fastAnimation,
+                    curve: Curves.easeIn,
+                    child: const Icon(
+                      Icons.check_rounded,
+                      color: ModerniAliasColors.darkBlue,
+                      size: 32,
+                    ),
+                  ),
+                )
+              : Container(
+                  margin: const EdgeInsets.only(left: 24),
+                  height: 44,
+                  width: 44,
+                  child: const Icon(
+                    Icons.north_east_rounded,
+                    color: ModerniAliasColors.white,
+                    size: 40,
+                  ),
+                ),
         ),
       );
 }

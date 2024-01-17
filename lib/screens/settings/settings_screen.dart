@@ -42,15 +42,24 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsCheckboxTile(
                       onPressed: ref.read(settingsProvider.notifier).useDynamicBackgroundsPressed,
                       title: 'Dynamic backgrounds',
-                      subtitle: 'During games, change background as time or words progress.',
+                      subtitle: 'During games, change background as time or words progress',
                       isActive: settings.useDynamicBackgrounds,
                     ),
                     const SizedBox(height: 16),
                     SettingsCheckboxTile(
                       onPressed: ref.read(settingsProvider.notifier).useCircularTimerPressed,
                       title: 'Circular timer',
-                      subtitle: 'Use a circular timer which shows the remaining time in a round.',
+                      subtitle: 'Use a circular timer which shows the remaining time in a round',
                       isActive: settings.useCircularTimer,
+                    ),
+                    const SizedBox(height: 16),
+                    SettingsCheckboxTile(
+                      onPressed: ref.read(settingsProvider.notifier).openMicrophoneSettings,
+                      title: 'Recording audio',
+                      subtitle: "Records rounds so you can replay them in 'Previous games'",
+                    ),
+                    SizedBox(
+                      height: MediaQuery.paddingOf(context).bottom,
                     ),
                   ],
                 ),

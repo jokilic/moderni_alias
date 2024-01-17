@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/settings/settings.dart';
@@ -34,4 +35,7 @@ class SettingsController extends StateNotifier<SettingsHive> {
 
     await hive.addSettingsToBox(state);
   }
+
+  /// Opens phone microphone settings
+  Future<void> openMicrophoneSettings() async => AppSettings.openAppSettings();
 }
