@@ -57,6 +57,8 @@ class QuickGameController {
 
   late QuickGameStats quickGameStats;
 
+  late bool useDynamicBackgrounds;
+
   ///
   /// INIT
   ///
@@ -68,6 +70,8 @@ class QuickGameController {
       round: Round(playedWords: []),
       language: ref.read(chosenDictionaryProvider),
     );
+
+    useDynamicBackgrounds = ref.read(hiveProvider).getSettingsFromBox().useDynamicBackgrounds;
   }
 
   ///
@@ -93,7 +97,7 @@ class QuickGameController {
   }) =>
       Timer(
         Duration(seconds: 60 - chosenSeconds.round()),
-        () => ref.read(backgroundImageProvider.notifier).changeBackground(background, isTemporary: true),
+        () => useDynamicBackgrounds ? ref.read(backgroundImageProvider.notifier).changeBackground(background, isTemporary: true) : null,
       );
 
   /// Sets the variables and starts the time countdown
@@ -171,10 +175,13 @@ class QuickGameController {
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     ref.read(currentGameProvider.notifier).state = Game.quick;
-    ref.read(backgroundImageProvider.notifier).changeBackground(
-          ModerniAliasImages.blurredBlue,
-          isTemporary: true,
-        );
+
+    if (useDynamicBackgrounds) {
+      ref.read(backgroundImageProvider.notifier).changeBackground(
+            ModerniAliasImages.blurredBlue,
+            isTemporary: true,
+          );
+    }
 
     startTimer(lengthOfRound);
   }

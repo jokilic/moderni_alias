@@ -46,6 +46,8 @@ class TimeGameController {
 
   late TimeGameStats timeGameStats;
 
+  late bool useDynamicBackgrounds;
+
   ///
   /// INIT
   ///
@@ -59,6 +61,8 @@ class TimeGameController {
       language: ref.read(chosenDictionaryProvider),
       numberOfWords: ref.read(wordsToWinProvider),
     );
+
+    useDynamicBackgrounds = ref.read(hiveProvider).getSettingsFromBox().useDynamicBackgrounds;
   }
 
   ///
@@ -146,10 +150,12 @@ class TimeGameController {
     ref.read(currentGameProvider.notifier).state = Game.time;
     ref.read(timeGameTimerProvider.notifier).state = Duration.zero;
 
-    ref.read(backgroundImageProvider.notifier).changeBackground(
-          ModerniAliasImages.blurredBlue,
-          isTemporary: true,
-        );
+    if (useDynamicBackgrounds) {
+      ref.read(backgroundImageProvider.notifier).changeBackground(
+            ModerniAliasImages.blurredBlue,
+            isTemporary: true,
+          );
+    }
 
     startTimer();
   }
@@ -246,7 +252,9 @@ class TimeGameController {
     }
 
     /// Update background
-    updateBackground();
+    if (useDynamicBackgrounds) {
+      updateBackground();
+    }
 
     /// Add answer to list of `playedWords` (for showing in the end of the round)
     ref.read(playedWordsProvider).add(

@@ -50,10 +50,11 @@ class SettingsScreen extends ConsumerWidget {
                           style: ModerniAliasTextStyles.settingsTitle,
                         ),
                         subtitle: const Text(
-                          'During games, the background will be changed dynamically',
+                          'During games, change background as time or words progress.',
                           style: ModerniAliasTextStyles.settingsSubtitle,
                         ),
                         trailing: AnimatedContainer(
+                          margin: const EdgeInsets.only(left: 24),
                           duration: ModerniAliasDurations.fastAnimation,
                           curve: Curves.easeIn,
                           height: 44,

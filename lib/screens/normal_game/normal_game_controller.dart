@@ -63,6 +63,8 @@ class NormalGameController {
 
   late NormalGameStats normalGameStats;
 
+  late bool useDynamicBackgrounds;
+
   ///
   /// INIT
   ///
@@ -77,6 +79,8 @@ class NormalGameController {
       pointsToWin: ref.read(pointsToWinProvider),
       language: ref.read(chosenDictionaryProvider),
     );
+
+    useDynamicBackgrounds = ref.read(hiveProvider).getSettingsFromBox().useDynamicBackgrounds;
   }
 
   ///
@@ -104,10 +108,12 @@ class NormalGameController {
   }) =>
       Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => ref.read(backgroundImageProvider.notifier).changeBackground(
-              background,
-              isTemporary: true,
-            ),
+        () => useDynamicBackgrounds
+            ? ref.read(backgroundImageProvider.notifier).changeBackground(
+                  background,
+                  isTemporary: true,
+                )
+            : null,
       );
 
   /// Sets the variables and starts the time countdown
@@ -193,10 +199,13 @@ class NormalGameController {
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
     ref.read(currentGameProvider.notifier).state = chosenGame;
-    ref.read(backgroundImageProvider.notifier).changeBackground(
-          ModerniAliasImages.blurredBlue,
-          isTemporary: true,
-        );
+
+    if (useDynamicBackgrounds) {
+      ref.read(backgroundImageProvider.notifier).changeBackground(
+            ModerniAliasImages.blurredBlue,
+            isTemporary: true,
+          );
+    }
 
     startTimer(lengthOfRound);
   }
