@@ -25,4 +25,13 @@ class SettingsController extends StateNotifier<SettingsHive> {
 
     await hive.addSettingsToBox(state);
   }
+
+  /// Triggered when the user taps the `Circular timer` button
+  Future<void> useCircularTimerPressed() async {
+    state = state.copyWith(
+      useCircularTimer: !state.useCircularTimer,
+    );
+
+    await hive.addSettingsToBox(state);
+  }
 }

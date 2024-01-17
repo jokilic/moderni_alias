@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/colors.dart';
-import '../../constants/durations.dart';
-import '../../constants/text_styles.dart';
 import '../../widgets/animated_column.dart';
-import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import 'settings_controller.dart';
-import 'widgets/settings_backgrounds_widget.dart';
+import 'widgets/settings_backgrounds.dart';
+import 'widgets/settings_checkbox_tile.dart';
 
 class SettingsScreen extends ConsumerWidget {
   @override
@@ -33,7 +30,7 @@ class SettingsScreen extends ConsumerWidget {
                     const SizedBox(height: 40),
                     const GameTitle('Background'),
                     const SizedBox(height: 20),
-                    SettingsBackgroundsWidget(
+                    SettingsBackgrounds(
                       backgrounds: backgrounds,
                       activeBackground: activeBackground,
                       onPressed: (newBackground) => ref.read(backgroundImageProvider.notifier).changeBackground(
@@ -42,43 +39,18 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                     ),
                     const SizedBox(height: 40),
-                    AnimatedGestureDetector(
-                      onTap: ref.read(settingsProvider.notifier).useDynamicBackgroundsPressed,
-                      child: ListTile(
-                        title: const Text(
-                          'Dynamic backgrounds',
-                          style: ModerniAliasTextStyles.settingsTitle,
-                        ),
-                        subtitle: const Text(
-                          'During games, change background as time or words progress.',
-                          style: ModerniAliasTextStyles.settingsSubtitle,
-                        ),
-                        trailing: AnimatedContainer(
-                          margin: const EdgeInsets.only(left: 24),
-                          duration: ModerniAliasDurations.fastAnimation,
-                          curve: Curves.easeIn,
-                          height: 44,
-                          width: 44,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ModerniAliasColors.white,
-                              width: 4,
-                            ),
-                            borderRadius: BorderRadius.circular(16),
-                            color: settings.useDynamicBackgrounds ? ModerniAliasColors.white : Colors.transparent,
-                          ),
-                          child: AnimatedOpacity(
-                            opacity: settings.useDynamicBackgrounds ? 1 : 0,
-                            duration: ModerniAliasDurations.fastAnimation,
-                            curve: Curves.easeIn,
-                            child: const Icon(
-                              Icons.check_rounded,
-                              color: ModerniAliasColors.darkBlue,
-                              size: 32,
-                            ),
-                          ),
-                        ),
-                      ),
+                    SettingsCheckboxTile(
+                      onPressed: ref.read(settingsProvider.notifier).useDynamicBackgroundsPressed,
+                      title: 'Dynamic backgrounds',
+                      subtitle: 'During games, change background as time or words progress.',
+                      isActive: settings.useDynamicBackgrounds,
+                    ),
+                    const SizedBox(height: 16),
+                    SettingsCheckboxTile(
+                      onPressed: ref.read(settingsProvider.notifier).useCircularTimerPressed,
+                      title: 'Circular timer',
+                      subtitle: 'Use a circular timer which shows the remaining time in a round.',
+                      isActive: settings.useCircularTimer,
                     ),
                   ],
                 ),

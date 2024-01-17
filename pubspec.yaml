@@ -19,6 +19,7 @@ dependencies:
   #
 
   audio_waveforms: 1.0.4 # Generate waveforms while recording audio or from audio files
+  circular_countdown_timer: 0.2.3 # Used for showing the timer
   easy_localization: 3.0.3 # Localization
   flutter_staggered_animations: 1.1.1 # Used for animating widgets
   flutter_riverpod: 2.4.9 # State management, dependency injection, etc.

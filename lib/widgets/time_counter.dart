@@ -56,7 +56,7 @@ class TimeCounterState extends ConsumerState<TimeCounter> with SingleTickerProvi
         value: controller.value,
         borderRadius: BorderRadius.circular(100),
         backgroundColor: Colors.transparent,
-        color: ModerniAliasColors.white,
+        color: ModerniAliasColors.white.withOpacity(0.625),
       ),
     );
   }

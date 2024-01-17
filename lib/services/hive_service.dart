@@ -103,5 +103,6 @@ class HiveService {
       SettingsHive(
         background: ModerniAliasImages.starsStandard,
         useDynamicBackgrounds: true,
+        useCircularTimer: false,
       );
 }

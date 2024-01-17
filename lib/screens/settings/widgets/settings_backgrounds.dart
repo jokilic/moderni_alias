@@ -4,12 +4,12 @@ import '../../../constants/colors.dart';
 import '../../../constants/durations.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
-class SettingsBackgroundsWidget extends StatelessWidget {
+class SettingsBackgrounds extends StatelessWidget {
   final List<String> backgrounds;
   final String activeBackground;
   final Function(String pressedBackground) onPressed;
 
-  const SettingsBackgroundsWidget({
+  const SettingsBackgrounds({
     required this.backgrounds,
     required this.activeBackground,
     required this.onPressed,

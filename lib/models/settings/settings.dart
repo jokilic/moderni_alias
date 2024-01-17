@@ -10,20 +10,26 @@ class SettingsHive extends HiveObject {
   @HiveField(2)
   final bool useDynamicBackgrounds;
 
+  @HiveField(3)
+  final bool useCircularTimer;
+
   SettingsHive({
     required this.background,
     required this.useDynamicBackgrounds,
+    required this.useCircularTimer,
   });
 
   SettingsHive copyWith({
     String? background,
     bool? useDynamicBackgrounds,
+    bool? useCircularTimer,
   }) =>
       SettingsHive(
         background: background ?? this.background,
         useDynamicBackgrounds: useDynamicBackgrounds ?? this.useDynamicBackgrounds,
+        useCircularTimer: useCircularTimer ?? this.useCircularTimer,
       );
 
   @override
-  String toString() => 'SettingsHive(background: $background, useDynamicBackgrounds: $useDynamicBackgrounds)';
+  String toString() => 'SettingsHive(background: $background, useDynamicBackgrounds: $useDynamicBackgrounds, useCircularTimer: $useCircularTimer)';
 }

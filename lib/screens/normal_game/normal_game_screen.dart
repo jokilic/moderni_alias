@@ -5,6 +5,7 @@ import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../services/audio_record_service.dart';
 import '../../services/dictionary_service.dart';
+import '../../services/hive_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
@@ -30,6 +31,8 @@ class NormalGameScreen extends ConsumerWidget {
     final teams = ref.watch(teamsProvider);
 
     final currentWord = ref.watch(dictionaryProvider);
+
+    final useCircularTimer = ref.watch(hiveProvider).getSettingsFromBox().useCircularTimer;
 
     ref.watch(audioRecordProvider);
 
@@ -85,6 +88,8 @@ class NormalGameScreen extends ConsumerWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
+                          length: lengthOfRound,
+                          showCircularTimer: useCircularTimer,
                         ),
                       ),
                     )
@@ -142,19 +147,20 @@ class NormalGameScreen extends ConsumerWidget {
                   ///
                   /// BOTTOM - TIME COUNTER
                   ///
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: IgnorePointer(
-                      child: SizedBox(
-                        height: 8,
-                        width: width,
-                        child: TimeCounter(
-                          roundLength: lengthOfRound,
+                  if (!useCircularTimer)
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: IgnorePointer(
+                        child: SizedBox(
+                          height: 8,
+                          width: width,
+                          child: TimeCounter(
+                            roundLength: lengthOfRound,
+                          ),
                         ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),

@@ -19,17 +19,20 @@ class SettingsHiveAdapter extends TypeAdapter<SettingsHive> {
     return SettingsHive(
       background: fields[1] as String,
       useDynamicBackgrounds: fields[2] as bool,
+      useCircularTimer: fields[3] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsHive obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(1)
       ..write(obj.background)
       ..writeByte(2)
-      ..write(obj.useDynamicBackgrounds);
+      ..write(obj.useDynamicBackgrounds)
+      ..writeByte(3)
+      ..write(obj.useCircularTimer);
   }
 
   @override
