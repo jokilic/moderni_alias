@@ -16,11 +16,11 @@ class ModerniAliasIcons {
   static const clapImage = 'assets/icons/clap.svg';
   static const conversationUpImage = 'assets/icons/conversation-up.svg';
   static const conversationDownImage = 'assets/icons/conversation-down.svg';
-  static const listImage = 'assets/icons/list.png';
-  static const settingsImage = 'assets/icons/settings.png';
-  static const infoImage = 'assets/icons/info.png';
-  static const howToImage = 'assets/icons/howto.png';
-  static const arrowImage = 'assets/icons/arrow.png';
-  static const arrowStatsImage = 'assets/icons/arrow_stats.png';
-  static const diceImage = 'assets/icons/dice.png';
+  static const listImage = 'assets/icons/list.webp';
+  static const settingsImage = 'assets/icons/settings.webp';
+  static const infoImage = 'assets/icons/info.webp';
+  static const howToImage = 'assets/icons/howto.webp';
+  static const arrowSettingsImage = 'assets/icons/arrow_settings.webp';
+  static const arrowStatsImage = 'assets/icons/arrow_stats.webp';
+  static const diceImage = 'assets/icons/dice.webp';
 }

@@ -66,7 +66,7 @@ class SettingsCheckboxTile extends StatelessWidget {
                   height: 44,
                   width: 44,
                   child: Image.asset(
-                    ModerniAliasIcons.arrowImage,
+                    ModerniAliasIcons.arrowSettingsImage,
                     color: ModerniAliasColors.white,
                     height: 40,
                     width: 40,
