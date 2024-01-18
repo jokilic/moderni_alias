@@ -36,10 +36,15 @@ class NormalGameInfoSection extends StatelessWidget {
                     'currentlyPlayingTitle'.tr().toUpperCase(),
                     style: ModerniAliasTextStyles.playingTeamTitle,
                   ),
-                  Text(
-                    currentlyPlayingTeam.name,
-                    textAlign: TextAlign.center,
-                    style: ModerniAliasTextStyles.playingTeam,
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 56),
+                    child: Text(
+                      currentlyPlayingTeam.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: ModerniAliasTextStyles.playingTeam,
+                    ),
                   ),
                   Consumer(
                     builder: (_, ref, __) {

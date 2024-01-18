@@ -240,7 +240,9 @@ class NormalGameSetupScreen extends ConsumerWidget {
                         },
                       ),
                     ),
-                    const SizedBox(height: 50),
+                    SizedBox(
+                      height: MediaQuery.paddingOf(context).bottom,
+                    ),
                   ],
                 ),
               ),

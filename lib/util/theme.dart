@@ -30,9 +30,7 @@ class ThemeNotifier extends StateNotifier<ThemeData> {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             elevation: 0,
-            textStyle: ModerniAliasTextStyles.playButton.copyWith(
-              color: ModerniAliasColors.white,
-            ),
+            textStyle: ModerniAliasTextStyles.playButton,
             padding: const EdgeInsets.symmetric(
               horizontal: 24,
               vertical: 14,
