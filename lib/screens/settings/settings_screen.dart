@@ -31,7 +31,7 @@ class SettingsScreen extends ConsumerWidget {
                   children: [
                     const SizedBox(height: 50),
                     HeroTitle(smallText: 'settingsTitle'.tr()),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 64),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(

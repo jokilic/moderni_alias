@@ -146,7 +146,9 @@ class HowToPlayScreen extends StatelessWidget {
                         ),
                       ),
                       SmallTitle('enjoyTitleString'.tr()),
-                      const SizedBox(height: 50),
+                      SizedBox(
+                        height: MediaQuery.paddingOf(context).bottom,
+                      ),
                     ],
                   ),
                 ),
