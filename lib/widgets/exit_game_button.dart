@@ -119,7 +119,7 @@ class ExitTextButton extends StatelessWidget {
                 ),
                 side: const BorderSide(
                   color: ModerniAliasColors.white,
-                  width: 2,
+                  width: 3,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
