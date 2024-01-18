@@ -29,7 +29,9 @@ class StatsScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50),
+                  SizedBox(
+                    height: MediaQuery.paddingOf(context).top,
+                  ),
                   HeroTitle(smallText: 'statsTitle'.tr()),
                   const SizedBox(height: 40),
                   StatsSegmentedWidget(),

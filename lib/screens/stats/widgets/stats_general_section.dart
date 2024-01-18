@@ -95,7 +95,9 @@ class StatsGeneralSection extends ConsumerWidget {
           bigText: true,
         ),
 
-        const SizedBox(height: 32),
+        SizedBox(
+          height: MediaQuery.paddingOf(context).bottom,
+        ),
       ],
     );
   }

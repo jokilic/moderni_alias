@@ -23,7 +23,9 @@ class HowToPlayScreen extends StatelessWidget {
                   child: AnimatedColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 50),
+                      SizedBox(
+                        height: MediaQuery.paddingOf(context).top,
+                      ),
                       HeroTitle(smallText: 'aboutTitle'.tr()),
                       const SizedBox(height: 40),
                       GameTitle('whatIsAliasTitleString'.tr()),

@@ -30,7 +30,9 @@ class GeneralInfoScreen extends ConsumerWidget {
                     child: AnimatedColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 50),
+                        SizedBox(
+                          height: MediaQuery.paddingOf(context).top,
+                        ),
                         HeroTitle(smallText: appInfoService.appVersion),
                         const SizedBox(height: 40),
                         GameTitle('howTitleString'.tr()),
