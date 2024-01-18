@@ -15,10 +15,10 @@ class InfoButton extends StatelessWidget {
           icon: Image.asset(
             ModerniAliasIcons.infoImage,
             color: ModerniAliasColors.white,
-            height: 34,
-            width: 34,
+            height: 32,
+            width: 32,
           ),
-          iconSize: 34,
+          iconSize: 32,
         ),
       );
 }

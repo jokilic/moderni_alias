@@ -6,6 +6,7 @@ import 'package:flutter/painting.dart';
 
 class ModerniAliasColors {
   static const darkBlue = Color(0xFF182F3F);
+  static const black = Color(0xFF000000);
   static const white = Color(0xFFF1F1F1);
   static const red = Color(0xFFB05654);
   static const yellow = Color(0xFFBCB95B);

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 import '../../../util/routing.dart';
 import '../../../widgets/animated_gesture_detector.dart';
@@ -14,7 +15,7 @@ class StatsButton extends StatelessWidget {
           onPressed: null,
           style: TextButton.styleFrom(
             textStyle: ModerniAliasTextStyles.howToPlayButton,
-            backgroundColor: Colors.black45,
+            backgroundColor: ModerniAliasColors.black.withOpacity(0.35),
           ),
           child: Text('statsButtonString'.tr()),
         ),

@@ -15,10 +15,10 @@ class HowToPlayButton extends StatelessWidget {
           icon: Image.asset(
             ModerniAliasIcons.howToImage,
             color: ModerniAliasColors.white,
-            height: 36,
-            width: 36,
+            height: 34,
+            width: 34,
           ),
-          iconSize: 36,
+          iconSize: 34,
         ),
       );
 }

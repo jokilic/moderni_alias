@@ -78,5 +78,8 @@ flutter:
     - family: Sen
       fonts:
         - asset: fonts/Sen/Sen-Regular.ttf
+          weight: 400
+        - asset: fonts/Sen/Sen-SemiBold.ttf
+          weight: 600
         - asset: fonts/Sen/Sen-Bold.ttf
           weight: 700
