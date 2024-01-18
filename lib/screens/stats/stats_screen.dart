@@ -29,11 +29,11 @@ class StatsScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 50),
                   HeroTitle(smallText: 'statsTitle'.tr()),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 40),
                   StatsSegmentedWidget(),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   Expanded(
                     child: AnimatedSwitcher(
                       duration: ModerniAliasDurations.animation,

@@ -282,6 +282,43 @@ class GeneralInfoScreen extends ConsumerWidget {
                             ),
                           ),
                         ),
+                        GameTitle('backgroundsTitleString'.tr()),
+                        StandardText(
+                          RichText(
+                            text: TextSpan(
+                              text: 'backgroundsFirstString'.tr(),
+                              style: ModerniAliasTextStyles.generalInfo,
+                              children: [
+                                TextSpan(
+                                  text: 'backgroundsSecondString'.tr(),
+                                  style: ModerniAliasTextStyles.generalInfoBoldBlue,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => launchUrl(
+                                          Uri.parse(ModerniAliasWebsites.pixWallsWebsite),
+                                          mode: LaunchMode.externalApplication,
+                                        ),
+                                ),
+                                TextSpan(
+                                  text: 'backgroundsThirdString'.tr(),
+                                ),
+                                TextSpan(
+                                  text: 'backgroundsFourthString'.tr(),
+                                  style: ModerniAliasTextStyles.generalInfoBold,
+                                ),
+                                TextSpan(
+                                  text: 'backgroundsFifthString'.tr(),
+                                ),
+                                TextSpan(
+                                  text: 'backgroundsSixthString'.tr(),
+                                  style: ModerniAliasTextStyles.generalInfoBold,
+                                ),
+                                TextSpan(
+                                  text: 'backgroundsSeventhString'.tr(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         GameTitle('screenshotsTitleString'.tr()),
                         StandardText(
                           RichText(

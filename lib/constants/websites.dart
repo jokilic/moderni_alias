@@ -13,4 +13,5 @@ class ModerniAliasWebsites {
   static const googleSoundsWebsite = 'https://www.apkmirror.com/apk/google-inc/sounds';
   static const freeSoundWebsite = 'https://freesound.org';
   static const screenshotsWebsite = 'https://previewed.app';
+  static const pixWallsWebsite = 'https://play.google.com/store/apps/details?id=com.sreeragag.pixwalls';
 }

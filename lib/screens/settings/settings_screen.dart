@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../constants/text_styles.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
-import '../../widgets/game_title.dart';
+import '../../widgets/hero_title.dart';
 import 'settings_controller.dart';
 import 'widgets/settings_backgrounds.dart';
 import 'widgets/settings_checkbox_tile.dart';
@@ -27,9 +29,24 @@ class SettingsScreen extends ConsumerWidget {
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 50),
+                    HeroTitle(smallText: 'settingsTitle'.tr()),
                     const SizedBox(height: 40),
-                    const GameTitle('Background'),
-                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'settingsBackgroundTitle'.tr(),
+                        style: ModerniAliasTextStyles.settingsBigTitle,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'settingsBackgroundSubtitle'.tr(),
+                        style: ModerniAliasTextStyles.settingsSubtitle,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
                     SettingsBackgrounds(
                       backgrounds: backgrounds,
                       activeBackground: activeBackground,
@@ -38,25 +55,25 @@ class SettingsScreen extends ConsumerWidget {
                             isTemporary: false,
                           ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 56),
                     SettingsCheckboxTile(
                       onPressed: ref.read(settingsProvider.notifier).useDynamicBackgroundsPressed,
-                      title: 'Dynamic backgrounds',
-                      subtitle: 'During games, change background as time or words progress',
+                      title: 'settingsDynamicBackgroundsTitle'.tr(),
+                      subtitle: 'settingsDynamicBackgroundsSubtitle'.tr(),
                       isActive: settings.useDynamicBackgrounds,
                     ),
                     const SizedBox(height: 16),
                     SettingsCheckboxTile(
                       onPressed: ref.read(settingsProvider.notifier).useCircularTimerPressed,
-                      title: 'Circular timer',
-                      subtitle: 'Use a circular timer which shows the remaining time in a round',
+                      title: 'settingsCircularTimerTitle'.tr(),
+                      subtitle: 'settingsCircularTimerSubtitle'.tr(),
                       isActive: settings.useCircularTimer,
                     ),
                     const SizedBox(height: 16),
                     SettingsCheckboxTile(
                       onPressed: ref.read(settingsProvider.notifier).openMicrophoneSettings,
-                      title: 'Recording audio',
-                      subtitle: "Records rounds so you can replay them in 'Previous games'",
+                      title: 'settingsRecordingAudioTitle'.tr(),
+                      subtitle: 'settingsRecordingAudioSubtitle'.tr(),
                     ),
                     SizedBox(
                       height: MediaQuery.paddingOf(context).bottom,

@@ -239,6 +239,12 @@ class ModerniAliasTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+  static const settingsBigTitle = TextStyle(
+    fontFamily: 'Sen',
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    height: 1.4,
+  );
   static const settingsTitle = TextStyle(
     fontFamily: 'Sen',
     fontSize: 24,
