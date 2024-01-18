@@ -20,4 +20,7 @@ class ModerniAliasIcons {
   static const settingsImage = 'assets/icons/settings.png';
   static const infoImage = 'assets/icons/info.png';
   static const howToImage = 'assets/icons/howto.png';
+  static const arrowImage = 'assets/icons/arrow.png';
+  static const arrowStatsImage = 'assets/icons/arrow_stats.png';
+  static const diceImage = 'assets/icons/dice.png';
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/durations.dart';
+import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
 import '../../../widgets/animated_gesture_detector.dart';
@@ -27,7 +28,7 @@ class StatsWordsExpansionWidget extends StatefulWidget {
 
 class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> with TickerProviderStateMixin {
   var showSubtitle = true;
-  var turns = 0.0;
+  var turns = 0.25;
   var isPlaying = false;
 
   PlayerController? audioController;
@@ -209,7 +210,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     return ExpansionTile(
       onExpansionChanged: (value) => setState(() {
         showSubtitle = !value;
-        turns = value ? 0.5 : 0;
+        turns = value ? 0.75 : 0.25;
       }),
       shape: const RoundedRectangleBorder(),
       tilePadding: const EdgeInsets.symmetric(
@@ -253,10 +254,11 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         turns: turns,
         duration: ModerniAliasDurations.fastAnimation,
         curve: Curves.easeIn,
-        child: const Icon(
-          Icons.arrow_drop_down_circle,
+        child: Image.asset(
+          ModerniAliasIcons.arrowStatsImage,
           color: ModerniAliasColors.white,
-          size: 32,
+          height: 26,
+          width: 26,
         ),
       ),
       children: buildExpansionTileChildren(),

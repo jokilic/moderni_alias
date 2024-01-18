@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 
 class NameOfTeam extends StatelessWidget {
@@ -47,10 +48,11 @@ class NameOfTeam extends StatelessWidget {
               skipTraversal: true,
               child: IconButton(
                 onPressed: randomizePressed,
-                icon: const Icon(
-                  Icons.casino_rounded,
-                  size: 30,
+                icon: Image.asset(
+                  ModerniAliasIcons.diceImage,
                   color: ModerniAliasColors.white,
+                  height: 30,
+                  width: 30,
                 ),
               ),
             ),

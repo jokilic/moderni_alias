@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/durations.dart';
+import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
@@ -33,6 +35,7 @@ class SettingsCheckboxTile extends StatelessWidget {
           trailing: isActive != null
               ? AnimatedContainer(
                   margin: const EdgeInsets.only(left: 24),
+                  padding: const EdgeInsets.all(6),
                   duration: ModerniAliasDurations.fastAnimation,
                   curve: Curves.easeIn,
                   height: 44,
@@ -49,10 +52,12 @@ class SettingsCheckboxTile extends StatelessWidget {
                     opacity: isActive! ? 1 : 0,
                     duration: ModerniAliasDurations.fastAnimation,
                     curve: Curves.easeIn,
-                    child: const Icon(
-                      Icons.check_rounded,
-                      color: ModerniAliasColors.darkBlue,
-                      size: 32,
+                    child: SvgPicture.asset(
+                      ModerniAliasIcons.correctImage,
+                      colorFilter: const ColorFilter.mode(
+                        ModerniAliasColors.darkBlue,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 )
@@ -60,10 +65,11 @@ class SettingsCheckboxTile extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 24),
                   height: 44,
                   width: 44,
-                  child: const Icon(
-                    Icons.north_east_rounded,
+                  child: Image.asset(
+                    ModerniAliasIcons.arrowImage,
                     color: ModerniAliasColors.white,
-                    size: 40,
+                    height: 40,
+                    width: 40,
                   ),
                 ),
         ),
