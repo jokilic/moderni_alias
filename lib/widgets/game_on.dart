@@ -30,7 +30,7 @@ class GameOn extends StatelessWidget {
             width: size.width * 0.9,
             height: size.height * 0.6,
             ringColor: Colors.transparent,
-            fillColor: ModerniAliasColors.white.withOpacity(0.625),
+            fillColor: ModerniAliasColors.white.withOpacity(0.7),
             strokeWidth: 36,
             textStyle: ModerniAliasTextStyles.gameCircularCountdown,
           ),

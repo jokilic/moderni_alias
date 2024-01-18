@@ -118,8 +118,8 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                   ),
                 ),
                 Positioned(
-                  top: 48,
-                  right: 12,
+                  top: MediaQuery.paddingOf(context).top,
+                  right: 16,
                   child: AnimatedGestureDetector(
                     onTap: () => showScores(
                       context,
@@ -127,12 +127,13 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                       backgroundImage: ref.watch(backgroundImageProvider),
                     ),
                     end: 0.8,
-                    child: const IconButton(
+                    child: IconButton(
                       onPressed: null,
-                      icon: Icon(
-                        Icons.format_list_numbered_rounded,
+                      icon: Image.asset(
+                        ModerniAliasIcons.listImage,
                         color: ModerniAliasColors.white,
-                        size: 30,
+                        height: 28,
+                        width: 28,
                       ),
                     ),
                   ),

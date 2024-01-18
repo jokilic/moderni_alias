@@ -1,8 +1,10 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
+import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../services/audio_record_service.dart';
 import '../../../widgets/animated_gesture_detector.dart';
@@ -31,12 +33,16 @@ class QuickGameInfoSection extends StatelessWidget {
               child: AnimatedGestureDetector(
                 onTap: exitGame,
                 end: 0.8,
-                child: const IconButton(
+                child: IconButton(
                   onPressed: null,
-                  icon: Icon(
-                    Icons.close_rounded,
-                    color: ModerniAliasColors.white,
-                    size: 30,
+                  icon: SvgPicture.asset(
+                    ModerniAliasIcons.wrongImage,
+                    colorFilter: const ColorFilter.mode(
+                      ModerniAliasColors.white,
+                      BlendMode.srcIn,
+                    ),
+                    height: 28,
+                    width: 28,
                   ),
                 ),
               ),

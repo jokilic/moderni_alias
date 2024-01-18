@@ -52,4 +52,5 @@ The goal is to have 10 000.
 
 ## Things I still want to do 👷‍♂️
 
+- [ ] Replace all `Icon` with `webp` from [FlatIcon]
 - [ ] Add more words

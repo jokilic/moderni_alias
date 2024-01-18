@@ -26,9 +26,9 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             HowToPlayButton(),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 12),
                             InfoButton(),
-                            const SizedBox(width: 8),
+                            const SizedBox(width: 12),
                             SettingsButton(),
                           ],
                         ),

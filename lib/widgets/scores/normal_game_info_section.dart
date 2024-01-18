@@ -2,8 +2,10 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../models/team/team.dart';
 import '../../services/audio_record_service.dart';
@@ -65,12 +67,16 @@ class NormalGameInfoSection extends StatelessWidget {
               child: AnimatedGestureDetector(
                 onTap: exitGame,
                 end: 0.8,
-                child: const IconButton(
+                child: IconButton(
                   onPressed: null,
-                  icon: Icon(
-                    Icons.close_rounded,
-                    color: ModerniAliasColors.white,
-                    size: 30,
+                  icon: SvgPicture.asset(
+                    ModerniAliasIcons.wrongImage,
+                    colorFilter: const ColorFilter.mode(
+                      ModerniAliasColors.white,
+                      BlendMode.srcIn,
+                    ),
+                    height: 28,
+                    width: 28,
                   ),
                 ),
               ),
@@ -80,12 +86,13 @@ class NormalGameInfoSection extends StatelessWidget {
               child: AnimatedGestureDetector(
                 onTap: showScores,
                 end: 0.8,
-                child: const IconButton(
+                child: IconButton(
                   onPressed: null,
-                  icon: Icon(
-                    Icons.format_list_numbered_rounded,
+                  icon: Image.asset(
+                    ModerniAliasIcons.listImage,
                     color: ModerniAliasColors.white,
-                    size: 30,
+                    height: 28,
+                    width: 28,
                   ),
                 ),
               ),

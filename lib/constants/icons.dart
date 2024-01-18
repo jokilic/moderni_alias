@@ -16,4 +16,8 @@ class ModerniAliasIcons {
   static const clapImage = 'assets/icons/clap.svg';
   static const conversationUpImage = 'assets/icons/conversation-up.svg';
   static const conversationDownImage = 'assets/icons/conversation-down.svg';
+  static const listImage = 'assets/icons/list.png';
+  static const settingsImage = 'assets/icons/settings.png';
+  static const infoImage = 'assets/icons/info.png';
+  static const howToImage = 'assets/icons/howto.png';
 }
