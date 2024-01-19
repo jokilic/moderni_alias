@@ -360,7 +360,7 @@ class GeneralInfoScreen extends ConsumerWidget {
                         ),
                         SmallTitle('enjoyTitleString'.tr()),
                         SizedBox(
-                          height: MediaQuery.paddingOf(context).bottom,
+                          height: MediaQuery.paddingOf(context).bottom + 40,
                         ),
                       ],
                     ),
