@@ -77,9 +77,7 @@ class SettingsScreen extends ConsumerWidget {
                       title: 'settingsRecordingAudioTitle'.tr(),
                       subtitle: 'settingsRecordingAudioSubtitle'.tr(),
                     ),
-                    SizedBox(
-                      height: MediaQuery.paddingOf(context).bottom + 40,
-                    ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),

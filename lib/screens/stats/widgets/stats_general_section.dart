@@ -94,10 +94,7 @@ class StatsGeneralSection extends ConsumerWidget {
           value: statsNotifier.totalAverageAnswers,
           bigText: true,
         ),
-
-        SizedBox(
-          height: MediaQuery.paddingOf(context).bottom + 40,
-        ),
+        const SizedBox(height: 40),
       ],
     );
   }

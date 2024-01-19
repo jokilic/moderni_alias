@@ -200,9 +200,7 @@ class TimeGameSetupScreen extends ConsumerWidget {
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.paddingOf(context).bottom + 40,
-                    ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
