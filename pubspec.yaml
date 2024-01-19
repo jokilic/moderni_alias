@@ -3,7 +3,7 @@ description: Ovo je moja Alias aplikacija.
 
 publish_to: 'none'
 
-version: 3.5.0+350
+version: 3.5.1+351
 
 environment:
   sdk: '>=3.2.5 <4.0.0'
