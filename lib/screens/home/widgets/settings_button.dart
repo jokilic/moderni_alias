@@ -15,10 +15,10 @@ class SettingsButton extends StatelessWidget {
           icon: Image.asset(
             ModerniAliasIcons.settingsImage,
             color: ModerniAliasColors.white,
-            height: 36,
-            width: 36,
+            height: 34,
+            width: 34,
           ),
-          iconSize: 36,
+          iconSize: 34,
         ),
       );
 }
