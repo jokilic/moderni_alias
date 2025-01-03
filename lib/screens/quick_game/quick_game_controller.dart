@@ -31,7 +31,7 @@ final quickGameProvider = Provider.autoDispose.family<QuickGameController, Build
 
 class QuickGameController {
   final BuildContext context;
-  final ProviderRef ref;
+  final Ref ref;
 
   QuickGameController({
     required this.context,

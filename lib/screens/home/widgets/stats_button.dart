@@ -15,7 +15,7 @@ class StatsButton extends StatelessWidget {
           onPressed: null,
           style: TextButton.styleFrom(
             textStyle: ModerniAliasTextStyles.howToPlayButton,
-            backgroundColor: ModerniAliasColors.black.withOpacity(0.35),
+            backgroundColor: ModerniAliasColors.black.withValues(alpha: 0.35),
           ),
           child: Text('statsButtonString'.tr()),
         ),

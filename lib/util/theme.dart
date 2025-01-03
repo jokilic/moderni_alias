@@ -22,7 +22,7 @@ class ThemeNotifier extends StateNotifier<ThemeData> {
         useMaterial3: true,
         primaryColor: ModerniAliasColors.darkBlue,
         colorScheme: const ColorScheme.dark(
-          background: ModerniAliasColors.darkBlue,
+          surface: ModerniAliasColors.darkBlue,
         ),
         canvasColor: Colors.transparent,
         scaffoldBackgroundColor: ModerniAliasColors.darkBlue,

@@ -49,7 +49,7 @@ class TimeGameFinishedScreen extends ConsumerWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (_) => goToHomeScreen(context),
+      onPopInvokedWithResult: (_, __) => goToHomeScreen(context),
       child: Scaffold(
         body: Stack(
           children: [

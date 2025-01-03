@@ -13,7 +13,7 @@ final gameSetupProvider = Provider.autoDispose<GameSetupService>(
 );
 
 class GameSetupService {
-  final ProviderRef ref;
+  final Ref ref;
 
   GameSetupService(this.ref);
 

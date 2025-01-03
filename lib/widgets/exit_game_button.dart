@@ -69,8 +69,8 @@ class _ExitGameButtonState extends ConsumerState<ExitGameButton> with SingleTick
                 animation: controller!,
                 builder: (_, child) => Container(
                   decoration: BoxDecoration(
-                    color: ModerniAliasColors.white.withOpacity(
-                      controller!.value,
+                    color: ModerniAliasColors.white.withValues(
+                      alpha: controller!.value,
                     ),
                     borderRadius: BorderRadius.circular(50),
                   ),

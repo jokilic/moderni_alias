@@ -27,10 +27,8 @@ class AnswerAdapter extends TypeAdapter<Answer> {
     switch (obj) {
       case Answer.correct:
         writer.writeByte(0);
-        break;
       case Answer.wrong:
         writer.writeByte(1);
-        break;
     }
   }
 
@@ -66,10 +64,8 @@ class FlagAdapter extends TypeAdapter<Flag> {
     switch (obj) {
       case Flag.croatia:
         writer.writeByte(0);
-        break;
       case Flag.unitedKingdom:
         writer.writeByte(1);
-        break;
     }
   }
 

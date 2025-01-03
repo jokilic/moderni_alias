@@ -29,7 +29,7 @@ final timeGameProvider = Provider.autoDispose<TimeGameController>(
 );
 
 class TimeGameController {
-  final ProviderRef ref;
+  final Ref ref;
 
   TimeGameController(this.ref) {
     init();

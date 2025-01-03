@@ -34,7 +34,7 @@ final normalGameProvider = Provider.autoDispose.family<NormalGameController, Bui
 
 class NormalGameController {
   final BuildContext context;
-  final ProviderRef ref;
+  final Ref ref;
 
   NormalGameController({
     required this.context,

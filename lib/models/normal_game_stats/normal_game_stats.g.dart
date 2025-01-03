@@ -21,8 +21,8 @@ class NormalGameStatsAdapter extends TypeAdapter<NormalGameStats> {
       endTime: fields[2] as DateTime,
       teams: (fields[3] as List).cast<Team>(),
       rounds: (fields[4] as List).cast<Round>(),
-      lengthOfRound: fields[5] as int,
-      pointsToWin: fields[6] as int,
+      lengthOfRound: (fields[5] as num).toInt(),
+      pointsToWin: (fields[6] as num).toInt(),
       language: fields[7] as Flag,
     );
   }

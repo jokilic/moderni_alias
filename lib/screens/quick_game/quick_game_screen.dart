@@ -37,7 +37,7 @@ class QuickGameScreen extends ConsumerWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (_) => exitGameModal(
+      onPopInvokedWithResult: (_, __) => exitGameModal(
         context,
         ref,
         backgroundImage: ref.watch(backgroundImageProvider),

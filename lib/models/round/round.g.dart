@@ -20,7 +20,7 @@ class RoundAdapter extends TypeAdapter<Round> {
       playedWords: (fields[1] as List).cast<PlayedWord>(),
       playingTeam: fields[2] as Team?,
       audioRecording: fields[3] as String?,
-      durationSeconds: fields[4] as int?,
+      durationSeconds: (fields[4] as num?)?.toInt(),
     );
   }
 

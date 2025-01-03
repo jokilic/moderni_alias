@@ -91,22 +91,24 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// Play / pause current `audioController`
   Future<void> toggleAudio() async {
+    await audioController?.setFinishMode(finishMode: FinishMode.pause);
+
     switch (audioController?.playerState) {
       case PlayerState.initialized:
-        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        await audioController?.startPlayer();
         break;
       case PlayerState.paused:
-        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        await audioController?.startPlayer();
         break;
       case PlayerState.playing:
         await audioController?.pausePlayer();
         break;
       case PlayerState.stopped:
-        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        await audioController?.startPlayer();
         break;
 
       default:
-        await audioController?.startPlayer(finishMode: FinishMode.pause);
+        await audioController?.startPlayer();
     }
   }
 
