@@ -20,7 +20,7 @@ class RoundAdapter extends TypeAdapter<Round> {
       playedWords: (fields[1] as List).cast<PlayedWord>(),
       playingTeam: fields[2] as Team?,
       audioRecording: fields[3] as String?,
-      durationSeconds: (fields[4] as num?)?.toInt(),
+      durationSeconds: fields[4] as int?,
     );
   }
 
@@ -42,9 +42,5 @@ class RoundAdapter extends TypeAdapter<Round> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is RoundAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is RoundAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

@@ -21,8 +21,8 @@ class NormalGameStatsAdapter extends TypeAdapter<NormalGameStats> {
       endTime: fields[2] as DateTime,
       teams: (fields[3] as List).cast<Team>(),
       rounds: (fields[4] as List).cast<Round>(),
-      lengthOfRound: (fields[5] as num).toInt(),
-      pointsToWin: (fields[6] as num).toInt(),
+      lengthOfRound: fields[5] as int,
+      pointsToWin: fields[6] as int,
       language: fields[7] as Flag,
     );
   }
@@ -51,9 +51,5 @@ class NormalGameStatsAdapter extends TypeAdapter<NormalGameStats> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is NormalGameStatsAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is NormalGameStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

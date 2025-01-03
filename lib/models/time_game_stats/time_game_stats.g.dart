@@ -22,7 +22,7 @@ class TimeGameStatsAdapter extends TypeAdapter<TimeGameStats> {
       teams: (fields[3] as List).cast<Team>(),
       rounds: (fields[4] as List).cast<Round>(),
       language: fields[5] as Flag,
-      numberOfWords: (fields[6] as num).toInt(),
+      numberOfWords: fields[6] as int,
     );
   }
 
@@ -48,9 +48,5 @@ class TimeGameStatsAdapter extends TypeAdapter<TimeGameStats> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TimeGameStatsAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is TimeGameStatsAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

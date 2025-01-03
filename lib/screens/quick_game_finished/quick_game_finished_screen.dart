@@ -16,6 +16,7 @@ import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
+import '../../widgets/exit_game.dart';
 import '../../widgets/play_button.dart';
 import '../../widgets/scores/show_scores.dart';
 import '../quick_game/quick_game_controller.dart';
@@ -44,7 +45,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => goToHomeScreen(context),
+      onPopInvokedWithResult: (_, __) => disposeGames(context, ref),
       child: Scaffold(
         body: Stack(
           children: [
@@ -109,7 +110,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
                             const SizedBox(height: 20),
                             PlayButton(
                               text: 'quickGameFinishedExitString'.tr().toUpperCase(),
-                              onPressed: () => goToHomeScreen(context),
+                              onPressed: () => disposeGames(context, ref),
                             ),
                           ],
                         ),

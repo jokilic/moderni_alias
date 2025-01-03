@@ -10,11 +10,11 @@ import '../../constants/durations.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../util/providers.dart';
-import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
+import '../../widgets/exit_game.dart';
 import '../../widgets/scores/show_scores.dart';
 
 class NormalGameFinishedScreen extends ConsumerWidget {
@@ -24,7 +24,7 @@ class NormalGameFinishedScreen extends ConsumerWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => goToHomeScreen(context),
+      onPopInvokedWithResult: (_, __) => disposeGames(context, ref),
       child: Scaffold(
         body: Stack(
           children: [
@@ -48,7 +48,7 @@ class NormalGameFinishedScreen extends ConsumerWidget {
                 ),
                 Align(
                   child: GestureDetector(
-                    onTap: () => goToHomeScreen(context),
+                    onTap: () => disposeGames(context, ref),
                     behavior: HitTestBehavior.translucent,
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.8,
