@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     ndkVersion "25.1.8937393"
 
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -47,12 +47,12 @@ android {
     defaultConfig {
         applicationId "com.josipkilic.modernialias"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
     }
-    
+
     signingConfigs {
         release {
            keyAlias keystoreProperties['keyAlias']
