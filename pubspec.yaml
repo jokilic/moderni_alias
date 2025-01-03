@@ -3,7 +3,7 @@ description: Ovo je moja Alias aplikacija.
 
 publish_to: 'none'
 
-version: 3.5.5+355
+version: 4.0.0+400
 
 environment:
   sdk: 3.6.0
@@ -19,23 +19,24 @@ dependencies:
   #
 
   app_settings: 5.1.1 # Used to check and update microphone permission
-  audio_waveforms: 1.2.0 # Generate waveforms while recording audio or from audio files
+  audio_waveforms: 1.2.0 # Generate waveforms while recording audio and when listening to audio files
   circular_countdown_timer: 0.2.4 # Used for showing the timer
   easy_localization: 3.0.7 # Localization
   flutter_staggered_animations: 1.1.1 # Used for animating widgets
-  flutter_riverpod: 2.6.1 # State management, dependency injection, etc.
   flutter_svg: 2.0.16 # SVG rendering library
-  hive_ce: 2.8.0+3 # Used to store data for Stats
+  get_it: 8.0.3 # Dependency injection
+  hive_ce: 2.8.0+3 # Used for persistent storage
   hive_ce_flutter: 2.2.0 # Easier integration of Hive with Flutter
   intl: 0.20.1 # Used for date formatting
   just_audio: 0.9.42 # Used to play audio files
-  logger: 2.5.0 # Small, easy to use and extensible logger which prints beautiful logs
-  package_info_plus: 8.1.2 # To get the app version and show on the relevant screen
+  logger: 2.5.0 # Used for console logging
+  package_info_plus: 8.1.2 # Used to get the app version
   path_provider: 2.1.5 # For finding commonly used locations on the filesystem
   rive: 0.13.20 # Renders Rive animations in Flutter
-  timeago: 3.7.0 # To show when were last games played
+  timeago: 3.7.0 # To show when were games played
   url_launcher: 6.3.1 # Used to launch URLs in native browser
   video_player: 2.9.2 # Used to play videos
+  watch_it: 1.6.1 # State management
 
 dev_dependencies:
   build_runner: 2.4.14 # Used for code generation
