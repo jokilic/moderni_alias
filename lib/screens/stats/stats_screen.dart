@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/durations.dart';
 import '../../widgets/background_image.dart';
@@ -12,9 +11,11 @@ import 'widgets/stats_quick_section.dart';
 import 'widgets/stats_segmented_widget.dart';
 import 'widgets/stats_time_section.dart';
 
-class StatsScreen extends ConsumerWidget {
+class StatsScreen extends StatelessWidget {
+  const StatsScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final currentIndex = ref.watch(statsProvider);
     final statsNotifier = ref.watch(statsProvider.notifier);
 

@@ -9,6 +9,8 @@ import 'widgets/how_to_play_button.dart';
 import 'widgets/settings_button.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({required super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Stack(

@@ -18,9 +18,11 @@ import '../../widgets/time_counter.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'normal_game_controller.dart';
 
-class NormalGameScreen extends ConsumerWidget {
+class NormalGameScreen extends StatelessWidget {
+  const NormalGameScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
     final currentlyPlayingTeam = ref.watch(currentlyPlayingTeamProvider);

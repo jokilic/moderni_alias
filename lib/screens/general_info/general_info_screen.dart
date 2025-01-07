@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/text_styles.dart';
@@ -15,9 +14,11 @@ import '../../widgets/small_title.dart';
 import '../../widgets/standard_text.dart';
 import './widgets/my_quick_portfolio.dart';
 
-class GeneralInfoScreen extends ConsumerWidget {
+class GeneralInfoScreen extends StatelessWidget {
+  const GeneralInfoScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ref.watch(appInfoProvider).when(
+  Widget build(BuildContext context) => ref.watch(appInfoProvider).when(
         data: (appInfoService) => Scaffold(
           body: Stack(
             children: [

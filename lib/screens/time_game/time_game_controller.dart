@@ -209,7 +209,7 @@ class TimeGameController {
     await ref.read(backgroundImageProvider.notifier).revertBackground();
 
     await updateHiveStats(gameType: Game.time);
-    goToTimeGameFinishedScreen(context);
+    openTimeGameFinished(context);
   }
 
   ///

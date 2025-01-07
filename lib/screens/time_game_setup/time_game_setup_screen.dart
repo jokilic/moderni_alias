@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/durations.dart';
@@ -23,9 +22,11 @@ import '../../widgets/game_setup/show_custom_value_sheet.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
 
-class TimeGameSetupScreen extends ConsumerWidget {
+class TimeGameSetupScreen extends StatelessWidget {
+  const TimeGameSetupScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final chosenDictionary = ref.watch(chosenDictionaryProvider);
     final teams = ref.watch(teamsProvider);
     final teamsLength = ref.watch(teamsLengthProvider);
@@ -195,7 +196,7 @@ class TimeGameSetupScreen extends ConsumerWidget {
                         onPressed: () {
                           /// Validation successfull, go to [TimeGameScreen]
                           if (gameSetupController.validateTeams()) {
-                            goToTimeGameScreen(context);
+                            openTimeGame(context);
                           }
                         },
                       ),

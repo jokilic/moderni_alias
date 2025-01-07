@@ -1,11 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
-import '../../models/team/team.dart';
+import '../../models/round/round.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
@@ -13,25 +12,27 @@ import '../stats/stats_controller.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
-import 'normal_game_stats_controller.dart';
+import 'stats_time_game_controller.dart';
 
-class NormalGameStatsScreen extends ConsumerWidget {
+class StatsTimeGameScreen extends StatelessWidget {
+  const StatsTimeGameScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final normalGameStatsState = ref.watch(statsProvider.notifier).activeNormalGameStats;
+  Widget build(BuildContext context) {
+    final timeGameStatsState = ref.watch(statsProvider.notifier).activeTimeGameStats;
 
-    /// `NormalGameStats` are properly passed, show screen
-    if (normalGameStatsState != null) {
-      final normalGameStatsPro = ref.watch(normalGameStatsProvider(normalGameStatsState));
-      final normalGameStats = normalGameStatsPro.normalGameStats;
+    /// `TimeGameStats` are properly passed, show screen
+    if (timeGameStatsState != null) {
+      final timeGameStatsPro = ref.watch(timeGameStatsProvider(timeGameStatsState));
+      final timeGameStats = timeGameStatsPro.timeGameStats;
 
       final locale = context.locale.languageCode;
 
-      final date = DateFormat('d. MMMM', locale).format(normalGameStats.startTime);
-      final time = DateFormat('HH:mm', locale).format(normalGameStats.startTime);
-      final textTime = timeago.format(normalGameStats.startTime, locale: locale);
-      final language = normalGameStats.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
-      final sortedTeams = List<Team>.from(normalGameStats.teams)..sort((a, b) => b.points.compareTo(a.points));
+      final date = DateFormat('d. MMMM', locale).format(timeGameStats.startTime);
+      final time = DateFormat('HH:mm', locale).format(timeGameStats.startTime);
+      final textTime = timeago.format(timeGameStats.startTime, locale: locale);
+      final language = timeGameStats.language == Flag.croatia ? 'dictionaryCroatianString'.tr() : 'dictionaryEnglishString'.tr();
+      final sortedRounds = List<Round>.from(timeGameStats.rounds)..sort((a, b) => a.durationSeconds?.compareTo(b.durationSeconds ?? 0) ?? 0);
 
       return Scaffold(
         body: Stack(
@@ -55,15 +56,23 @@ class NormalGameStatsScreen extends ConsumerWidget {
                       shrinkWrap: true,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: sortedTeams.length,
+                      itemCount: sortedRounds.length,
                       itemBuilder: (_, index) {
-                        final team = sortedTeams[index];
+                        final round = sortedRounds[index];
+
+                        final isFastest = timeGameStatsPro.calculateRoundFastest(
+                          passedRound: round,
+                          fastestRound: sortedRounds.first,
+                        );
+
+                        final duration =
+                            '${Duration(seconds: round.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: round.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}';
 
                         return StatsValueWidget(
-                          text: team.name,
-                          value: team.points,
+                          text: round.playingTeam?.name ?? '',
+                          textValue: duration,
                           bigText: true,
-                          yellowCircle: index == 0,
+                          yellowCircle: isFastest,
                         );
                       },
                     ),
@@ -95,33 +104,19 @@ class NormalGameStatsScreen extends ConsumerWidget {
                           'language': language,
                         },
                       ),
-                      icon: normalGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
+                      icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
                       size: 58,
                     ),
                     const SizedBox(height: 16),
                     GameTitle(
-                      'statsLengthOfRoundTitle'.tr(),
+                      'statsNumberOfWordsTitle'.tr(),
                       smallTitle: true,
                     ),
                     const SizedBox(height: 8),
                     StatsTextIconWidget(
-                      text: 'statsLengthOfRoundText'.tr(
+                      text: 'statsNumberOfWordsText'.tr(
                         namedArgs: {
-                          'lengthOfRound': '${normalGameStats.lengthOfRound}',
-                        },
-                      ),
-                      icon: ModerniAliasIcons.hourglassImage,
-                    ),
-                    const SizedBox(height: 16),
-                    GameTitle(
-                      'statsPointsToWinTitle'.tr(),
-                      smallTitle: true,
-                    ),
-                    const SizedBox(height: 8),
-                    StatsTextIconWidget(
-                      text: 'statsPointsToWinText'.tr(
-                        namedArgs: {
-                          'pointsToWin': '${normalGameStats.pointsToWin}',
+                          'lengthOfWords': '${timeGameStats.numberOfWords}',
                         },
                       ),
                       icon: ModerniAliasIcons.pointsImage,
@@ -136,9 +131,9 @@ class NormalGameStatsScreen extends ConsumerWidget {
                       shrinkWrap: true,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: normalGameStats.rounds.length,
+                      itemCount: timeGameStats.rounds.length,
                       itemBuilder: (_, index) {
-                        final round = normalGameStats.rounds[index];
+                        final round = timeGameStats.rounds[index];
                         final someWords = round.playedWords.take(3).map((word) => word.word).join(', ');
 
                         return StatsWordsExpansionWidget(
@@ -158,7 +153,7 @@ class NormalGameStatsScreen extends ConsumerWidget {
       );
     }
 
-    /// `NormalGameStats` failed to load, show error screen
+    /// `TimeGameStats` failed to load, show error screen
     return Scaffold(
       body: Stack(
         children: [

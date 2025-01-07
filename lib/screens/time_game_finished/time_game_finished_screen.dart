@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/colors.dart';
@@ -19,7 +18,9 @@ import '../../widgets/exit_game.dart';
 import '../../widgets/scores/show_time_scores.dart';
 import '../time_game/time_game_controller.dart';
 
-class TimeGameFinishedScreen extends ConsumerWidget {
+class TimeGameFinishedScreen extends StatelessWidget {
+  const TimeGameFinishedScreen({required super.key});
+
   List<Round> findFastestRounds(List<Round> rounds) {
     rounds.sort((a, b) => a.durationSeconds?.compareTo(b.durationSeconds ?? 0) ?? 0);
     final fastestRounds = rounds.where((round) => round.durationSeconds == (rounds.first.durationSeconds ?? 0)).toList();
@@ -41,7 +42,7 @@ class TimeGameFinishedScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final fastestRounds = findFastestRounds(
       ref.watch(timeGameProvider).timeGameStats.rounds,
     );

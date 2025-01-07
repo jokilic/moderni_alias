@@ -14,19 +14,19 @@ class HomePageButtons extends StatelessWidget {
             PlayButton(
               text: 'startButtonString'.tr().toUpperCase(),
               horizontalPadding: 40,
-              onPressed: () => goToNormalGameSetupScreen(context),
+              onPressed: () => openNormalGameSetup(context),
             ),
             const SizedBox(height: 25),
             PlayButton(
               text: 'timeStartButtonString'.tr().toUpperCase(),
               horizontalPadding: 40,
-              onPressed: () => goToTimeGameSetupScreen(context),
+              onPressed: () => openTimeGameSetup(context),
             ),
             const SizedBox(height: 25),
             PlayButton(
               text: 'quickStartButtonString'.tr().toUpperCase(),
               horizontalPadding: 40,
-              onPressed: () => goToQuickGameScreen(context),
+              onPressed: () => openQuickGame(context),
             ),
             const SizedBox(height: 25),
             StatsButton(),

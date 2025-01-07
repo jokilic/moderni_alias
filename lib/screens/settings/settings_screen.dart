@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/text_styles.dart';
 import '../../widgets/animated_column.dart';
@@ -10,9 +9,11 @@ import 'settings_controller.dart';
 import 'widgets/settings_backgrounds.dart';
 import 'widgets/settings_checkbox_tile.dart';
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final activeBackground = ref.watch(backgroundImageProvider);
     final backgrounds = ref.watch(backgroundImageProvider.notifier).backgrounds;

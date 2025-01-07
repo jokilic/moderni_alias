@@ -192,7 +192,7 @@ class QuickGameController {
     await ref.read(backgroundImageProvider.notifier).revertBackground();
 
     await updateHiveStats();
-    goToQuickGameFinishedScreen(context);
+    openQuickGameFinished(context);
   }
 
   ///

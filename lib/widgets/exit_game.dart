@@ -21,7 +21,7 @@ void disposeGames(BuildContext context, WidgetRef ref) {
   ref.read(countdownPlayerProvider).stop();
   ref.read(backgroundImageProvider.notifier).revertBackground();
 
-  goToHomeScreen(context);
+  openHome(context);
 }
 
 Future<bool> exitGameModal(

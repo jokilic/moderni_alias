@@ -18,9 +18,11 @@ import '../../widgets/wrong_correct_buttons.dart';
 import 'quick_game_controller.dart';
 import 'widgets/quick_game_info_section.dart';
 
-class QuickGameScreen extends ConsumerWidget {
+class QuickGameScreen extends StatelessWidget {
+  const QuickGameScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
     final currentGame = ref.watch(currentGameProvider);

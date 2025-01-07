@@ -8,7 +8,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 class HowToPlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedGestureDetector(
-        onTap: () => goToHowToPlayScreen(context),
+        onTap: () => openHowToPlay(context),
         end: 0.8,
         child: IconButton(
           onPressed: null,

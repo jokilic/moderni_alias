@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
@@ -21,8 +20,10 @@ import '../../widgets/play_button.dart';
 import '../../widgets/scores/show_scores.dart';
 import '../quick_game/quick_game_controller.dart';
 
-class QuickGameFinishedScreen extends ConsumerWidget {
-  void restartGame(BuildContext context, WidgetRef ref) {
+class QuickGameFinishedScreen extends StatelessWidget {
+  const QuickGameFinishedScreen({required super.key});
+
+  void restartGame(BuildContext context) {
     /// Restart providers
     ref
       ..invalidate(currentGameProvider)
@@ -31,7 +32,7 @@ class QuickGameFinishedScreen extends ConsumerWidget {
       ..invalidate(quickGameProvider(context));
 
     /// Go to [QuickGameScreen]
-    goToQuickGameScreen(context);
+    openQuickGame(context);
   }
 
   @override

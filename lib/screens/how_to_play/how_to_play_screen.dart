@@ -10,6 +10,8 @@ import '../../widgets/small_title.dart';
 import '../../widgets/standard_text.dart';
 
 class HowToPlayScreen extends StatelessWidget {
+  const HowToPlayScreen({required super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Stack(

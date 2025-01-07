@@ -8,7 +8,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedGestureDetector(
-        onTap: () => goToSettingsScreen(context),
+        onTap: () => openSettings(context),
         end: 0.8,
         child: IconButton(
           onPressed: null,

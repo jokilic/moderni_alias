@@ -17,9 +17,11 @@ import '../../widgets/confetti.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/scores/show_scores.dart';
 
-class NormalGameFinishedScreen extends ConsumerWidget {
+class NormalGameFinishedScreen extends StatelessWidget {
+  const NormalGameFinishedScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final winningTeam = ref.watch(teamsProvider).reduce((a, b) => a.points > b.points ? a : b);
 
     return PopScope(

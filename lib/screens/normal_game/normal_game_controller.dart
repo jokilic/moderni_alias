@@ -308,7 +308,7 @@ class NormalGameController {
     await ref.read(backgroundImageProvider.notifier).revertBackground();
 
     await updateHiveStats(gameType: Game.normal);
-    goToNormalGameFinishedScreen(context);
+    openNormalGameFinished(context);
   }
 
   ///

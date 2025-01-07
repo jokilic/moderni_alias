@@ -1,21 +1,19 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../models/round/round.dart';
 import '../../models/time_game_stats/time_game_stats.dart';
 
-final timeGameStatsProvider = Provider.autoDispose.family<TimeGameStatsController, TimeGameStats>(
-  (ref, timeGameStats) => TimeGameStatsController(timeGameStats),
+final timeGameStatsProvider = Provider.autoDispose.family<StatsTimeGameController, TimeGameStats>(
+  (ref, timeGameStats) => StatsTimeGameController(timeGameStats),
   name: 'TimeGameStatsProvider',
 );
 
-class TimeGameStatsController {
+class StatsTimeGameController {
   ///
   /// CONSTRUCTOR
   ///
 
   final TimeGameStats timeGameStats;
 
-  TimeGameStatsController(this.timeGameStats);
+  StatsTimeGameController(this.timeGameStats);
 
   ///
   /// METHODS

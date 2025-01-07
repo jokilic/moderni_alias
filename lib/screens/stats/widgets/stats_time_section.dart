@@ -51,7 +51,7 @@ class StatsTimeSection extends ConsumerWidget {
                 valueLeft: true,
                 onPressed: () {
                   ref.read(statsProvider.notifier).activeTimeGameStats = timeGame;
-                  goToTimeGameStatsScreen(context);
+                  openStatsTimeGame(context);
                 },
               );
             },

@@ -51,7 +51,7 @@ class StatsQuickSection extends ConsumerWidget {
                 valueLeft: true,
                 onPressed: () {
                   ref.read(statsProvider.notifier).activeQuickGameStats = quickGame;
-                  goToQuickGameStatsScreen(context);
+                  openStatsQuickGame(context);
                 },
               );
             },

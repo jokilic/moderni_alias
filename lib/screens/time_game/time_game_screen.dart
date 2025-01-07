@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
@@ -16,9 +15,11 @@ import 'time_game_controller.dart';
 import 'widgets/time_game_info_section.dart';
 import 'widgets/time_game_on.dart';
 
-class TimeGameScreen extends ConsumerWidget {
+class TimeGameScreen extends StatelessWidget {
+  const TimeGameScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
     final currentlyPlayingTeam = ref.watch(currentlyPlayingTeamProvider);

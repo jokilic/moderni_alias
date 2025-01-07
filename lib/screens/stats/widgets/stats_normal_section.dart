@@ -51,7 +51,7 @@ class StatsNormalSection extends ConsumerWidget {
                 valueLeft: true,
                 onPressed: () {
                   ref.read(statsProvider.notifier).activeNormalGameStats = normalGame;
-                  goToNormalGameStatsScreen(context);
+                  openStatsNormalGame(context);
                 },
               );
             },

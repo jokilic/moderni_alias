@@ -9,7 +9,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 class StatsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedGestureDetector(
-        onTap: () => goToStatsScreen(context),
+        onTap: () => openStats(context),
         end: 0.85,
         child: TextButton(
           onPressed: null,

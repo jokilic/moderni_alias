@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/enums.dart';
@@ -13,11 +12,13 @@ import '../stats/stats_controller.dart';
 import '../stats/widgets/stats_text_icon_widget.dart';
 import '../stats/widgets/stats_value_widget.dart';
 import '../stats/widgets/stats_words_expansion_widget.dart';
-import 'quick_game_stats_controller.dart';
+import 'stats_quick_game_controller.dart';
 
-class QuickGameStatsScreen extends ConsumerWidget {
+class StatsQuickGameScreen extends StatelessWidget {
+  const StatsQuickGameScreen({required super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final quickGameStatsState = ref.watch(statsProvider.notifier).activeQuickGameStats;
 
     /// `QuickGameStats` are properly passed, show screen
