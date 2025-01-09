@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../constants/enums.dart';
@@ -33,7 +32,7 @@ void showTimeScores(
       ),
     );
 
-class TimeScoresModal extends ConsumerWidget {
+class TimeScoresModal extends StatelessWidget {
   final List<PlayedWord> playedWords;
   final bool roundEnd;
   final bool gameFinished;
@@ -82,7 +81,7 @@ class TimeScoresModal extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final teams = ref.watch(teamsProvider);
     final timeGameController = ref.watch(timeGameProvider);
     final rounds = timeGameController.timeGameStats.rounds;

@@ -1,14 +1,13 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
-import '../../../models/team/team.dart';
 import '../../../controllers/audio_record_controller.dart';
+import '../../../models/team/team.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
