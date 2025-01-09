@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-///
-/// TEXT STYLES
-///
-
 class ModerniAliasTextStyles {
   static const exitButton = TextStyle(
     fontFamily: 'Sen',

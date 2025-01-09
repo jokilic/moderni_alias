@@ -1,32 +1,19 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stack_trace/stack_trace.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:watch_it/watch_it.dart';
 
-import 'constants/translations.dart';
-import 'services/hive_service.dart';
-import 'services/logger_service.dart';
-import 'services/path_provider_service.dart';
-import 'util/routing.dart';
-import 'util/theme.dart';
+import 'constants/colors.dart';
+import 'screens/home/home_screen.dart';
+import 'services/theme_service.dart';
+import 'util/dependencies.dart';
 
 Future<void> main() async {
+  /// Initialize Flutter related tasks
   WidgetsFlutterBinding.ensureInitialized();
-
-  /// Parsing of [StackTrace]
-  FlutterError.demangleStackTrace = (stack) {
-    if (stack is Trace) {
-      return stack.vmTrace;
-    }
-    if (stack is Chain) {
-      return stack.toTrace().vmTrace;
-    }
-    return stack;
-  };
-
-  /// Initialize [EasyLocalization]
-  await EasyLocalization.ensureInitialized();
 
   /// Make sure the orientation is only `portrait`
   await SystemChrome.setPreferredOrientations(
@@ -38,45 +25,70 @@ Future<void> main() async {
     SystemUiOverlayStyle.light,
   );
 
-  /// Initialize [Logger], [Path] & [Hive]
-  final logger = LoggerService();
-  final path = PathProviderService(logger);
-  final hive = HiveService(logger);
-  await hive.init();
+  /// Initialize [EasyLocalization]
+  await EasyLocalization.ensureInitialized();
+
+  /// Initialize services
+  initializeServices();
+
+  /// Initialize date formatting and `timeago` messages
+  await initializeDateFormatting();
+  timeago.setLocaleMessages('en', timeago.EnMessages());
+  timeago.setLocaleMessages('hr', timeago.HrMessages());
+
+  /// Wait for initialization to finish
+  await getIt.allReady();
 
   /// Run the app, let's go!
   runApp(
-    ProviderScope(
-      overrides: [
-        loggerProvider.overrideWithValue(logger),
-        pathProvider.overrideWithValue(path),
-        hiveProvider.overrideWithValue(hive),
-      ],
-      observers: [
-        RiverpodLogger(logger),
-      ],
-      child: ModerniAlias(),
-    ),
+    ModerniAliasApp(),
   );
 }
 
-class ModerniAlias extends ConsumerWidget {
+class ModerniAliasApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) => EasyLocalization(
+  Widget build(BuildContext context) => EasyLocalization(
         useOnlyLangCode: true,
-        supportedLocales: const [Locale('hr'), Locale('en')],
-        path: ModerniAliasTranslations.folderLocation,
+        supportedLocales: const [
+          Locale('en'),
+          Locale('hr'),
+        ],
+        // startLocale: const Locale('hr'),
         fallbackLocale: const Locale('hr'),
-        child: Builder(
-          builder: (context) => MaterialApp(
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            onGenerateTitle: (_) => 'appNameString'.tr(),
-            onGenerateRoute: onGenerateRoute,
-            initialRoute: ModerniAliasRoutes.homeScreen,
-            theme: ref.watch(themeProvider),
-          ),
+        path: 'assets/translations',
+        child: ModerniAliasWidget(),
+      );
+}
+
+class ModerniAliasWidget extends WatchingWidget {
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        onGenerateTitle: (_) => 'appNameString'.tr(),
+        theme: watchIt<ThemeService>().value,
+        home: const HomeScreen(
+          key: ValueKey('home'),
         ),
+        builder: (context, child) {
+          /// Generate `appWidget`, with [Moderni Alias] content
+          final appWidget = child ??
+              const Scaffold(
+                body: SizedBox.shrink(),
+              );
+
+          /// Return `appWidget`, also [Banner] if app is `debug`
+          return kDebugMode
+              ? Banner(
+                  message: 'appName'.tr().toUpperCase(),
+                  color: ModerniAliasColors.blue,
+                  location: BannerLocation.topEnd,
+                  layoutDirection: TextDirection.ltr,
+                  child: appWidget,
+                )
+              : appWidget;
+        },
       );
 }

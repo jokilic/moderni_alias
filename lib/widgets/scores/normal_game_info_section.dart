@@ -8,7 +8,7 @@ import '../../constants/colors.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../models/team/team.dart';
-import '../../services/audio_record_service.dart';
+import '../../controllers/audio_record_controller.dart';
 import '../animated_column.dart';
 import '../animated_gesture_detector.dart';
 

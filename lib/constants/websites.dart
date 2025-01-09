@@ -1,7 +1,3 @@
-///
-/// WEBSITES
-///
-
 class ModerniAliasWebsites {
   static const flutterWebsite = 'https://flutter.dev';
   static const moderniAliasWebsite = 'https://github.com/jokilic/moderni_alias';

@@ -28,21 +28,6 @@ class Team extends HiveObject {
     this.wrongPoints = 0,
   });
 
-  Team copyWith({
-    String? name,
-    int? points,
-    int? correctPoints,
-    int? wrongPoints,
-    TextEditingController? textEditingController,
-  }) =>
-      Team(
-        name: name ?? this.name,
-        points: points ?? this.points,
-        correctPoints: correctPoints ?? this.correctPoints,
-        wrongPoints: wrongPoints ?? this.wrongPoints,
-        textEditingController: textEditingController ?? this.textEditingController,
-      );
-
   @override
   String toString() => 'Team(name: $name, points: $points, correctPoints: $correctPoints, wrongPoints: $wrongPoints, textEditingController: $textEditingController)';
 }

@@ -10,7 +10,7 @@ import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
-import '../../services/audio_record_service.dart';
+import '../../controllers/audio_record_controller.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';

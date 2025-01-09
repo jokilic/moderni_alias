@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/text_styles.dart';
 import '../../constants/websites.dart';
-import '../../services/app_info_service.dart';
+import '../../services/package_info_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';

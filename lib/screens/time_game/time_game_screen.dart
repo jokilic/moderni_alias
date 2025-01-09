@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
-import '../../services/audio_record_service.dart';
+import '../../controllers/audio_record_controller.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';

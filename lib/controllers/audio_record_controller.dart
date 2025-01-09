@@ -1,41 +1,25 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'logger_service.dart';
-import 'path_provider_service.dart';
+import '../services/logger_service.dart';
 
-final audioRecordProvider = Provider.autoDispose<AudioRecordService>(
-  (ref) => AudioRecordService(
-    recorderController: ref.watch(audioRecorderControllerProvider),
-    logger: ref.watch(loggerProvider),
-    path: ref.watch(pathProvider),
-  ),
-  name: 'AudioRecordProvider',
-);
-
-final audioRecorderControllerProvider = Provider.autoDispose<RecorderController>(
-  (ref) {
-    final controller = RecorderController();
-    ref.onDispose(controller.dispose);
-    return controller;
-  },
-  name: 'AudioRecorderControllerProvider',
-);
-
-class AudioRecordService {
+class AudioRecordController {
   ///
   /// CONSTRUCTOR
   ///
 
   final RecorderController recorderController;
   final LoggerService logger;
-  final PathProviderService path;
 
-  AudioRecordService({
+  AudioRecordController({
     required this.recorderController,
     required this.logger,
-    required this.path,
-  }) {
+  });
+
+  ///
+  /// METHODS
+  ///
+
+  void init() {
     askRecordPermission();
   }
 

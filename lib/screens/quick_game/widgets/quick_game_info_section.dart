@@ -1,12 +1,11 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
-import '../../../services/audio_record_service.dart';
+import '../../../controllers/audio_record_controller.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
 class QuickGameInfoSection extends StatelessWidget {

@@ -1,7 +1,3 @@
-///
-/// ICONS
-///
-
 class ModerniAliasIcons {
   static const clockImage = 'assets/icons/clock.webp';
   static const hourglassImage = 'assets/icons/hourglass.webp';

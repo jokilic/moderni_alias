@@ -1,7 +1,3 @@
-///
-/// DURATIONS
-///
-
 class ModerniAliasDurations {
   static const animation = Duration(milliseconds: 400);
   static const slowAnimation = Duration(milliseconds: 800);

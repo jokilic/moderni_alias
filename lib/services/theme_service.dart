@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/colors.dart';
 import '../constants/text_styles.dart';
+import 'logger_service.dart';
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeData>(
-  (ref) => ThemeNotifier(),
-  name: 'ThemeProvider',
-);
+class ThemeService extends ValueNotifier<ThemeData> {
+  final LoggerService logger;
 
-class ThemeNotifier extends StateNotifier<ThemeData> {
-  ThemeNotifier() : super(ThemeData()) {
-    state = getPrimaryTheme();
-  }
+  ThemeService({
+    required this.logger,
+  }) : super(ThemeData());
 
   ///
   /// VARIABLES
@@ -43,4 +40,12 @@ class ThemeNotifier extends StateNotifier<ThemeData> {
           ),
         ),
       );
+
+  ///
+  /// INIT
+  ///
+
+  void init() {
+    value = getPrimaryTheme();
+  }
 }

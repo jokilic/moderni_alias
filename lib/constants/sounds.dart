@@ -1,7 +1,3 @@
-///
-/// SOUNDS
-///
-
 class ModerniAliasSounds {
   static const correct = 'assets/audio/correct.wav';
   static const wrong = 'assets/audio/wrong.wav';

@@ -1,4 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 import '../constants/enums.dart';
 import '../dictionary/croatian/adjectives.dart';
@@ -9,32 +11,20 @@ import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
 import '../util/capitalize_string.dart';
-import '../util/providers.dart';
 import 'logger_service.dart';
 
-final chosenDictionaryProvider = StateProvider<Flag>(
-  (_) => Flag.croatia,
-  name: 'ChosenDictionaryProvider',
-);
+class DictionaryService extends ValueNotifier<({String currentWord, Flag chosenLanguage})> {
+  final LoggerService logger;
 
-final dictionaryProvider = NotifierProvider<DictionaryNotifier, String>(
-  DictionaryNotifier.new,
-  name: 'DictionaryProvider',
-);
-
-class DictionaryNotifier extends Notifier<String> {
-  @override
-  String build() {
-    init();
-    state = '';
-    return getRandomWord();
-  }
+  DictionaryService({
+    required this.logger,
+  }) : super((currentWord: '', chosenLanguage: Flag.croatia));
 
   ///
   /// VARIABLES
   ///
 
-  late final LoggerService logger;
+  final random = Random();
 
   /// Dictionary containing croatian words
   final croatianDictionary = [
@@ -58,48 +48,51 @@ class DictionaryNotifier extends Notifier<String> {
   ///
 
   void init() {
-    logger = ref.watch(loggerProvider);
     currentDictionary = [...croatianDictionary];
+
+    value = (
+      currentWord: getRandomWord(),
+      chosenLanguage: value.chosenLanguage,
+    );
   }
 
   ///
   /// METHODS
   ///
 
-  /// Returns a random word from the `currentDictionary`
-  String getRandomWord() => setRandomWord(
-        currentDictionary,
-        chosenDictionary: ref.read(chosenDictionaryProvider),
-      );
-
-  /// If there are no more words in the [currentDictionary], refill it
-  List<String> refillCurrentDictionary() =>
-      ref.read(chosenDictionaryProvider) == Flag.croatia ? currentDictionary = [...croatianDictionary] : currentDictionary = [...englishDictionary];
-
-  /// Remove used word from the dictionary and give a new random word
-  String setRandomWord(List<String> currentDictionary, {required Flag chosenDictionary}) {
+  /// Remove used word from the `currentDictionary` and give a new random word
+  String getRandomWord() {
     /// If there are no more words in the dictionary, refill it
     if (currentDictionary.length == 2) {
       refillCurrentDictionary();
     }
 
-    /// Remove currently guessed word from the dictionary
-    currentDictionary.remove(state);
+    /// Remove currently guessed `word` from `currentDictionary`
+    currentDictionary.remove(value.currentWord);
 
-    /// Return randomized word from the dictionary
-    return state = currentDictionary[ref.read(randomProvider).nextInt(currentDictionary.length)];
+    /// Generate new randomized `word` from `currentDictionary`
+    final newWord = currentDictionary[random.nextInt(currentDictionary.length)];
+
+    /// Update `state` with `newWord`
+    value = (
+      currentWord: newWord,
+      chosenLanguage: value.chosenLanguage,
+    );
+
+    /// Return `newWord`
+    return newWord;
   }
+
+  /// If there are no more words in the [currentDictionary], refill it
+  List<String> refillCurrentDictionary() => currentDictionary = value.chosenLanguage == Flag.croatia ? [...croatianDictionary] : [...englishDictionary];
 
   /// Takes words from the dictionary and returns a random team name
   String getRandomTeamName() {
     /// Random adjective
-    final adjective = ref.read(chosenDictionaryProvider) == Flag.croatia
-        ? pridjevi[ref.read(randomProvider).nextInt(pridjevi.length)]
-        : adjectives[ref.read(randomProvider).nextInt(adjectives.length)];
+    final adjective = value.chosenLanguage == Flag.croatia ? pridjevi[random.nextInt(pridjevi.length)] : adjectives[random.nextInt(adjectives.length)];
 
     /// Random noun
-    final noun =
-        ref.read(chosenDictionaryProvider) == Flag.croatia ? imenice[ref.read(randomProvider).nextInt(imenice.length)] : nouns[ref.read(randomProvider).nextInt(nouns.length)];
+    final noun = value.chosenLanguage == Flag.croatia ? imenice[random.nextInt(imenice.length)] : nouns[random.nextInt(nouns.length)];
 
     return capitalizeFirstLetter('$adjective $noun');
   }

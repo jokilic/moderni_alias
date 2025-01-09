@@ -1,10 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-
-final loggerProvider = Provider<LoggerService>(
-  (_) => throw UnimplementedError(),
-  name: 'LoggerProvider',
-);
 
 class LoggerService {
   ///
@@ -41,22 +35,4 @@ class LoggerService {
 
   /// 👾 Fatal error, purple color
   void f(value) => logger.f(value);
-}
-
-class RiverpodLogger extends ProviderObserver {
-  final LoggerService logger;
-
-  RiverpodLogger(this.logger);
-
-  @override
-  void didAddProvider(ProviderBase<Object?> provider, Object? value, ProviderContainer container) {
-    logger.t('✅ ${provider.name ?? provider.runtimeType} has been initialized');
-    super.didAddProvider(provider, value, container);
-  }
-
-  @override
-  void didDisposeProvider(ProviderBase<Object?> provider, ProviderContainer container) {
-    logger.t('❌ ${provider.name ?? provider.runtimeType} has been disposed');
-    super.didDisposeProvider(provider, container);
-  }
 }

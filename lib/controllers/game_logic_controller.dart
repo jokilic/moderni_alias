@@ -1,22 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/enums.dart';
 import '../../models/team/team.dart';
 import '../../services/dictionary_service.dart';
 import '../../util/providers.dart';
 
-final gameSetupProvider = Provider.autoDispose<GameSetupService>(
-  GameSetupService.new,
-  name: 'GameSetupProvider',
-);
-
-class GameSetupService {
-  final Ref ref;
-
-  GameSetupService(this.ref);
-
+class GameLogicController {
   ///
   /// METHODS
   ///

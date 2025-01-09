@@ -1,18 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/durations.dart';
 import '../constants/images.dart';
 import '../services/hive_service.dart';
-
-final backgroundImageProvider = StateNotifierProvider<BackgroundImageNotifier, String>(
-  (ref) => BackgroundImageNotifier(
-    hive: ref.watch(hiveProvider),
-  ),
-  name: 'BackgroundImageProvider',
-);
 
 class BackgroundImageNotifier extends StateNotifier<String> {
   final HiveService hive;

@@ -1,25 +1,15 @@
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'logger_service.dart';
 
-final pathProvider = Provider<PathProviderService>(
-  (_) => throw UnimplementedError(),
-  name: 'PathProvider',
-);
-
 class PathProviderService {
-  ///
-  /// CONSTRUCTOR
-  ///
-
   final LoggerService logger;
 
-  PathProviderService(this.logger) {
-    init();
-  }
+  PathProviderService({
+    required this.logger,
+  });
 
   ///
   /// VARIABLES

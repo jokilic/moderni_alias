@@ -17,15 +17,6 @@ class PlayedWord extends HiveObject {
     required this.chosenAnswer,
   });
 
-  PlayedWord copyWith({
-    String? word,
-    Answer? chosenAnswer,
-  }) =>
-      PlayedWord(
-        word: word ?? this.word,
-        chosenAnswer: chosenAnswer ?? this.chosenAnswer,
-      );
-
   @override
   String toString() => 'PlayedWord(word: $word, chosenAnswer: $chosenAnswer)';
 }

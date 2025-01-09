@@ -1,8 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import '../constants/enums.dart';
 import '../constants/images.dart';
+import '../hive_registrar.g.dart';
 import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
@@ -12,19 +13,12 @@ import '../models/team/team.dart';
 import '../models/time_game_stats/time_game_stats.dart';
 import 'logger_service.dart';
 
-final hiveProvider = Provider<HiveService>(
-  (_) => throw UnimplementedError(),
-  name: 'HiveProvider',
-);
-
-class HiveService {
-  ///
-  /// CONSTRUCTOR
-  ///
-
+class HiveService implements Disposable {
   final LoggerService logger;
 
-  HiveService(this.logger);
+  HiveService({
+    required this.logger,
+  });
 
   ///
   /// VARIABLES
@@ -42,16 +36,7 @@ class HiveService {
   Future<void> init() async {
     await Hive.initFlutter();
 
-    Hive
-      ..registerAdapter(NormalGameStatsAdapter())
-      ..registerAdapter(QuickGameStatsAdapter())
-      ..registerAdapter(TimeGameStatsAdapter())
-      ..registerAdapter(TeamAdapter())
-      ..registerAdapter(RoundAdapter())
-      ..registerAdapter(PlayedWordAdapter())
-      ..registerAdapter(AnswerAdapter())
-      ..registerAdapter(FlagAdapter())
-      ..registerAdapter(SettingsHiveAdapter());
+    Hive.registerAdapters();
 
     normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
     quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');
@@ -63,7 +48,8 @@ class HiveService {
   /// DISPOSE
   ///
 
-  Future<void> dispose() async {
+  @override
+  Future<void> onDispose() async {
     await normalGameStatsBox.close();
     await quickGameStatsBox.close();
     await timeGameStatsBox.close();
