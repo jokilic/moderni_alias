@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../controllers/audio_record_controller.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../util/dependencies.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
@@ -29,13 +30,9 @@ class QuickGameScreen extends StatelessWidget {
     final playedWords = ref.watch(playedWordsProvider);
     final counter3Seconds = ref.watch(counter3SecondsProvider);
 
-    final currentWord = ref.watch(dictionaryProvider);
+    final currentWord = watchIt<DictionaryService>().value.currentWord;
 
-    final useCircularTimer = ref.watch(hiveProvider).getSettingsFromBox().useCircularTimer;
-
-    ref.watch(audioRecordProvider);
-
-    final quickGameController = ref.watch(quickGameProvider(context));
+    final useCircularTimer = getIt.get<HiveService>().getSettingsFromBox().useCircularTimer;
 
     return PopScope(
       canPop: false,

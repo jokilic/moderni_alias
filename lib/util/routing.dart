@@ -76,6 +76,7 @@ void openNormalGameFinished(
 }) =>
     pushScreen(
       NormalGameFinishedScreen(
+        teams: teams,
         key: ValueKey(teams),
       ),
       context: context,
@@ -137,6 +138,7 @@ void openStatsNormalGame(
 }) =>
     pushScreen(
       StatsNormalGameScreen(
+        normalGameStats: normalGameStats,
         key: ValueKey(normalGameStats),
       ),
       context: context,
@@ -148,6 +150,7 @@ void openStatsTimeGame(
 }) =>
     pushScreen(
       StatsTimeGameScreen(
+        timeGameStats: timeGameStats,
         key: ValueKey(timeGameStats),
       ),
       context: context,
@@ -159,6 +162,7 @@ void openStatsQuickGame(
 }) =>
     pushScreen(
       StatsQuickGameScreen(
+        quickGameStats: quickGameStats,
         key: ValueKey(quickGameStats),
       ),
       context: context,

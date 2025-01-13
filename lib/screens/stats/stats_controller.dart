@@ -1,7 +1,7 @@
 // ignore_for_file: use_setters_to_change_properties
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timeago/timeago.dart';
@@ -14,25 +14,18 @@ import '../../models/time_game_stats/time_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-final statsProvider = NotifierProvider.autoDispose<StatsController, int?>(
-  StatsController.new,
-  name: 'StatsProvider',
-);
+class StatsController extends ValueNotifier<int?> implements Disposable {
+  final LoggerService logger;
+  final HiveService hive;
 
-class StatsController extends AutoDisposeNotifier<int?> {
-  @override
-  int? build() {
-    init();
-    ref.onDispose(dispose);
-    return null;
-  }
+  StatsController({
+    required this.logger,
+    required this.hive,
+  }) : super(null);
 
   ///
   /// VARIABLES
   ///
-
-  late final LoggerService logger;
-  late final HiveService hive;
 
   late List<NormalGameStats> normalGameStats;
   late List<QuickGameStats> quickGameStats;
@@ -67,9 +60,6 @@ class StatsController extends AutoDisposeNotifier<int?> {
   ///
 
   void init() {
-    logger = ref.watch(loggerProvider);
-    hive = ref.watch(hiveProvider);
-
     pageController = PageController();
 
     /// Date formatting
@@ -93,7 +83,8 @@ class StatsController extends AutoDisposeNotifier<int?> {
   /// DISPOSE
   ///
 
-  void dispose() {
+  @override
+  void onDispose() {
     pageController.dispose();
   }
 
@@ -138,8 +129,8 @@ class StatsController extends AutoDisposeNotifier<int?> {
       }
     }
 
+    /// Calculate average answers per game
     if (totalGames != 0) {
-      /// Calculate average answers per game
       totalAverageCorrectAnswers = (totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) ~/ totalGames;
       totalAverageWrongAnswers = (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames + totalWrongAnswersTimeGames) ~/ totalGames;
       totalAverageAnswers = ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) +
@@ -150,13 +141,14 @@ class StatsController extends AutoDisposeNotifier<int?> {
 
   /// Triggered when the user taps some [StatsSegmentedValueWidget]
   void segmentedValuePressed(int newIndex) {
-    if (state == newIndex) {
-      state = null;
+    if (value == newIndex) {
+      value = null;
     } else {
-      state = newIndex;
+      value = newIndex;
+
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => pageController.animateToPage(
-          state ?? 4,
+          value ?? 4,
           duration: ModerniAliasDurations.animation,
           curve: Curves.easeIn,
         ),
@@ -166,6 +158,6 @@ class StatsController extends AutoDisposeNotifier<int?> {
 
   /// Triggered when [PageView] page is changed (swiping)
   void pageChanged(int newIndex) {
-    state = newIndex;
+    value = newIndex;
   }
 }

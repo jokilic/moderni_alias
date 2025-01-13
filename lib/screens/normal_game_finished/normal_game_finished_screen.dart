@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../models/team/team.dart';
 import '../../util/providers.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
@@ -18,15 +18,20 @@ import '../../widgets/exit_game.dart';
 import '../../widgets/scores/show_scores.dart';
 
 class NormalGameFinishedScreen extends StatelessWidget {
-  const NormalGameFinishedScreen({required super.key});
+  final List<Team> teams;
+
+  const NormalGameFinishedScreen({
+    required this.teams,
+    required super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final winningTeam = ref.watch(teamsProvider).reduce((a, b) => a.points > b.points ? a : b);
+    final winningTeam = teams.reduce((a, b) => a.points > b.points ? a : b);
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => disposeGames(context, ref),
+      onPopInvokedWithResult: (_, __) => disposeAndGoHome(context),
       child: Scaffold(
         body: Stack(
           children: [
@@ -50,7 +55,7 @@ class NormalGameFinishedScreen extends StatelessWidget {
                 ),
                 Align(
                   child: GestureDetector(
-                    onTap: () => disposeGames(context, ref),
+                    onTap: () => disposeAndGoHome(context),
                     behavior: HitTestBehavior.translucent,
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.8,
@@ -93,7 +98,7 @@ class NormalGameFinishedScreen extends StatelessWidget {
                   child: AnimatedGestureDetector(
                     onTap: () => showScores(
                       context,
-                      teams: ref.read(teamsProvider),
+                      teams: teams,
                       playedWords: ref.read(playedWordsProvider),
                       backgroundImage: ref.watch(backgroundImageProvider),
                     ),

@@ -1,14 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
-import '../../controllers/game_logic_controller.dart';
+import '../../models/team/team.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
-import '../../util/providers.dart';
+import '../../services/logger_service.dart';
+import '../../util/dependencies.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_list_view.dart';
@@ -22,20 +25,44 @@ import '../../widgets/game_setup/number_of_teams_button.dart';
 import '../../widgets/game_setup/show_custom_value_sheet.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
+import 'normal_game_setup_controller.dart';
 
-class NormalGameSetupScreen extends StatelessWidget {
+class NormalGameSetupScreen extends WatchingStatefulWidget {
   const NormalGameSetupScreen({required super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final chosenDictionary = ref.watch(chosenDictionaryProvider);
-    final teams = ref.watch(teamsProvider);
-    final teamsLength = ref.watch(teamsLengthProvider);
-    final pointsToWin = ref.watch(pointsToWinProvider);
-    final lengthOfRound = ref.watch(lengthOfRoundProvider);
-    final validationMessage = ref.watch(validationMessageProvider);
+  State<NormalGameSetupScreen> createState() => _NormalGameSetupScreenState();
+}
 
-    final gameSetupController = ref.watch(gameSetupProvider);
+class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    registerIfNotInitialized<NormalGameSetupController>(
+      () => NormalGameSetupController(
+        logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    getIt.unregister<NormalGameSetupController>();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final chosenDictionary = watchIt<DictionaryService>().value.chosenLanguage;
+    final backgroundImage = watchIt<BackgroundImageService>().value;
+
+    final state = watchIt<NormalGameSetupController>().value;
+    final teams = state.teams;
+    final pointsToWin = state.pointsToWin;
+    final lengthOfRound = state.lengthOfRound;
+    final validationMessage = state.validationMessage;
 
     return Scaffold(
       body: Stack(
@@ -57,14 +84,14 @@ class NormalGameSetupScreen extends StatelessWidget {
                           countryName: 'dictionaryCroatianString'.tr(),
                           flagImage: ModerniAliasIcons.croatiaImage,
                           selectedCountry: Flag.croatia,
-                          onTap: () => gameSetupController.updateDictionary(Flag.croatia),
+                          onTap: () => getIt.get<DictionaryService>().updateActiveDictionary(newLanguage: Flag.croatia),
                           isActive: chosenDictionary == Flag.croatia,
                         ),
                         createFlagButton(
                           countryName: 'dictionaryEnglishString'.tr(),
                           flagImage: ModerniAliasIcons.unitedKingdomImage,
                           selectedCountry: Flag.unitedKingdom,
-                          onTap: () => gameSetupController.updateDictionary(Flag.unitedKingdom),
+                          onTap: () => getIt.get<DictionaryService>().updateActiveDictionary(newLanguage: Flag.unitedKingdom),
                           isActive: chosenDictionary == Flag.unitedKingdom,
                         ),
                       ],
@@ -72,76 +99,67 @@ class NormalGameSetupScreen extends StatelessWidget {
                     GameTitle('teamsString'.tr()),
                     HorizontalScroll(
                       [
+                        ...[2, 3, 4]
+                            .map(
+                              (element) => createNumberOfTeamsButton(
+                                value: '$element',
+                                onTap: () => getIt.get<NormalGameSetupController>().updateState(
+                                      newTeams: List.generate(
+                                        element,
+                                        (_) => Team(
+                                          name: '',
+                                          textEditingController: TextEditingController(),
+                                        ),
+                                      ),
+                                    ),
+                                isActive: teams.length == element,
+                              ),
+                            )
+                            .toList(),
                         createNumberOfTeamsButton(
-                          value: '2',
-                          onTap: () => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: 2,
-                          ),
-                          isActive: teamsLength == 2,
-                        ),
-                        createNumberOfTeamsButton(
-                          value: '3',
-                          onTap: () => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: 3,
-                          ),
-                          isActive: teamsLength == 3,
-                        ),
-                        createNumberOfTeamsButton(
-                          value: '4',
-                          onTap: () => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: 4,
-                          ),
-                          isActive: teamsLength == 4,
-                        ),
-                        createNumberOfTeamsButton(
-                          value: teamsLength < 5 ? '•••' : '$teamsLength',
+                          value: teams.length < 5 ? '•••' : '${teams.length}',
                           onTap: () => showCustomValueSheet(
                             title: 'teamsString'.tr(),
                             hintText: '${'numberBetweenString'.tr()} 2 - 10',
-                            onValueSaved: (value) => gameSetupController.updateNumberOfTeams(
-                              chosenNumber: value,
-                            ),
+                            onValueSaved: (value) => getIt.get<NormalGameSetupController>().updateState(
+                                  newTeams: List.generate(
+                                    value,
+                                    (_) => Team(
+                                      name: '',
+                                      textEditingController: TextEditingController(),
+                                    ),
+                                  ),
+                                ),
                             lowestNumber: 2,
                             highestNumber: 10,
-                            backgroundImage: ref.watch(backgroundImageProvider),
+                            backgroundImage: backgroundImage,
                             context: context,
                           ),
-                          isActive: teamsLength >= 5,
+                          isActive: teams.length >= 5,
                         ),
                       ],
                     ),
                     GameTitle('numberOfPointsString'.tr()),
                     HorizontalScroll(
                       [
-                        createNumberOfPointsButton(
-                          value: '25',
-                          onTap: () => ref.read(pointsToWinProvider.notifier).state = 25,
-                          isActive: pointsToWin == 25,
-                        ),
-                        createNumberOfPointsButton(
-                          value: '50',
-                          onTap: () => ref.read(pointsToWinProvider.notifier).state = 50,
-                          isActive: pointsToWin == 50,
-                        ),
-                        createNumberOfPointsButton(
-                          value: '75',
-                          onTap: () => ref.read(pointsToWinProvider.notifier).state = 75,
-                          isActive: pointsToWin == 75,
-                        ),
-                        createNumberOfPointsButton(
-                          value: '100',
-                          onTap: () => ref.read(pointsToWinProvider.notifier).state = 100,
-                          isActive: pointsToWin == 100,
-                        ),
+                        ...[25, 50, 75, 100]
+                            .map(
+                              (element) => createNumberOfPointsButton(
+                                value: '$element',
+                                onTap: () => getIt.get<NormalGameSetupController>().updateState(newPointsToWin: element),
+                                isActive: pointsToWin == element,
+                              ),
+                            )
+                            .toList(),
                         createNumberOfPointsButton(
                           value: pointsToWin == 25 || pointsToWin == 50 || pointsToWin == 75 || pointsToWin == 100 ? '•••' : '$pointsToWin',
                           onTap: () => showCustomValueSheet(
                             title: 'numberOfPointsString'.tr(),
                             hintText: '${'numberBetweenString'.tr()} 5 - 1000',
-                            onValueSaved: (value) => ref.read(pointsToWinProvider.notifier).state = value,
+                            onValueSaved: (value) => getIt.get<NormalGameSetupController>().updateState(newPointsToWin: value),
                             lowestNumber: 5,
                             highestNumber: 1000,
-                            backgroundImage: ref.watch(backgroundImageProvider),
+                            backgroundImage: backgroundImage,
                             context: context,
                           ),
                           isActive: pointsToWin != 25 && pointsToWin != 50 && pointsToWin != 75 && pointsToWin != 100,
@@ -151,35 +169,24 @@ class NormalGameSetupScreen extends StatelessWidget {
                     GameTitle('lengthOfRoundString'.tr()),
                     HorizontalScroll(
                       [
-                        createLengthOfRoundButton(
-                          value: '20',
-                          onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 20,
-                          isActive: lengthOfRound == 20,
-                        ),
-                        createLengthOfRoundButton(
-                          value: '45',
-                          onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 45,
-                          isActive: lengthOfRound == 45,
-                        ),
-                        createLengthOfRoundButton(
-                          value: '60',
-                          onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 60,
-                          isActive: lengthOfRound == 60,
-                        ),
-                        createLengthOfRoundButton(
-                          value: '90',
-                          onTap: () => ref.read(lengthOfRoundProvider.notifier).state = 90,
-                          isActive: lengthOfRound == 90,
-                        ),
+                        ...[20, 45, 60, 90]
+                            .map(
+                              (element) => createLengthOfRoundButton(
+                                value: '$element',
+                                onTap: () => getIt.get<NormalGameSetupController>().updateState(newLengthOfRound: element),
+                                isActive: lengthOfRound == element,
+                              ),
+                            )
+                            .toList(),
                         createLengthOfRoundButton(
                           value: lengthOfRound == 20 || lengthOfRound == 45 || lengthOfRound == 60 || lengthOfRound == 90 ? '•••' : '$lengthOfRound',
                           onTap: () => showCustomValueSheet(
                             title: 'lengthOfRoundString'.tr(),
                             hintText: '${'numberBetweenString'.tr()} 5 - 1000',
-                            onValueSaved: (value) => ref.read(lengthOfRoundProvider.notifier).state = value,
+                            onValueSaved: (value) => getIt.get<NormalGameSetupController>().updateState(newLengthOfRound: value),
                             lowestNumber: 5,
                             highestNumber: 1000,
-                            backgroundImage: ref.watch(backgroundImageProvider),
+                            backgroundImage: backgroundImage,
                             context: context,
                           ),
                           isActive: lengthOfRound != 20 && lengthOfRound != 45 && lengthOfRound != 60 && lengthOfRound != 90,
@@ -191,7 +198,7 @@ class NormalGameSetupScreen extends StatelessWidget {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: teamsLength,
+                        itemCount: teams.length,
                         itemBuilder: (_, index) {
                           final team = teams[index];
 
@@ -202,14 +209,14 @@ class NormalGameSetupScreen extends StatelessWidget {
                               textEditingController: team.textEditingController,
                               key: ValueKey(team),
                               hintText: 'teamNameString'.tr(),
-                              textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
-                              onChanged: (value) => gameSetupController.teamNameUpdated(
-                                passedTeam: team,
-                                value: value,
-                              ),
-                              randomizePressed: () => gameSetupController.randomizeTeamName(
-                                passedTeam: team,
-                              ),
+                              textInputAction: index == teams.length - 1 ? TextInputAction.done : TextInputAction.next,
+                              onChanged: (value) => getIt.get<NormalGameSetupController>().teamNameUpdated(
+                                    passedTeam: team,
+                                    newName: value,
+                                  ),
+                              randomizePressed: () => getIt.get<NormalGameSetupController>().randomizeTeamName(
+                                    passedTeam: team,
+                                  ),
                             ),
                           );
                         },
@@ -234,9 +241,15 @@ class NormalGameSetupScreen extends StatelessWidget {
                       child: PlayButton(
                         text: 'playTheGameString'.tr().toUpperCase(),
                         onPressed: () {
-                          /// Validation successfull, go to [NormalGameScreen]
-                          if (gameSetupController.validateTeams()) {
-                            openNormalGame(context);
+                          /// Validate teams
+                          final isValidated = getIt.get<NormalGameSetupController>().validateTeams();
+
+                          /// Validation successful, go to [NormalGameScreen]
+                          if (isValidated) {
+                            openNormalGame(
+                              context,
+                              teams: teams,
+                            );
                           }
                         },
                       ),

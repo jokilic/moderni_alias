@@ -1,21 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../models/normal_game_stats/normal_game_stats.dart';
 import '../../../util/routing.dart';
 import '../../../widgets/game_title.dart';
-import '../stats_controller.dart';
 import 'stats_value_widget.dart';
 
-class StatsNormalSection extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final statsNotifier = ref.watch(statsProvider.notifier);
+class StatsNormalSection extends StatelessWidget {
+  final List<NormalGameStats> normalGameStats;
 
+  const StatsNormalSection({
+    required this.normalGameStats,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final now = DateTime.now();
-    final sortedGames = List<NormalGameStats>.from(statsNotifier.normalGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
+    final sortedGames = List<NormalGameStats>.from(normalGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
 
     return ListView(
       physics: const BouncingScrollPhysics(),
@@ -29,7 +31,7 @@ class StatsNormalSection extends ConsumerWidget {
 
         const SizedBox(height: 12),
 
-        if (statsNotifier.normalGameStats.isEmpty)
+        if (normalGameStats.isEmpty)
           StatsValueWidget(
             text: 'statsNormalNoGames'.tr(),
           )
@@ -37,7 +39,7 @@ class StatsNormalSection extends ConsumerWidget {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: statsNotifier.normalGameStats.length,
+            itemCount: normalGameStats.length,
             itemBuilder: (_, index) {
               final locale = context.locale.languageCode;
 
@@ -49,10 +51,10 @@ class StatsNormalSection extends ConsumerWidget {
                 text: '$time\n($textTime)',
                 value: index + 1,
                 valueLeft: true,
-                onPressed: () {
-                  ref.read(statsProvider.notifier).activeNormalGameStats = normalGame;
-                  openStatsNormalGame(context);
-                },
+                onPressed: () => openStatsNormalGame(
+                  context,
+                  normalGameStats: normalGame,
+                ),
               );
             },
           ),

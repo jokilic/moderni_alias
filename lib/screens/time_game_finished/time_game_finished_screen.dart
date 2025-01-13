@@ -50,7 +50,7 @@ class TimeGameFinishedScreen extends StatelessWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => disposeGames(context, ref),
+      onPopInvokedWithResult: (_, __) => disposeAndGoHome(context),
       child: Scaffold(
         body: Stack(
           children: [
@@ -74,7 +74,7 @@ class TimeGameFinishedScreen extends StatelessWidget {
                 ),
                 Align(
                   child: GestureDetector(
-                    onTap: () => disposeGames(context, ref),
+                    onTap: () => disposeAndGoHome(context),
                     behavior: HitTestBehavior.translucent,
                     child: SizedBox(
                       width: MediaQuery.sizeOf(context).width * 0.8,

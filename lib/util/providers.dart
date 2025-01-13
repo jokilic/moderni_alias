@@ -1,18 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../constants/enums.dart';
 import '../constants/sounds.dart';
 import '../models/played_word/played_word.dart';
 import '../models/team/team.dart';
-
-final randomProvider = Provider<Random>(
-  (_) => Random(),
-  name: 'RandomProvider',
-);
 
 ///
 /// AUDIO

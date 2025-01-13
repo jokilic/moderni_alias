@@ -1,14 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
-import '../../controllers/game_logic_controller.dart';
+import '../../models/team/team.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
-import '../../util/providers.dart';
+import '../../services/logger_service.dart';
+import '../../util/dependencies.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_list_view.dart';
@@ -21,19 +24,43 @@ import '../../widgets/game_setup/number_of_time_points.dart';
 import '../../widgets/game_setup/show_custom_value_sheet.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/play_button.dart';
+import 'time_game_setup_controller.dart';
 
-class TimeGameSetupScreen extends StatelessWidget {
+class TimeGameSetupScreen extends WatchingStatefulWidget {
   const TimeGameSetupScreen({required super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final chosenDictionary = ref.watch(chosenDictionaryProvider);
-    final teams = ref.watch(teamsProvider);
-    final teamsLength = ref.watch(teamsLengthProvider);
-    final wordsToWin = ref.watch(wordsToWinProvider);
-    final validationMessage = ref.watch(validationMessageProvider);
+  State<TimeGameSetupScreen> createState() => _TimeGameSetupScreenState();
+}
 
-    final gameSetupController = ref.watch(gameSetupProvider);
+class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    registerIfNotInitialized<TimeGameSetupController>(
+      () => TimeGameSetupController(
+        logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    getIt.unregister<TimeGameSetupController>();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final chosenDictionary = watchIt<DictionaryService>().value.chosenLanguage;
+    final backgroundImage = watchIt<BackgroundImageService>().value;
+
+    final state = watchIt<TimeGameSetupController>().value;
+    final teams = state.teams;
+    final wordsToWin = state.wordsToWin;
+    final validationMessage = state.validationMessage;
 
     return Scaffold(
       body: Stack(
@@ -55,14 +82,14 @@ class TimeGameSetupScreen extends StatelessWidget {
                           countryName: 'dictionaryCroatianString'.tr(),
                           flagImage: ModerniAliasIcons.croatiaImage,
                           selectedCountry: Flag.croatia,
-                          onTap: () => gameSetupController.updateDictionary(Flag.croatia),
+                          onTap: () => getIt.get<DictionaryService>().updateActiveDictionary(newLanguage: Flag.croatia),
                           isActive: chosenDictionary == Flag.croatia,
                         ),
                         createFlagButton(
                           countryName: 'dictionaryEnglishString'.tr(),
                           flagImage: ModerniAliasIcons.unitedKingdomImage,
                           selectedCountry: Flag.unitedKingdom,
-                          onTap: () => gameSetupController.updateDictionary(Flag.unitedKingdom),
+                          onTap: () => getIt.get<DictionaryService>().updateActiveDictionary(newLanguage: Flag.unitedKingdom),
                           isActive: chosenDictionary == Flag.unitedKingdom,
                         ),
                       ],
@@ -70,76 +97,67 @@ class TimeGameSetupScreen extends StatelessWidget {
                     GameTitle('teamsString'.tr()),
                     HorizontalScroll(
                       [
+                        ...[2, 3, 4]
+                            .map(
+                              (element) => createNumberOfTeamsButton(
+                                value: '$element',
+                                onTap: () => getIt.get<TimeGameSetupController>().updateState(
+                                      newTeams: List.generate(
+                                        element,
+                                        (_) => Team(
+                                          name: '',
+                                          textEditingController: TextEditingController(),
+                                        ),
+                                      ),
+                                    ),
+                                isActive: teams.length == element,
+                              ),
+                            )
+                            .toList(),
                         createNumberOfTeamsButton(
-                          value: '2',
-                          onTap: () => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: 2,
-                          ),
-                          isActive: teamsLength == 2,
-                        ),
-                        createNumberOfTeamsButton(
-                          value: '3',
-                          onTap: () => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: 3,
-                          ),
-                          isActive: teamsLength == 3,
-                        ),
-                        createNumberOfTeamsButton(
-                          value: '4',
-                          onTap: () => gameSetupController.updateNumberOfTeams(
-                            chosenNumber: 4,
-                          ),
-                          isActive: teamsLength == 4,
-                        ),
-                        createNumberOfTeamsButton(
-                          value: teamsLength < 5 ? '•••' : '$teamsLength',
+                          value: teams.length < 5 ? '•••' : '${teams.length}',
                           onTap: () => showCustomValueSheet(
                             title: 'teamsString'.tr(),
                             hintText: '${'numberBetweenString'.tr()} 2 - 10',
-                            onValueSaved: (value) => gameSetupController.updateNumberOfTeams(
-                              chosenNumber: value,
-                            ),
+                            onValueSaved: (value) => getIt.get<TimeGameSetupController>().updateState(
+                                  newTeams: List.generate(
+                                    value,
+                                    (_) => Team(
+                                      name: '',
+                                      textEditingController: TextEditingController(),
+                                    ),
+                                  ),
+                                ),
                             lowestNumber: 2,
                             highestNumber: 10,
-                            backgroundImage: ref.watch(backgroundImageProvider),
+                            backgroundImage: backgroundImage,
                             context: context,
                           ),
-                          isActive: teamsLength >= 5,
+                          isActive: teams.length >= 5,
                         ),
                       ],
                     ),
                     GameTitle('numberOfWordsString'.tr()),
                     HorizontalScroll(
                       [
-                        createNumberOfTimePointsButton(
-                          value: '5',
-                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 5,
-                          isActive: wordsToWin == 5,
-                        ),
-                        createNumberOfTimePointsButton(
-                          value: '10',
-                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 10,
-                          isActive: wordsToWin == 10,
-                        ),
-                        createNumberOfTimePointsButton(
-                          value: '25',
-                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 25,
-                          isActive: wordsToWin == 25,
-                        ),
-                        createNumberOfTimePointsButton(
-                          value: '50',
-                          onTap: () => ref.read(wordsToWinProvider.notifier).state = 50,
-                          isActive: wordsToWin == 50,
-                        ),
+                        ...[5, 10, 25, 50]
+                            .map(
+                              (element) => createNumberOfTimePointsButton(
+                                value: '$element',
+                                onTap: () => getIt.get<TimeGameSetupController>().updateState(newWordsToWin: element),
+                                isActive: wordsToWin == element,
+                              ),
+                            )
+                            .toList(),
                         createNumberOfTimePointsButton(
                           value: wordsToWin == 5 || wordsToWin == 10 || wordsToWin == 25 || wordsToWin == 50 ? '•••' : '$wordsToWin',
                           onTap: () => showCustomValueSheet(
                             title: 'numberOfWordsString'.tr(),
                             hintText: '${'numberBetweenString'.tr()} 2 - 100',
-                            onValueSaved: (value) => ref.read(wordsToWinProvider.notifier).state = value,
+                            onValueSaved: (value) => getIt.get<TimeGameSetupController>().updateState(newWordsToWin: value),
                             lowestNumber: 2,
                             highestNumber: 100,
-                            backgroundImage: ref.watch(backgroundImageProvider),
+                            backgroundImage: backgroundImage,
                             context: context,
                           ),
                           isActive: wordsToWin != 5 && wordsToWin != 10 && wordsToWin != 25 && wordsToWin != 50,
@@ -151,7 +169,7 @@ class TimeGameSetupScreen extends StatelessWidget {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: teamsLength,
+                        itemCount: teams.length,
                         itemBuilder: (_, index) {
                           final team = teams[index];
 
@@ -162,14 +180,14 @@ class TimeGameSetupScreen extends StatelessWidget {
                               textEditingController: team.textEditingController,
                               key: ValueKey(team),
                               hintText: 'teamNameString'.tr(),
-                              textInputAction: index == teamsLength - 1 ? TextInputAction.done : TextInputAction.next,
-                              onChanged: (value) => gameSetupController.teamNameUpdated(
-                                passedTeam: team,
-                                value: value,
-                              ),
-                              randomizePressed: () => gameSetupController.randomizeTeamName(
-                                passedTeam: team,
-                              ),
+                              textInputAction: index == teams.length - 1 ? TextInputAction.done : TextInputAction.next,
+                              onChanged: (value) => getIt.get<TimeGameSetupController>().teamNameUpdated(
+                                    passedTeam: team,
+                                    newName: value,
+                                  ),
+                              randomizePressed: () => getIt.get<TimeGameSetupController>().randomizeTeamName(
+                                    passedTeam: team,
+                                  ),
                             ),
                           );
                         },
@@ -194,9 +212,15 @@ class TimeGameSetupScreen extends StatelessWidget {
                       child: PlayButton(
                         text: 'playTheGameString'.tr().toUpperCase(),
                         onPressed: () {
-                          /// Validation successfull, go to [TimeGameScreen]
-                          if (gameSetupController.validateTeams()) {
-                            openTimeGame(context);
+                          /// Validate teams
+                          final isValidated = getIt.get<TimeGameSetupController>().validateTeams();
+
+                          /// Validation successful, go to [TimeGameScreen]
+                          if (isValidated) {
+                            openTimeGame(
+                              context,
+                              teams: teams,
+                            );
                           }
                         },
                       ),

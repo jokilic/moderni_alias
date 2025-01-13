@@ -1,101 +1,29 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../constants/durations.dart';
-import '../constants/images.dart';
-import '../services/hive_service.dart';
+import '../services/background_image_service.dart';
 
-class BackgroundImageNotifier extends StateNotifier<String> {
-  final HiveService hive;
-
-  BackgroundImageNotifier({
-    required this.hive,
-  }) : super(hive.getSettingsFromBox().background);
-
-  ///
-  /// VARIABLES
-  ///
-
-  late final random = Random();
-
-  final backgrounds = [
-    ModerniAliasImages.starsStandard,
-    ModerniAliasImages.starsDark,
-    ModerniAliasImages.starsLight,
-    ModerniAliasImages.blurredPurple,
-    ModerniAliasImages.blurredBlue,
-    ModerniAliasImages.blurredGreen,
-    ModerniAliasImages.blurredYellow,
-    ModerniAliasImages.blurredRed,
-    ModerniAliasImages.blurredGrey,
-  ];
-
-  ///
-  /// METHODS
-  ///
-
-  /// Goes through `backgrounds` and changes to the next background
-  void cycleBackgrounds() {
-    final index = backgrounds.indexOf(state);
-    final newIndex = (index + 1) % backgrounds.length;
-    changeBackground(backgrounds[newIndex], isTemporary: false);
-  }
-
-  /// Goes through `backgrounds` and changes to a random background
-  void randomWallpaper() {
-    final currentIndex = backgrounds.indexOf(state);
-    final randomIndex = random.nextInt(backgrounds.length);
-
-    if (randomIndex == currentIndex) {
-      cycleBackgrounds();
-    } else {
-      changeBackground(backgrounds[randomIndex], isTemporary: true);
-    }
-  }
-
-  /// Updates background to the passed one
-  Future<void> changeBackground(String newBackground, {required bool isTemporary}) async {
-    state = newBackground;
-
-    /// Store new background in [Hive]
-    if (!isTemporary) {
-      final oldSettings = hive.getSettingsFromBox();
-      await hive.addSettingsToBox(
-        oldSettings.copyWith(
-          background: newBackground,
-        ),
-      );
-    }
-  }
-
-  /// Revert background to stored one
-  Future<void> revertBackground() async => changeBackground(
-        hive.getSettingsFromBox().background,
-        isTemporary: false,
-      );
-}
-
-class BackgroundImage extends ConsumerWidget {
+class BackgroundImage extends WatchingWidget {
   final Widget? child;
 
   const BackgroundImage({this.child});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final image = ref.watch(backgroundImageProvider);
+  Widget build(BuildContext context) {
+    final backgroundImage = watchIt<BackgroundImageService>().value;
 
     return AnimatedSwitcher(
       duration: ModerniAliasDurations.animation,
       switchInCurve: Curves.easeIn,
       switchOutCurve: Curves.easeIn,
       child: Container(
-        key: ValueKey(image),
+        key: ValueKey(backgroundImage),
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image),
+            image: AssetImage(backgroundImage),
             fit: BoxFit.cover,
           ),
         ),

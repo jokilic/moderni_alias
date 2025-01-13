@@ -1,39 +1,39 @@
 import 'package:app_settings/app_settings.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
 import '../../models/settings/settings.dart';
 import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
 
-final settingsProvider = StateNotifierProvider.autoDispose<SettingsController, SettingsHive>(
-  (ref) => SettingsController(
-    hive: ref.watch(hiveProvider),
-  ),
-  name: 'SettingsProvider',
-);
-
-class SettingsController extends StateNotifier<SettingsHive> {
+class SettingsController extends ValueNotifier<SettingsHive> {
+  final LoggerService logger;
   final HiveService hive;
 
   SettingsController({
+    required this.logger,
     required this.hive,
   }) : super(hive.getSettingsFromBox());
 
+  ///
+  /// METHODS
+  ///
+
   /// Triggered when the user taps the `Dynamic backgrounds` button
   Future<void> useDynamicBackgroundsPressed() async {
-    state = state.copyWith(
-      useDynamicBackgrounds: !state.useDynamicBackgrounds,
+    value = value.copyWith(
+      useDynamicBackgrounds: !value.useDynamicBackgrounds,
     );
 
-    await hive.addSettingsToBox(state);
+    await hive.addSettingsToBox(value);
   }
 
   /// Triggered when the user taps the `Circular timer` button
   Future<void> useCircularTimerPressed() async {
-    state = state.copyWith(
-      useCircularTimer: !state.useCircularTimer,
+    value = value.copyWith(
+      useCircularTimer: !value.useCircularTimer,
     );
 
-    await hive.addSettingsToBox(state);
+    await hive.addSettingsToBox(value);
   }
 
   /// Opens phone microphone settings

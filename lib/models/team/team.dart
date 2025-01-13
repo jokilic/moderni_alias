@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
@@ -27,6 +28,21 @@ class Team extends HiveObject {
     this.correctPoints = 0,
     this.wrongPoints = 0,
   });
+
+  Team copyWith({
+    String? name,
+    int? points,
+    int? correctPoints,
+    int? wrongPoints,
+    TextEditingController? textEditingController,
+  }) =>
+      Team(
+        name: name ?? this.name,
+        points: points ?? this.points,
+        correctPoints: correctPoints ?? this.correctPoints,
+        wrongPoints: wrongPoints ?? this.wrongPoints,
+        textEditingController: textEditingController ?? this.textEditingController,
+      );
 
   @override
   String toString() => 'Team(name: $name, points: $points, correctPoints: $correctPoints, wrongPoints: $wrongPoints, textEditingController: $textEditingController)';

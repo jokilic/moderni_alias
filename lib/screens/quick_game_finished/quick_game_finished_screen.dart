@@ -46,7 +46,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => disposeGames(context, ref),
+      onPopInvokedWithResult: (_, __) => disposeAndGoHome(context, ref),
       child: Scaffold(
         body: Stack(
           children: [
@@ -111,7 +111,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             PlayButton(
                               text: 'quickGameFinishedExitString'.tr().toUpperCase(),
-                              onPressed: () => disposeGames(context, ref),
+                              onPressed: () => disposeAndGoHome(context, ref),
                             ),
                           ],
                         ),

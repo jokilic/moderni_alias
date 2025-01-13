@@ -11,9 +11,10 @@ import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
 import '../util/capitalize_string.dart';
+import '../util/typedef.dart';
 import 'logger_service.dart';
 
-class DictionaryService extends ValueNotifier<({String currentWord, Flag chosenLanguage})> {
+class DictionaryService extends ValueNotifier<DictionaryState> {
   final LoggerService logger;
 
   DictionaryService({
@@ -24,7 +25,7 @@ class DictionaryService extends ValueNotifier<({String currentWord, Flag chosenL
   /// VARIABLES
   ///
 
-  final random = Random();
+  late final random = Random();
 
   /// Dictionary containing croatian words
   final croatianDictionary = [
@@ -85,6 +86,16 @@ class DictionaryService extends ValueNotifier<({String currentWord, Flag chosenL
 
   /// If there are no more words in the [currentDictionary], refill it
   List<String> refillCurrentDictionary() => currentDictionary = value.chosenLanguage == Flag.croatia ? [...croatianDictionary] : [...englishDictionary];
+
+  /// Triggered when the user chooses a [Flag]
+  void updateActiveDictionary({required Flag newLanguage}) {
+    value = (
+      currentWord: value.currentWord,
+      chosenLanguage: newLanguage,
+    );
+
+    refillCurrentDictionary();
+  }
 
   /// Takes words from the dictionary and returns a random team name
   String getRandomTeamName() {

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/colors.dart';
@@ -8,12 +7,17 @@ import '../../../constants/websites.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/play_button.dart';
-import '../general_info_controller.dart';
 import 'video_widget.dart';
 
-class MyQuickPortfolio extends ConsumerWidget {
+class MyQuickPortfolio extends StatelessWidget {
+  final Function() onLongPressVideo;
+
+  const MyQuickPortfolio({
+    required this.onLongPressVideo,
+  });
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Container(
+  Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         child: AnimatedColumn(
@@ -22,7 +26,7 @@ class MyQuickPortfolio extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 16),
               child: AnimatedGestureDetector(
                 child: GestureDetector(
-                  onLongPress: ref.read(generalInfoProvider).playBoomBaby,
+                  onLongPress: onLongPressVideo,
                   behavior: HitTestBehavior.translucent,
                   child: Container(
                     height: 160,

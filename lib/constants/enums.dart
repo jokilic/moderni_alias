@@ -4,11 +4,11 @@ part 'enums.g.dart';
 
 enum Game {
   tapToStart,
-  normal,
-  quick,
-  time,
-  starting,
-  end,
+  playingNormal,
+  playingQuick,
+  playingTime,
+  startingGame,
+  gameFinished,
 }
 
 @HiveType(typeId: 7)

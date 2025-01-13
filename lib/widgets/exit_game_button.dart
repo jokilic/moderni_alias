@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/colors.dart';
 import '../constants/durations.dart';
 import '../constants/text_styles.dart';
 import 'animated_gesture_detector.dart';
 
-class ExitGameButton extends ConsumerStatefulWidget {
+class ExitGameButton extends StatefulWidget {
   final String text;
   final Function()? exitGame;
   final Function()? onPressed;
@@ -19,10 +18,10 @@ class ExitGameButton extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ExitGameButtonState();
+  State<StatefulWidget> createState() => _ExitGameButtonState();
 }
 
-class _ExitGameButtonState extends ConsumerState<ExitGameButton> with SingleTickerProviderStateMixin {
+class _ExitGameButtonState extends State<ExitGameButton> with SingleTickerProviderStateMixin {
   String? bottomText;
   AnimationController? controller;
 

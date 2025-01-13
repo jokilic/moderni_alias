@@ -36,14 +36,6 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   late final AnimationController scaleAnimationController;
   late final Animation scaleAnimation;
 
-  @override
-  void initState() {
-    super.initState();
-    initializeAnimations();
-    initializeAudio();
-    setState(() {});
-  }
-
   Future<void> initializeAnimations() async {
     /// Icon toggle animation (play / pause)
     iconAnimationController = AnimationController(
@@ -128,6 +120,24 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
       scaleAnimationController.repeat(reverse: true);
       isPlaying = false;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    initializeAnimations();
+    initializeAudio();
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    iconAnimationController.dispose();
+    scaleAnimationController.dispose();
+    audioController?.dispose();
+
+    super.dispose();
   }
 
   /// Widgets which are shown when opening expansion tile / when viewing [QuickGameStats]
@@ -265,13 +275,5 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
       ),
       children: buildExpansionTileChildren(),
     );
-  }
-
-  @override
-  void dispose() {
-    iconAnimationController.dispose();
-    scaleAnimationController.dispose();
-    audioController?.dispose();
-    super.dispose();
   }
 }

@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
+import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
+import '../../util/dependencies.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
 import 'stats_controller.dart';
@@ -11,13 +15,36 @@ import 'widgets/stats_quick_section.dart';
 import 'widgets/stats_segmented_widget.dart';
 import 'widgets/stats_time_section.dart';
 
-class StatsScreen extends StatelessWidget {
+class StatsScreen extends WatchingStatefulWidget {
   const StatsScreen({required super.key});
 
   @override
+  State<StatsScreen> createState() => _StatsScreenState();
+}
+
+class _StatsScreenState extends State<StatsScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    registerIfNotInitialized<StatsController>(
+      () => StatsController(
+        logger: getIt.get<LoggerService>(),
+        hive: getIt.get<HiveService>(),
+      ),
+      afterRegister: (controller) => controller.init(),
+    );
+  }
+
+  @override
+  void dispose() {
+    getIt.unregister<StatsController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final currentIndex = ref.watch(statsProvider);
-    final statsNotifier = ref.watch(statsProvider.notifier);
+    final currentIndex = watchIt<StatsController>().value;
 
     return Scaffold(
       body: Stack(
@@ -35,7 +62,10 @@ class StatsScreen extends StatelessWidget {
                   ),
                   HeroTitle(smallText: 'statsTitle'.tr()),
                   const SizedBox(height: 40),
-                  StatsSegmentedWidget(),
+                  StatsSegmentedWidget(
+                    currentIndex: currentIndex,
+                    segmentedValuePressed: (value) => getIt.get<StatsController>().segmentedValuePressed(value),
+                  ),
                   const SizedBox(height: 16),
                   Expanded(
                     child: AnimatedSwitcher(
@@ -44,15 +74,34 @@ class StatsScreen extends StatelessWidget {
                       switchOutCurve: Curves.easeIn,
                       child: currentIndex != null
                           ? PageView(
-                              controller: statsNotifier.pageController,
-                              onPageChanged: statsNotifier.pageChanged,
+                              controller: getIt.get<StatsController>().pageController,
+                              onPageChanged: getIt.get<StatsController>().pageChanged,
                               children: [
-                                StatsNormalSection(),
-                                StatsTimeSection(),
-                                StatsQuickSection(),
+                                StatsNormalSection(
+                                  normalGameStats: getIt.get<StatsController>().normalGameStats,
+                                ),
+                                StatsTimeSection(
+                                  timeGameStats: getIt.get<StatsController>().timeGameStats,
+                                ),
+                                StatsQuickSection(
+                                  quickGameStats: getIt.get<StatsController>().quickGameStats,
+                                ),
                               ],
                             )
-                          : StatsGeneralSection(),
+                          : StatsGeneralSection(
+                              totalNormalGames: getIt.get<StatsController>().totalNormalGames,
+                              totalTimeGames: getIt.get<StatsController>().totalTimeGames,
+                              totalQuickGames: getIt.get<StatsController>().totalQuickGames,
+                              totalCorrectAnswersNormalGames: getIt.get<StatsController>().totalCorrectAnswersNormalGames,
+                              totalCorrectAnswersTimeGames: getIt.get<StatsController>().totalCorrectAnswersTimeGames,
+                              totalCorrectAnswersQuickGames: getIt.get<StatsController>().totalCorrectAnswersQuickGames,
+                              totalWrongAnswersNormalGames: getIt.get<StatsController>().totalWrongAnswersNormalGames,
+                              totalWrongAnswersTimeGames: getIt.get<StatsController>().totalWrongAnswersTimeGames,
+                              totalWrongAnswersQuickGames: getIt.get<StatsController>().totalWrongAnswersQuickGames,
+                              totalAverageCorrectAnswers: getIt.get<StatsController>().totalAverageCorrectAnswers,
+                              totalAverageWrongAnswers: getIt.get<StatsController>().totalAverageWrongAnswers,
+                              totalAverageAnswers: getIt.get<StatsController>().totalAverageAnswers,
+                            ),
                     ),
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../services/background_image_service.dart';
 import '../services/dictionary_service.dart';
 import '../services/hive_service.dart';
 import '../services/logger_service.dart';
@@ -13,7 +14,7 @@ final getIt = GetIt.instance;
 /// Optionally runs a function with newly registered class
 void registerIfNotInitialized<T extends Object>(
   T Function() factoryFunc, {
-  required String instanceName,
+  String? instanceName,
   void Function(T controller)? afterRegister,
 }) {
   if (!getIt.isRegistered<T>(instanceName: instanceName)) {
@@ -81,5 +82,12 @@ void initializeServices() {
         return dictionary;
       },
       dependsOn: [LoggerService],
+    )
+    ..registerSingletonAsync(
+      () async => BackgroundImageService(
+        logger: getIt.get<LoggerService>(),
+        hive: getIt.get<HiveService>(),
+      ),
+      dependsOn: [LoggerService, HiveService],
     );
 }

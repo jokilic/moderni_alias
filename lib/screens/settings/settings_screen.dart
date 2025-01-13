@@ -1,7 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/text_styles.dart';
+import '../../services/background_image_service.dart';
+import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
+import '../../util/dependencies.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
@@ -9,14 +14,36 @@ import 'settings_controller.dart';
 import 'widgets/settings_backgrounds.dart';
 import 'widgets/settings_checkbox_tile.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends WatchingStatefulWidget {
   const SettingsScreen({required super.key});
 
   @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    registerIfNotInitialized<SettingsController>(
+      () => SettingsController(
+        logger: getIt.get<LoggerService>(),
+        hive: getIt.get<HiveService>(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    getIt.unregister<SettingsController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final settings = ref.watch(settingsProvider);
-    final activeBackground = ref.watch(backgroundImageProvider);
-    final backgrounds = ref.watch(backgroundImageProvider.notifier).backgrounds;
+    final settings = watchIt<SettingsController>().value;
+    final activeBackground = watchIt<BackgroundImageService>().value;
 
     return Scaffold(
       body: Stack(
@@ -51,30 +78,30 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     SettingsBackgrounds(
-                      backgrounds: backgrounds,
+                      backgrounds: getIt.get<BackgroundImageService>().backgrounds,
                       activeBackground: activeBackground,
-                      onPressed: (newBackground) => ref.read(backgroundImageProvider.notifier).changeBackground(
+                      onPressed: (newBackground) => getIt.get<BackgroundImageService>().changeBackground(
                             newBackground,
                             isTemporary: false,
                           ),
                     ),
                     const SizedBox(height: 56),
                     SettingsCheckboxTile(
-                      onPressed: ref.read(settingsProvider.notifier).useDynamicBackgroundsPressed,
+                      onPressed: getIt.get<SettingsController>().useDynamicBackgroundsPressed,
                       title: 'settingsDynamicBackgroundsTitle'.tr(),
                       subtitle: 'settingsDynamicBackgroundsSubtitle'.tr(),
                       isActive: settings.useDynamicBackgrounds,
                     ),
                     const SizedBox(height: 16),
                     SettingsCheckboxTile(
-                      onPressed: ref.read(settingsProvider.notifier).useCircularTimerPressed,
+                      onPressed: getIt.get<SettingsController>().useCircularTimerPressed,
                       title: 'settingsCircularTimerTitle'.tr(),
                       subtitle: 'settingsCircularTimerSubtitle'.tr(),
                       isActive: settings.useCircularTimer,
                     ),
                     const SizedBox(height: 16),
                     SettingsCheckboxTile(
-                      onPressed: ref.read(settingsProvider.notifier).openMicrophoneSettings,
+                      onPressed: getIt.get<SettingsController>().openMicrophoneSettings,
                       title: 'settingsRecordingAudioTitle'.tr(),
                       subtitle: 'settingsRecordingAudioSubtitle'.tr(),
                     ),

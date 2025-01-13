@@ -4,4 +4,5 @@ class ModerniAliasSounds {
   static const timer = 'assets/audio/timer.wav';
   static const timeGameEnd = 'assets/audio/time_game_end.wav';
   static const boom = 'assets/audio/boom.wav';
+  static const welcomeToModerniAlias = 'assets/audio/welcome_to_moderni_alias.mp3';
 }

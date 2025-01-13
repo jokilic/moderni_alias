@@ -14,6 +14,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
+
     videoController = VideoPlayerController.asset(ModerniAliasVideos.josipVideo)
       ..initialize().then((_) {
         setState(() {});
@@ -26,16 +27,16 @@ class _VideoWidgetState extends State<VideoWidget> {
   }
 
   @override
+  void dispose() {
+    videoController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => videoController.value.isInitialized
       ? AspectRatio(
           aspectRatio: videoController.value.aspectRatio,
           child: VideoPlayer(videoController),
         )
       : const SizedBox.shrink();
-
-  @override
-  void dispose() {
-    videoController.dispose();
-    super.dispose();
-  }
 }

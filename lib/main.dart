@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:watch_it/watch_it.dart';
 
 import 'constants/colors.dart';
@@ -30,11 +28,6 @@ Future<void> main() async {
 
   /// Initialize services
   initializeServices();
-
-  /// Initialize date formatting and `timeago` messages
-  await initializeDateFormatting();
-  timeago.setLocaleMessages('en', timeago.EnMessages());
-  timeago.setLocaleMessages('hr', timeago.HrMessages());
 
   /// Wait for initialization to finish
   await getIt.allReady();
