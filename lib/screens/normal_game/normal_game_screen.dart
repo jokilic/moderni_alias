@@ -93,7 +93,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
     final state = watchIt<NormalGameController>().value;
     final teams = state.teams;
     final currentlyPlayingTeam = state.playingTeam;
-    final currentGame = state.gameState;
+    final gameState = state.gameState;
     final playedWords = state.playedWords;
     final counter3Seconds = state.counter3Seconds;
     final currentWord = state.currentWord;
@@ -134,57 +134,51 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
                   ),
 
                   ///
-                  /// PLAYING GAME
+                  /// GAME CONTENT
                   ///
-                  if (currentGame == GameState.playing && currentWord != null)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOn(
-                          currentWord: currentWord,
-                          length: widget.lengthOfRound,
-                          showCircularTimer: useCircularTimer,
-                        ),
-                      ),
-                    )
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: SizedBox(
+                        key: ValueKey(gameState),
+                        child: switch (gameState) {
+                          ///
+                          /// PLAYING GAME
+                          ///
+                          GameState.playing => GameOn(
+                              currentWord: currentWord ?? '',
+                              length: widget.lengthOfRound,
+                              showCircularTimer: useCircularTimer,
+                            ),
 
-                  ///
-                  /// COUNTDOWN
-                  ///
-                  else if (currentGame == GameState.starting)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameStarting(
-                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        ),
-                      ),
-                    )
+                          ///
+                          /// COUNTDOWN
+                          ///
+                          GameState.starting => GameStarting(
+                              currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                            ),
 
-                  ///
-                  /// TAP TO START GAME
-                  ///
-                  else if (currentGame == GameState.idle)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOff(
-                          onTap: getIt.get<NormalGameController>().start3SecondCountdown,
-                        ),
+                          ///
+                          /// TAP TO START GAME
+                          ///
+                          GameState.idle => GameOff(
+                              onTap: () => getIt.get<NormalGameController>().start3SecondCountdown(
+                                    context: context,
+                                  ),
+                            ),
+
+                          ///
+                          /// FINISHED (shouldn't happen)
+                          ///
+                          _ => const SizedBox.shrink(),
+                        },
                       ),
                     ),
+                  ),
 
                   ///
                   /// BOTTOM - ANSWERS BUTTONS
@@ -195,9 +189,11 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
                     child: WrongCorrectButtons(
                       wrongChosen: () => getIt.get<NormalGameController>().answerChosen(
                             chosenAnswer: Answer.wrong,
+                            context: context,
                           ),
                       correctChosen: () => getIt.get<NormalGameController>().answerChosen(
                             chosenAnswer: Answer.correct,
+                            context: context,
                           ),
                     ),
                   ),

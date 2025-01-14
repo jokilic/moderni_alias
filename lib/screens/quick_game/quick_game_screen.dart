@@ -126,57 +126,51 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                   ),
 
                   ///
-                  /// PLAYING GAME
+                  /// GAME CONTENT
                   ///
-                  if (currentGame == GameState.playing && currentWord != null)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOn(
-                          currentWord: currentWord,
-                          length: widget.lengthOfRound,
-                          showCircularTimer: useCircularTimer,
-                        ),
-                      ),
-                    )
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: SizedBox(
+                        key: ValueKey(currentGame),
+                        child: switch (currentGame) {
+                          ///
+                          /// PLAYING GAME
+                          ///
+                          GameState.playing => GameOn(
+                              currentWord: currentWord ?? '',
+                              length: widget.lengthOfRound,
+                              showCircularTimer: useCircularTimer,
+                            ),
 
-                  ///
-                  /// COUNTDOWN
-                  ///
-                  else if (currentGame == GameState.starting)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameStarting(
-                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        ),
-                      ),
-                    )
+                          ///
+                          /// COUNTDOWN
+                          ///
+                          GameState.starting => GameStarting(
+                              currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                            ),
 
-                  ///
-                  /// TAP TO START GAME
-                  ///
-                  else if (currentGame == GameState.idle)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOff(
-                          onTap: getIt.get<QuickGameController>().start3SecondCountdown,
-                        ),
+                          ///
+                          /// TAP TO START GAME
+                          ///
+                          GameState.idle => GameOff(
+                              onTap: () => getIt.get<QuickGameController>().start3SecondCountdown(
+                                    context: context,
+                                  ),
+                            ),
+
+                          ///
+                          /// FINISHED (shouldn't happen)
+                          ///
+                          _ => const SizedBox.shrink(),
+                        },
                       ),
                     ),
+                  ),
 
                   ///
                   /// BOTTOM - ANSWERS BUTTONS
@@ -187,9 +181,11 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                     child: WrongCorrectButtons(
                       correctChosen: () => getIt.get<QuickGameController>().answerChosen(
                             chosenAnswer: Answer.correct,
+                            context: context,
                           ),
                       wrongChosen: () => getIt.get<QuickGameController>().answerChosen(
                             chosenAnswer: Answer.wrong,
+                            context: context,
                           ),
                     ),
                   ),

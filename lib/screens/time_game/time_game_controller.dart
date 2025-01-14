@@ -228,7 +228,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   }
 
   /// Checks if team has guessed the selected number of words
-  void checkRoundDone(BuildContext context) {
+  void checkRoundDone({required BuildContext context}) {
     /// User has guessed the proper number of words, round is done
     if (value.playingTeam.points >= numberOfWords) {
       gameStopped();
@@ -243,7 +243,9 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
           context: context,
         );
       } else {
-        endGame(context);
+        endGame(
+          context: context,
+        );
       }
     }
   }
@@ -268,7 +270,9 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     List<Team> playingTeams, {
     required BuildContext context,
   }) async {
-    await showScoresSheet(context);
+    await showScoresSheet(
+      context: context,
+    );
 
     await updateHiveStats(gameType: GameState.idle);
 
@@ -282,7 +286,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   }
 
   /// Goes to the confetti screen and shows info about the round
-  Future<void> endGame(BuildContext context) async {
+  Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
     );
@@ -328,13 +332,16 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     playAnswerSound(chosenAnswer: chosenAnswer);
 
     /// Update relevant state
-    /// Get another random word
+    /// Update relevant state
+    final newPlayingTeam = value.playingTeam.copyWith(
+      points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : null,
+      correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
+      wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
+    );
+
     updateState(
-      newPlayingTeam: value.playingTeam.copyWith(
-        points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : null,
-        correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
-        wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
-      ),
+      newTeams: List<Team>.from(value.teams).map((team) => team == value.playingTeam ? newPlayingTeam : team).toList(),
+      newPlayingTeam: newPlayingTeam,
       newPlayedWords: [
         ...value.playedWords,
         if (value.currentWord != null)
@@ -354,7 +361,9 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     }
 
     /// Check if player has guessed the selected number of words
-    checkRoundDone(context);
+    checkRoundDone(
+      context: context,
+    );
   }
 
   /// Plays proper sound while pressing on the answers
@@ -363,7 +372,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       );
 
   /// Shows scores sheet and dismisses it after some time
-  Future<void> showScoresSheet(BuildContext context) async {
+  Future<void> showScoresSheet({required BuildContext context}) async {
     showTimeScores(
       context,
       playedWords: value.playedWords,

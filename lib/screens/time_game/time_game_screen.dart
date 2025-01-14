@@ -88,7 +88,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
 
     final state = watchIt<TimeGameController>().value;
     final currentlyPlayingTeam = state.playingTeam;
-    final currentGame = state.gameState;
+    final gameState = state.gameState;
     final playedWords = state.playedWords;
     final counter3Seconds = state.counter3Seconds;
     final currentWord = state.currentWord;
@@ -131,57 +131,49 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                   ),
 
                   ///
-                  /// PLAYING GAME
+                  /// GAME CONTENT
                   ///
-                  if (currentGame == GameState.playing && currentWord != null)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: TimeGameOn(
-                          currentWord: currentWord,
-                          time: duration,
-                          numberOfGuessedWords: numberOfGuessedWords,
-                        ),
-                      ),
-                    )
+                  Positioned(
+                    top: -75,
+                    bottom: 0,
+                    child: AnimatedSwitcher(
+                      duration: ModerniAliasDurations.fastAnimation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: SizedBox(
+                        key: ValueKey(gameState),
+                        child: switch (gameState) {
+                          ///
+                          /// PLAYING GAME
+                          ///
+                          GameState.playing => TimeGameOn(
+                              currentWord: currentWord ?? '',
+                              time: duration,
+                              numberOfGuessedWords: numberOfGuessedWords,
+                            ),
 
-                  ///
-                  /// COUNTDOWN
-                  ///
-                  else if (currentGame == GameState.starting)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameStarting(
-                          currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                        ),
-                      ),
-                    )
+                          ///
+                          /// COUNTDOWN
+                          ///
+                          GameState.starting => GameStarting(
+                              currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                            ),
 
-                  ///
-                  /// TAP TO START GAME
-                  ///
-                  else if (currentGame == GameState.idle)
-                    Positioned(
-                      top: -75,
-                      bottom: 0,
-                      child: AnimatedSwitcher(
-                        duration: ModerniAliasDurations.fastAnimation,
-                        switchInCurve: Curves.easeIn,
-                        switchOutCurve: Curves.easeIn,
-                        child: GameOff(
-                          onTap: getIt.get<TimeGameController>().start3SecondCountdown,
-                        ),
+                          ///
+                          /// TAP TO START GAME
+                          ///
+                          GameState.idle => GameOff(
+                              onTap: getIt.get<TimeGameController>().start3SecondCountdown,
+                            ),
+
+                          ///
+                          /// FINISHED (shouldn't happen)
+                          ///
+                          _ => const SizedBox.shrink(),
+                        },
                       ),
                     ),
+                  ),
 
                   ///
                   /// BOTTOM - ANSWERS BUTTONS

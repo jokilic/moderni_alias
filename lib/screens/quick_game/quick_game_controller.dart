@@ -16,6 +16,7 @@ import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
+import '../../util/routing.dart';
 import '../../util/sound.dart';
 import '../../util/typedef.dart';
 
@@ -148,7 +149,10 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
       );
 
   /// Starts the time countdown
-  void startTimer(int lengthOfRound) {
+  void startTimer(
+    int lengthOfRound, {
+    required BuildContext context,
+  }) {
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
@@ -178,14 +182,16 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
         /// Timer is done, end game
         if (lengthOfRound - timer.tick == 0) {
           timer.cancel();
-          endGame();
+          endGame(
+            context: context,
+          );
         }
       },
     );
   }
 
   /// Counts down the 3 seconds before starting new round
-  Future<void> start3SecondCountdown() async {
+  Future<void> start3SecondCountdown({required BuildContext context}) async {
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -203,6 +209,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
           timer.cancel();
           startRound(
             lengthOfRound: lengthOfRound,
+            context: context,
           );
         }
       },
@@ -212,7 +219,10 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
   }
 
   /// Triggered when the counter finishes and round starts
-  void startRound({required int lengthOfRound}) {
+  void startRound({
+    required int lengthOfRound,
+    required BuildContext context,
+  }) {
     /// Generate `newWord`
     final newWord = dictionary.getRandomWord(
       previousWord: value.currentWord,
@@ -234,27 +244,34 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     }
 
     /// Start time countdown
-    startTimer(lengthOfRound);
+    startTimer(
+      lengthOfRound,
+      context: context,
+    );
   }
 
   /// Goes to the confetti screen and shows info about the round
-  Future<void> endGame() async {
+  Future<void> endGame({required BuildContext context}) async {
     updateState(newGameState: GameState.finished);
 
     await backgroundImage.revertBackground();
     await updateHiveStats();
 
-    // TODO
-    // openQuickGameFinished(
-    //   context,
-    //   playedWords: value.playedWords,
-    // );
+    openQuickGameFinished(
+      context,
+      playedWords: value.playedWords,
+    );
   }
 
-  void answerChosen({required Answer chosenAnswer}) {
+  void answerChosen({
+    required Answer chosenAnswer,
+    required BuildContext context,
+  }) {
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
-      start3SecondCountdown();
+      start3SecondCountdown(
+        context: context,
+      );
       return;
     }
 

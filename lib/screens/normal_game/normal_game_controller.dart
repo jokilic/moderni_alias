@@ -18,6 +18,7 @@ import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
+import '../../util/routing.dart';
 import '../../util/sound.dart';
 import '../../util/typedef.dart';
 import '../../widgets/scores/show_scores.dart';
@@ -168,7 +169,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
       );
 
   /// Starts the time countdown
-  void startTimer(int lengthOfRound) {
+  void startTimer(
+    int lengthOfRound, {
+    required BuildContext context,
+  }) {
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
@@ -201,14 +205,16 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
         /// Timer is done, stop round
         if (lengthOfRound - timer.tick == 0) {
           timer.cancel();
-          stopGameCheckWinner();
+          stopGameCheckWinner(
+            context: context,
+          );
         }
       },
     );
   }
 
   /// Counts down the 3 seconds before starting new round
-  Future<void> start3SecondCountdown() async {
+  Future<void> start3SecondCountdown({required BuildContext context}) async {
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -226,6 +232,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
           timer.cancel();
           startRound(
             lengthOfRound: lengthOfRound,
+            context: context,
           );
         }
       },
@@ -241,6 +248,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
   /// Triggered when the counter finishes and round starts
   void startRound({
     required int lengthOfRound,
+    required BuildContext context,
   }) {
     /// Generate `newWord`
     final newWord = dictionary.getRandomWord(
@@ -263,7 +271,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     }
 
     /// Start time countdown
-    startTimer(lengthOfRound);
+    startTimer(
+      lengthOfRound,
+      context: context,
+    );
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
@@ -284,7 +295,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
   /// Check if there's a winner
   /// If no winner, continue the game with the next team
   /// If winner, show the confetti screen
-  void stopGameCheckWinner() {
+  void stopGameCheckWinner({required BuildContext context}) {
     gameStopped();
 
     /// Check if there are teams which have enough points to win the game
@@ -292,7 +303,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
 
     /// There are no teams with enough points, continue playing the game
     if (teamsWithEnoughPoints.isEmpty) {
-      continueGame(value.teams);
+      continueGame(
+        value.teams,
+        context: context,
+      );
       return;
     }
 
@@ -303,13 +317,17 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     /// Round is not finished, continue playing the game
     final activeTeams = value.tieBreakTeams ?? value.teams;
     if (roundNotDone(activeTeams)) {
-      continueGame(activeTeams);
+      continueGame(
+        activeTeams,
+        context: context,
+      );
     }
 
     /// Round is finished, play tie break if there are tied teams or end game
     else {
       handleTieBreak(
         getTiedTeams(teamsWithEnoughPoints),
+        context: context,
       );
     }
   }
@@ -335,31 +353,40 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
   }
 
   /// Game went into tie break, handle accordingly
-  void handleTieBreak(List<Team> tiedTeams) {
+  void handleTieBreak(
+    List<Team> tiedTeams, {
+    required BuildContext context,
+  }) {
     updateState(
       newTieBreakTeams: tiedTeams,
     );
 
     if (tiedTeams.length > 1) {
-      continueGame(tiedTeams);
+      continueGame(
+        tiedTeams,
+        context: context,
+      );
     } else {
-      endGame();
+      endGame(
+        context: context,
+      );
     }
   }
 
   /// Continues tie break with proper teams
-  Future<void> continueGame(List<Team> playingTeams) async {
-    // TODO
-    // await showScoresSheet();
+  Future<void> continueGame(
+    List<Team> playingTeams, {
+    required BuildContext context,
+  }) async {
+    await showScoresSheet(
+      context: context,
+    );
 
     await updateHiveStats(
       gameType: GameState.idle,
     );
 
-    // TODO: This finds index by name, needs to find by whole team
-    final currentTeamIndex = playingTeams.indexWhere(
-      (team) => team.name == value.playingTeam.name,
-    );
+    final currentTeamIndex = playingTeams.indexOf(value.playingTeam);
 
     updateState(
       newPlayingTeam: currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0],
@@ -367,7 +394,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
-  Future<void> endGame() async {
+  Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
     );
@@ -375,18 +402,20 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     await backgroundImage.revertBackground();
     await updateHiveStats(gameType: GameState.finished);
 
-    // TODO
-    // openNormalGameFinished(
-    //   context,
-    //   teams: value.teams,
-    //   playedWords: value.playedWords,
-    // );
+    openNormalGameFinished(
+      context,
+      teams: value.teams,
+      playedWords: value.playedWords,
+    );
   }
 
-  void answerChosen({required Answer chosenAnswer}) {
+  void answerChosen({
+    required Answer chosenAnswer,
+    required BuildContext context,
+  }) {
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
-      start3SecondCountdown();
+      start3SecondCountdown(context: context);
       return;
     }
 
@@ -405,14 +434,15 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     playAnswerSound(chosenAnswer: chosenAnswer);
 
     /// Update relevant state
-    /// Get another random word
-    // TODO: Need to update team with new points values in list of teams
+    final newPlayingTeam = value.playingTeam.copyWith(
+      points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : value.playingTeam.points - 1,
+      correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
+      wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
+    );
+
     updateState(
-      newPlayingTeam: value.playingTeam.copyWith(
-        points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : value.playingTeam.points - 1,
-        correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
-        wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
-      ),
+      newTeams: List<Team>.from(value.teams).map((team) => team == value.playingTeam ? newPlayingTeam : team).toList(),
+      newPlayingTeam: newPlayingTeam,
       newPlayedWords: [
         ...value.playedWords,
         if (value.currentWord != null)
@@ -433,7 +463,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
       );
 
   /// Shows scores sheet and dismisses it after some time
-  Future<void> showScoresSheet(BuildContext context) async {
+  Future<void> showScoresSheet({required BuildContext context}) async {
     showScores(
       context,
       teams: value.teams,
