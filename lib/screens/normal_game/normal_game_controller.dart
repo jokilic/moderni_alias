@@ -356,8 +356,9 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
       gameType: GameState.idle,
     );
 
-    final currentTeamIndex = playingTeams.indexOf(
-      value.playingTeam,
+    // TODO: This finds index by name, needs to find by whole team
+    final currentTeamIndex = playingTeams.indexWhere(
+      (team) => team.name == value.playingTeam.name,
     );
 
     updateState(
@@ -374,7 +375,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     await backgroundImage.revertBackground();
     await updateHiveStats(gameType: GameState.finished);
 
-// TODO
+    // TODO
     // openNormalGameFinished(
     //   context,
     //   teams: value.teams,
@@ -405,9 +406,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
 
     /// Update relevant state
     /// Get another random word
+    // TODO: Need to update team with new points values in list of teams
     updateState(
       newPlayingTeam: value.playingTeam.copyWith(
-        points: value.playingTeam.points + 1,
+        points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : value.playingTeam.points - 1,
         correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
         wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
       ),

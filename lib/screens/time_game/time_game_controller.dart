@@ -331,7 +331,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     /// Get another random word
     updateState(
       newPlayingTeam: value.playingTeam.copyWith(
-        points: value.playingTeam.points + 1,
+        points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : null,
         correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
         wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
       ),

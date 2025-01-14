@@ -13,7 +13,7 @@ class GameTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+        padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
         child: Text(
           title,
           style: ModerniAliasTextStyles.gameTitle.copyWith(
