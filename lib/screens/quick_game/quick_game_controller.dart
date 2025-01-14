@@ -244,7 +244,11 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     await backgroundImage.revertBackground();
     await updateHiveStats();
 
-    openQuickGameFinished(context);
+    // TODO
+    // openQuickGameFinished(
+    //   context,
+    //   playedWords: value.playedWords,
+    // );
   }
 
   void answerChosen({required Answer chosenAnswer}) {

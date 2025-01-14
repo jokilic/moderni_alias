@@ -23,15 +23,18 @@ import 'quick_game_controller.dart';
 import 'widgets/quick_game_info_section.dart';
 
 class QuickGameScreen extends WatchingStatefulWidget {
-  const QuickGameScreen({required super.key});
+  final int lengthOfRound;
+
+  const QuickGameScreen({
+    required this.lengthOfRound,
+    required super.key,
+  });
 
   @override
   State<QuickGameScreen> createState() => _QuickGameScreenState();
 }
 
 class _QuickGameScreenState extends State<QuickGameScreen> {
-  final lengthOfRound = 60;
-
   late bool useCircularTimer;
 
   @override
@@ -48,6 +51,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         recorderController: RecorderController(),
         logger: getIt.get<LoggerService>(),
       ),
+      afterRegister: (controller) => controller.init(),
     );
 
     registerIfNotInitialized<QuickGameController>(
@@ -58,9 +62,10 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         pathProvider: getIt.get<PathProviderService>(),
         hive: getIt.get<HiveService>(),
         audioRecord: audioRecord,
-        lengthOfRound: lengthOfRound,
+        lengthOfRound: widget.lengthOfRound,
         useDynamicBackgrounds: useDynamicBackgrounds,
       ),
+      afterRegister: (controller) => controller.init(),
     );
   }
 
@@ -133,7 +138,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
-                          length: lengthOfRound,
+                          length: widget.lengthOfRound,
                           showCircularTimer: useCircularTimer,
                         ),
                       ),
@@ -201,7 +206,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                           height: 8,
                           width: width,
                           child: TimeCounter(
-                            lengthOfRound: lengthOfRound,
+                            lengthOfRound: widget.lengthOfRound,
                           ),
                         ),
                       ),

@@ -220,6 +220,7 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
                             openTimeGame(
                               context,
                               teams: teams,
+                              numberOfWords: wordsToWin,
                             );
                           }
                         },

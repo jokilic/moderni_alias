@@ -249,6 +249,8 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                             openNormalGame(
                               context,
                               teams: teams,
+                              pointsToWin: pointsToWin,
+                              lengthOfRound: lengthOfRound,
                             );
                           }
                         },

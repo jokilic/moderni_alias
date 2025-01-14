@@ -1,4 +1,3 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants/colors.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
-import '../../controllers/audio_record_controller.dart';
 import '../../models/team/team.dart';
 import '../animated_column.dart';
 import '../animated_gesture_detector.dart';
@@ -45,24 +43,25 @@ class NormalGameInfoSection extends StatelessWidget {
                       style: ModerniAliasTextStyles.playingTeam,
                     ),
                   ),
-                  Consumer(
-                    builder: (_, ref, __) {
-                      final audioRecorderController = ref.watch(audioRecorderControllerProvider);
+                  // TODO
+                  // Consumer(
+                  //   builder: (_, ref, __) {
+                  //     final audioRecorderController = ref.watch(audioRecorderControllerProvider);
 
-                      return AudioWaveforms(
-                        recorderController: audioRecorderController,
-                        size: Size(MediaQuery.sizeOf(context).width, 48),
-                        padding: const EdgeInsets.symmetric(horizontal: 56),
-                        waveStyle: const WaveStyle(
-                          waveColor: ModerniAliasColors.white,
-                          middleLineColor: ModerniAliasColors.white,
-                          scaleFactor: 24,
-                          extendWaveform: true,
-                          showMiddleLine: false,
-                        ),
-                      );
-                    },
-                  ),
+                  //     return AudioWaveforms(
+                  //       recorderController: audioRecorderController,
+                  //       size: Size(MediaQuery.sizeOf(context).width, 48),
+                  //       padding: const EdgeInsets.symmetric(horizontal: 56),
+                  //       waveStyle: const WaveStyle(
+                  //         waveColor: ModerniAliasColors.white,
+                  //         middleLineColor: ModerniAliasColors.white,
+                  //         scaleFactor: 24,
+                  //         extendWaveform: true,
+                  //         showMiddleLine: false,
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),

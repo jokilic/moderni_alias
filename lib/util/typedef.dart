@@ -31,3 +31,13 @@ typedef NormalGameState = ({
   List<Team>? tieBreakTeams,
   Team playingTeam,
 });
+
+typedef TimeGameState = ({
+  GameState gameState,
+  int counter3Seconds,
+  List<PlayedWord> playedWords,
+  String? currentWord,
+  List<Team> teams,
+  Team playingTeam,
+  Duration timeGameDuration,
+});

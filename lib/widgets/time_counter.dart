@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../constants/enums.dart';
-import '../util/providers.dart';
 
 class TimeCounter extends StatefulWidget {
   final int lengthOfRound;
@@ -36,22 +34,23 @@ class TimeCounterState extends State<TimeCounter> with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
+    // TODO
     /// Logic to control animation depending on the game state
-    ref.listen(currentGameProvider, (_, state) {
-      switch (state) {
-        /// Game is running, start animation
-        case GameState.playing:
-          controller.forward();
-          break;
+    // ref.listen(currentGameProvider, (_, state) {
+    //   switch (state) {
+    //     /// Game is running, start animation
+    //     case GameState.playing:
+    //       controller.forward();
+    //       break;
 
-        /// Game is not running, stop animation
-        case GameState.idle:
-        case GameState.starting:
-        case GameState.finished:
-          controller.reset();
-          break;
-      }
-    });
+    //     /// Game is not running, stop animation
+    //     case GameState.idle:
+    //     case GameState.starting:
+    //     case GameState.finished:
+    //       controller.reset();
+    //       break;
+    //   }
+    // });
 
     return AnimatedBuilder(
       animation: controller,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
+import '../models/round/round.dart';
 import '../models/team/team.dart';
 import '../models/time_game_stats/time_game_stats.dart';
 import '../screens/general_info/general_info_screen.dart';
@@ -63,9 +64,14 @@ void openNormalGameSetup(BuildContext context) => pushScreen(
 void openNormalGame(
   BuildContext context, {
   required List<Team> teams,
+  required int pointsToWin,
+  required int lengthOfRound,
 }) =>
     pushScreen(
       NormalGameScreen(
+        teams: teams,
+        pointsToWin: pointsToWin,
+        lengthOfRound: lengthOfRound,
         key: ValueKey(teams),
       ),
       context: context,
@@ -85,9 +91,14 @@ void openNormalGameFinished(
       context: context,
     );
 
-void openQuickGame(BuildContext context) => pushScreen(
-      const QuickGameScreen(
-        key: ValueKey('quick-game'),
+void openQuickGame(
+  BuildContext context, {
+  required int lengthOfRound,
+}) =>
+    pushScreen(
+      QuickGameScreen(
+        lengthOfRound: lengthOfRound,
+        key: const ValueKey('quick-game'),
       ),
       context: context,
     );
@@ -114,9 +125,12 @@ void openTimeGameSetup(BuildContext context) => pushScreen(
 void openTimeGame(
   BuildContext context, {
   required List<Team> teams,
+  required int numberOfWords,
 }) =>
     pushScreen(
       TimeGameScreen(
+        teams: teams,
+        numberOfWords: numberOfWords,
         key: ValueKey(teams),
       ),
       context: context,
@@ -125,11 +139,13 @@ void openTimeGame(
 void openTimeGameFinished(
   BuildContext context, {
   required List<Team> teams,
+  required List<Round> rounds,
   required List<PlayedWord> playedWords,
 }) =>
     pushScreen(
       TimeGameFinishedScreen(
         teams: teams,
+        rounds: rounds,
         playedWords: playedWords,
         key: ValueKey(teams),
       ),

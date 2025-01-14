@@ -12,7 +12,6 @@ import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../services/background_image_service.dart';
-import '../../util/providers.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
@@ -21,7 +20,6 @@ import '../../widgets/confetti.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/play_button.dart';
 import '../../widgets/scores/show_scores.dart';
-import '../quick_game/quick_game_controller.dart';
 
 class QuickGameFinishedScreen extends WatchingWidget {
   final List<PlayedWord> playedWords;
@@ -33,14 +31,18 @@ class QuickGameFinishedScreen extends WatchingWidget {
 
   void restartGame(BuildContext context) {
     /// Restart providers
-    ref
-      ..invalidate(currentGameProvider)
-      ..invalidate(playedWordsProvider)
-      ..invalidate(counter3SecondsProvider)
-      ..invalidate(quickGameProvider(context));
+    /// TODO
+    // ref
+    //   ..invalidate(currentGameProvider)
+    //   ..invalidate(playedWordsProvider)
+    //   ..invalidate(counter3SecondsProvider)
+    //   ..invalidate(quickGameProvider(context));
 
     /// Go to [QuickGameScreen]
-    openQuickGame(context);
+    openQuickGame(
+      context,
+      lengthOfRound: 60,
+    );
   }
 
   @override

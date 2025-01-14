@@ -12,7 +12,6 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/dependencies.dart';
-import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
@@ -57,6 +56,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
         recorderController: RecorderController(),
         logger: getIt.get<LoggerService>(),
       ),
+      afterRegister: (controller) => controller.init(),
     );
 
     registerIfNotInitialized<NormalGameController>(
@@ -67,11 +67,12 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
         pathProvider: getIt.get<PathProviderService>(),
         hive: getIt.get<HiveService>(),
         audioRecord: audioRecord,
-        teams: widget.teams,
+        passedTeams: widget.teams,
         pointsToWin: widget.pointsToWin,
         lengthOfRound: widget.lengthOfRound,
         useDynamicBackgrounds: useDynamicBackgrounds,
       ),
+      afterRegister: (controller) => controller.init(),
     );
   }
 

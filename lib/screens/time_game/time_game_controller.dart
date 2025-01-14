@@ -1,51 +1,72 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
+import '../../constants/sounds.dart';
 import '../../controllers/audio_record_controller.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
 import '../../models/time_game_stats/time_game_stats.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
-import '../../util/providers.dart';
 import '../../util/routing.dart';
-import '../../widgets/background_image.dart';
+import '../../util/sound.dart';
+import '../../util/typedef.dart';
 import '../../widgets/scores/show_time_scores.dart';
 
-final timeGameProvider = Provider.autoDispose<TimeGameController>(
-  (ref) {
-    final timeGameController = TimeGameController(ref);
-    ref.onDispose(timeGameController.dispose);
-    return timeGameController;
-  },
-  name: 'TimeGameProvider',
-);
+class TimeGameController extends ValueNotifier<TimeGameState> implements Disposable {
+  final LoggerService logger;
+  final DictionaryService dictionary;
+  final BackgroundImageService backgroundImage;
+  final PathProviderService pathProvider;
+  final HiveService hive;
+  final AudioRecordController audioRecord;
 
-class TimeGameController {
-  final Ref ref;
+  final List<Team> passedTeams;
+  final int numberOfWords;
+  final bool useDynamicBackgrounds;
 
-  TimeGameController(this.ref) {
-    init();
-  }
+  TimeGameController({
+    required this.logger,
+    required this.dictionary,
+    required this.backgroundImage,
+    required this.pathProvider,
+    required this.hive,
+    required this.audioRecord,
+    required this.passedTeams,
+    required this.numberOfWords,
+    required this.useDynamicBackgrounds,
+  }) : super(
+          (
+            gameState: GameState.idle,
+            counter3Seconds: 0,
+            playedWords: [],
+            currentWord: null,
+            teams: passedTeams,
+            playingTeam: passedTeams.first,
+            timeGameDuration: Duration.zero,
+          ),
+        );
 
   ///
   /// VARIABLES
   ///
 
-  var correctAnswers = 0;
-  var wrongAnswers = 0;
-
-  Timer? timer;
-
   late TimeGameStats timeGameStats;
 
-  late bool useDynamicBackgrounds;
+  late final AudioPlayer timeGameEndAudioPlayer;
+  late final AudioPlayer correctAudioPlayer;
+  late final AudioPlayer wrongAudioPlayer;
+
+  Timer? timer;
 
   ///
   /// INIT
@@ -55,76 +76,122 @@ class TimeGameController {
     timeGameStats = TimeGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
-      teams: List.from(ref.read(teamsProvider)),
+      teams: List.from(passedTeams),
       rounds: [],
-      language: ref.read(chosenDictionaryProvider),
-      numberOfWords: ref.read(wordsToWinProvider),
+      numberOfWords: numberOfWords,
+      language: dictionary.value,
     );
 
-    useDynamicBackgrounds = ref.read(hiveProvider).getSettingsFromBox().useDynamicBackgrounds;
+    timeGameEndAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.timeGameEnd,
+        preload: false,
+      );
+    correctAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.correct,
+        preload: false,
+      );
+    wrongAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.wrong,
+        preload: false,
+      );
   }
 
   ///
   /// DISPOSE
   ///
 
-  void dispose() {
+  @override
+  void onDispose() {
     timer?.cancel();
+    timeGameEndAudioPlayer.dispose();
+    correctAudioPlayer.dispose();
+    wrongAudioPlayer.dispose();
   }
 
   ///
-  /// TIMER & COUNTDOWN
+  /// METHODS
   ///
 
-  /// Sets the variables and starts the Timer
+  /// Updates `state` with passed values
+  void updateState({
+    GameState? newGameState,
+    int? newCounter3Seconds,
+    List<PlayedWord>? newPlayedWords,
+    String? newCurrentWord,
+    List<Team>? newTeams,
+    Team? newPlayingTeam,
+    Duration? newTimeGameDuration,
+  }) =>
+      value = (
+        gameState: newGameState ?? value.gameState,
+        counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
+        playedWords: newPlayedWords ?? value.playedWords,
+        currentWord: newCurrentWord ?? value.currentWord,
+        teams: newTeams ?? value.teams,
+        playingTeam: newPlayingTeam ?? value.playingTeam,
+        timeGameDuration: newTimeGameDuration ?? value.timeGameDuration,
+      );
+
+  /// Sets the variables and starts the `Timer`
   void startTimer() => timer = Timer.periodic(
         const Duration(seconds: 1),
-        (timer) => ref.read(timeGameTimerProvider.notifier).state = Duration(
-          seconds: timer.tick,
+        (timer) => updateState(
+          newTimeGameDuration: Duration(
+            seconds: timer.tick,
+          ),
         ),
       );
 
   /// Changes background depending on the percentage of solved words
   void updateBackground() {
-    final percentageOfSolvedWords = 1 - (correctAnswers / ref.read(wordsToWinProvider));
+    final correctAnswers = value.playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length;
+
+    final percentageOfSolvedWords = 1 - (correctAnswers / numberOfWords);
 
     /// Show green background
     if (percentageOfSolvedWords <= 0.6 && percentageOfSolvedWords > 0.4) {
-      ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurredGreen,
-            isTemporary: true,
-          );
+      backgroundImage.changeBackground(
+        ModerniAliasImages.blurredGreen,
+        isTemporary: true,
+      );
     }
 
     /// Show yellow background
     else if (percentageOfSolvedWords <= 0.4 && percentageOfSolvedWords > 0.15) {
-      ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurredYellow,
-            isTemporary: true,
-          );
+      backgroundImage.changeBackground(
+        ModerniAliasImages.blurredYellow,
+        isTemporary: true,
+      );
     }
 
     /// Show red background
     else if (percentageOfSolvedWords <= 0.15) {
-      ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurredRed,
-            isTemporary: true,
-          );
+      backgroundImage.changeBackground(
+        ModerniAliasImages.blurredRed,
+        isTemporary: true,
+      );
     }
   }
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
-    ref.read(currentGameProvider.notifier).state = GameState.starting;
-    ref.read(counter3SecondsProvider.notifier).state = 3;
+    updateState(
+      newGameState: GameState.starting,
+      newCounter3Seconds: 3,
+    );
 
     Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        ref.read(counter3SecondsProvider.notifier).state -= 1;
+        updateState(
+          newCounter3Seconds: value.counter3Seconds - 1,
+        );
 
         /// Timer is done, start round
-        if (ref.read(counter3SecondsProvider) == 0) {
+        if (value.counter3Seconds == 0) {
           timer.cancel();
           startRound();
         }
@@ -134,26 +201,27 @@ class TimeGameController {
     await startAudioRecording();
   }
 
-  ///
-  /// ROUNDS
-  ///
-
-  /// Reset variables and start the round
+  /// Triggered when the counter finishes and round starts
   void startRound() {
-    correctAnswers = 0;
-    wrongAnswers = 0;
-    ref.read(playedWordsProvider).clear();
+    /// Generate `newWord`
+    final newWord = dictionary.getRandomWord(
+      previousWord: value.currentWord,
+    );
 
-    ref.read(dictionaryProvider.notifier).getRandomWord();
+    /// Update state for round start
+    updateState(
+      newPlayedWords: [],
+      newGameState: GameState.playing,
+      newCurrentWord: newWord,
+      newTimeGameDuration: Duration.zero,
+    );
 
-    ref.read(currentGameProvider.notifier).state = GameState.time;
-    ref.read(timeGameTimerProvider.notifier).state = Duration.zero;
-
+    /// Change background if enabled
     if (useDynamicBackgrounds) {
-      ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurredBlue,
-            isTemporary: true,
-          );
+      backgroundImage.changeBackground(
+        ModerniAliasImages.blurredBlue,
+        isTemporary: true,
+      );
     }
 
     startTimer();
@@ -162,16 +230,16 @@ class TimeGameController {
   /// Checks if team has guessed the selected number of words
   void checkRoundDone(BuildContext context) {
     /// User has guessed the proper number of words, round is done
-    if (ref.read(currentlyPlayingTeamProvider).points >= ref.read(wordsToWinProvider)) {
+    if (value.playingTeam.points >= numberOfWords) {
       gameStopped();
 
-      final currentTeamIndex = ref.read(teamsProvider).indexOf(
-            ref.read(currentlyPlayingTeamProvider),
-          );
+      final currentTeamIndex = value.teams.indexOf(
+        value.playingTeam,
+      );
 
-      if (currentTeamIndex < ref.read(teamsProvider).length - 1) {
+      if (currentTeamIndex < value.teams.length - 1) {
         continueGame(
-          ref.read(teamsProvider),
+          value.teams,
           context: context,
         );
       } else {
@@ -182,48 +250,71 @@ class TimeGameController {
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
-    ref.read(currentGameProvider.notifier).state = GameState.tapToStart;
-    ref.read(backgroundImageProvider.notifier).revertBackground();
+    updateState(
+      newGameState: GameState.idle,
+    );
 
-    ref.read(timeGameEndPlayerProvider).load();
-    ref.read(timeGameEndPlayerProvider).play();
+    backgroundImage.revertBackground();
+
+    playSound(
+      audioPlayer: timeGameEndAudioPlayer,
+    );
+
     timer?.cancel();
   }
 
   /// Continues game with next team
-  Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
+  Future<void> continueGame(
+    List<Team> playingTeams, {
+    required BuildContext context,
+  }) async {
     await showScoresSheet(context);
 
-    await updateHiveStats(gameType: GameState.tapToStart);
+    await updateHiveStats(gameType: GameState.idle);
 
-    final currentTeamIndex = ref.read(teamsProvider).indexOf(
-          ref.read(currentlyPlayingTeamProvider),
-        );
-    ref.read(currentlyPlayingTeamProvider.notifier).state = ref.read(teamsProvider)[currentTeamIndex + 1];
+    final currentTeamIndex = playingTeams.indexOf(
+      value.playingTeam,
+    );
+
+    updateState(
+      newPlayingTeam: value.teams[currentTeamIndex + 1],
+    );
   }
 
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame(BuildContext context) async {
-    ref.read(currentGameProvider.notifier).state = GameState.end;
-    await ref.read(backgroundImageProvider.notifier).revertBackground();
+    updateState(
+      newGameState: GameState.finished,
+    );
 
-    await updateHiveStats(gameType: GameState.time);
-    openTimeGameFinished(context);
+    await backgroundImage.revertBackground();
+
+    await updateHiveStats(gameType: GameState.finished);
+
+    openTimeGameFinished(
+      context,
+      teams: value.teams,
+      rounds: timeGameStats.rounds,
+      playedWords: value.playedWords,
+    );
   }
 
   ///
   /// ANSWER
   ///
 
-  void answerChosen({required Answer chosenAnswer, required BuildContext context}) {
+  void answerChosen({
+    required Answer chosenAnswer,
+    required BuildContext context,
+  }) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == GameState.tapToStart) {
+    if (value.gameState == GameState.idle) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider) == GameState.starting) {
+    if (value.gameState == GameState.starting) {
       return;
     }
 
@@ -236,60 +327,46 @@ class TimeGameController {
     /// Play proper sound
     playAnswerSound(chosenAnswer: chosenAnswer);
 
-    /// Player chose the `Correct` button
-    if (chosenAnswer == Answer.correct) {
-      correctAnswers++;
-      ref.read(currentlyPlayingTeamProvider)
-        ..points += 1
-        ..correctPoints += 1;
-    }
-
-    /// Player chose the `Wrong` button
-    else {
-      wrongAnswers++;
-      ref.read(currentlyPlayingTeamProvider).wrongPoints += 1;
-    }
+    /// Update relevant state
+    /// Get another random word
+    updateState(
+      newPlayingTeam: value.playingTeam.copyWith(
+        points: value.playingTeam.points + 1,
+        correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
+        wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
+      ),
+      newPlayedWords: [
+        ...value.playedWords,
+        if (value.currentWord != null)
+          PlayedWord(
+            word: value.currentWord!,
+            chosenAnswer: chosenAnswer,
+          ),
+      ],
+      newCurrentWord: dictionary.getRandomWord(
+        previousWord: value.currentWord,
+      ),
+    );
 
     /// Update background
     if (useDynamicBackgrounds) {
       updateBackground();
     }
 
-    /// Add answer to list of `playedWords` (for showing in the end of the round)
-    ref.read(playedWordsProvider).add(
-          PlayedWord(
-            word: ref.read(dictionaryProvider),
-            chosenAnswer: chosenAnswer,
-          ),
-        );
-
     /// Check if player has guessed the selected number of words
     checkRoundDone(context);
-
-    /// Get another random word
-    ref.read(dictionaryProvider.notifier).getRandomWord();
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenAnswer}) {
-    if (chosenAnswer == Answer.correct) {
-      ref.read(correctPlayerProvider).load();
-      ref.read(correctPlayerProvider).play();
-    } else {
-      ref.read(wrongPlayerProvider).load();
-      ref.read(wrongPlayerProvider).play();
-    }
-  }
-
-  ///
-  /// SCORES SHEET
-  ///
+  void playAnswerSound({required Answer chosenAnswer}) => playSound(
+        audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
+      );
 
   /// Shows scores sheet and dismisses it after some time
   Future<void> showScoresSheet(BuildContext context) async {
     showTimeScores(
       context,
-      playedWords: ref.read(playedWordsProvider),
+      playedWords: value.playedWords,
       dismissible: false,
       roundEnd: true,
     );
@@ -297,48 +374,42 @@ class TimeGameController {
     Navigator.of(context).pop();
   }
 
-  ///
-  /// RECORD
-  ///
-
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
-    await ref.read(audioRecordProvider).startRecording(path);
+    final path = '${pathProvider.appDocDirectory}/$timestamp';
+    await audioRecord.startRecording(path);
   }
 
   /// Stores the audio file to application directory
   Future<String?> saveAudioFile() async {
     try {
-      return await ref.read(audioRecordProvider).stopRecording();
+      return await audioRecord.stopRecording();
     } catch (e) {
-      ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
+      logger.e('Error in saveAudioFile()\n$e');
     }
     return null;
   }
 
-  ///
-  /// HIVE
-  ///
-
   /// Save audio file and update stats and store them in [Hive]
   Future<void> updateHiveStats({required GameState gameType}) async {
     timeGameStats = timeGameStats.copyWith(
-      endTime: gameType == GameState.time ? DateTime.now() : null,
+      endTime: gameType == GameState.finished ? DateTime.now() : null,
       rounds: [
         ...timeGameStats.rounds,
         Round(
-          playedWords: List.from(ref.read(playedWordsProvider)),
-          playingTeam: ref.read(currentlyPlayingTeamProvider),
+          playedWords: List.from(value.playedWords),
+          playingTeam: value.playingTeam,
           audioRecording: await saveAudioFile(),
           durationSeconds: timer?.tick,
         ),
       ],
     );
 
-    if (gameType == GameState.time) {
-      await ref.read(hiveProvider).addTimeGameStatsToBox(timeGameStats: timeGameStats);
+    if (gameType == GameState.finished) {
+      await hive.addTimeGameStatsToBox(
+        timeGameStats: timeGameStats,
+      );
     }
   }
 }

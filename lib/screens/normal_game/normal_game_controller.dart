@@ -18,11 +18,8 @@ import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
-import '../../util/providers.dart';
-import '../../util/routing.dart';
 import '../../util/sound.dart';
 import '../../util/typedef.dart';
-import '../../widgets/background_image.dart';
 import '../../widgets/scores/show_scores.dart';
 
 class NormalGameController extends ValueNotifier<NormalGameState> implements Disposable {
@@ -33,7 +30,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
   final HiveService hive;
   final AudioRecordController audioRecord;
 
-  final List<Team> teams;
+  final List<Team> passedTeams;
   final int pointsToWin;
   final int lengthOfRound;
   final bool useDynamicBackgrounds;
@@ -45,7 +42,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     required this.pathProvider,
     required this.hive,
     required this.audioRecord,
-    required this.teams,
+    required this.passedTeams,
     required this.pointsToWin,
     required this.lengthOfRound,
     required this.useDynamicBackgrounds,
@@ -55,9 +52,9 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
             counter3Seconds: 0,
             playedWords: [],
             currentWord: null,
-            teams: teams,
+            teams: passedTeams,
             tieBreakTeams: null,
-            playingTeam: teams.first,
+            playingTeam: passedTeams.first,
           ),
         );
 
@@ -90,7 +87,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
-      teams: List.from(teams),
+      teams: List.from(passedTeams),
       rounds: [],
       lengthOfRound: lengthOfRound,
       pointsToWin: pointsToWin,
@@ -241,7 +238,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
   /// ROUNDS
   ///
 
-  /// Reset variables and start the round
+  /// Triggered when the counter finishes and round starts
   void startRound({
     required int lengthOfRound,
   }) {
@@ -352,9 +349,12 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
 
   /// Continues tie break with proper teams
   Future<void> continueGame(List<Team> playingTeams) async {
-    await showScoresSheet(context);
+    // TODO
+    // await showScoresSheet();
 
-    await updateHiveStats(gameType: GameState.idle);
+    await updateHiveStats(
+      gameType: GameState.idle,
+    );
 
     final currentTeamIndex = playingTeams.indexOf(
       value.playingTeam,
@@ -374,15 +374,13 @@ class NormalGameController extends ValueNotifier<NormalGameState> implements Dis
     await backgroundImage.revertBackground();
     await updateHiveStats(gameType: GameState.finished);
 
-    openNormalGameFinished(
-      teams: value.teams,
-      playedWords: value.playedWords,
-    );
+// TODO
+    // openNormalGameFinished(
+    //   context,
+    //   teams: value.teams,
+    //   playedWords: value.playedWords,
+    // );
   }
-
-  ///
-  /// ANSWER
-  ///
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer

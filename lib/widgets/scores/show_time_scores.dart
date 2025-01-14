@@ -1,18 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:watch_it/watch_it.dart';
 
-import '../../constants/enums.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
-import '../../screens/time_game/time_game_controller.dart';
-import '../../util/providers.dart';
+import '../../services/background_image_service.dart';
 import '../animated_column.dart';
 import '../animated_list_view.dart';
-import '../background_image.dart';
-import './highscore_value.dart';
 import 'played_word_value.dart';
 
 void showTimeScores(
@@ -32,7 +29,7 @@ void showTimeScores(
       ),
     );
 
-class TimeScoresModal extends StatelessWidget {
+class TimeScoresModal extends WatchingWidget {
   final List<PlayedWord> playedWords;
   final bool roundEnd;
   final bool gameFinished;
@@ -82,16 +79,19 @@ class TimeScoresModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final teams = ref.watch(teamsProvider);
-    final timeGameController = ref.watch(timeGameProvider);
-    final rounds = timeGameController.timeGameStats.rounds;
+    final backgroundImage = watchIt<BackgroundImageService>().value;
 
-    final timeGameTimer = ref.watch(timeGameTimerProvider);
-    final duration = '${timeGameTimer.inMinutes.toString().padLeft(2, '0')}:${(timeGameTimer.inSeconds % 60).toString().padLeft(2, '0')}';
+    // TODO
+    // final teams = ref.watch(teamsProvider);
+    // final timeGameController = ref.watch(timeGameProvider);
+    // final rounds = timeGameController.timeGameStats.rounds;
 
-    final currentGame = ref.watch(currentGameProvider);
+    // final timeGameTimer = ref.watch(timeGameTimerProvider);
+    // final duration = '${timeGameTimer.inMinutes.toString().padLeft(2, '0')}:${(timeGameTimer.inSeconds % 60).toString().padLeft(2, '0')}';
 
-    final currentlyPlayingTeamIndex = teams.indexOf(ref.watch(currentlyPlayingTeamProvider));
+    // final currentGame = ref.watch(currentGameProvider);
+
+    // final currentlyPlayingTeamIndex = teams.indexOf(ref.watch(currentlyPlayingTeamProvider));
 
     return Container(
       width: double.infinity,
@@ -101,9 +101,7 @@ class TimeScoresModal extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(
-            ref.watch(backgroundImageProvider),
-          ),
+          image: AssetImage(backgroundImage),
           fit: BoxFit.cover,
         ),
         borderRadius: const BorderRadius.vertical(
@@ -124,31 +122,32 @@ class TimeScoresModal extends StatelessWidget {
               style: ModerniAliasTextStyles.scoresTitle,
             ),
             const SizedBox(height: 24),
-            AnimationLimiter(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemCount: teams.length,
-                itemBuilder: (_, index) => AnimatedListView(
-                  fastAnimations: true,
-                  index: index,
-                  child: HighscoreValue(
-                    teamName: calculateName(
-                      rounds: rounds,
-                      teams: teams,
-                      index: index,
-                    ),
-                    points: currentlyPlayingTeamIndex == index && (roundEnd || currentGame == GameState.time)
-                        ? duration
-                        : calculatePoints(
-                            rounds: rounds,
-                            teams: teams,
-                            index: index,
-                          ),
-                  ),
-                ),
-              ),
-            ),
+            // TODO
+            // AnimationLimiter(
+            //   child: ListView.builder(
+            //     shrinkWrap: true,
+            //     physics: const BouncingScrollPhysics(),
+            //     itemCount: teams.length,
+            //     itemBuilder: (_, index) => AnimatedListView(
+            //       fastAnimations: true,
+            //       index: index,
+            //       child: HighscoreValue(
+            //         teamName: calculateName(
+            //           rounds: rounds,
+            //           teams: teams,
+            //           index: index,
+            //         ),
+            //         points: currentlyPlayingTeamIndex == index && (roundEnd || currentGame == GameState.playing)
+            //             ? duration
+            //             : calculatePoints(
+            //                 rounds: rounds,
+            //                 teams: teams,
+            //                 index: index,
+            //               ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
             ///
             /// WORDS FROM LAST ROUND

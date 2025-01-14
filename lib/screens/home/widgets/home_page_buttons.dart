@@ -26,7 +26,10 @@ class HomePageButtons extends StatelessWidget {
             PlayButton(
               text: 'quickStartButtonString'.tr().toUpperCase(),
               horizontalPadding: 40,
-              onPressed: () => openQuickGame(context),
+              onPressed: () => openQuickGame(
+                context,
+                lengthOfRound: 60,
+              ),
             ),
             const SizedBox(height: 25),
             StatsButton(),

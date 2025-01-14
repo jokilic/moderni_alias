@@ -11,21 +11,21 @@ import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
-import '../../util/providers.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/scores/show_time_scores.dart';
-import '../time_game/time_game_controller.dart';
 
 class TimeGameFinishedScreen extends StatelessWidget {
   final List<Team> teams;
+  final List<Round> rounds;
   final List<PlayedWord> playedWords;
 
   const TimeGameFinishedScreen({
     required this.teams,
+    required this.rounds,
     required this.playedWords,
     required super.key,
   });
@@ -52,9 +52,7 @@ class TimeGameFinishedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fastestRounds = findFastestRounds(
-      ref.watch(timeGameProvider).timeGameStats.rounds,
-    );
+    final fastestRounds = findFastestRounds(rounds);
     final teamNames = getTeamNamesFastestRounds(fastestRounds);
 
     return PopScope(
