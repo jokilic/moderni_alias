@@ -38,6 +38,7 @@ class TimeGameScreen extends WatchingStatefulWidget {
 
 class _TimeGameScreenState extends State<TimeGameScreen> {
   late bool useCircularTimer;
+  late RecorderController recorderController;
 
   @override
   void initState() {
@@ -47,10 +48,11 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
+    recorderController = RecorderController();
 
     final audioRecord = registerIfNotInitialized(
       () => AudioRecordController(
-        recorderController: RecorderController(),
+        recorderController: recorderController,
         logger: getIt.get<LoggerService>(),
       ),
       afterRegister: (controller) => controller.init(),
@@ -77,6 +79,9 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
     getIt
       ..unregister<AudioRecordController>()
       ..unregister<TimeGameController>();
+
+    recorderController.dispose();
+
     super.dispose();
   }
 
@@ -87,6 +92,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
     final backgroundImage = watchIt<BackgroundImageService>().value;
 
     final state = watchIt<TimeGameController>().value;
+
     final currentlyPlayingTeam = state.playingTeam;
     final gameState = state.gameState;
     final playedWords = state.playedWords;
@@ -119,6 +125,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                     width: width,
                     child: TimeGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
+                      recorderController: recorderController,
                       exitGame: () => exitGameModal(
                         context,
                         backgroundImage: backgroundImage,

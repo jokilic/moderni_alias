@@ -1,3 +1,4 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,11 +12,13 @@ import '../animated_gesture_detector.dart';
 
 class NormalGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;
+  final RecorderController recorderController;
   final Function() showScores;
   final Function() exitGame;
 
   const NormalGameInfoSection({
     required this.currentlyPlayingTeam,
+    required this.recorderController,
     required this.showScores,
     required this.exitGame,
   });
@@ -43,25 +46,18 @@ class NormalGameInfoSection extends StatelessWidget {
                       style: ModerniAliasTextStyles.playingTeam,
                     ),
                   ),
-                  // TODO
-                  // Consumer(
-                  //   builder: (_, ref, __) {
-                  //     final audioRecorderController = ref.watch(audioRecorderControllerProvider);
-
-                  //     return AudioWaveforms(
-                  //       recorderController: audioRecorderController,
-                  //       size: Size(MediaQuery.sizeOf(context).width, 48),
-                  //       padding: const EdgeInsets.symmetric(horizontal: 56),
-                  //       waveStyle: const WaveStyle(
-                  //         waveColor: ModerniAliasColors.white,
-                  //         middleLineColor: ModerniAliasColors.white,
-                  //         scaleFactor: 24,
-                  //         extendWaveform: true,
-                  //         showMiddleLine: false,
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
+                  AudioWaveforms(
+                    recorderController: recorderController,
+                    size: Size(MediaQuery.sizeOf(context).width, 48),
+                    padding: const EdgeInsets.symmetric(horizontal: 56),
+                    waveStyle: const WaveStyle(
+                      waveColor: ModerniAliasColors.white,
+                      middleLineColor: ModerniAliasColors.white,
+                      scaleFactor: 24,
+                      extendWaveform: true,
+                      showMiddleLine: false,
+                    ),
+                  ),
                 ],
               ),
             ),

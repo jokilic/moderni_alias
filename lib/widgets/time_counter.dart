@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
+import '../constants/enums.dart';
+import '../screens/normal_game/normal_game_controller.dart';
+import '../screens/quick_game/quick_game_controller.dart';
 
 class TimeCounter extends StatefulWidget {
   final int lengthOfRound;
+  final NormalGameController? normalGameController;
+  final QuickGameController? quickGameController;
 
   const TimeCounter({
     required this.lengthOfRound,
+    this.normalGameController,
+    this.quickGameController,
   });
 
   @override
@@ -14,52 +21,54 @@ class TimeCounter extends StatefulWidget {
 }
 
 class TimeCounterState extends State<TimeCounter> with SingleTickerProviderStateMixin {
-  late final AnimationController controller;
+  late final AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
 
-    controller = AnimationController(
+    animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.lengthOfRound),
     );
+
+    widget.normalGameController?.addListener(animationListener);
+    widget.quickGameController?.addListener(animationListener);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    widget.normalGameController?.dispose();
+    widget.quickGameController?.dispose();
+    animationController.dispose();
+
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO
-    /// Logic to control animation depending on the game state
-    // ref.listen(currentGameProvider, (_, state) {
-    //   switch (state) {
-    //     /// Game is running, start animation
-    //     case GameState.playing:
-    //       controller.forward();
-    //       break;
+  void animationListener() {
+    final gameState = widget.normalGameController?.value.gameState ?? widget.quickGameController?.value.gameState;
 
-    //     /// Game is not running, stop animation
-    //     case GameState.idle:
-    //     case GameState.starting:
-    //     case GameState.finished:
-    //       controller.reset();
-    //       break;
-    //   }
-    // });
+    if (gameState != null) {
+      switch (gameState) {
+        /// Game is running, start animation
+        case GameState.playing:
+          animationController.forward();
 
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (_, __) => LinearProgressIndicator(
-        value: controller.value,
-        borderRadius: BorderRadius.circular(100),
-        backgroundColor: Colors.transparent,
-        color: ModerniAliasColors.white.withValues(alpha: 0.7),
-      ),
-    );
+        /// Game is not running, stop animation
+        default:
+          animationController.reset();
+      }
+    }
   }
+
+  @override
+  Widget build(BuildContext context) => AnimatedBuilder(
+        animation: animationController,
+        builder: (_, __) => LinearProgressIndicator(
+          value: animationController.value,
+          borderRadius: BorderRadius.circular(100),
+          backgroundColor: Colors.transparent,
+          color: ModerniAliasColors.white.withValues(alpha: 0.7),
+        ),
+      );
 }

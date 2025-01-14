@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/enums.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
+import '../../screens/time_game/time_game_controller.dart';
 import '../../services/background_image_service.dart';
+import '../../util/dependencies.dart';
 import '../animated_column.dart';
 import '../animated_list_view.dart';
+import 'highscore_value.dart';
 import 'played_word_value.dart';
 
 void showTimeScores(
@@ -81,17 +85,15 @@ class TimeScoresModal extends WatchingWidget {
   Widget build(BuildContext context) {
     final backgroundImage = watchIt<BackgroundImageService>().value;
 
-    // TODO
-    // final teams = ref.watch(teamsProvider);
-    // final timeGameController = ref.watch(timeGameProvider);
-    // final rounds = timeGameController.timeGameStats.rounds;
+    final rounds = getIt.get<TimeGameController>().timeGameStats.rounds;
 
-    // final timeGameTimer = ref.watch(timeGameTimerProvider);
-    // final duration = '${timeGameTimer.inMinutes.toString().padLeft(2, '0')}:${(timeGameTimer.inSeconds % 60).toString().padLeft(2, '0')}';
+    final state = watchIt<TimeGameController>().value;
+    final teams = state.teams;
+    final timeGameDuration = state.timeGameDuration;
+    final gameState = state.gameState;
+    final currentlyPlayingTeamIndex = state.teams.indexOf(state.playingTeam);
 
-    // final currentGame = ref.watch(currentGameProvider);
-
-    // final currentlyPlayingTeamIndex = teams.indexOf(ref.watch(currentlyPlayingTeamProvider));
+    final duration = '${timeGameDuration.inMinutes.toString().padLeft(2, '0')}:${(timeGameDuration.inSeconds % 60).toString().padLeft(2, '0')}';
 
     return Container(
       width: double.infinity,
@@ -122,32 +124,32 @@ class TimeScoresModal extends WatchingWidget {
               style: ModerniAliasTextStyles.scoresTitle,
             ),
             const SizedBox(height: 24),
-            // TODO
-            // AnimationLimiter(
-            //   child: ListView.builder(
-            //     shrinkWrap: true,
-            //     physics: const BouncingScrollPhysics(),
-            //     itemCount: teams.length,
-            //     itemBuilder: (_, index) => AnimatedListView(
-            //       fastAnimations: true,
-            //       index: index,
-            //       child: HighscoreValue(
-            //         teamName: calculateName(
-            //           rounds: rounds,
-            //           teams: teams,
-            //           index: index,
-            //         ),
-            //         points: currentlyPlayingTeamIndex == index && (roundEnd || currentGame == GameState.playing)
-            //             ? duration
-            //             : calculatePoints(
-            //                 rounds: rounds,
-            //                 teams: teams,
-            //                 index: index,
-            //               ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
+            AnimationLimiter(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemCount: teams.length,
+                itemBuilder: (_, index) => AnimatedListView(
+                  fastAnimations: true,
+                  index: index,
+                  child: HighscoreValue(
+                    teamName: calculateName(
+                      rounds: rounds,
+                      teams: teams,
+                      index: index,
+                    ),
+                    points: currentlyPlayingTeamIndex == index && (roundEnd || gameState == GameState.playing)
+                        ? duration
+                        : calculatePoints(
+                            rounds: rounds,
+                            teams: teams,
+                            index: index,
+                          ),
+                  ),
+                ),
+              ),
+            ),
 
             ///
             /// WORDS FROM LAST ROUND

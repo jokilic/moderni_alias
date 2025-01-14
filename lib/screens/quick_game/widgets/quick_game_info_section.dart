@@ -10,16 +10,16 @@ import '../../../widgets/animated_gesture_detector.dart';
 class QuickGameInfoSection extends StatelessWidget {
   final int correctAnswers;
   final int wrongAnswers;
+  final RecorderController recorderController;
   final Function() exitGame;
   final Function() showScores;
-  final RecorderController recorderController;
 
   const QuickGameInfoSection({
     required this.correctAnswers,
     required this.wrongAnswers,
+    required this.recorderController,
     required this.exitGame,
     required this.showScores,
-    required this.recorderController,
   });
 
   @override

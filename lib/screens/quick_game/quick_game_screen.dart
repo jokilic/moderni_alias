@@ -36,6 +36,7 @@ class QuickGameScreen extends WatchingStatefulWidget {
 
 class _QuickGameScreenState extends State<QuickGameScreen> {
   late bool useCircularTimer;
+  late RecorderController recorderController;
 
   @override
   void initState() {
@@ -45,10 +46,11 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
+    recorderController = RecorderController();
 
     final audioRecord = registerIfNotInitialized(
       () => AudioRecordController(
-        recorderController: RecorderController(),
+        recorderController: recorderController,
         logger: getIt.get<LoggerService>(),
       ),
       afterRegister: (controller) => controller.init(),
@@ -74,6 +76,9 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
     getIt
       ..unregister<AudioRecordController>()
       ..unregister<QuickGameController>();
+
+    recorderController.dispose();
+
     super.dispose();
   }
 
@@ -83,8 +88,10 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
 
     final backgroundImage = watchIt<BackgroundImageService>().value;
 
-    final state = watchIt<QuickGameController>().value;
-    final currentGame = state.gameState;
+    final controller = watchIt<QuickGameController>();
+    final state = controller.value;
+
+    final gameState = state.gameState;
     final playedWords = state.playedWords;
     final counter3Seconds = state.counter3Seconds;
     final currentWord = state.currentWord;
@@ -110,7 +117,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                     top: 0,
                     width: width,
                     child: QuickGameInfoSection(
-                      recorderController: getIt.get<AudioRecordController>().recorderController,
+                      recorderController: recorderController,
                       correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
                       wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
                       exitGame: () => exitGameModal(
@@ -136,8 +143,8 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeIn,
                       child: SizedBox(
-                        key: ValueKey(currentGame),
-                        child: switch (currentGame) {
+                        key: ValueKey(gameState),
+                        child: switch (gameState) {
                           ///
                           /// PLAYING GAME
                           ///
@@ -203,6 +210,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                           width: width,
                           child: TimeCounter(
                             lengthOfRound: widget.lengthOfRound,
+                            quickGameController: controller,
                           ),
                         ),
                       ),

@@ -41,6 +41,7 @@ class NormalGameScreen extends WatchingStatefulWidget {
 
 class _NormalGameScreenState extends State<NormalGameScreen> {
   late bool useCircularTimer;
+  late RecorderController recorderController;
 
   @override
   void initState() {
@@ -50,10 +51,11 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
+    recorderController = RecorderController();
 
     final audioRecord = registerIfNotInitialized(
       () => AudioRecordController(
-        recorderController: RecorderController(),
+        recorderController: recorderController,
         logger: getIt.get<LoggerService>(),
       ),
       afterRegister: (controller) => controller.init(),
@@ -81,6 +83,9 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
     getIt
       ..unregister<AudioRecordController>()
       ..unregister<NormalGameController>();
+
+    recorderController.dispose();
+
     super.dispose();
   }
 
@@ -90,7 +95,9 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
 
     final backgroundImage = watchIt<BackgroundImageService>().value;
 
-    final state = watchIt<NormalGameController>().value;
+    final controller = watchIt<NormalGameController>();
+    final state = controller.value;
+
     final teams = state.teams;
     final currentlyPlayingTeam = state.playingTeam;
     final gameState = state.gameState;
@@ -120,6 +127,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
                     width: width,
                     child: NormalGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
+                      recorderController: recorderController,
                       exitGame: () => exitGameModal(
                         context,
                         backgroundImage: backgroundImage,
@@ -211,6 +219,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
                           width: width,
                           child: TimeCounter(
                             lengthOfRound: widget.lengthOfRound,
+                            normalGameController: controller,
                           ),
                         ),
                       ),
