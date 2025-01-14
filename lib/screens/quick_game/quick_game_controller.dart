@@ -16,6 +16,7 @@ import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
+import '../../util/sound.dart';
 import '../../util/typedef.dart';
 
 class QuickGameController extends ValueNotifier<QuickGameState> implements Disposable {
@@ -40,8 +41,6 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     required this.useDynamicBackgrounds,
   }) : super(
           (
-            correctWords: 0,
-            wrongWords: 0,
             gameState: GameState.idle,
             counter3Seconds: 0,
             playedWords: [],
@@ -121,16 +120,12 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
 
   /// Updates `state` with passed values
   void updateState({
-    int? newCorrectWords,
-    int? newWrongWords,
     GameState? newGameState,
     int? newCounter3Seconds,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
   }) =>
       value = (
-        correctWords: newCorrectWords ?? value.correctWords,
-        wrongWords: newWrongWords ?? value.wrongWords,
         gameState: newGameState ?? value.gameState,
         counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
         playedWords: newPlayedWords ?? value.playedWords,
@@ -144,7 +139,12 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
   }) =>
       Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => useDynamicBackgrounds ? backgroundImage.changeBackground(background, isTemporary: true) : null,
+        () => useDynamicBackgrounds
+            ? backgroundImage.changeBackground(
+                background,
+                isTemporary: true,
+              )
+            : null,
       );
 
   /// Starts the time countdown
@@ -152,7 +152,9 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
-      playEndSound,
+      () => playSound(
+        audioPlayer: roundEndAudioPlayer,
+      ),
     );
 
     /// Initialize timers that change colors
@@ -192,7 +194,9 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        updateState(newCounter3Seconds: value.counter3Seconds - 1);
+        updateState(
+          newCounter3Seconds: value.counter3Seconds - 1,
+        );
 
         /// Timer is done, start round
         if (value.counter3Seconds == 0) {
@@ -240,7 +244,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     await backgroundImage.revertBackground();
     await updateHiveStats();
 
-    // openQuickGameFinished(context);
+    openQuickGameFinished(context);
   }
 
   void answerChosen({required Answer chosenAnswer}) {
@@ -269,7 +273,11 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     updateState(
       newPlayedWords: [
         ...value.playedWords,
-        if (value.currentWord != null) PlayedWord(word: value.currentWord!, chosenAnswer: chosenAnswer),
+        if (value.currentWord != null)
+          PlayedWord(
+            word: value.currentWord!,
+            chosenAnswer: chosenAnswer,
+          ),
       ],
       newCurrentWord: dictionary.getRandomWord(
         previousWord: value.currentWord,
@@ -278,13 +286,9 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenAnswer}) {
-    if (chosenAnswer == Answer.correct) {
-      playCorrectSound();
-    } else {
-      playWrongSound();
-    }
-  }
+  void playAnswerSound({required Answer chosenAnswer}) => playSound(
+        audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
+      );
 
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
@@ -321,19 +325,4 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
       quickGameStats: quickGameStats,
     );
   }
-
-  /// Plays sound to end round
-  void playEndSound() => roundEndAudioPlayer
-    ..load()
-    ..play();
-
-  /// Plays sound for correct answer
-  void playCorrectSound() => correctAudioPlayer
-    ..load()
-    ..play();
-
-  /// Plays sound for wrong answer
-  void playWrongSound() => wrongAudioPlayer
-    ..load()
-    ..play();
 }

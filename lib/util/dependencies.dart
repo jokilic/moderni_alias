@@ -12,7 +12,7 @@ final getIt = GetIt.instance;
 
 /// Registers a class if it's not already initialized
 /// Optionally runs a function with newly registered class
-void registerIfNotInitialized<T extends Object>(
+T registerIfNotInitialized<T extends Object>(
   T Function() factoryFunc, {
   String? instanceName,
   void Function(T controller)? afterRegister,
@@ -28,6 +28,8 @@ void registerIfNotInitialized<T extends Object>(
       afterRegister(instance);
     }
   }
+
+  return getIt.get<T>(instanceName: instanceName);
 }
 
 void initializeServices() {

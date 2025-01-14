@@ -16,10 +16,18 @@ typedef TimeGameSetupState = ({
 });
 
 typedef QuickGameState = ({
-  int correctWords,
-  int wrongWords,
   GameState gameState,
   int counter3Seconds,
   List<PlayedWord> playedWords,
   String? currentWord,
+});
+
+typedef NormalGameState = ({
+  GameState gameState,
+  int counter3Seconds,
+  List<PlayedWord> playedWords,
+  String? currentWord,
+  List<Team> teams,
+  List<Team>? tieBreakTeams,
+  Team playingTeam,
 });

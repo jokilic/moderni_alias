@@ -1,11 +1,17 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../controllers/audio_record_controller.dart';
+import '../../models/team/team.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
+import '../../services/path_provider_service.dart';
+import '../../util/dependencies.dart';
 import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
@@ -18,34 +24,84 @@ import '../../widgets/time_counter.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'normal_game_controller.dart';
 
-class NormalGameScreen extends StatelessWidget {
-  const NormalGameScreen({required super.key});
+class NormalGameScreen extends WatchingStatefulWidget {
+  final List<Team> teams;
+  final int pointsToWin;
+  final int lengthOfRound;
+
+  const NormalGameScreen({
+    required this.teams,
+    required this.pointsToWin,
+    required this.lengthOfRound,
+    required super.key,
+  });
+
+  @override
+  State<NormalGameScreen> createState() => _NormalGameScreenState();
+}
+
+class _NormalGameScreenState extends State<NormalGameScreen> {
+  late bool useCircularTimer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final settings = getIt.get<HiveService>().getSettingsFromBox();
+
+    final useDynamicBackgrounds = settings.useDynamicBackgrounds;
+    useCircularTimer = settings.useCircularTimer;
+
+    final audioRecord = registerIfNotInitialized(
+      () => AudioRecordController(
+        recorderController: RecorderController(),
+        logger: getIt.get<LoggerService>(),
+      ),
+    );
+
+    registerIfNotInitialized<NormalGameController>(
+      () => NormalGameController(
+        logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
+        backgroundImage: getIt.get<BackgroundImageService>(),
+        pathProvider: getIt.get<PathProviderService>(),
+        hive: getIt.get<HiveService>(),
+        audioRecord: audioRecord,
+        teams: widget.teams,
+        pointsToWin: widget.pointsToWin,
+        lengthOfRound: widget.lengthOfRound,
+        useDynamicBackgrounds: useDynamicBackgrounds,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    getIt
+      ..unregister<AudioRecordController>()
+      ..unregister<NormalGameController>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
-    final currentlyPlayingTeam = ref.watch(currentlyPlayingTeamProvider);
-    final currentGame = ref.watch(currentGameProvider);
-    final playedWords = ref.watch(playedWordsProvider);
-    final counter3Seconds = ref.watch(counter3SecondsProvider);
-    final lengthOfRound = ref.watch(lengthOfRoundProvider);
-    final teams = ref.watch(teamsProvider);
+    final backgroundImage = watchIt<BackgroundImageService>().value;
 
-    final currentWord = ref.watch(dictionaryProvider);
-
-    final useCircularTimer = ref.watch(hiveProvider).getSettingsFromBox().useCircularTimer;
-
-    ref.watch(audioRecordProvider);
-
-    final normalGameController = ref.watch(normalGameProvider(context));
+    final state = watchIt<NormalGameController>().value;
+    final teams = state.teams;
+    final currentlyPlayingTeam = state.playingTeam;
+    final currentGame = state.gameState;
+    final playedWords = state.playedWords;
+    final counter3Seconds = state.counter3Seconds;
+    final currentWord = state.currentWord;
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (_, __) => exitGameModal(
         context,
-        ref,
-        backgroundImage: ref.watch(backgroundImageProvider),
+        backgroundImage: backgroundImage,
       ),
       child: Scaffold(
         body: Stack(
@@ -65,14 +121,13 @@ class NormalGameScreen extends StatelessWidget {
                       currentlyPlayingTeam: currentlyPlayingTeam,
                       exitGame: () => exitGameModal(
                         context,
-                        ref,
-                        backgroundImage: ref.watch(backgroundImageProvider),
+                        backgroundImage: backgroundImage,
                       ),
                       showScores: () => showScores(
                         context,
                         teams: teams,
                         playedWords: playedWords,
-                        backgroundImage: ref.watch(backgroundImageProvider),
+                        backgroundImage: backgroundImage,
                       ),
                     ),
                   ),
@@ -80,7 +135,7 @@ class NormalGameScreen extends StatelessWidget {
                   ///
                   /// PLAYING GAME
                   ///
-                  if (currentGame == GameState.normal)
+                  if (currentGame == GameState.playing && currentWord != null)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -90,7 +145,7 @@ class NormalGameScreen extends StatelessWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
-                          length: lengthOfRound,
+                          length: widget.lengthOfRound,
                           showCircularTimer: useCircularTimer,
                         ),
                       ),
@@ -116,7 +171,7 @@ class NormalGameScreen extends StatelessWidget {
                   ///
                   /// TAP TO START GAME
                   ///
-                  else if (currentGame == GameState.tapToStart)
+                  else if (currentGame == GameState.idle)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -125,7 +180,7 @@ class NormalGameScreen extends StatelessWidget {
                         switchInCurve: Curves.easeIn,
                         switchOutCurve: Curves.easeIn,
                         child: GameOff(
-                          onTap: normalGameController.start3SecondCountdown,
+                          onTap: getIt.get<NormalGameController>().start3SecondCountdown,
                         ),
                       ),
                     ),
@@ -137,12 +192,12 @@ class NormalGameScreen extends StatelessWidget {
                     bottom: 0,
                     width: width,
                     child: WrongCorrectButtons(
-                      wrongChosen: () => normalGameController.answerChosen(
-                        chosenAnswer: Answer.wrong,
-                      ),
-                      correctChosen: () => normalGameController.answerChosen(
-                        chosenAnswer: Answer.correct,
-                      ),
+                      wrongChosen: () => getIt.get<NormalGameController>().answerChosen(
+                            chosenAnswer: Answer.wrong,
+                          ),
+                      correctChosen: () => getIt.get<NormalGameController>().answerChosen(
+                            chosenAnswer: Answer.correct,
+                          ),
                     ),
                   ),
 
@@ -158,7 +213,7 @@ class NormalGameScreen extends StatelessWidget {
                           height: 8,
                           width: width,
                           child: TimeCounter(
-                            roundLength: lengthOfRound,
+                            lengthOfRound: widget.lengthOfRound,
                           ),
                         ),
                       ),

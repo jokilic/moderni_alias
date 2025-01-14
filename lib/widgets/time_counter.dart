@@ -5,10 +5,10 @@ import '../constants/enums.dart';
 import '../util/providers.dart';
 
 class TimeCounter extends StatefulWidget {
-  final int roundLength;
+  final int lengthOfRound;
 
   const TimeCounter({
-    required this.roundLength,
+    required this.lengthOfRound,
   });
 
   @override
@@ -24,7 +24,7 @@ class TimeCounterState extends State<TimeCounter> with SingleTickerProviderState
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: widget.roundLength),
+      duration: Duration(seconds: widget.lengthOfRound),
     );
   }
 

@@ -30,7 +30,7 @@ class QuickGameScreen extends WatchingStatefulWidget {
 }
 
 class _QuickGameScreenState extends State<QuickGameScreen> {
-  final roundLength = 60;
+  final lengthOfRound = 60;
 
   late bool useCircularTimer;
 
@@ -38,17 +38,17 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
   void initState() {
     super.initState();
 
-    final audioRecord = getIt.registerSingleton(
-      AudioRecordController(
-        recorderController: RecorderController(),
-        logger: getIt.get<LoggerService>(),
-      ),
-    );
-
     final settings = getIt.get<HiveService>().getSettingsFromBox();
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
+
+    final audioRecord = registerIfNotInitialized(
+      () => AudioRecordController(
+        recorderController: RecorderController(),
+        logger: getIt.get<LoggerService>(),
+      ),
+    );
 
     registerIfNotInitialized<QuickGameController>(
       () => QuickGameController(
@@ -58,7 +58,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         pathProvider: getIt.get<PathProviderService>(),
         hive: getIt.get<HiveService>(),
         audioRecord: audioRecord,
-        lengthOfRound: roundLength,
+        lengthOfRound: lengthOfRound,
         useDynamicBackgrounds: useDynamicBackgrounds,
       ),
     );
@@ -133,7 +133,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
-                          length: roundLength,
+                          length: lengthOfRound,
                           showCircularTimer: useCircularTimer,
                         ),
                       ),
@@ -201,7 +201,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                           height: 8,
                           width: width,
                           child: TimeCounter(
-                            roundLength: roundLength,
+                            lengthOfRound: lengthOfRound,
                           ),
                         ),
                       ),

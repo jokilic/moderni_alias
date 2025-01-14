@@ -2,51 +2,85 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
+import '../../constants/sounds.dart';
 import '../../controllers/audio_record_controller.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
+import '../../util/sound.dart';
+import '../../util/typedef.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/scores/show_scores.dart';
 
-class NormalGameController {
-  final BuildContext context;
+class NormalGameController extends ValueNotifier<NormalGameState> implements Disposable {
+  final LoggerService logger;
+  final DictionaryService dictionary;
+  final BackgroundImageService backgroundImage;
+  final PathProviderService pathProvider;
+  final HiveService hive;
+  final AudioRecordController audioRecord;
+
+  final List<Team> teams;
+  final int pointsToWin;
+  final int lengthOfRound;
+  final bool useDynamicBackgrounds;
 
   NormalGameController({
-    required this.context,
-  });
+    required this.logger,
+    required this.dictionary,
+    required this.backgroundImage,
+    required this.pathProvider,
+    required this.hive,
+    required this.audioRecord,
+    required this.teams,
+    required this.pointsToWin,
+    required this.lengthOfRound,
+    required this.useDynamicBackgrounds,
+  }) : super(
+          (
+            gameState: GameState.idle,
+            counter3Seconds: 0,
+            playedWords: [],
+            currentWord: null,
+            teams: teams,
+            tieBreakTeams: null,
+            playingTeam: teams.first,
+          ),
+        );
 
   ///
   /// VARIABLES
   ///
 
-  var correctAnswers = 0;
-  var wrongAnswers = 0;
+  late final greenSeconds = lengthOfRound * 0.6;
+  late final yellowSeconds = lengthOfRound * 0.4;
+  late final redSeconds = lengthOfRound * 0.15;
 
-  var greenSeconds = 0.0;
-  var yellowSeconds = 0.0;
-  var redSeconds = 0.0;
+  late NormalGameStats normalGameStats;
+
+  late final AudioPlayer roundEndAudioPlayer;
+  late final AudioPlayer correctAudioPlayer;
+  late final AudioPlayer wrongAudioPlayer;
 
   Timer? greenTimer;
   Timer? yellowTimer;
   Timer? redTimer;
+
   Timer? soundTimer;
-
   Timer? gameTimer;
-
-  late NormalGameStats normalGameStats;
-
-  late bool useDynamicBackgrounds;
 
   ///
   /// INIT
@@ -56,34 +90,71 @@ class NormalGameController {
     normalGameStats = NormalGameStats(
       startTime: DateTime.now(),
       endTime: DateTime.now(),
-      teams: List.from(ref.read(teamsProvider)),
+      teams: List.from(teams),
       rounds: [],
-      lengthOfRound: ref.read(lengthOfRoundProvider),
-      pointsToWin: ref.read(pointsToWinProvider),
-      language: ref.read(chosenDictionaryProvider),
+      lengthOfRound: lengthOfRound,
+      pointsToWin: pointsToWin,
+      language: dictionary.value,
     );
 
-    useDynamicBackgrounds = ref.read(hiveProvider).getSettingsFromBox().useDynamicBackgrounds;
+    roundEndAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.timer,
+        preload: false,
+      );
+    correctAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.correct,
+        preload: false,
+      );
+    wrongAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.wrong,
+        preload: false,
+      );
   }
 
   ///
   /// DISPOSE
   ///
 
-  void dispose() {
+  @override
+  void onDispose() {
     greenTimer?.cancel();
     yellowTimer?.cancel();
     redTimer?.cancel();
     soundTimer?.cancel();
     gameTimer?.cancel();
-    ref.invalidate(tieBreakTeamsProvider);
+    roundEndAudioPlayer.dispose();
+    correctAudioPlayer.dispose();
+    wrongAudioPlayer.dispose();
   }
 
   ///
-  /// TIMERS & COUNTDOWN
+  /// METHODS
   ///
 
-  /// Returns a Timer with the specified length and color
+  /// Updates `state` with passed values
+  void updateState({
+    GameState? newGameState,
+    int? newCounter3Seconds,
+    List<PlayedWord>? newPlayedWords,
+    String? newCurrentWord,
+    List<Team>? newTeams,
+    List<Team>? newTieBreakTeams,
+    Team? newPlayingTeam,
+  }) =>
+      value = (
+        gameState: newGameState ?? value.gameState,
+        counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
+        playedWords: newPlayedWords ?? value.playedWords,
+        currentWord: newCurrentWord ?? value.currentWord,
+        teams: newTeams ?? value.teams,
+        tieBreakTeams: newTieBreakTeams ?? value.tieBreakTeams,
+        playingTeam: newPlayingTeam ?? value.playingTeam,
+      );
+
+  /// Returns a `Timer` with the specified length and color
   Timer makeTimer({
     required double chosenSeconds,
     required int lengthOfRound,
@@ -92,27 +163,21 @@ class NormalGameController {
       Timer(
         Duration(seconds: lengthOfRound - chosenSeconds.round()),
         () => useDynamicBackgrounds
-            ? ref.read(backgroundImageProvider.notifier).changeBackground(
-                  background,
-                  isTemporary: true,
-                )
+            ? backgroundImage.changeBackground(
+                background,
+                isTemporary: true,
+              )
             : null,
       );
 
-  /// Sets the variables and starts the time countdown
+  /// Starts the time countdown
   void startTimer(int lengthOfRound) {
-    /// Set the time when the colors in the circular timer change
-    greenSeconds = lengthOfRound * 0.6;
-    yellowSeconds = lengthOfRound * 0.4;
-    redSeconds = lengthOfRound * 0.15;
-
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
-      () {
-        ref.read(countdownPlayerProvider).load();
-        ref.read(countdownPlayerProvider).play();
-      },
+      () => playSound(
+        audioPlayer: roundEndAudioPlayer,
+      ),
     );
 
     /// Initialize timers that change colors
@@ -139,28 +204,31 @@ class NormalGameController {
         /// Timer is done, stop round
         if (lengthOfRound - timer.tick == 0) {
           timer.cancel();
-          stopGameCheckWinner(context);
+          stopGameCheckWinner();
         }
       },
     );
   }
 
-  /// Counts down the 3 seconds before starting new round & starts audio recording
+  /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
-    ref.read(currentGameProvider.notifier).state = GameState.starting;
-    ref.read(counter3SecondsProvider.notifier).state = 3;
+    updateState(
+      newGameState: GameState.starting,
+      newCounter3Seconds: 3,
+    );
 
     Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        ref.read(counter3SecondsProvider.notifier).state -= 1;
+        updateState(
+          newCounter3Seconds: value.counter3Seconds - 1,
+        );
 
         /// Timer is done, start round
-        if (ref.read(counter3SecondsProvider) == 0) {
+        if (value.counter3Seconds == 0) {
           timer.cancel();
           startRound(
-            chosenGame: GameState.normal,
-            lengthOfRound: ref.read(lengthOfRoundProvider),
+            lengthOfRound: lengthOfRound,
           );
         }
       },
@@ -174,29 +242,40 @@ class NormalGameController {
   ///
 
   /// Reset variables and start the round
-  void startRound({required GameState chosenGame, required int lengthOfRound}) {
-    correctAnswers = 0;
-    wrongAnswers = 0;
-    ref.read(playedWordsProvider).clear();
+  void startRound({
+    required int lengthOfRound,
+  }) {
+    /// Generate `newWord`
+    final newWord = dictionary.getRandomWord(
+      previousWord: value.currentWord,
+    );
 
-    ref.read(dictionaryProvider.notifier).getRandomWord();
+    /// Update state for round start
+    updateState(
+      newPlayedWords: [],
+      newGameState: GameState.playing,
+      newCurrentWord: newWord,
+    );
 
-    ref.read(currentGameProvider.notifier).state = chosenGame;
-
+    /// Change background if enabled
     if (useDynamicBackgrounds) {
-      ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurredBlue,
-            isTemporary: true,
-          );
+      backgroundImage.changeBackground(
+        ModerniAliasImages.blurredBlue,
+        isTemporary: true,
+      );
     }
 
+    /// Start time countdown
     startTimer(lengthOfRound);
   }
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
-    ref.read(currentGameProvider.notifier).state = GameState.tapToStart;
-    ref.read(backgroundImageProvider.notifier).revertBackground();
+    updateState(
+      newGameState: GameState.idle,
+    );
+
+    backgroundImage.revertBackground();
 
     soundTimer?.cancel();
     greenTimer?.cancel();
@@ -208,7 +287,7 @@ class NormalGameController {
   /// Check if there's a winner
   /// If no winner, continue the game with the next team
   /// If winner, show the confetti screen
-  void stopGameCheckWinner(BuildContext context) {
+  void stopGameCheckWinner() {
     gameStopped();
 
     /// Check if there are teams which have enough points to win the game
@@ -216,10 +295,7 @@ class NormalGameController {
 
     /// There are no teams with enough points, continue playing the game
     if (teamsWithEnoughPoints.isEmpty) {
-      continueGame(
-        ref.read(teamsProvider),
-        context: context,
-      );
+      continueGame(value.teams);
       return;
     }
 
@@ -228,22 +304,21 @@ class NormalGameController {
     ///
 
     /// Round is not finished, continue playing the game
-    final activeTeams = ref.read(tieBreakTeamsProvider) ?? ref.read(teamsProvider) ?? [];
+    final activeTeams = value.tieBreakTeams ?? value.teams;
     if (roundNotDone(activeTeams)) {
-      continueGame(activeTeams, context: context);
+      continueGame(activeTeams);
     }
 
     /// Round is finished, play tie break if there are tied teams or end game
     else {
       handleTieBreak(
         getTiedTeams(teamsWithEnoughPoints),
-        context: context,
       );
     }
   }
 
   /// Returns a list of `Teams` who have enough points to win the game
-  List<Team> getTeamsWithEnoughPoints() => ref.read(teamsProvider).where((team) => team.points >= ref.read(pointsToWinProvider)).toList();
+  List<Team> getTeamsWithEnoughPoints() => value.teams.where((team) => team.points >= pointsToWin).toList();
 
   // Find all teams that are tied for first place
   List<Team> getTiedTeams(List<Team> teamsWithEnoughPoints) {
@@ -253,45 +328,56 @@ class NormalGameController {
 
   /// Checks if current round is finished
   bool roundNotDone(List<Team> teamsToCheck) {
-    final currentTeamIndex = teamsToCheck.indexOf(ref.read(currentlyPlayingTeamProvider));
+    final currentTeamIndex = teamsToCheck.indexOf(value.playingTeam);
 
     /// Find the maximum points among the teams with enough points
     final maxPoints = teamsToCheck.map((team) => team.points).reduce(max);
 
     /// Check if the current team has reached the maximum points but is not the last team to play
-    return ref.read(currentlyPlayingTeamProvider).points <= maxPoints && currentTeamIndex < teamsToCheck.length - 1;
+    return value.playingTeam.points <= maxPoints && currentTeamIndex < teamsToCheck.length - 1;
   }
 
   /// Game went into tie break, handle accordingly
-  void handleTieBreak(List<Team> tiedTeams, {required BuildContext context}) {
-    ref.read(tieBreakTeamsProvider.notifier).state = tiedTeams;
+  void handleTieBreak(List<Team> tiedTeams) {
+    updateState(
+      newTieBreakTeams: tiedTeams,
+    );
 
     if (tiedTeams.length > 1) {
-      continueGame(tiedTeams, context: context);
+      continueGame(tiedTeams);
     } else {
-      endGame(context);
+      endGame();
     }
   }
 
   /// Continues tie break with proper teams
-  Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
+  Future<void> continueGame(List<Team> playingTeams) async {
     await showScoresSheet(context);
 
-    await updateHiveStats(gameType: GameState.tapToStart);
+    await updateHiveStats(gameType: GameState.idle);
 
     final currentTeamIndex = playingTeams.indexOf(
-      ref.read(currentlyPlayingTeamProvider),
+      value.playingTeam,
     );
-    ref.read(currentlyPlayingTeamProvider.notifier).state = currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0];
+
+    updateState(
+      newPlayingTeam: currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0],
+    );
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
-  Future<void> endGame(BuildContext context) async {
-    ref.read(currentGameProvider.notifier).state = GameState.end;
-    await ref.read(backgroundImageProvider.notifier).revertBackground();
+  Future<void> endGame() async {
+    updateState(
+      newGameState: GameState.finished,
+    );
 
-    await updateHiveStats(gameType: GameState.normal);
-    openNormalGameFinished(context);
+    await backgroundImage.revertBackground();
+    await updateHiveStats(gameType: GameState.finished);
+
+    openNormalGameFinished(
+      teams: value.teams,
+      playedWords: value.playedWords,
+    );
   }
 
   ///
@@ -300,13 +386,13 @@ class NormalGameController {
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == GameState.tapToStart) {
+    if (value.gameState == GameState.idle) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider) == GameState.starting) {
+    if (value.gameState == GameState.starting) {
       return;
     }
 
@@ -319,103 +405,81 @@ class NormalGameController {
     /// Play proper sound
     playAnswerSound(chosenAnswer: chosenAnswer);
 
-    /// Player chose the `Correct` button
-    if (chosenAnswer == Answer.correct) {
-      correctAnswers++;
-      ref.read(currentlyPlayingTeamProvider)
-        ..points += 1
-        ..correctPoints += 1;
-    }
-
-    /// Player chose the `Wrong` button
-    else {
-      wrongAnswers++;
-      ref.read(currentlyPlayingTeamProvider)
-        ..points -= 1
-        ..wrongPoints += 1;
-    }
-
-    /// Add answer to list of `playedWords` (for showing in the end of the round)
-    ref.read(playedWordsProvider).add(
+    /// Update relevant state
+    /// Get another random word
+    updateState(
+      newPlayingTeam: value.playingTeam.copyWith(
+        points: value.playingTeam.points + 1,
+        correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
+        wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
+      ),
+      newPlayedWords: [
+        ...value.playedWords,
+        if (value.currentWord != null)
           PlayedWord(
-            word: ref.read(dictionaryProvider),
+            word: value.currentWord!,
             chosenAnswer: chosenAnswer,
           ),
-        );
-
-    /// Get another random word
-    ref.read(dictionaryProvider.notifier).getRandomWord();
+      ],
+      newCurrentWord: dictionary.getRandomWord(
+        previousWord: value.currentWord,
+      ),
+    );
   }
 
   /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenAnswer}) {
-    if (chosenAnswer == Answer.correct) {
-      ref.read(correctPlayerProvider).load();
-      ref.read(correctPlayerProvider).play();
-    } else {
-      ref.read(wrongPlayerProvider).load();
-      ref.read(wrongPlayerProvider).play();
-    }
-  }
-
-  ///
-  /// SCORES SHEET
-  ///
+  void playAnswerSound({required Answer chosenAnswer}) => playSound(
+        audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
+      );
 
   /// Shows scores sheet and dismisses it after some time
   Future<void> showScoresSheet(BuildContext context) async {
     showScores(
       context,
-      teams: ref.read(teamsProvider),
-      playedWords: ref.read(playedWordsProvider),
-      backgroundImage: ref.watch(backgroundImageProvider),
+      teams: value.teams,
+      playedWords: value.playedWords,
+      backgroundImage: backgroundImage.value,
       dismissible: false,
     );
     await Future.delayed(const Duration(seconds: 3));
     Navigator.of(context).pop();
   }
 
-  ///
-  /// RECORD
-  ///
-
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
-    await ref.read(audioRecordProvider).startRecording(path);
+    final path = '${pathProvider.appDocDirectory}/$timestamp';
+    await audioRecord.startRecording(path);
   }
 
   /// Stores the audio file to application directory
   Future<String?> saveAudioFile() async {
     try {
-      return await ref.read(audioRecordProvider).stopRecording();
+      return await audioRecord.stopRecording();
     } catch (e) {
-      ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
+      logger.e('Error in saveAudioFile()\n$e');
     }
     return null;
   }
 
-  ///
-  /// HIVE
-  ///
-
   /// Save audio file and update stats and store them in [Hive]
   Future<void> updateHiveStats({required GameState gameType}) async {
     normalGameStats = normalGameStats.copyWith(
-      endTime: gameType == GameState.normal ? DateTime.now() : null,
+      endTime: gameType == GameState.finished ? DateTime.now() : null,
       rounds: [
         ...normalGameStats.rounds,
         Round(
-          playedWords: List.from(ref.read(playedWordsProvider)),
-          playingTeam: ref.read(currentlyPlayingTeamProvider),
+          playedWords: List.from(value.playedWords),
+          playingTeam: value.playingTeam,
           audioRecording: await saveAudioFile(),
         ),
       ],
     );
 
-    if (gameType == GameState.normal) {
-      await ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
+    if (gameType == GameState.finished) {
+      await hive.addNormalGameStatsToBox(
+        normalGameStats: normalGameStats,
+      );
     }
   }
 }
