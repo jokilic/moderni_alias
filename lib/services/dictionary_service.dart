@@ -11,15 +11,14 @@ import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
 import '../util/capitalize_string.dart';
-import '../util/typedef.dart';
 import 'logger_service.dart';
 
-class DictionaryService extends ValueNotifier<DictionaryState> {
+class DictionaryService extends ValueNotifier<Flag> {
   final LoggerService logger;
 
   DictionaryService({
     required this.logger,
-  }) : super((currentWord: '', chosenLanguage: Flag.croatia));
+  }) : super(Flag.croatia);
 
   ///
   /// VARIABLES
@@ -50,11 +49,6 @@ class DictionaryService extends ValueNotifier<DictionaryState> {
 
   void init() {
     currentDictionary = [...croatianDictionary];
-
-    value = (
-      currentWord: getRandomWord(),
-      chosenLanguage: value.chosenLanguage,
-    );
   }
 
   ///
@@ -62,48 +56,38 @@ class DictionaryService extends ValueNotifier<DictionaryState> {
   ///
 
   /// Remove used word from the `currentDictionary` and give a new random word
-  String getRandomWord() {
+  String getRandomWord({required String? previousWord}) {
     /// If there are no more words in the dictionary, refill it
     if (currentDictionary.length == 2) {
       refillCurrentDictionary();
     }
 
-    /// Remove currently guessed `word` from `currentDictionary`
-    currentDictionary.remove(value.currentWord);
+    /// Remove `previousWord` from `currentDictionary`
+    currentDictionary.remove(previousWord);
 
     /// Generate new randomized `word` from `currentDictionary`
     final newWord = currentDictionary[random.nextInt(currentDictionary.length)];
-
-    /// Update `state` with `newWord`
-    value = (
-      currentWord: newWord,
-      chosenLanguage: value.chosenLanguage,
-    );
 
     /// Return `newWord`
     return newWord;
   }
 
   /// If there are no more words in the [currentDictionary], refill it
-  List<String> refillCurrentDictionary() => currentDictionary = value.chosenLanguage == Flag.croatia ? [...croatianDictionary] : [...englishDictionary];
+  List<String> refillCurrentDictionary() => currentDictionary = value == Flag.croatia ? [...croatianDictionary] : [...englishDictionary];
 
   /// Triggered when the user chooses a [Flag]
   void updateActiveDictionary({required Flag newLanguage}) {
-    value = (
-      currentWord: value.currentWord,
-      chosenLanguage: newLanguage,
-    );
-
+    value = newLanguage;
     refillCurrentDictionary();
   }
 
   /// Takes words from the dictionary and returns a random team name
   String getRandomTeamName() {
     /// Random adjective
-    final adjective = value.chosenLanguage == Flag.croatia ? pridjevi[random.nextInt(pridjevi.length)] : adjectives[random.nextInt(adjectives.length)];
+    final adjective = value == Flag.croatia ? pridjevi[random.nextInt(pridjevi.length)] : adjectives[random.nextInt(adjectives.length)];
 
     /// Random noun
-    final noun = value.chosenLanguage == Flag.croatia ? imenice[random.nextInt(imenice.length)] : nouns[random.nextInt(nouns.length)];
+    final noun = value == Flag.croatia ? imenice[random.nextInt(imenice.length)] : nouns[random.nextInt(nouns.length)];
 
     return capitalizeFirstLetter('$adjective $noun');
   }

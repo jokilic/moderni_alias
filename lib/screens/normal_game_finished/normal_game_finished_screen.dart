@@ -3,13 +3,15 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../models/played_word/played_word.dart';
 import '../../models/team/team.dart';
-import '../../util/providers.dart';
+import '../../services/background_image_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
@@ -17,16 +19,20 @@ import '../../widgets/confetti.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/scores/show_scores.dart';
 
-class NormalGameFinishedScreen extends StatelessWidget {
+class NormalGameFinishedScreen extends WatchingWidget {
   final List<Team> teams;
+  final List<PlayedWord> playedWords;
 
   const NormalGameFinishedScreen({
     required this.teams,
+    required this.playedWords,
     required super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final backgroundImage = watchIt<BackgroundImageService>().value;
+
     final winningTeam = teams.reduce((a, b) => a.points > b.points ? a : b);
 
     return PopScope(
@@ -99,8 +105,8 @@ class NormalGameFinishedScreen extends StatelessWidget {
                     onTap: () => showScores(
                       context,
                       teams: teams,
-                      playedWords: ref.read(playedWordsProvider),
-                      backgroundImage: ref.watch(backgroundImageProvider),
+                      playedWords: playedWords,
+                      backgroundImage: backgroundImage,
                     ),
                     end: 0.8,
                     child: IconButton(

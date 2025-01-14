@@ -138,7 +138,7 @@ class TimeScoresModal extends StatelessWidget {
                       teams: teams,
                       index: index,
                     ),
-                    points: currentlyPlayingTeamIndex == index && (roundEnd || currentGame == Game.time)
+                    points: currentlyPlayingTeamIndex == index && (roundEnd || currentGame == GameState.time)
                         ? duration
                         : calculatePoints(
                             rounds: rounds,

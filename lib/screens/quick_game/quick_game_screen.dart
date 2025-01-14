@@ -1,13 +1,16 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../controllers/audio_record_controller.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
+import '../../services/logger_service.dart';
+import '../../services/path_provider_service.dart';
 import '../../util/dependencies.dart';
-import '../../util/providers.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game.dart';
 import '../../widgets/game_off.dart';
@@ -19,27 +22,73 @@ import '../../widgets/wrong_correct_buttons.dart';
 import 'quick_game_controller.dart';
 import 'widgets/quick_game_info_section.dart';
 
-class QuickGameScreen extends StatelessWidget {
+class QuickGameScreen extends WatchingStatefulWidget {
   const QuickGameScreen({required super.key});
+
+  @override
+  State<QuickGameScreen> createState() => _QuickGameScreenState();
+}
+
+class _QuickGameScreenState extends State<QuickGameScreen> {
+  final roundLength = 60;
+
+  late bool useCircularTimer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final audioRecord = getIt.registerSingleton(
+      AudioRecordController(
+        recorderController: RecorderController(),
+        logger: getIt.get<LoggerService>(),
+      ),
+    );
+
+    final settings = getIt.get<HiveService>().getSettingsFromBox();
+
+    final useDynamicBackgrounds = settings.useDynamicBackgrounds;
+    useCircularTimer = settings.useCircularTimer;
+
+    registerIfNotInitialized<QuickGameController>(
+      () => QuickGameController(
+        logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
+        backgroundImage: getIt.get<BackgroundImageService>(),
+        pathProvider: getIt.get<PathProviderService>(),
+        hive: getIt.get<HiveService>(),
+        audioRecord: audioRecord,
+        lengthOfRound: roundLength,
+        useDynamicBackgrounds: useDynamicBackgrounds,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    getIt
+      ..unregister<AudioRecordController>()
+      ..unregister<QuickGameController>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
-    final currentGame = ref.watch(currentGameProvider);
-    final playedWords = ref.watch(playedWordsProvider);
-    final counter3Seconds = ref.watch(counter3SecondsProvider);
+    final backgroundImage = watchIt<BackgroundImageService>().value;
 
-    final currentWord = watchIt<DictionaryService>().value.currentWord;
-
-    final useCircularTimer = getIt.get<HiveService>().getSettingsFromBox().useCircularTimer;
+    final state = watchIt<QuickGameController>().value;
+    final currentGame = state.gameState;
+    final playedWords = state.playedWords;
+    final counter3Seconds = state.counter3Seconds;
+    final currentWord = state.currentWord;
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (_, __) => exitGameModal(
         context,
-        ref,
-        backgroundImage: ref.watch(backgroundImageProvider),
+        backgroundImage: backgroundImage,
       ),
       child: Scaffold(
         body: Stack(
@@ -56,17 +105,17 @@ class QuickGameScreen extends StatelessWidget {
                     top: 0,
                     width: width,
                     child: QuickGameInfoSection(
+                      recorderController: getIt.get<AudioRecordController>().recorderController,
                       correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
                       wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
                       exitGame: () => exitGameModal(
                         context,
-                        ref,
-                        backgroundImage: ref.watch(backgroundImageProvider),
+                        backgroundImage: backgroundImage,
                       ),
                       showScores: () => showScores(
                         context,
-                        playedWords: ref.read(playedWordsProvider),
-                        backgroundImage: ref.watch(backgroundImageProvider),
+                        playedWords: playedWords,
+                        backgroundImage: backgroundImage,
                       ),
                     ),
                   ),
@@ -74,7 +123,7 @@ class QuickGameScreen extends StatelessWidget {
                   ///
                   /// PLAYING GAME
                   ///
-                  if (currentGame == Game.quick)
+                  if (currentGame == GameState.playing && currentWord != null)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -84,7 +133,7 @@ class QuickGameScreen extends StatelessWidget {
                         switchOutCurve: Curves.easeIn,
                         child: GameOn(
                           currentWord: currentWord,
-                          length: 60,
+                          length: roundLength,
                           showCircularTimer: useCircularTimer,
                         ),
                       ),
@@ -93,7 +142,7 @@ class QuickGameScreen extends StatelessWidget {
                   ///
                   /// COUNTDOWN
                   ///
-                  else if (currentGame == Game.starting)
+                  else if (currentGame == GameState.starting)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -110,7 +159,7 @@ class QuickGameScreen extends StatelessWidget {
                   ///
                   /// TAP TO START GAME
                   ///
-                  else if (currentGame == Game.tapToStart)
+                  else if (currentGame == GameState.idle)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -119,7 +168,7 @@ class QuickGameScreen extends StatelessWidget {
                         switchInCurve: Curves.easeIn,
                         switchOutCurve: Curves.easeIn,
                         child: GameOff(
-                          onTap: quickGameController.start3SecondCountdown,
+                          onTap: getIt.get<QuickGameController>().start3SecondCountdown,
                         ),
                       ),
                     ),
@@ -131,12 +180,12 @@ class QuickGameScreen extends StatelessWidget {
                     bottom: 0,
                     width: width,
                     child: WrongCorrectButtons(
-                      correctChosen: () => quickGameController.answerChosen(
-                        chosenAnswer: Answer.correct,
-                      ),
-                      wrongChosen: () => quickGameController.answerChosen(
-                        chosenAnswer: Answer.wrong,
-                      ),
+                      correctChosen: () => getIt.get<QuickGameController>().answerChosen(
+                            chosenAnswer: Answer.correct,
+                          ),
+                      wrongChosen: () => getIt.get<QuickGameController>().answerChosen(
+                            chosenAnswer: Answer.wrong,
+                          ),
                     ),
                   ),
 
@@ -151,8 +200,8 @@ class QuickGameScreen extends StatelessWidget {
                         child: SizedBox(
                           height: 8,
                           width: width,
-                          child: const TimeCounter(
-                            roundLength: 60,
+                          child: TimeCounter(
+                            roundLength: roundLength,
                           ),
                         ),
                       ),

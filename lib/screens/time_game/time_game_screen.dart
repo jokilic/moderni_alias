@@ -75,7 +75,7 @@ class TimeGameScreen extends StatelessWidget {
                   ///
                   /// PLAYING GAME
                   ///
-                  if (currentGame == Game.time)
+                  if (currentGame == GameState.time)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -94,7 +94,7 @@ class TimeGameScreen extends StatelessWidget {
                   ///
                   /// COUNTDOWN
                   ///
-                  else if (currentGame == Game.starting)
+                  else if (currentGame == GameState.starting)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -111,7 +111,7 @@ class TimeGameScreen extends StatelessWidget {
                   ///
                   /// TAP TO START GAME
                   ///
-                  else if (currentGame == Game.tapToStart)
+                  else if (currentGame == GameState.tapToStart)
                     Positioned(
                       top: -75,
                       bottom: 0,

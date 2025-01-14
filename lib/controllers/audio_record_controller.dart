@@ -3,10 +3,6 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import '../services/logger_service.dart';
 
 class AudioRecordController {
-  ///
-  /// CONSTRUCTOR
-  ///
-
   final RecorderController recorderController;
   final LoggerService logger;
 

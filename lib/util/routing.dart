@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/normal_game_stats/normal_game_stats.dart';
+import '../models/played_word/played_word.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
 import '../models/team/team.dart';
 import '../models/time_game_stats/time_game_stats.dart';
@@ -73,10 +74,12 @@ void openNormalGame(
 void openNormalGameFinished(
   BuildContext context, {
   required List<Team> teams,
+  required List<PlayedWord> playedWords,
 }) =>
     pushScreen(
       NormalGameFinishedScreen(
         teams: teams,
+        playedWords: playedWords,
         key: ValueKey(teams),
       ),
       context: context,
@@ -89,9 +92,14 @@ void openQuickGame(BuildContext context) => pushScreen(
       context: context,
     );
 
-void openQuickGameFinished(BuildContext context) => pushScreen(
-      const QuickGameFinishedScreen(
-        key: ValueKey('quick-game-finished'),
+void openQuickGameFinished(
+  BuildContext context, {
+  required List<PlayedWord> playedWords,
+}) =>
+    pushScreen(
+      QuickGameFinishedScreen(
+        playedWords: playedWords,
+        key: ValueKey(playedWords),
       ),
       context: context,
     );
@@ -117,9 +125,12 @@ void openTimeGame(
 void openTimeGameFinished(
   BuildContext context, {
   required List<Team> teams,
+  required List<PlayedWord> playedWords,
 }) =>
     pushScreen(
       TimeGameFinishedScreen(
+        teams: teams,
+        playedWords: playedWords,
         key: ValueKey(teams),
       ),
       context: context,

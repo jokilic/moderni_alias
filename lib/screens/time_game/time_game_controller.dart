@@ -115,7 +115,7 @@ class TimeGameController {
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
-    ref.read(currentGameProvider.notifier).state = Game.starting;
+    ref.read(currentGameProvider.notifier).state = GameState.starting;
     ref.read(counter3SecondsProvider.notifier).state = 3;
 
     Timer.periodic(
@@ -146,7 +146,7 @@ class TimeGameController {
 
     ref.read(dictionaryProvider.notifier).getRandomWord();
 
-    ref.read(currentGameProvider.notifier).state = Game.time;
+    ref.read(currentGameProvider.notifier).state = GameState.time;
     ref.read(timeGameTimerProvider.notifier).state = Duration.zero;
 
     if (useDynamicBackgrounds) {
@@ -182,7 +182,7 @@ class TimeGameController {
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
-    ref.read(currentGameProvider.notifier).state = Game.tapToStart;
+    ref.read(currentGameProvider.notifier).state = GameState.tapToStart;
     ref.read(backgroundImageProvider.notifier).revertBackground();
 
     ref.read(timeGameEndPlayerProvider).load();
@@ -194,7 +194,7 @@ class TimeGameController {
   Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
     await showScoresSheet(context);
 
-    await updateHiveStats(gameType: Game.tapToStart);
+    await updateHiveStats(gameType: GameState.tapToStart);
 
     final currentTeamIndex = ref.read(teamsProvider).indexOf(
           ref.read(currentlyPlayingTeamProvider),
@@ -204,10 +204,10 @@ class TimeGameController {
 
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame(BuildContext context) async {
-    ref.read(currentGameProvider.notifier).state = Game.end;
+    ref.read(currentGameProvider.notifier).state = GameState.end;
     await ref.read(backgroundImageProvider.notifier).revertBackground();
 
-    await updateHiveStats(gameType: Game.time);
+    await updateHiveStats(gameType: GameState.time);
     openTimeGameFinished(context);
   }
 
@@ -217,13 +217,13 @@ class TimeGameController {
 
   void answerChosen({required Answer chosenAnswer, required BuildContext context}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == Game.tapToStart) {
+    if (ref.read(currentGameProvider) == GameState.tapToStart) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider) == Game.starting) {
+    if (ref.read(currentGameProvider) == GameState.starting) {
       return;
     }
 
@@ -323,9 +323,9 @@ class TimeGameController {
   ///
 
   /// Save audio file and update stats and store them in [Hive]
-  Future<void> updateHiveStats({required Game gameType}) async {
+  Future<void> updateHiveStats({required GameState gameType}) async {
     timeGameStats = timeGameStats.copyWith(
-      endTime: gameType == Game.time ? DateTime.now() : null,
+      endTime: gameType == GameState.time ? DateTime.now() : null,
       rounds: [
         ...timeGameStats.rounds,
         Round(
@@ -337,7 +337,7 @@ class TimeGameController {
       ],
     );
 
-    if (gameType == Game.time) {
+    if (gameType == GameState.time) {
       await ref.read(hiveProvider).addTimeGameStatsToBox(timeGameStats: timeGameStats);
     }
   }

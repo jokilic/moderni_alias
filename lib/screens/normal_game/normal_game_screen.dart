@@ -80,7 +80,7 @@ class NormalGameScreen extends StatelessWidget {
                   ///
                   /// PLAYING GAME
                   ///
-                  if (currentGame == Game.normal)
+                  if (currentGame == GameState.normal)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -99,7 +99,7 @@ class NormalGameScreen extends StatelessWidget {
                   ///
                   /// COUNTDOWN
                   ///
-                  else if (currentGame == Game.starting)
+                  else if (currentGame == GameState.starting)
                     Positioned(
                       top: -75,
                       bottom: 0,
@@ -116,7 +116,7 @@ class NormalGameScreen extends StatelessWidget {
                   ///
                   /// TAP TO START GAME
                   ///
-                  else if (currentGame == Game.tapToStart)
+                  else if (currentGame == GameState.tapToStart)
                     Positioned(
                       top: -75,
                       bottom: 0,

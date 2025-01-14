@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
 import '../util/providers.dart';
 
-class TimeCounter extends ConsumerStatefulWidget {
+class TimeCounter extends StatefulWidget {
   final int roundLength;
 
   const TimeCounter({
@@ -13,10 +12,10 @@ class TimeCounter extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => TimeCounterState();
+  State<StatefulWidget> createState() => TimeCounterState();
 }
 
-class TimeCounterState extends ConsumerState<TimeCounter> with SingleTickerProviderStateMixin {
+class TimeCounterState extends State<TimeCounter> with SingleTickerProviderStateMixin {
   late final AnimationController controller;
 
   @override
@@ -30,21 +29,25 @@ class TimeCounterState extends ConsumerState<TimeCounter> with SingleTickerProvi
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     /// Logic to control animation depending on the game state
     ref.listen(currentGameProvider, (_, state) {
       switch (state) {
         /// Game is running, start animation
-        case Game.normal:
-        case Game.quick:
-        case Game.time:
+        case GameState.playing:
           controller.forward();
           break;
 
         /// Game is not running, stop animation
-        case Game.tapToStart:
-        case Game.starting:
-        case Game.end:
+        case GameState.idle:
+        case GameState.starting:
+        case GameState.finished:
           controller.reset();
           break;
       }
@@ -59,11 +62,5 @@ class TimeCounterState extends ConsumerState<TimeCounter> with SingleTickerProvi
         color: ModerniAliasColors.white.withValues(alpha: 0.7),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }

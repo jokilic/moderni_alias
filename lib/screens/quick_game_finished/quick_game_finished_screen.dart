@@ -3,12 +3,15 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../models/played_word/played_word.dart';
+import '../../services/background_image_service.dart';
 import '../../util/providers.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
@@ -20,8 +23,13 @@ import '../../widgets/play_button.dart';
 import '../../widgets/scores/show_scores.dart';
 import '../quick_game/quick_game_controller.dart';
 
-class QuickGameFinishedScreen extends StatelessWidget {
-  const QuickGameFinishedScreen({required super.key});
+class QuickGameFinishedScreen extends WatchingWidget {
+  final List<PlayedWord> playedWords;
+
+  const QuickGameFinishedScreen({
+    required this.playedWords,
+    required super.key,
+  });
 
   void restartGame(BuildContext context) {
     /// Restart providers
@@ -36,17 +44,17 @@ class QuickGameFinishedScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final playedWords = ref.watch(playedWordsProvider);
+    final backgroundImage = watchIt<BackgroundImageService>().value;
 
     final correctAnswers = playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length.toString();
     final wrongAnswers = playedWords.where((word) => word.chosenAnswer == Answer.wrong).toList().length.toString();
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => disposeAndGoHome(context, ref),
+      onPopInvokedWithResult: (_, __) => disposeAndGoHome(context),
       child: Scaffold(
         body: Stack(
           children: [
@@ -106,12 +114,12 @@ class QuickGameFinishedScreen extends StatelessWidget {
                           children: [
                             PlayButton(
                               text: 'quickGameFinishedPlayAgainString'.tr().toUpperCase(),
-                              onPressed: () => restartGame(context, ref),
+                              onPressed: () => restartGame(context),
                             ),
                             const SizedBox(height: 20),
                             PlayButton(
                               text: 'quickGameFinishedExitString'.tr().toUpperCase(),
-                              onPressed: () => disposeAndGoHome(context, ref),
+                              onPressed: () => disposeAndGoHome(context),
                             ),
                           ],
                         ),
@@ -126,7 +134,7 @@ class QuickGameFinishedScreen extends StatelessWidget {
                     onTap: () => showScores(
                       context,
                       playedWords: playedWords,
-                      backgroundImage: ref.watch(backgroundImageProvider),
+                      backgroundImage: backgroundImage,
                     ),
                     end: 0.8,
                     child: IconButton(

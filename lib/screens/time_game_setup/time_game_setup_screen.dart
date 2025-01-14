@@ -54,7 +54,7 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final chosenDictionary = watchIt<DictionaryService>().value.chosenLanguage;
+    final chosenDictionary = watchIt<DictionaryService>().value;
     final backgroundImage = watchIt<BackgroundImageService>().value;
 
     final state = watchIt<TimeGameSetupController>().value;

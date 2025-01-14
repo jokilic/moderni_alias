@@ -1,62 +1,74 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
+import '../../constants/sounds.dart';
 import '../../controllers/audio_record_controller.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
+import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
-import '../../util/providers.dart';
-import '../../util/routing.dart';
-import '../../widgets/background_image.dart';
+import '../../util/typedef.dart';
 
-final quickGameProvider = Provider.autoDispose.family<QuickGameController, BuildContext>(
-  (ref, context) {
-    final quickGameController = QuickGameController(
-      ref: ref,
-      context: context,
-    );
-    ref.onDispose(quickGameController.dispose);
-    return quickGameController;
-  },
-  name: 'QuickGameProvider',
-);
+class QuickGameController extends ValueNotifier<QuickGameState> implements Disposable {
+  final LoggerService logger;
+  final DictionaryService dictionary;
+  final BackgroundImageService backgroundImage;
+  final PathProviderService pathProvider;
+  final HiveService hive;
+  final AudioRecordController audioRecord;
 
-class QuickGameController {
-  final BuildContext context;
-  final Ref ref;
+  final int lengthOfRound;
+  final bool useDynamicBackgrounds;
 
   QuickGameController({
-    required this.context,
-    required this.ref,
-  }) {
-    init();
-  }
+    required this.logger,
+    required this.dictionary,
+    required this.backgroundImage,
+    required this.pathProvider,
+    required this.hive,
+    required this.audioRecord,
+    required this.lengthOfRound,
+    required this.useDynamicBackgrounds,
+  }) : super(
+          (
+            correctWords: 0,
+            wrongWords: 0,
+            gameState: GameState.idle,
+            counter3Seconds: 0,
+            playedWords: [],
+            currentWord: null,
+          ),
+        );
 
   ///
   /// VARIABLES
   ///
 
-  var greenSeconds = 0.0;
-  var yellowSeconds = 0.0;
-  var redSeconds = 0.0;
+  late final greenSeconds = lengthOfRound * 0.6;
+  late final yellowSeconds = lengthOfRound * 0.4;
+  late final redSeconds = lengthOfRound * 0.15;
+
+  late QuickGameStats quickGameStats;
+
+  late final AudioPlayer roundEndAudioPlayer;
+  late final AudioPlayer correctAudioPlayer;
+  late final AudioPlayer wrongAudioPlayer;
 
   Timer? greenTimer;
   Timer? yellowTimer;
   Timer? redTimer;
+
   Timer? soundTimer;
-
   Timer? gameTimer;
-
-  late QuickGameStats quickGameStats;
-
-  late bool useDynamicBackgrounds;
 
   ///
   /// INIT
@@ -67,64 +79,92 @@ class QuickGameController {
       startTime: DateTime.now(),
       endTime: DateTime.now(),
       round: Round(playedWords: []),
-      language: ref.read(chosenDictionaryProvider),
+      language: dictionary.value,
     );
 
-    useDynamicBackgrounds = ref.read(hiveProvider).getSettingsFromBox().useDynamicBackgrounds;
+    roundEndAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.timer,
+        preload: false,
+      );
+    correctAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.correct,
+        preload: false,
+      );
+    wrongAudioPlayer = AudioPlayer()
+      ..setAsset(
+        ModerniAliasSounds.wrong,
+        preload: false,
+      );
   }
 
   ///
   /// DISPOSE
   ///
 
-  void dispose() {
+  @override
+  void onDispose() {
     greenTimer?.cancel();
     yellowTimer?.cancel();
     redTimer?.cancel();
     soundTimer?.cancel();
     gameTimer?.cancel();
+    roundEndAudioPlayer.dispose();
+    correctAudioPlayer.dispose();
+    wrongAudioPlayer.dispose();
   }
 
   ///
-  /// TIMERS & COUNTDOWN
+  /// METHODS
   ///
 
-  /// Returns a Timer with the specified length and color
-  Timer makeTimer({
+  /// Updates `state` with passed values
+  void updateState({
+    int? newCorrectWords,
+    int? newWrongWords,
+    GameState? newGameState,
+    int? newCounter3Seconds,
+    List<PlayedWord>? newPlayedWords,
+    String? newCurrentWord,
+  }) =>
+      value = (
+        correctWords: newCorrectWords ?? value.correctWords,
+        wrongWords: newWrongWords ?? value.wrongWords,
+        gameState: newGameState ?? value.gameState,
+        counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
+        playedWords: newPlayedWords ?? value.playedWords,
+        currentWord: newCurrentWord ?? value.currentWord,
+      );
+
+  /// Returns a `Timer` with the specified length and color
+  Timer makeTimerForBackground({
     required double chosenSeconds,
     required String background,
   }) =>
       Timer(
-        Duration(seconds: 60 - chosenSeconds.round()),
-        () => useDynamicBackgrounds ? ref.read(backgroundImageProvider.notifier).changeBackground(background, isTemporary: true) : null,
+        Duration(seconds: lengthOfRound - chosenSeconds.round()),
+        () => useDynamicBackgrounds ? backgroundImage.changeBackground(background, isTemporary: true) : null,
       );
 
-  /// Sets the variables and starts the time countdown
+  /// Starts the time countdown
   void startTimer(int lengthOfRound) {
-    /// Set the time when the colors in the circular timer change
-    greenSeconds = lengthOfRound * 0.6;
-    yellowSeconds = lengthOfRound * 0.4;
-    redSeconds = lengthOfRound * 0.15;
-
     /// Initialize timer that runs when the round is about to end
     soundTimer = Timer(
       Duration(seconds: lengthOfRound - 5),
-      () {
-        ref.read(countdownPlayerProvider).load();
-        ref.read(countdownPlayerProvider).play();
-      },
+      playEndSound,
     );
 
     /// Initialize timers that change colors
-    greenTimer = makeTimer(
+    greenTimer = makeTimerForBackground(
       chosenSeconds: greenSeconds,
       background: ModerniAliasImages.blurredGreen,
     );
-    yellowTimer = makeTimer(
+    yellowTimer = makeTimerForBackground(
       chosenSeconds: yellowSeconds,
       background: ModerniAliasImages.blurredYellow,
     );
-    redTimer = makeTimer(
+    redTimer = makeTimerForBackground(
       chosenSeconds: redSeconds,
       background: ModerniAliasImages.blurredRed,
     );
@@ -136,7 +176,7 @@ class QuickGameController {
         /// Timer is done, end game
         if (lengthOfRound - timer.tick == 0) {
           timer.cancel();
-          endGame(context);
+          endGame();
         }
       },
     );
@@ -144,18 +184,22 @@ class QuickGameController {
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
-    ref.read(currentGameProvider.notifier).state = Game.starting;
-    ref.read(counter3SecondsProvider.notifier).state = 3;
+    updateState(
+      newGameState: GameState.starting,
+      newCounter3Seconds: 3,
+    );
 
     Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        ref.read(counter3SecondsProvider.notifier).state -= 1;
+        updateState(newCounter3Seconds: value.counter3Seconds - 1);
 
         /// Timer is done, start round
-        if (ref.read(counter3SecondsProvider) == 0) {
+        if (value.counter3Seconds == 0) {
           timer.cancel();
-          startRound(lengthOfRound: 60);
+          startRound(
+            lengthOfRound: lengthOfRound,
+          );
         }
       },
     );
@@ -163,50 +207,51 @@ class QuickGameController {
     await startAudioRecording();
   }
 
-  ///
-  /// ROUNDS
-  ///
-
-  /// Reset variables and start the round
+  /// Triggered when the counter finishes and round starts
   void startRound({required int lengthOfRound}) {
-    ref.read(playedWordsProvider).clear();
+    /// Generate `newWord`
+    final newWord = dictionary.getRandomWord(
+      previousWord: value.currentWord,
+    );
 
-    ref.read(dictionaryProvider.notifier).getRandomWord();
+    /// Update state for round start
+    updateState(
+      newPlayedWords: [],
+      newGameState: GameState.playing,
+      newCurrentWord: newWord,
+    );
 
-    ref.read(currentGameProvider.notifier).state = Game.quick;
-
+    /// Change background if enabled
     if (useDynamicBackgrounds) {
-      ref.read(backgroundImageProvider.notifier).changeBackground(
-            ModerniAliasImages.blurredBlue,
-            isTemporary: true,
-          );
+      backgroundImage.changeBackground(
+        ModerniAliasImages.blurredBlue,
+        isTemporary: true,
+      );
     }
 
+    /// Start time countdown
     startTimer(lengthOfRound);
   }
 
   /// Goes to the confetti screen and shows info about the round
-  Future<void> endGame(BuildContext context) async {
-    ref.read(currentGameProvider.notifier).state = Game.end;
-    await ref.read(backgroundImageProvider.notifier).revertBackground();
+  Future<void> endGame() async {
+    updateState(newGameState: GameState.finished);
 
+    await backgroundImage.revertBackground();
     await updateHiveStats();
-    openQuickGameFinished(context);
-  }
 
-  ///
-  /// ANSWER
-  ///
+    // openQuickGameFinished(context);
+  }
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == Game.tapToStart) {
+    if (value.gameState == GameState.idle) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider) == Game.starting) {
+    if (value.gameState == GameState.starting) {
       return;
     }
 
@@ -220,45 +265,40 @@ class QuickGameController {
     playAnswerSound(chosenAnswer: chosenAnswer);
 
     /// Add answer to list of `playedWords` (for showing in the end of the round)
-    ref.read(playedWordsProvider).add(
-          PlayedWord(
-            word: ref.read(dictionaryProvider),
-            chosenAnswer: chosenAnswer,
-          ),
-        );
-
     /// Get another random word
-    ref.read(dictionaryProvider.notifier).getRandomWord();
+    updateState(
+      newPlayedWords: [
+        ...value.playedWords,
+        if (value.currentWord != null) PlayedWord(word: value.currentWord!, chosenAnswer: chosenAnswer),
+      ],
+      newCurrentWord: dictionary.getRandomWord(
+        previousWord: value.currentWord,
+      ),
+    );
   }
 
   /// Plays proper sound while pressing on the answers
   void playAnswerSound({required Answer chosenAnswer}) {
     if (chosenAnswer == Answer.correct) {
-      ref.read(correctPlayerProvider).load();
-      ref.read(correctPlayerProvider).play();
+      playCorrectSound();
     } else {
-      ref.read(wrongPlayerProvider).load();
-      ref.read(wrongPlayerProvider).play();
+      playWrongSound();
     }
   }
-
-  ///
-  /// RECORD
-  ///
 
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${ref.read(pathProvider).appDocDirectory}/$timestamp';
-    await ref.read(audioRecordProvider).startRecording(path);
+    final path = '${pathProvider.appDocDirectory}/$timestamp';
+    await audioRecord.startRecording(path);
   }
 
   /// Stores the audio file to application directory
   Future<String?> saveAudioFile() async {
     try {
-      return await ref.read(audioRecordProvider).stopRecording();
+      return await audioRecord.stopRecording();
     } catch (e) {
-      ref.read(loggerProvider).e('Error in saveAudioFile()\n$e');
+      logger.e('Error in saveAudioFile()\n$e');
     }
     return null;
   }
@@ -272,10 +312,28 @@ class QuickGameController {
     quickGameStats = quickGameStats.copyWith(
       endTime: DateTime.now(),
       round: Round(
-        playedWords: List.from(ref.read(playedWordsProvider)),
+        playedWords: List.from(value.playedWords),
         audioRecording: await saveAudioFile(),
       ),
     );
-    await ref.read(hiveProvider).addQuickGameStatsToBox(quickGameStats: quickGameStats);
+
+    await hive.addQuickGameStatsToBox(
+      quickGameStats: quickGameStats,
+    );
   }
+
+  /// Plays sound to end round
+  void playEndSound() => roundEndAudioPlayer
+    ..load()
+    ..play();
+
+  /// Plays sound for correct answer
+  void playCorrectSound() => correctAudioPlayer
+    ..load()
+    ..play();
+
+  /// Plays sound for wrong answer
+  void playWrongSound() => wrongAudioPlayer
+    ..load()
+    ..play();
 }

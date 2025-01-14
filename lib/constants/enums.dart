@@ -2,13 +2,11 @@ import 'package:hive_ce/hive.dart';
 
 part 'enums.g.dart';
 
-enum Game {
-  tapToStart,
-  playingNormal,
-  playingQuick,
-  playingTime,
-  startingGame,
-  gameFinished,
+enum GameState {
+  idle,
+  starting,
+  playing,
+  finished,
 }
 
 @HiveType(typeId: 7)

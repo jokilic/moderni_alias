@@ -19,28 +19,12 @@ import '../../util/routing.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/scores/show_scores.dart';
 
-final normalGameProvider = Provider.autoDispose.family<NormalGameController, BuildContext>(
-  (ref, context) {
-    final normalGameController = NormalGameController(
-      ref: ref,
-      context: context,
-    );
-    ref.onDispose(normalGameController.dispose);
-    return normalGameController;
-  },
-  name: 'NormalGameProvider',
-);
-
 class NormalGameController {
   final BuildContext context;
-  final Ref ref;
 
   NormalGameController({
     required this.context,
-    required this.ref,
-  }) {
-    init();
-  }
+  });
 
   ///
   /// VARIABLES
@@ -163,7 +147,7 @@ class NormalGameController {
 
   /// Counts down the 3 seconds before starting new round & starts audio recording
   Future<void> start3SecondCountdown() async {
-    ref.read(currentGameProvider.notifier).state = Game.starting;
+    ref.read(currentGameProvider.notifier).state = GameState.starting;
     ref.read(counter3SecondsProvider.notifier).state = 3;
 
     Timer.periodic(
@@ -175,7 +159,7 @@ class NormalGameController {
         if (ref.read(counter3SecondsProvider) == 0) {
           timer.cancel();
           startRound(
-            chosenGame: Game.normal,
+            chosenGame: GameState.normal,
             lengthOfRound: ref.read(lengthOfRoundProvider),
           );
         }
@@ -190,7 +174,7 @@ class NormalGameController {
   ///
 
   /// Reset variables and start the round
-  void startRound({required Game chosenGame, required int lengthOfRound}) {
+  void startRound({required GameState chosenGame, required int lengthOfRound}) {
     correctAnswers = 0;
     wrongAnswers = 0;
     ref.read(playedWordsProvider).clear();
@@ -211,7 +195,7 @@ class NormalGameController {
 
   /// Gets called when the game is on hold (round ended, waiting for new round start)
   void gameStopped() {
-    ref.read(currentGameProvider.notifier).state = Game.tapToStart;
+    ref.read(currentGameProvider.notifier).state = GameState.tapToStart;
     ref.read(backgroundImageProvider.notifier).revertBackground();
 
     soundTimer?.cancel();
@@ -293,7 +277,7 @@ class NormalGameController {
   Future<void> continueGame(List<Team> playingTeams, {required BuildContext context}) async {
     await showScoresSheet(context);
 
-    await updateHiveStats(gameType: Game.tapToStart);
+    await updateHiveStats(gameType: GameState.tapToStart);
 
     final currentTeamIndex = playingTeams.indexOf(
       ref.read(currentlyPlayingTeamProvider),
@@ -303,10 +287,10 @@ class NormalGameController {
 
   /// Ends game and goes to [NormalGameFinishedScreen]
   Future<void> endGame(BuildContext context) async {
-    ref.read(currentGameProvider.notifier).state = Game.end;
+    ref.read(currentGameProvider.notifier).state = GameState.end;
     await ref.read(backgroundImageProvider.notifier).revertBackground();
 
-    await updateHiveStats(gameType: Game.normal);
+    await updateHiveStats(gameType: GameState.normal);
     openNormalGameFinished(context);
   }
 
@@ -316,13 +300,13 @@ class NormalGameController {
 
   void answerChosen({required Answer chosenAnswer}) {
     /// Game is not running, handle tapping answer
-    if (ref.read(currentGameProvider) == Game.tapToStart) {
+    if (ref.read(currentGameProvider) == GameState.tapToStart) {
       start3SecondCountdown();
       return;
     }
 
     /// Game is starting, don't do anything
-    if (ref.read(currentGameProvider) == Game.starting) {
+    if (ref.read(currentGameProvider) == GameState.starting) {
       return;
     }
 
@@ -417,9 +401,9 @@ class NormalGameController {
   ///
 
   /// Save audio file and update stats and store them in [Hive]
-  Future<void> updateHiveStats({required Game gameType}) async {
+  Future<void> updateHiveStats({required GameState gameType}) async {
     normalGameStats = normalGameStats.copyWith(
-      endTime: gameType == Game.normal ? DateTime.now() : null,
+      endTime: gameType == GameState.normal ? DateTime.now() : null,
       rounds: [
         ...normalGameStats.rounds,
         Round(
@@ -430,7 +414,7 @@ class NormalGameController {
       ],
     );
 
-    if (gameType == Game.normal) {
+    if (gameType == GameState.normal) {
       await ref.read(hiveProvider).addNormalGameStatsToBox(normalGameStats: normalGameStats);
     }
   }

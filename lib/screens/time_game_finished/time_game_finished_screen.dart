@@ -8,7 +8,9 @@ import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
+import '../../models/team/team.dart';
 import '../../util/providers.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
@@ -19,7 +21,14 @@ import '../../widgets/scores/show_time_scores.dart';
 import '../time_game/time_game_controller.dart';
 
 class TimeGameFinishedScreen extends StatelessWidget {
-  const TimeGameFinishedScreen({required super.key});
+  final List<Team> teams;
+  final List<PlayedWord> playedWords;
+
+  const TimeGameFinishedScreen({
+    required this.teams,
+    required this.playedWords,
+    required super.key,
+  });
 
   List<Round> findFastestRounds(List<Round> rounds) {
     rounds.sort((a, b) => a.durationSeconds?.compareTo(b.durationSeconds ?? 0) ?? 0);
@@ -117,7 +126,7 @@ class TimeGameFinishedScreen extends StatelessWidget {
                   child: AnimatedGestureDetector(
                     onTap: () => showTimeScores(
                       context,
-                      playedWords: ref.watch(playedWordsProvider),
+                      playedWords: playedWords,
                       gameFinished: true,
                     ),
                     end: 0.8,

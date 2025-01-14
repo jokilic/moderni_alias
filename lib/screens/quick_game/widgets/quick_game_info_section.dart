@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
-import '../../../controllers/audio_record_controller.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 
 class QuickGameInfoSection extends StatelessWidget {
@@ -13,12 +12,14 @@ class QuickGameInfoSection extends StatelessWidget {
   final int wrongAnswers;
   final Function() exitGame;
   final Function() showScores;
+  final RecorderController recorderController;
 
   const QuickGameInfoSection({
     required this.correctAnswers,
     required this.wrongAnswers,
     required this.exitGame,
     required this.showScores,
+    required this.recorderController,
   });
 
   @override
@@ -46,23 +47,17 @@ class QuickGameInfoSection extends StatelessWidget {
                 ),
               ),
             ),
-            Consumer(
-              builder: (_, ref, __) {
-                final audioRecorderController = ref.watch(audioRecorderControllerProvider);
-
-                return AudioWaveforms(
-                  recorderController: audioRecorderController,
-                  size: Size(MediaQuery.sizeOf(context).width, 48),
-                  padding: const EdgeInsets.symmetric(horizontal: 104),
-                  waveStyle: const WaveStyle(
-                    waveColor: ModerniAliasColors.white,
-                    middleLineColor: ModerniAliasColors.white,
-                    scaleFactor: 24,
-                    extendWaveform: true,
-                    showMiddleLine: false,
-                  ),
-                );
-              },
+            AudioWaveforms(
+              recorderController: recorderController,
+              size: Size(MediaQuery.sizeOf(context).width, 48),
+              padding: const EdgeInsets.symmetric(horizontal: 104),
+              waveStyle: const WaveStyle(
+                waveColor: ModerniAliasColors.white,
+                middleLineColor: ModerniAliasColors.white,
+                scaleFactor: 24,
+                extendWaveform: true,
+                showMiddleLine: false,
+              ),
             ),
             Positioned(
               right: 20,
