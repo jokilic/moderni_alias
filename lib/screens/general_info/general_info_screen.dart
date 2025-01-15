@@ -1,15 +1,21 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/icons.dart';
 import '../../constants/sounds.dart';
 import '../../constants/text_styles.dart';
 import '../../constants/websites.dart';
 import '../../services/package_info_service.dart';
 import '../../util/dependencies.dart';
+import '../../util/sound.dart';
 import '../../widgets/animated_column.dart';
+import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
@@ -44,10 +50,6 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
     super.dispose();
   }
 
-  void playBoomBaby() => audioPlayer
-    ..load()
-    ..play();
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Stack(
@@ -61,9 +63,27 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
                   child: AnimatedColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: MediaQuery.paddingOf(context).top,
+                      const SizedBox(height: 26),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: AnimatedGestureDetector(
+                          onTap: Navigator.of(context).pop,
+                          end: 0.8,
+                          child: IconButton(
+                            onPressed: null,
+                            icon: Transform.rotate(
+                              angle: pi,
+                              child: Image.asset(
+                                ModerniAliasIcons.arrowStatsImage,
+                                color: ModerniAliasColors.white,
+                                height: 26,
+                                width: 26,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
+                      const SizedBox(height: 8),
                       HeroTitle(
                         smallText: getIt.get<PackageInfoService>().appVersion,
                       ),
@@ -154,7 +174,9 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
                         ),
                       ),
                       MyQuickPortfolio(
-                        onLongPressVideo: playBoomBaby,
+                        onLongPressVideo: () => playSound(
+                          audioPlayer: audioPlayer,
+                        ),
                       ),
                       GameTitle('fontTitleString'.tr()),
                       StandardText(

@@ -14,22 +14,23 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-
-    videoController = VideoPlayerController.asset(ModerniAliasVideos.josipVideo)
-      ..initialize().then((_) {
-        setState(() {});
-      });
-
-    videoController
-      ..setLooping(true)
-      ..setVolume(0)
-      ..play();
+    initVideo();
   }
 
   @override
   void dispose() {
     videoController.dispose();
     super.dispose();
+  }
+
+  Future<void> initVideo() async {
+    videoController = VideoPlayerController.asset(ModerniAliasVideos.josipVideo);
+    await videoController.initialize();
+    await videoController.setLooping(true);
+    await videoController.setVolume(0);
+    await videoController.play();
+
+    setState(() {});
   }
 
   @override

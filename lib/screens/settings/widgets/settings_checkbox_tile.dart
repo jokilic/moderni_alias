@@ -34,10 +34,10 @@ class SettingsCheckboxTile extends StatelessWidget {
           ),
           trailing: isActive != null
               ? AnimatedContainer(
-                  margin: const EdgeInsets.only(left: 24),
-                  padding: const EdgeInsets.all(6),
                   duration: ModerniAliasDurations.fastAnimation,
                   curve: Curves.easeIn,
+                  margin: const EdgeInsets.only(left: 24),
+                  padding: const EdgeInsets.all(6),
                   height: 44,
                   width: 44,
                   decoration: BoxDecoration(
