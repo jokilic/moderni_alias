@@ -38,10 +38,7 @@ class TimeCounterState extends State<TimeCounter> with SingleTickerProviderState
 
   @override
   void dispose() {
-    widget.normalGameController?.dispose();
-    widget.quickGameController?.dispose();
     animationController.dispose();
-
     super.dispose();
   }
 
