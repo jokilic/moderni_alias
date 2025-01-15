@@ -31,17 +31,10 @@ const List<String> specijalne = [
   'ona ee',
   'oči boje trapera',
   'petarda',
-  'pjiička',
   'rafali',
-  'ranjeni medvjed',
   'ronaldo',
-  'sise Lidije Bačić',
   'sivi saxo',
   'stalak za lakat',
   'stara jezgra Zadra',
-  'teška industrija',
-  'vuk samotnjak',
   'zidane',
-  'Šiško Menčetić',
-  'žetva pšenice'
 ];

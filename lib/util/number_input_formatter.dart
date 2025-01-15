@@ -20,10 +20,12 @@ class NumberInputFormatter extends TextInputFormatter {
 
     if (newTextLength >= textLength) {
       final newValueInt = int.parse(newValue.text);
+
       if (newValueInt < lowestNumber || newValueInt > highestNumber) {
         return oldValue;
       }
     }
+
     return newValue;
   }
 }

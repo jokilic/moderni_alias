@@ -126,9 +126,11 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   void initState() {
     super.initState();
 
-    initializeAnimations();
-    initializeAudio();
-    setState(() {});
+    initializeAnimations().then(
+      (_) => initializeAudio().then(
+        (_) => setState(() {}),
+      ),
+    );
   }
 
   @override
@@ -140,7 +142,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     super.dispose();
   }
 
-  /// Widgets which are shown when opening expansion tile / when viewing [QuickGameStats]
+  /// Widgets which are shown when opening expansion tile
   List<Widget> buildExpansionTileChildren() => [
         ///
         /// WORDS

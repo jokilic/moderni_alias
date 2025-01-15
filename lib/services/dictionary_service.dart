@@ -73,7 +73,7 @@ class DictionaryService extends ValueNotifier<Flag> {
   }
 
   /// If there are no more words in the [currentDictionary], refill it
-  List<String> refillCurrentDictionary() => currentDictionary = value == Flag.croatia ? [...croatianDictionary] : [...englishDictionary];
+  List<String> refillCurrentDictionary() => currentDictionary = List.from(value == Flag.croatia ? croatianDictionary : englishDictionary);
 
   /// Triggered when the user chooses a [Flag]
   void updateActiveDictionary({required Flag newLanguage}) {

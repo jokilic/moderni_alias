@@ -75,7 +75,7 @@ class ModerniAliasWidget extends WatchingWidget {
           /// Return `appWidget`, also [Banner] if app is `debug`
           return kDebugMode
               ? Banner(
-                  message: 'appName'.tr().toUpperCase(),
+                  message: 'appNameString'.tr().toUpperCase(),
                   color: ModerniAliasColors.blue,
                   location: BannerLocation.topEnd,
                   layoutDirection: TextDirection.ltr,
