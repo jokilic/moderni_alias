@@ -1,11 +1,16 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/durations.dart';
+import '../../constants/icons.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/dependencies.dart';
+import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
 import 'stats_controller.dart';
@@ -57,9 +62,27 @@ class _StatsScreenState extends State<StatsScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.paddingOf(context).top,
+                  const SizedBox(height: 26),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: AnimatedGestureDetector(
+                      onTap: Navigator.of(context).pop,
+                      end: 0.8,
+                      child: IconButton(
+                        onPressed: null,
+                        icon: Transform.rotate(
+                          angle: pi,
+                          child: Image.asset(
+                            ModerniAliasIcons.arrowStatsImage,
+                            color: ModerniAliasColors.white,
+                            height: 26,
+                            width: 26,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
+                  const SizedBox(height: 8),
                   HeroTitle(smallText: 'statsTitle'.tr()),
                   const SizedBox(height: 40),
                   StatsSegmentedWidget(

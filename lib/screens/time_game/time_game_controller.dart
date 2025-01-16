@@ -7,7 +7,7 @@ import 'package:just_audio/just_audio.dart';
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
 import '../../constants/sounds.dart';
-import '../../controllers/audio_record_controller.dart';
+import '../../controllers/base_game_controller.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
@@ -16,19 +16,16 @@ import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../services/path_provider_service.dart';
 import '../../util/routing.dart';
 import '../../util/sound.dart';
 import '../../util/typedef.dart';
-import '../../widgets/scores/show_time_scores.dart';
 
 class TimeGameController extends ValueNotifier<TimeGameState> implements Disposable {
   final LoggerService logger;
   final DictionaryService dictionary;
   final BackgroundImageService backgroundImage;
-  final PathProviderService pathProvider;
   final HiveService hive;
-  final AudioRecordController audioRecord;
+  final BaseGameController baseGame;
 
   final List<Team> passedTeams;
   final int numberOfWords;
@@ -38,9 +35,8 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     required this.logger,
     required this.dictionary,
     required this.backgroundImage,
-    required this.pathProvider,
     required this.hive,
-    required this.audioRecord,
+    required this.baseGame,
     required this.passedTeams,
     required this.numberOfWords,
     required this.useDynamicBackgrounds,
@@ -63,8 +59,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   late TimeGameStats timeGameStats;
 
   late final AudioPlayer timeGameEndAudioPlayer;
-  late final AudioPlayer correctAudioPlayer;
-  late final AudioPlayer wrongAudioPlayer;
 
   Timer? timer;
 
@@ -87,16 +81,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
         ModerniAliasSounds.timeGameEnd,
         preload: false,
       );
-    correctAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.correct,
-        preload: false,
-      );
-    wrongAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.wrong,
-        preload: false,
-      );
   }
 
   ///
@@ -107,8 +91,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   void onDispose() {
     timer?.cancel();
     timeGameEndAudioPlayer.dispose();
-    correctAudioPlayer.dispose();
-    wrongAudioPlayer.dispose();
   }
 
   ///
@@ -145,37 +127,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
         ),
       );
 
-  /// Changes background depending on the percentage of solved words
-  void updateBackground() {
-    final correctAnswers = value.playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length;
-
-    final percentageOfSolvedWords = 1 - (correctAnswers / numberOfWords);
-
-    /// Show green background
-    if (percentageOfSolvedWords <= 0.6 && percentageOfSolvedWords > 0.4) {
-      backgroundImage.changeBackground(
-        ModerniAliasImages.blurredGreen,
-        isTemporary: true,
-      );
-    }
-
-    /// Show yellow background
-    else if (percentageOfSolvedWords <= 0.4 && percentageOfSolvedWords > 0.15) {
-      backgroundImage.changeBackground(
-        ModerniAliasImages.blurredYellow,
-        isTemporary: true,
-      );
-    }
-
-    /// Show red background
-    else if (percentageOfSolvedWords <= 0.15) {
-      backgroundImage.changeBackground(
-        ModerniAliasImages.blurredRed,
-        isTemporary: true,
-      );
-    }
-  }
-
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
     updateState(
@@ -198,7 +149,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       },
     );
 
-    await startAudioRecording();
+    await baseGame.startAudioRecording();
   }
 
   /// Triggered when the counter finishes and round starts
@@ -270,11 +221,14 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     List<Team> playingTeams, {
     required BuildContext context,
   }) async {
-    await showScoresSheet(
+    await baseGame.showTimeScoresSheet(
       context: context,
+      playedWords: value.playedWords,
     );
 
-    await updateHiveStats(gameType: GameState.idle);
+    await updateHiveStats(
+      gameType: GameState.idle,
+    );
 
     final currentTeamIndex = playingTeams.indexOf(
       value.playingTeam,
@@ -292,7 +246,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     );
 
     await backgroundImage.revertBackground();
-
     await updateHiveStats(gameType: GameState.finished);
 
     openTimeGameFinished(
@@ -329,7 +282,9 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     /// 4. Get another random word
 
     /// Play proper sound
-    playAnswerSound(chosenAnswer: chosenAnswer);
+    baseGame.playAnswerSound(
+      chosenAnswer: chosenAnswer,
+    );
 
     /// Update relevant state
     /// Update relevant state
@@ -357,47 +312,16 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
 
     /// Update background
     if (useDynamicBackgrounds) {
-      updateBackground();
+      baseGame.updateTimeBackground(
+        playedWords: value.playedWords,
+        numberOfWords: numberOfWords,
+      );
     }
 
     /// Check if player has guessed the selected number of words
     checkRoundDone(
       context: context,
     );
-  }
-
-  /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenAnswer}) => playSound(
-        audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
-      );
-
-  /// Shows scores sheet and dismisses it after some time
-  Future<void> showScoresSheet({required BuildContext context}) async {
-    showTimeScores(
-      context,
-      playedWords: value.playedWords,
-      dismissible: false,
-      roundEnd: true,
-    );
-    await Future.delayed(const Duration(seconds: 3));
-    Navigator.of(context).pop();
-  }
-
-  /// Generates proper `path` and starts audio recording
-  Future<void> startAudioRecording() async {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${pathProvider.appplicationDocumentsDirectoryPath}/$timestamp';
-    await audioRecord.startRecording(path);
-  }
-
-  /// Stores the audio file to application directory
-  Future<String?> saveAudioFile() async {
-    try {
-      return await audioRecord.stopRecording();
-    } catch (e) {
-      logger.e('Error in saveAudioFile()\n$e');
-    }
-    return null;
   }
 
   /// Save audio file and update stats and store them in [Hive]
@@ -409,7 +333,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
         Round(
           playedWords: List.from(value.playedWords),
           playingTeam: value.playingTeam,
-          audioRecording: await saveAudioFile(),
+          audioRecording: await baseGame.saveAudioFile(),
           durationSeconds: timer?.tick,
         ),
       ],

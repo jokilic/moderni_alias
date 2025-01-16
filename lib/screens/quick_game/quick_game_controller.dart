@@ -1,13 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:just_audio/just_audio.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
-import '../../constants/sounds.dart';
-import '../../controllers/audio_record_controller.dart';
+import '../../controllers/base_game_controller.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
@@ -15,18 +12,15 @@ import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../services/path_provider_service.dart';
 import '../../util/routing.dart';
-import '../../util/sound.dart';
 import '../../util/typedef.dart';
 
-class QuickGameController extends ValueNotifier<QuickGameState> implements Disposable {
+class QuickGameController extends ValueNotifier<QuickGameState> {
   final LoggerService logger;
   final DictionaryService dictionary;
   final BackgroundImageService backgroundImage;
-  final PathProviderService pathProvider;
   final HiveService hive;
-  final AudioRecordController audioRecord;
+  final BaseGameController baseGame;
 
   final int lengthOfRound;
   final bool useDynamicBackgrounds;
@@ -35,9 +29,8 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     required this.logger,
     required this.dictionary,
     required this.backgroundImage,
-    required this.pathProvider,
     required this.hive,
-    required this.audioRecord,
+    required this.baseGame,
     required this.lengthOfRound,
     required this.useDynamicBackgrounds,
   }) : super(
@@ -53,22 +46,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
   /// VARIABLES
   ///
 
-  late final greenSeconds = lengthOfRound * 0.6;
-  late final yellowSeconds = lengthOfRound * 0.4;
-  late final redSeconds = lengthOfRound * 0.15;
-
   late QuickGameStats quickGameStats;
-
-  late final AudioPlayer roundEndAudioPlayer;
-  late final AudioPlayer correctAudioPlayer;
-  late final AudioPlayer wrongAudioPlayer;
-
-  Timer? greenTimer;
-  Timer? yellowTimer;
-  Timer? redTimer;
-
-  Timer? soundTimer;
-  Timer? gameTimer;
 
   ///
   /// INIT
@@ -81,38 +59,6 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
       round: Round(playedWords: []),
       language: dictionary.value,
     );
-
-    roundEndAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.timer,
-        preload: false,
-      );
-    correctAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.correct,
-        preload: false,
-      );
-    wrongAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.wrong,
-        preload: false,
-      );
-  }
-
-  ///
-  /// DISPOSE
-  ///
-
-  @override
-  void onDispose() {
-    greenTimer?.cancel();
-    yellowTimer?.cancel();
-    redTimer?.cancel();
-    soundTimer?.cancel();
-    gameTimer?.cancel();
-    roundEndAudioPlayer.dispose();
-    correctAudioPlayer.dispose();
-    wrongAudioPlayer.dispose();
   }
 
   ///
@@ -132,63 +78,6 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
         playedWords: newPlayedWords ?? value.playedWords,
         currentWord: newCurrentWord ?? value.currentWord,
       );
-
-  /// Returns a `Timer` with the specified length and color
-  Timer makeTimerForBackground({
-    required double chosenSeconds,
-    required String background,
-  }) =>
-      Timer(
-        Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => useDynamicBackgrounds
-            ? backgroundImage.changeBackground(
-                background,
-                isTemporary: true,
-              )
-            : null,
-      );
-
-  /// Starts the time countdown
-  void startTimer(
-    int lengthOfRound, {
-    required BuildContext context,
-  }) {
-    /// Initialize timer that runs when the round is about to end
-    soundTimer = Timer(
-      Duration(seconds: lengthOfRound - 5),
-      () => playSound(
-        audioPlayer: roundEndAudioPlayer,
-      ),
-    );
-
-    /// Initialize timers that change colors
-    greenTimer = makeTimerForBackground(
-      chosenSeconds: greenSeconds,
-      background: ModerniAliasImages.blurredGreen,
-    );
-    yellowTimer = makeTimerForBackground(
-      chosenSeconds: yellowSeconds,
-      background: ModerniAliasImages.blurredYellow,
-    );
-    redTimer = makeTimerForBackground(
-      chosenSeconds: redSeconds,
-      background: ModerniAliasImages.blurredRed,
-    );
-
-    /// Start game timer
-    gameTimer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        /// Timer is done, end game
-        if (lengthOfRound - timer.tick == 0) {
-          timer.cancel();
-          endGame(
-            context: context,
-          );
-        }
-      },
-    );
-  }
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown({required BuildContext context}) async {
@@ -215,7 +104,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
       },
     );
 
-    await startAudioRecording();
+    await baseGame.startAudioRecording();
   }
 
   /// Triggered when the counter finishes and round starts
@@ -244,15 +133,20 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     }
 
     /// Start time countdown
-    startTimer(
+    baseGame.startTimers(
       lengthOfRound,
-      context: context,
+      useDynamicBackgrounds: useDynamicBackgrounds,
+      onGameTimerFinished: () => endGame(
+        context: context,
+      ),
     );
   }
 
   /// Goes to the confetti screen and shows info about the round
   Future<void> endGame({required BuildContext context}) async {
-    updateState(newGameState: GameState.finished);
+    updateState(
+      newGameState: GameState.finished,
+    );
 
     await backgroundImage.revertBackground();
     await updateHiveStats();
@@ -287,7 +181,9 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     /// 4. Get another random word
 
     /// Play proper sound
-    playAnswerSound(chosenAnswer: chosenAnswer);
+    baseGame.playAnswerSound(
+      chosenAnswer: chosenAnswer,
+    );
 
     /// Add answer to list of `playedWords` (for showing in the end of the round)
     /// Get another random word
@@ -306,39 +202,13 @@ class QuickGameController extends ValueNotifier<QuickGameState> implements Dispo
     );
   }
 
-  /// Plays proper sound while pressing on the answers
-  void playAnswerSound({required Answer chosenAnswer}) => playSound(
-        audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
-      );
-
-  /// Generates proper `path` and starts audio recording
-  Future<void> startAudioRecording() async {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${pathProvider.appplicationDocumentsDirectoryPath}/$timestamp';
-    await audioRecord.startRecording(path);
-  }
-
-  /// Stores the audio file to application directory
-  Future<String?> saveAudioFile() async {
-    try {
-      return await audioRecord.stopRecording();
-    } catch (e) {
-      logger.e('Error in saveAudioFile()\n$e');
-    }
-    return null;
-  }
-
-  ///
-  /// HIVE
-  ///
-
   /// Update stats and store them in [Hive]
   Future<void> updateHiveStats() async {
     quickGameStats = quickGameStats.copyWith(
       endTime: DateTime.now(),
       round: Round(
         playedWords: List.from(value.playedWords),
-        audioRecording: await saveAudioFile(),
+        audioRecording: await baseGame.saveAudioFile(),
       ),
     );
 

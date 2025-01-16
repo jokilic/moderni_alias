@@ -5,6 +5,7 @@ import 'package:watch_it/watch_it.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../controllers/audio_record_controller.dart';
+import '../../controllers/base_game_controller.dart';
 import '../../models/team/team.dart';
 import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
@@ -58,14 +59,23 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
       afterRegister: (controller) => controller.init(),
     );
 
+    final baseGame = registerIfNotInitialized<BaseGameController>(
+      () => BaseGameController(
+        logger: getIt.get<LoggerService>(),
+        pathProvider: getIt.get<PathProviderService>(),
+        backgroundImage: getIt.get<BackgroundImageService>(),
+        audioRecord: audioRecord,
+      ),
+      afterRegister: (controller) => controller.init(),
+    );
+
     registerIfNotInitialized<TimeGameController>(
       () => TimeGameController(
         logger: getIt.get<LoggerService>(),
         dictionary: getIt.get<DictionaryService>(),
         backgroundImage: getIt.get<BackgroundImageService>(),
-        pathProvider: getIt.get<PathProviderService>(),
         hive: getIt.get<HiveService>(),
-        audioRecord: audioRecord,
+        baseGame: baseGame,
         passedTeams: widget.teams,
         numberOfWords: widget.numberOfWords,
         useDynamicBackgrounds: useDynamicBackgrounds,
@@ -78,6 +88,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
   void dispose() {
     getIt
       ..unregister<AudioRecordController>()
+      ..unregister<BaseGameController>()
       ..unregister<TimeGameController>();
 
     recorderController.dispose();

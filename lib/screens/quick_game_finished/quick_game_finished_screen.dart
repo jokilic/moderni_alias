@@ -11,8 +11,8 @@ import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../controllers/audio_record_controller.dart';
+import '../../controllers/base_game_controller.dart';
 import '../../models/played_word/played_word.dart';
-import '../../services/background_image_service.dart';
 import '../../util/dependencies.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
@@ -36,6 +36,7 @@ class QuickGameFinishedScreen extends WatchingWidget {
     /// Dispose controllers
     getIt
       ..unregister<AudioRecordController>()
+      ..unregister<BaseGameController>()
       ..unregister<QuickGameController>();
 
     /// Go to [QuickGameScreen]
@@ -48,8 +49,6 @@ class QuickGameFinishedScreen extends WatchingWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-
-    final backgroundImage = watchIt<BackgroundImageService>().value;
 
     final correctAnswers = playedWords.where((word) => word.chosenAnswer == Answer.correct).toList().length.toString();
     final wrongAnswers = playedWords.where((word) => word.chosenAnswer == Answer.wrong).toList().length.toString();
@@ -136,7 +135,6 @@ class QuickGameFinishedScreen extends WatchingWidget {
                     onTap: () => showScores(
                       context,
                       playedWords: playedWords,
-                      backgroundImage: backgroundImage,
                     ),
                     end: 0.8,
                     child: IconButton(

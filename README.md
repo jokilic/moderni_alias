@@ -53,8 +53,11 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Add more words
-- [ ] Refactor the whole app code
-    - [ ] NormalGame
-    - [ ] QuickGame
-    - [ ] TimeGame
-- [ ] Test the whole app
+
+## Changelog
+
+- [ ] Complete refactor of the app
+- [ ] Back buttons in some screens
+- [ ] New sound when longpressing my photo
+- [ ] Code cleanup
+- [ ] Update dependencies

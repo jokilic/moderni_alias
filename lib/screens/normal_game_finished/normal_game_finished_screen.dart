@@ -11,7 +11,6 @@ import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/team/team.dart';
-import '../../services/background_image_service.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
@@ -31,8 +30,6 @@ class NormalGameFinishedScreen extends WatchingWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundImage = watchIt<BackgroundImageService>().value;
-
     final winningTeam = teams.reduce((a, b) => a.points > b.points ? a : b);
 
     return PopScope(
@@ -106,7 +103,6 @@ class NormalGameFinishedScreen extends WatchingWidget {
                       context,
                       teams: teams,
                       playedWords: playedWords,
-                      backgroundImage: backgroundImage,
                     ),
                     end: 0.8,
                     child: IconButton(

@@ -1,11 +1,15 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/team/team.dart';
+import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
 import '../../widgets/hero_title.dart';
@@ -41,7 +45,30 @@ class StatsNormalGameScreen extends StatelessWidget {
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 26),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: AnimatedGestureDetector(
+                        onTap: Navigator.of(context).pop,
+                        end: 0.8,
+                        child: IconButton(
+                          onPressed: null,
+                          icon: Transform.rotate(
+                            angle: pi,
+                            child: Image.asset(
+                              ModerniAliasIcons.arrowStatsImage,
+                              color: ModerniAliasColors.white,
+                              height: 26,
+                              width: 26,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
                   const HeroTitle(),
                   const SizedBox(height: 24),
                   GameTitle(
