@@ -53,6 +53,12 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Add more words
+- [ ] Tie break not working properly
+- [ ] Stats
+    - [ ] Number of guessed words in NormalGame for each team is 0
+    - [ ] Round -> tweak spacing of words
+    - [ ] Round -> audio widget not shown
+
 
 ## Changelog
 
