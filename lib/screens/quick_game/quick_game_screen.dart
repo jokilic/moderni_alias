@@ -97,8 +97,6 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
-    final backgroundImage = watchIt<BackgroundImageService>().value;
-
     final controller = watchIt<QuickGameController>();
     final state = controller.value;
 
@@ -109,10 +107,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => exitGameModal(
-        context,
-        backgroundImage: backgroundImage,
-      ),
+      onPopInvokedWithResult: (_, __) => exitGameModal(context),
       child: Scaffold(
         body: Stack(
           children: [
@@ -131,10 +126,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                       recorderController: recorderController,
                       correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
                       wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
-                      exitGame: () => exitGameModal(
-                        context,
-                        backgroundImage: backgroundImage,
-                      ),
+                      exitGame: () => exitGameModal(context),
                       showScores: () => showScores(
                         context,
                         playedWords: playedWords,

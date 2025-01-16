@@ -177,6 +177,7 @@ class TimeScoresModal extends WatchingWidget {
                     child: PlayedWordValue(
                       word: playedWords[index].word,
                       chosenAnswer: playedWords[index].chosenAnswer,
+                      padding: EdgeInsets.zero,
                     ),
                   ),
                   separatorBuilder: (_, __) => const SizedBox(height: 6),

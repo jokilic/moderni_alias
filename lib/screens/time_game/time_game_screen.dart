@@ -100,8 +100,6 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
-    final backgroundImage = watchIt<BackgroundImageService>().value;
-
     final state = watchIt<TimeGameController>().value;
 
     final currentlyPlayingTeam = state.playingTeam;
@@ -116,10 +114,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => exitGameModal(
-        context,
-        backgroundImage: backgroundImage,
-      ),
+      onPopInvokedWithResult: (_, __) => exitGameModal(context),
       child: Scaffold(
         body: Stack(
           children: [
@@ -137,10 +132,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                     child: TimeGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
                       recorderController: recorderController,
-                      exitGame: () => exitGameModal(
-                        context,
-                        backgroundImage: backgroundImage,
-                      ),
+                      exitGame: () => exitGameModal(context),
                       showScores: () => showTimeScores(
                         context,
                         playedWords: playedWords,

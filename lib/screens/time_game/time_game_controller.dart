@@ -327,6 +327,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   /// Save audio file and update stats and store them in [Hive]
   Future<void> updateHiveStats({required GameState gameType}) async {
     timeGameStats = timeGameStats.copyWith(
+      teams: List.from(value.teams),
       endTime: gameType == GameState.finished ? DateTime.now() : null,
       rounds: [
         ...timeGameStats.rounds,

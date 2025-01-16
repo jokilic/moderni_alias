@@ -337,6 +337,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   /// Save audio file and update stats and store them in [Hive]
   Future<void> updateHiveStats({required GameState gameType}) async {
     normalGameStats = normalGameStats.copyWith(
+      teams: List.from(value.teams),
       endTime: gameType == GameState.finished ? DateTime.now() : null,
       rounds: [
         ...normalGameStats.rounds,

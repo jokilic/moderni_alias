@@ -104,8 +104,6 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
-    final backgroundImage = watchIt<BackgroundImageService>().value;
-
     final controller = watchIt<NormalGameController>();
     final state = controller.value;
 
@@ -118,10 +116,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
 
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (_, __) => exitGameModal(
-        context,
-        backgroundImage: backgroundImage,
-      ),
+      onPopInvokedWithResult: (_, __) => exitGameModal(context),
       child: Scaffold(
         body: Stack(
           children: [
@@ -139,10 +134,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
                     child: NormalGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
                       recorderController: recorderController,
-                      exitGame: () => exitGameModal(
-                        context,
-                        backgroundImage: backgroundImage,
-                      ),
+                      exitGame: () => exitGameModal(context),
                       showScores: () => showScores(
                         context,
                         teams: teams,
