@@ -58,18 +58,19 @@ class DictionaryService extends ValueNotifier<Flag> {
 
   /// Remove used word from the `currentDictionary` and generate a new random word
   String getRandomWord({required String? previousWord}) {
-    /// If there are no more words in the dictionary, refill it
-    if (currentDictionary.length == 2) {
+    /// Remove previous word if it exists
+    if (previousWord != null) {
+      currentDictionary.remove(previousWord);
+    }
+
+    /// Refill only when dictionary is empty
+    if (currentDictionary.isEmpty) {
       refillCurrentDictionary();
     }
 
-    /// Remove `previousWord` from `currentDictionary`
-    currentDictionary.remove(previousWord);
-
-    /// Generate new randomized `word` from `currentDictionary`
+    /// Generate new randomized word
     final newWord = currentDictionary[random.nextInt(currentDictionary.length)];
 
-    /// Return `newWord`
     return newWord;
   }
 
