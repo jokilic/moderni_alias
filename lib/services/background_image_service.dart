@@ -34,7 +34,10 @@ class BackgroundImageService extends ValueNotifier<String> {
   ///
 
   /// Updates background to the passed one
-  Future<void> changeBackground(String newBackground, {required bool isTemporary}) async {
+  Future<void> changeBackground(
+    String newBackground, {
+    required bool isTemporary,
+  }) async {
     value = newBackground;
 
     /// Store new background in [Hive]

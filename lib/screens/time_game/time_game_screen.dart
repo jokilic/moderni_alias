@@ -50,7 +50,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
     useCircularTimer = settings.useCircularTimer;
     recorderController = RecorderController();
 
-    final audioRecord = registerIfNotInitialized(
+    final audioRecord = registerIfNotInitialized<AudioRecordController>(
       () => AudioRecordController(
         recorderController: recorderController,
         logger: getIt.get<LoggerService>(),

@@ -386,7 +386,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${pathProvider.appDocDirectory}/$timestamp';
+    final path = '${pathProvider.appplicationDocumentsDirectoryPath}/$timestamp';
     await audioRecord.startRecording(path);
   }
 

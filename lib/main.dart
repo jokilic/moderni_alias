@@ -2,11 +2,10 @@ import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:watch_it/watch_it.dart';
 
 import 'constants/colors.dart';
 import 'screens/home/home_screen.dart';
-import 'services/theme_service.dart';
+import 'theme.dart';
 import 'util/dependencies.dart';
 
 Future<void> main() async {
@@ -53,7 +52,7 @@ class ModerniAliasApp extends StatelessWidget {
       );
 }
 
-class ModerniAliasWidget extends WatchingWidget {
+class ModerniAliasWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         localizationsDelegates: context.localizationDelegates,
@@ -61,7 +60,7 @@ class ModerniAliasWidget extends WatchingWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         onGenerateTitle: (_) => 'appNameString'.tr(),
-        theme: watchIt<ThemeService>().value,
+        theme: theme,
         home: const HomeScreen(
           key: ValueKey('home'),
         ),
@@ -75,7 +74,7 @@ class ModerniAliasWidget extends WatchingWidget {
           /// Return `appWidget`, also [Banner] if app is `debug`
           return kDebugMode
               ? Banner(
-                  message: 'appNameString'.tr().toUpperCase(),
+                  message: 'Josip'.toUpperCase(),
                   color: ModerniAliasColors.blue,
                   location: BannerLocation.topEnd,
                   layoutDirection: TextDirection.ltr,

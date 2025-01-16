@@ -25,6 +25,10 @@ class PackageInfoService {
     packageInfo = await PackageInfo.fromPlatform();
     appVersion = packageInfo.version;
 
-    logger.f(capitalizeFirstLetter('${packageInfo.appName} v${packageInfo.version}'));
+    logger.f(
+      capitalizeFirstLetter(
+        '${packageInfo.appName} v${packageInfo.version}',
+      ),
+    );
   }
 }

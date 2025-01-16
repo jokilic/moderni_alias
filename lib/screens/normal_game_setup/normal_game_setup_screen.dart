@@ -7,6 +7,7 @@ import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../controllers/base_game_setup_controller.dart';
 import '../../models/team/team.dart';
 import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
@@ -39,17 +40,26 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
   void initState() {
     super.initState();
 
+    registerIfNotInitialized<BaseGameSetupController>(
+      () => BaseGameSetupController(
+        logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
+      ),
+    );
+
     registerIfNotInitialized<NormalGameSetupController>(
       () => NormalGameSetupController(
         logger: getIt.get<LoggerService>(),
-        dictionary: getIt.get<DictionaryService>(),
       ),
     );
   }
 
   @override
   void dispose() {
-    getIt.unregister<NormalGameSetupController>();
+    getIt
+      ..unregister<BaseGameSetupController>()
+      ..unregister<NormalGameSetupController>();
+
     super.dispose();
   }
 
@@ -210,11 +220,11 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                               key: ValueKey(team),
                               hintText: 'teamNameString'.tr(),
                               textInputAction: index == teams.length - 1 ? TextInputAction.done : TextInputAction.next,
-                              onChanged: (value) => getIt.get<NormalGameSetupController>().teamNameUpdated(
+                              onChanged: (value) => getIt.get<BaseGameSetupController>().onChangedTeamName(
                                     passedTeam: team,
                                     newName: value,
                                   ),
-                              randomizePressed: () => getIt.get<NormalGameSetupController>().randomizeTeamName(
+                              randomizePressed: () => getIt.get<BaseGameSetupController>().randomizeTeamName(
                                     passedTeam: team,
                                   ),
                             ),
@@ -242,16 +252,25 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                         text: 'playTheGameString'.tr().toUpperCase(),
                         onPressed: () {
                           /// Validate teams
-                          final isValidated = getIt.get<NormalGameSetupController>().validateTeams();
+                          final validationError = getIt.get<BaseGameSetupController>().validateTeams(
+                                teams: teams,
+                              );
 
                           /// Validation successful, go to [NormalGameScreen]
-                          if (isValidated) {
+                          if (validationError == null) {
                             openNormalGame(
                               context,
                               teams: teams,
                               pointsToWin: pointsToWin,
                               lengthOfRound: lengthOfRound,
                             );
+                          }
+
+                          /// Validation not successful, show error
+                          else {
+                            getIt.get<NormalGameSetupController>().updateState(
+                                  newValidationMessage: validationError,
+                                );
                           }
                         },
                       ),

@@ -7,6 +7,7 @@ import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../controllers/base_game_setup_controller.dart';
 import '../../models/team/team.dart';
 import '../../services/background_image_service.dart';
 import '../../services/dictionary_service.dart';
@@ -38,17 +39,26 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
   void initState() {
     super.initState();
 
+    registerIfNotInitialized<BaseGameSetupController>(
+      () => BaseGameSetupController(
+        logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
+      ),
+    );
+
     registerIfNotInitialized<TimeGameSetupController>(
       () => TimeGameSetupController(
         logger: getIt.get<LoggerService>(),
-        dictionary: getIt.get<DictionaryService>(),
       ),
     );
   }
 
   @override
   void dispose() {
-    getIt.unregister<TimeGameSetupController>();
+    getIt
+      ..unregister<BaseGameSetupController>()
+      ..unregister<TimeGameSetupController>();
+
     super.dispose();
   }
 
@@ -181,11 +191,11 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
                               key: ValueKey(team),
                               hintText: 'teamNameString'.tr(),
                               textInputAction: index == teams.length - 1 ? TextInputAction.done : TextInputAction.next,
-                              onChanged: (value) => getIt.get<TimeGameSetupController>().teamNameUpdated(
+                              onChanged: (value) => getIt.get<BaseGameSetupController>().onChangedTeamName(
                                     passedTeam: team,
                                     newName: value,
                                   ),
-                              randomizePressed: () => getIt.get<TimeGameSetupController>().randomizeTeamName(
+                              randomizePressed: () => getIt.get<BaseGameSetupController>().randomizeTeamName(
                                     passedTeam: team,
                                   ),
                             ),
@@ -213,15 +223,24 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
                         text: 'playTheGameString'.tr().toUpperCase(),
                         onPressed: () {
                           /// Validate teams
-                          final isValidated = getIt.get<TimeGameSetupController>().validateTeams();
+                          final validationError = getIt.get<BaseGameSetupController>().validateTeams(
+                                teams: teams,
+                              );
 
                           /// Validation successful, go to [TimeGameScreen]
-                          if (isValidated) {
+                          if (validationError == null) {
                             openTimeGame(
                               context,
                               teams: teams,
                               numberOfWords: wordsToWin,
                             );
+                          }
+
+                          /// Validation not successful, show error
+                          else {
+                            getIt.get<TimeGameSetupController>().updateState(
+                                  newValidationMessage: validationError,
+                                );
                           }
                         },
                       ),

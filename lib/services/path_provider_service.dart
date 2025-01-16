@@ -13,13 +13,14 @@ class PathProviderService {
   /// VARIABLES
   ///
 
-  late final String appDocDirectory;
+  late final String appplicationDocumentsDirectoryPath;
 
   ///
   /// INIT
   ///
 
   Future<void> init() async {
-    appDocDirectory = await getApplicationDocumentsDirectory().then((directory) => directory.path);
+    final appDirectory = await getApplicationDocumentsDirectory();
+    appplicationDocumentsDirectoryPath = appDirectory.path;
   }
 }

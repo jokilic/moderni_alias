@@ -6,7 +6,6 @@ import '../services/hive_service.dart';
 import '../services/logger_service.dart';
 import '../services/package_info_service.dart';
 import '../services/path_provider_service.dart';
-import '../services/theme_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -64,15 +63,6 @@ void initializeServices() {
         );
         await hive.init();
         return hive;
-      },
-      dependsOn: [LoggerService],
-    )
-    ..registerSingletonAsync(
-      () async {
-        final theme = ThemeService(
-          logger: getIt.get<LoggerService>(),
-        )..init();
-        return theme;
       },
       dependsOn: [LoggerService],
     )

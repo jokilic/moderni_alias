@@ -85,7 +85,7 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
                       ),
                       const SizedBox(height: 8),
                       HeroTitle(
-                        smallText: getIt.get<PackageInfoService>().appVersion,
+                        smallText: 'v${getIt.get<PackageInfoService>().appVersion}',
                       ),
                       const SizedBox(height: 40),
                       GameTitle('howTitleString'.tr()),

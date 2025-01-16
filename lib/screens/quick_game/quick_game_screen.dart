@@ -48,7 +48,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
     useCircularTimer = settings.useCircularTimer;
     recorderController = RecorderController();
 
-    final audioRecord = registerIfNotInitialized(
+    final audioRecord = registerIfNotInitialized<AudioRecordController>(
       () => AudioRecordController(
         recorderController: recorderController,
         logger: getIt.get<LoggerService>(),

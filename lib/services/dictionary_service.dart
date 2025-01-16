@@ -41,6 +41,7 @@ class DictionaryService extends ValueNotifier<Flag> {
     ...adjectives,
   ];
 
+  /// Active dictionary
   var currentDictionary = <String>[];
 
   ///
@@ -55,13 +56,15 @@ class DictionaryService extends ValueNotifier<Flag> {
   /// METHODS
   ///
 
-  /// Remove used word from the `currentDictionary` and give a new random word
+  /// Remove used word from the `currentDictionary` and generate a new random word
   String getRandomWord({required String? previousWord}) {
+    // TODO: Refactor this
     /// If there are no more words in the dictionary, refill it
     if (currentDictionary.length == 2) {
       refillCurrentDictionary();
     }
 
+    // TODO: Think about persisting this
     /// Remove `previousWord` from `currentDictionary`
     currentDictionary.remove(previousWord);
 
@@ -81,7 +84,7 @@ class DictionaryService extends ValueNotifier<Flag> {
     refillCurrentDictionary();
   }
 
-  /// Takes words from the dictionary and returns a random team name
+  /// Take words from the dictionary and return a random team name
   String getRandomTeamName() {
     /// Random adjective
     final adjective = value == Flag.croatia ? pridjevi[random.nextInt(pridjevi.length)] : adjectives[random.nextInt(adjectives.length)];
