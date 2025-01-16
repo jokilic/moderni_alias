@@ -240,6 +240,7 @@ const List<String> glagoli = [
   'suditi',
   'sumnjati',
   'susramlje',
+  'šumiti',
   'tinjati',
   'topiti',
   'topot',
