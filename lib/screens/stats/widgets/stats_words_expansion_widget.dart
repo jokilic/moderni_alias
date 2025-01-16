@@ -26,37 +26,20 @@ class StatsWordsExpansionWidget extends StatefulWidget {
   State<StatsWordsExpansionWidget> createState() => _StatsWordsExpansionWidgetState();
 }
 
-class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> with TickerProviderStateMixin {
+class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> with SingleTickerProviderStateMixin {
   var showSubtitle = true;
   var turns = 0.25;
   var isPlaying = false;
 
   PlayerController? audioController;
-  late final AnimationController iconAnimationController;
-  late final AnimationController scaleAnimationController;
-  late final Animation scaleAnimation;
+  late final AnimationController animationController;
 
   Future<void> initializeAnimations() async {
     /// Icon toggle animation (play / pause)
-    iconAnimationController = AnimationController(
+    animationController = AnimationController(
       duration: ModerniAliasDurations.animation,
       vsync: this,
     );
-
-    /// Scale icon animation (play / pause)
-    scaleAnimationController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
-
-    scaleAnimation = Tween<double>(begin: 1, end: 1.25).animate(
-      CurvedAnimation(
-        parent: scaleAnimationController,
-        curve: Curves.easeIn,
-      ),
-    );
-
-    await scaleAnimationController.repeat(reverse: true);
   }
 
   /// If there's an `audioRecording`, initialize `audioController` and show the Waveform widget
@@ -83,8 +66,6 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// Play / pause current `audioController`
   Future<void> toggleAudio() async {
-    await audioController?.setFinishMode(finishMode: FinishMode.pause);
-
     switch (audioController?.playerState) {
       case PlayerState.initialized:
         await audioController?.startPlayer();
@@ -107,8 +88,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   /// Animates the play / pause icon forward
   void animateForward() {
     if (mounted) {
-      iconAnimationController.forward();
-      scaleAnimationController.stop();
+      animationController.forward();
       isPlaying = true;
     }
   }
@@ -116,8 +96,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   /// Animates the play / pause icon backward
   void animateBackward() {
     if (mounted) {
-      iconAnimationController.reverse();
-      scaleAnimationController.repeat(reverse: true);
+      animationController.reverse();
       isPlaying = false;
     }
   }
@@ -133,14 +112,13 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   void initState() {
     super.initState();
     initAnimationsAndAudio();
+    print('Audio recording -> ${widget.round.audioRecording}');
   }
 
   @override
   void dispose() {
-    iconAnimationController.dispose();
-    scaleAnimationController.dispose();
+    animationController.dispose();
     audioController?.dispose();
-
     super.dispose();
   }
 
@@ -172,8 +150,8 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
               children: [
                 Expanded(
                   child: AudioFileWaveforms(
-                    size: Size(MediaQuery.sizeOf(context).width, 48),
                     playerController: audioController!,
+                    size: Size(MediaQuery.sizeOf(context).width, 48),
                     continuousWaveform: false,
                     playerWaveStyle: const PlayerWaveStyle(
                       fixedWaveColor: ModerniAliasColors.white,
@@ -188,18 +166,11 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                   onTap: toggleAudio,
                   child: InkWell(
                     onTap: () {},
-                    child: AnimatedBuilder(
-                      animation: scaleAnimation,
-                      builder: (_, child) => Transform.scale(
-                        scale: scaleAnimation.value,
-                        child: child,
-                      ),
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.play_pause,
-                        progress: iconAnimationController,
-                        color: ModerniAliasColors.white,
-                        size: 48,
-                      ),
+                    child: AnimatedIcon(
+                      icon: AnimatedIcons.play_pause,
+                      progress: animationController,
+                      color: ModerniAliasColors.white,
+                      size: 48,
                     ),
                   ),
                 ),

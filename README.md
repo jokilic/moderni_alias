@@ -54,8 +54,6 @@ The goal is to have 10 000.
 
 - [ ] Add more words
 - [ ] Tie break not working properly
-- [ ] Stats
-    - [ ] Round -> audio widget not shown
 
 ## Changelog
 
