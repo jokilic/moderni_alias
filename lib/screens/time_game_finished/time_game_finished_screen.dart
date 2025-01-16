@@ -15,7 +15,7 @@ import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
-import '../../widgets/exit_game.dart';
+import '../../widgets/exit_game/exit_game.dart';
 import '../../widgets/scores/show_time_scores.dart';
 
 class TimeGameFinishedScreen extends StatelessWidget {

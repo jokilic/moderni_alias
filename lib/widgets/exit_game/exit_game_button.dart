@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../constants/durations.dart';
-import '../constants/text_styles.dart';
-import 'animated_gesture_detector.dart';
+import '../../constants/colors.dart';
+import '../../constants/durations.dart';
+import '../../constants/text_styles.dart';
+import '../animated_gesture_detector.dart';
 
 class ExitGameButton extends StatefulWidget {
   final String text;

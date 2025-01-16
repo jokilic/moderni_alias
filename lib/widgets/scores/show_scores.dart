@@ -71,10 +71,13 @@ class ScoresModal extends StatelessWidget {
                   'scoresModalString'.tr(),
                   style: ModerniAliasTextStyles.scoresTitle,
                 ),
-                const SizedBox(height: 24),
                 AnimationLimiter(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 24,
+                    ),
                     physics: const BouncingScrollPhysics(),
                     itemCount: teams!.length,
                     itemBuilder: (_, index) => AnimatedListView(
@@ -85,6 +88,7 @@ class ScoresModal extends StatelessWidget {
                         points: '${teams![index].points}',
                       ),
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(height: 10),
                   ),
                 ),
               ],
@@ -93,15 +97,17 @@ class ScoresModal extends StatelessWidget {
               /// WORDS FROM LAST ROUND
               ///
               if (playedWords.isNotEmpty) ...[
-                if (teams != null) const SizedBox(height: 40),
                 Text(
                   'playedWordsModalString'.tr(),
                   style: ModerniAliasTextStyles.scoresTitle,
                 ),
-                const SizedBox(height: 24),
                 AnimationLimiter(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 56,
+                      vertical: 24,
+                    ),
                     physics: const BouncingScrollPhysics(),
                     itemCount: playedWords.length,
                     itemBuilder: (_, index) => AnimatedListView(
@@ -112,6 +118,7 @@ class ScoresModal extends StatelessWidget {
                         chosenAnswer: playedWords[index].chosenAnswer,
                       ),
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(height: 6),
                   ),
                 ),
               ],

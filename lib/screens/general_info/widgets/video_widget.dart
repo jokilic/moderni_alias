@@ -11,6 +11,16 @@ class VideoWidget extends StatefulWidget {
 class _VideoWidgetState extends State<VideoWidget> {
   late final VideoPlayerController videoController;
 
+  Future<void> initVideo() async {
+    videoController = VideoPlayerController.asset(ModerniAliasVideos.josipVideo);
+    await videoController.initialize();
+    await videoController.setLooping(true);
+    await videoController.setVolume(0);
+    await videoController.play();
+
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -21,16 +31,6 @@ class _VideoWidgetState extends State<VideoWidget> {
   void dispose() {
     videoController.dispose();
     super.dispose();
-  }
-
-  Future<void> initVideo() async {
-    videoController = VideoPlayerController.asset(ModerniAliasVideos.josipVideo);
-    await videoController.initialize();
-    await videoController.setLooping(true);
-    await videoController.setVolume(0);
-    await videoController.play();
-
-    setState(() {});
   }
 
   @override

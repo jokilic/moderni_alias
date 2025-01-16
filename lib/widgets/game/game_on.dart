@@ -1,9 +1,9 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-import '../constants/durations.dart';
-import '../constants/text_styles.dart';
+import '../../constants/colors.dart';
+import '../../constants/durations.dart';
+import '../../constants/text_styles.dart';
 
 class GameOn extends StatelessWidget {
   final String currentWord;

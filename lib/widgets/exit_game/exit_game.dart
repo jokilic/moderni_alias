@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/text_styles.dart';
-import '../services/background_image_service.dart';
-import '../util/dependencies.dart';
-import '../util/routing.dart';
-import './exit_game_button.dart';
-import 'animated_column.dart';
+import '../../constants/text_styles.dart';
+import '../../services/background_image_service.dart';
+import '../../util/dependencies.dart';
+import '../../util/routing.dart';
+import '../animated_column.dart';
+import 'exit_game_button.dart';
 
 void disposeAndGoHome(BuildContext context) {
   getIt.get<BackgroundImageService>().revertBackground();

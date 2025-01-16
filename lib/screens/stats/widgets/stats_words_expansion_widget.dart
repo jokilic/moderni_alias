@@ -122,15 +122,17 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     }
   }
 
+  /// Initializes animations and audio
+  Future<void> initAnimationsAndAudio() async {
+    await initializeAnimations();
+    await initializeAudio();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
-
-    initializeAnimations().then(
-      (_) => initializeAudio().then(
-        (_) => setState(() {}),
-      ),
-    );
+    initAnimationsAndAudio();
   }
 
   @override

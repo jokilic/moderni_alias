@@ -13,15 +13,15 @@ import '../../services/logger_service.dart';
 import '../../services/path_provider_service.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/background_image.dart';
-import '../../widgets/exit_game.dart';
-import '../../widgets/game_off.dart';
-import '../../widgets/game_on.dart';
-import '../../widgets/game_starting.dart';
-import '../../widgets/scores/normal_game_info_section.dart';
+import '../../widgets/exit_game/exit_game.dart';
+import '../../widgets/game/game_off.dart';
+import '../../widgets/game/game_on.dart';
+import '../../widgets/game/game_starting.dart';
 import '../../widgets/scores/show_scores.dart';
 import '../../widgets/time_counter.dart';
 import '../../widgets/wrong_correct_buttons.dart';
 import 'normal_game_controller.dart';
+import 'widgets/normal_game_info_section.dart';
 
 class NormalGameScreen extends WatchingStatefulWidget {
   final List<Team> teams;

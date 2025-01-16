@@ -16,39 +16,26 @@ class PlayedWordValue extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: width * 0.6,
-              child: Text(
-                word,
-                style: ModerniAliasTextStyles.highscore,
-              ),
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              word,
+              style: ModerniAliasTextStyles.highscore,
             ),
-            const SizedBox(width: 16),
-            SizedBox(
-              width: width * 0.1,
-              child: SvgPicture.asset(
-                chosenAnswer == Answer.correct ? ModerniAliasIcons.correctImage : ModerniAliasIcons.wrongImage,
-                colorFilter: const ColorFilter.mode(
-                  ModerniAliasColors.white,
-                  BlendMode.srcIn,
-                ),
-                width: 24,
-                height: 24,
-              ),
+          ),
+          const SizedBox(width: 16),
+          SvgPicture.asset(
+            chosenAnswer == Answer.correct ? ModerniAliasIcons.correctImage : ModerniAliasIcons.wrongImage,
+            colorFilter: const ColorFilter.mode(
+              ModerniAliasColors.white,
+              BlendMode.srcIn,
             ),
-          ],
-        ),
-      ),
-    );
-  }
+            width: 24,
+            height: 24,
+          ),
+        ],
+      );
 }

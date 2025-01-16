@@ -123,11 +123,13 @@ class TimeScoresModal extends WatchingWidget {
               'scoresModalString'.tr(),
               style: ModerniAliasTextStyles.scoresTitle,
             ),
-            const SizedBox(height: 24),
-
             AnimationLimiter(
-              child: ListView.builder(
+              child: ListView.separated(
                 shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 24,
+                ),
                 physics: const BouncingScrollPhysics(),
                 itemCount: teams.length,
                 itemBuilder: (_, index) => AnimatedListView(
@@ -148,6 +150,7 @@ class TimeScoresModal extends WatchingWidget {
                           ),
                   ),
                 ),
+                separatorBuilder: (_, __) => const SizedBox(height: 10),
               ),
             ),
 
@@ -159,10 +162,13 @@ class TimeScoresModal extends WatchingWidget {
                 'playedWordsModalString'.tr(),
                 style: ModerniAliasTextStyles.scoresTitle,
               ),
-              const SizedBox(height: 24),
               AnimationLimiter(
-                child: ListView.builder(
+                child: ListView.separated(
                   shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 56,
+                    vertical: 24,
+                  ),
                   physics: const BouncingScrollPhysics(),
                   itemCount: playedWords.length,
                   itemBuilder: (_, index) => AnimatedListView(
@@ -173,6 +179,7 @@ class TimeScoresModal extends WatchingWidget {
                       chosenAnswer: playedWords[index].chosenAnswer,
                     ),
                   ),
+                  separatorBuilder: (_, __) => const SizedBox(height: 6),
                 ),
               ),
             ],

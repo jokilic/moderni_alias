@@ -54,3 +54,7 @@ The goal is to have 10 000.
 
 - [ ] Add more words
 - [ ] Refactor the whole app code
+    - [ ] NormalGame
+    - [ ] QuickGame
+    - [ ] TimeGame
+- [ ] Test the whole app

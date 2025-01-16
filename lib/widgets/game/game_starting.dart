@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants/durations.dart';
-import '../constants/text_styles.dart';
+import '../../constants/durations.dart';
+import '../../constants/text_styles.dart';
 
 class GameStarting extends StatelessWidget {
   final String currentSecond;
