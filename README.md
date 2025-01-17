@@ -53,8 +53,6 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Add more words
-- [ ] Make Web version and host it
-- [ ] Check pull request by Krle
 
 ## Changelog
 
