@@ -9,12 +9,15 @@ import '../models/settings/settings.dart';
 import '../models/time_game_stats/time_game_stats.dart';
 import '../models/used_words/used_words.dart';
 import 'logger_service.dart';
+import 'path_provider_service.dart';
 
 class HiveService implements Disposable {
   final LoggerService logger;
+  final PathProviderService pathProvider;
 
   HiveService({
     required this.logger,
+    required this.pathProvider,
   });
 
   ///
@@ -32,9 +35,11 @@ class HiveService implements Disposable {
   ///
 
   Future<void> init() async {
-    await Hive.initFlutter();
+    final directory = pathProvider.persistenceDirectory;
 
-    Hive.registerAdapters();
+    Hive
+      ..init(directory)
+      ..registerAdapters();
 
     normalGameStatsBox = await Hive.openBox<NormalGameStats>('normalGameStatsBox');
     quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');

@@ -60,11 +60,12 @@ void initializeServices() {
       () async {
         final hive = HiveService(
           logger: getIt.get<LoggerService>(),
+          pathProvider: getIt.get<PathProviderService>(),
         );
         await hive.init();
         return hive;
       },
-      dependsOn: [LoggerService],
+      dependsOn: [LoggerService, PathProviderService],
     )
     ..registerSingletonAsync(
       () async {

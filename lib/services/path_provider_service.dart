@@ -1,5 +1,4 @@
-import 'package:path_provider/path_provider.dart';
-
+import '../util/path.dart';
 import 'logger_service.dart';
 
 class PathProviderService {
@@ -13,14 +12,14 @@ class PathProviderService {
   /// VARIABLES
   ///
 
-  late final String appplicationDocumentsDirectoryPath;
+  late final String? persistenceDirectory;
 
   ///
   /// INIT
   ///
 
   Future<void> init() async {
-    final appDirectory = await getApplicationDocumentsDirectory();
-    appplicationDocumentsDirectoryPath = appDirectory.path;
+    final appDirectory = await getPersistenceDirectory();
+    persistenceDirectory = appDirectory?.path;
   }
 }
