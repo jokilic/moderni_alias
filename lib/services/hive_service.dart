@@ -7,6 +7,7 @@ import '../models/normal_game_stats/normal_game_stats.dart';
 import '../models/quick_game_stats/quick_game_stats.dart';
 import '../models/settings/settings.dart';
 import '../models/time_game_stats/time_game_stats.dart';
+import '../models/used_words/used_words.dart';
 import 'logger_service.dart';
 
 class HiveService implements Disposable {
@@ -24,6 +25,7 @@ class HiveService implements Disposable {
   late final Box<QuickGameStats> quickGameStatsBox;
   late final Box<TimeGameStats> timeGameStatsBox;
   late final Box<SettingsHive> settingsBox;
+  late final Box<UsedWords> usedWordsBox;
 
   ///
   /// INIT
@@ -38,6 +40,7 @@ class HiveService implements Disposable {
     quickGameStatsBox = await Hive.openBox<QuickGameStats>('quickGameStatsBox');
     timeGameStatsBox = await Hive.openBox<TimeGameStats>('timeGameStatsBox');
     settingsBox = await Hive.openBox<SettingsHive>('settingsBox');
+    usedWordsBox = await Hive.openBox<UsedWords>('usedWordsBox');
   }
 
   ///
@@ -50,6 +53,7 @@ class HiveService implements Disposable {
     await quickGameStatsBox.close();
     await timeGameStatsBox.close();
     await settingsBox.close();
+    await usedWordsBox.close();
 
     await Hive.close();
   }
@@ -86,5 +90,16 @@ class HiveService implements Disposable {
         background: ModerniAliasImages.starsStandard,
         useDynamicBackgrounds: true,
         useCircularTimer: false,
+      );
+
+  /// Called to add a new `UsedWords` to [Hive]
+  Future<void> saveUsedWords(UsedWords usedWords) async => usedWordsBox.put(0, usedWords);
+
+  /// Called to get `UsedWords` from [Hive]
+  UsedWords getUsedWords() =>
+      usedWordsBox.get(0) ??
+      UsedWords(
+        croatianWords: [],
+        englishWords: [],
       );
 }

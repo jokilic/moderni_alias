@@ -10,6 +10,7 @@ import '../constants/sounds.dart';
 import '../models/played_word/played_word.dart';
 import '../models/team/team.dart';
 import '../services/background_image_service.dart';
+import '../services/dictionary_service.dart';
 import '../services/logger_service.dart';
 import '../services/path_provider_service.dart';
 import '../util/sound.dart';
@@ -19,12 +20,14 @@ import 'audio_record_controller.dart';
 
 class BaseGameController implements Disposable {
   final LoggerService logger;
+  final DictionaryService dictionary;
   final PathProviderService pathProvider;
   final BackgroundImageService backgroundImage;
   final AudioRecordController audioRecord;
 
   BaseGameController({
     required this.logger,
+    required this.dictionary,
     required this.pathProvider,
     required this.backgroundImage,
     required this.audioRecord,
@@ -254,5 +257,11 @@ class BaseGameController implements Disposable {
       logger.e('Error in saveAudioFile()\n$e');
     }
     return null;
+  }
+
+  /// Updates [Set] and [Hive] with played words from last round
+  Future<void> updateUsedWords(List<PlayedWord> playedWords) async {
+    final words = playedWords.map((playedWord) => playedWord.word).toList();
+    await dictionary.updateUsedWords(words);
   }
 }

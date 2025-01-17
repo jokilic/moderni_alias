@@ -257,7 +257,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
 
     /// Update stats which will go in [Hive]
-    await updateHiveStats(
+    await updateStatsAndUsedWords(
       gameType: GameState.idle,
     );
 
@@ -280,7 +280,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
 
     await backgroundImage.revertBackground();
-    await updateHiveStats(gameType: GameState.finished);
+
+    await updateStatsAndUsedWords(
+      gameType: GameState.finished,
+    );
 
     openNormalGameFinished(
       context,
@@ -342,20 +345,27 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   }
 
   /// Save audio file and update stats and store them in [Hive]
-  Future<void> updateHiveStats({required GameState gameType}) async {
+  /// Update `usedWords` in [Dictionary] and [Hive]
+  Future<void> updateStatsAndUsedWords({required GameState gameType}) async {
+    final newPlayedWords = List<PlayedWord>.from(value.playedWords);
+
     normalGameStats = normalGameStats.copyWith(
       teams: List.from(value.teams),
       endTime: gameType == GameState.finished ? DateTime.now() : null,
       rounds: [
         ...normalGameStats.rounds,
         Round(
-          playedWords: List.from(value.playedWords),
+          playedWords: newPlayedWords,
           playingTeam: value.playingTeam,
           audioRecording: await baseGame.saveAudioFile(),
         ),
       ],
     );
 
+    /// Update used words in [Dictionary] and [Hive]
+    await baseGame.updateUsedWords(newPlayedWords);
+
+    /// Game finished, add new stats to [Hive]
     if (gameType == GameState.finished) {
       await hive.addNormalGameStatsToBox(
         normalGameStats: normalGameStats,

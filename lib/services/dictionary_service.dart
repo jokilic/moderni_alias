@@ -10,14 +10,18 @@ import '../dictionary/croatian/verbs.dart';
 import '../dictionary/english/adjectives.dart';
 import '../dictionary/english/nouns.dart';
 import '../dictionary/english/verbs.dart';
+import '../models/used_words/used_words.dart';
 import '../util/capitalize_string.dart';
+import 'hive_service.dart';
 import 'logger_service.dart';
 
 class DictionaryService extends ValueNotifier<Flag> {
   final LoggerService logger;
+  final HiveService hive;
 
   DictionaryService({
     required this.logger,
+    required this.hive,
   }) : super(Flag.croatia);
 
   ///
@@ -25,6 +29,10 @@ class DictionaryService extends ValueNotifier<Flag> {
   ///
 
   late final random = Random();
+
+  /// [Set] to track used `words`
+  late Set<String> usedCroatianWords;
+  late Set<String> usedEnglishWords;
 
   /// Dictionary containing croatian words
   final croatianDictionary = [
@@ -49,7 +57,15 @@ class DictionaryService extends ValueNotifier<Flag> {
   ///
 
   void init() {
-    currentDictionary = [...croatianDictionary];
+    /// Load `usedWords` from [Hive]
+    final usedWords = hive.getUsedWords();
+    usedCroatianWords = Set.from(usedWords.croatianWords);
+    usedEnglishWords = Set.from(usedWords.englishWords);
+
+    /// Initialize `currentDictionary` excluding used words
+    currentDictionary = [...croatianDictionary]..removeWhere(
+        (word) => usedCroatianWords.contains(word),
+      );
   }
 
   ///
@@ -60,27 +76,57 @@ class DictionaryService extends ValueNotifier<Flag> {
   String getRandomWord({required String? previousWord}) {
     /// Remove previous word if it exists
     if (previousWord != null) {
+      /// Remove from `currentDictionary`
       currentDictionary.remove(previousWord);
     }
 
     /// Refill only when dictionary is empty
     if (currentDictionary.isEmpty) {
-      refillCurrentDictionary();
+      resetDictionary();
     }
 
     /// Generate new randomized word
-    final newWord = currentDictionary[random.nextInt(currentDictionary.length)];
-
-    return newWord;
+    return currentDictionary[random.nextInt(currentDictionary.length)];
   }
 
-  /// If there are no more words in the [currentDictionary], refill it
-  List<String> refillCurrentDictionary() => currentDictionary = List.from(value == Flag.croatia ? croatianDictionary : englishDictionary);
+  /// If there are no more words in the [currentDictionary], reset it
+  void resetDictionary() {
+    /// Clear [Set] of used words
+    usedCroatianWords.clear();
+    usedEnglishWords.clear();
+
+    /// Update `currentDictionary`
+    currentDictionary = List.from(
+      value == Flag.croatia ? croatianDictionary : englishDictionary,
+    );
+
+    /// Persist cleared state
+    hive.saveUsedWords(
+      UsedWords(
+        croatianWords: usedCroatianWords.toList(),
+        englishWords: usedEnglishWords.toList(),
+      ),
+    );
+  }
 
   /// Triggered when the user chooses a [Flag]
   void updateActiveDictionary({required Flag newLanguage}) {
     value = newLanguage;
-    refillCurrentDictionary();
+    resetDictionary();
+  }
+
+  /// Triggered when each round ends
+  Future<void> updateUsedWords(List<String> playedWords) async {
+    /// Add words to appropriate [Set] based on current language
+    value == Flag.croatia ? usedCroatianWords.addAll(playedWords) : usedEnglishWords.addAll(playedWords);
+
+    /// Persist to [Hive]
+    await hive.saveUsedWords(
+      UsedWords(
+        croatianWords: usedCroatianWords.toList(),
+        englishWords: usedEnglishWords.toList(),
+      ),
+    );
   }
 
   /// Take words from the dictionary and return a random team name

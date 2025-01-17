@@ -149,7 +149,8 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     );
 
     await backgroundImage.revertBackground();
-    await updateHiveStats();
+
+    await updateStatsAndUsedWords();
 
     openQuickGameFinished(
       context,
@@ -202,16 +203,23 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     );
   }
 
-  /// Update stats and store them in [Hive]
-  Future<void> updateHiveStats() async {
+  /// Save audio file and update stats and store them in [Hive]
+  /// Update `usedWords` in [Dictionary] and [Hive]
+  Future<void> updateStatsAndUsedWords() async {
+    final newPlayedWords = List<PlayedWord>.from(value.playedWords);
+
     quickGameStats = quickGameStats.copyWith(
       endTime: DateTime.now(),
       round: Round(
-        playedWords: List.from(value.playedWords),
+        playedWords: newPlayedWords,
         audioRecording: await baseGame.saveAudioFile(),
       ),
     );
 
+    /// Update used words in [Dictionary] and [Hive]
+    await baseGame.updateUsedWords(newPlayedWords);
+
+    /// Game finished, add new stats to [Hive]
     await hive.addQuickGameStatsToBox(
       quickGameStats: quickGameStats,
     );

@@ -70,10 +70,11 @@ void initializeServices() {
       () async {
         final dictionary = DictionaryService(
           logger: getIt.get<LoggerService>(),
+          hive: getIt.get<HiveService>(),
         )..init();
         return dictionary;
       },
-      dependsOn: [LoggerService],
+      dependsOn: [LoggerService, HiveService],
     )
     ..registerSingletonAsync(
       () async => BackgroundImageService(

@@ -231,7 +231,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       playedWords: value.playedWords,
     );
 
-    await updateHiveStats(
+    await updateStatsAndUsedWords(
       gameType: GameState.idle,
     );
 
@@ -251,7 +251,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     );
 
     await backgroundImage.revertBackground();
-    await updateHiveStats(gameType: GameState.finished);
+    await updateStatsAndUsedWords(gameType: GameState.finished);
 
     openTimeGameFinished(
       context,
@@ -330,14 +330,17 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   }
 
   /// Save audio file and update stats and store them in [Hive]
-  Future<void> updateHiveStats({required GameState gameType}) async {
+  /// Update `usedWords` in [Dictionary] and [Hive]
+  Future<void> updateStatsAndUsedWords({required GameState gameType}) async {
+    final newPlayedWords = List<PlayedWord>.from(value.playedWords);
+
     timeGameStats = timeGameStats.copyWith(
       teams: List.from(value.teams),
       endTime: gameType == GameState.finished ? DateTime.now() : null,
       rounds: [
         ...timeGameStats.rounds,
         Round(
-          playedWords: List.from(value.playedWords),
+          playedWords: newPlayedWords,
           playingTeam: value.playingTeam,
           audioRecording: await baseGame.saveAudioFile(),
           durationSeconds: timer?.tick,
@@ -345,6 +348,10 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       ],
     );
 
+    /// Update used words in [Dictionary] and [Hive]
+    await baseGame.updateUsedWords(newPlayedWords);
+
+    /// Game finished, add new stats to [Hive]
     if (gameType == GameState.finished) {
       await hive.addTimeGameStatsToBox(
         timeGameStats: timeGameStats,

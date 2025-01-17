@@ -65,6 +65,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
     final baseGame = registerIfNotInitialized<BaseGameController>(
       () => BaseGameController(
         logger: getIt.get<LoggerService>(),
+        dictionary: getIt.get<DictionaryService>(),
         pathProvider: getIt.get<PathProviderService>(),
         backgroundImage: getIt.get<BackgroundImageService>(),
         audioRecord: audioRecord,
