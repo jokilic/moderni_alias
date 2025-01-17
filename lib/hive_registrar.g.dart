@@ -11,6 +11,7 @@ import 'package:modernialias/models/round/round.dart';
 import 'package:modernialias/models/settings/settings.dart';
 import 'package:modernialias/models/team/team.dart';
 import 'package:modernialias/models/time_game_stats/time_game_stats.dart';
+import 'package:modernialias/models/used_words/used_words.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
@@ -23,5 +24,6 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(SettingsHiveAdapter());
     registerAdapter(TeamAdapter());
     registerAdapter(TimeGameStatsAdapter());
+    registerAdapter(UsedWordsAdapter());
   }
 }
