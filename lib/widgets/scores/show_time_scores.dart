@@ -91,7 +91,9 @@ class TimeScoresModal extends WatchingWidget {
     final teams = state.teams;
     final timeGameDuration = state.timeGameDuration;
     final gameState = state.gameState;
-    final currentlyPlayingTeamIndex = state.teams.indexOf(state.playingTeam);
+    final currentlyPlayingTeamIndex = state.teams.indexWhere(
+      (team) => team.name == state.playingTeam.name,
+    );
 
     final duration = '${timeGameDuration.inMinutes.toString().padLeft(2, '0')}:${(timeGameDuration.inSeconds % 60).toString().padLeft(2, '0')}';
 

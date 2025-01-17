@@ -185,8 +185,8 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       /// Stop game
       gameStopped();
 
-      final currentTeamIndex = value.teams.indexOf(
-        value.playingTeam,
+      final currentTeamIndex = value.teams.indexWhere(
+        (team) => team.name == value.playingTeam.name,
       );
 
       /// Not every team has had it's turn, continue game
@@ -235,8 +235,8 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       gameType: GameState.idle,
     );
 
-    final currentTeamIndex = playingTeams.indexOf(
-      value.playingTeam,
+    final currentTeamIndex = playingTeams.indexWhere(
+      (team) => team.name == value.playingTeam.name,
     );
 
     updateState(

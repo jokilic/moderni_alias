@@ -195,7 +195,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     ///
 
     /// Round is not finished, continue playing the game
-    final activeTeams = value.tieBreakTeams ?? value.teams;
+    final activeTeams = List<Team>.from(value.tieBreakTeams ?? value.teams);
 
     final isRoundNotDone = roundNotDone(
       teamsToCheck: activeTeams,
@@ -233,6 +233,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
       continueGame(
         tiedTeams,
         context: context,
+        overriddenIndex: 0,
       );
     } else {
       endGame(
@@ -245,7 +246,9 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   Future<void> continueGame(
     List<Team> playingTeams, {
     required BuildContext context,
+    int? overriddenIndex,
   }) async {
+    /// Show sheet with scores
     await baseGame.showScoresSheet(
       teams: value.teams,
       playedWords: value.playedWords,
@@ -253,16 +256,20 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
       context: context,
     );
 
+    /// Update stats which will go in [Hive]
     await updateHiveStats(
       gameType: GameState.idle,
     );
 
-    final currentTeamIndex = playingTeams.indexOf(
-      value.playingTeam,
+    final nextPlayingTeam = getNextPlayingTeam(
+      teams: playingTeams,
+      previousTeam: value.playingTeam,
+      overriddenIndex: overriddenIndex,
     );
 
+    /// Update state with next playing `team`
     updateState(
-      newPlayingTeam: currentTeamIndex < playingTeams.length - 1 ? playingTeams[currentTeamIndex + 1] : playingTeams[0],
+      newPlayingTeam: nextPlayingTeam,
     );
   }
 
