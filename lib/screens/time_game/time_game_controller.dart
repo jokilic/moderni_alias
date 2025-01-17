@@ -294,16 +294,17 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       chosenAnswer: chosenAnswer,
     );
 
-    /// Update relevant state
-    /// Update relevant state
+    /// Update relevant variables & `state`
     final newPlayingTeam = value.playingTeam.copyWith(
       points: chosenAnswer == Answer.correct ? value.playingTeam.points + 1 : null,
       correctPoints: chosenAnswer == Answer.correct ? value.playingTeam.correctPoints + 1 : null,
       wrongPoints: chosenAnswer == Answer.wrong ? value.playingTeam.wrongPoints + 1 : null,
     );
 
+    final newTeams = List<Team>.from(value.teams).map((team) => team == value.playingTeam ? newPlayingTeam : team).toList();
+
     updateState(
-      newTeams: List<Team>.from(value.teams).map((team) => team == value.playingTeam ? newPlayingTeam : team).toList(),
+      newTeams: newTeams,
       newPlayingTeam: newPlayingTeam,
       newPlayedWords: [
         ...value.playedWords,

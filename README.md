@@ -55,6 +55,7 @@ The goal is to have 10 000.
 - [ ] Add more words
 - [ ] Make Web version and host it
 - [ ] Test on Android, iOS & Web
+- [ ] Check pull request by Krle
 
 ## Changelog
 
