@@ -11,6 +11,7 @@ const List<String> specijalne = [
   'Vesnica',
   'Višnjica',
   'Zvonetov nokat',
+  'a di si stavila banane?',
   'aaa ne, ti si!',
   'aee reko, štaaee',
   'beckham',
@@ -33,8 +34,9 @@ const List<String> specijalne = [
   'petarda',
   'rafali',
   'ronaldo',
+  'Seicento',
   'sivi saxo',
   'stalak za lakat',
   'stara jezgra Zadra',
-  'zidane',
+  'zidane'
 ];
