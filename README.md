@@ -58,6 +58,7 @@ The goal is to have 10 000.
 ## Changelog
 
 - [ ] Complete refactor of the app
+- [ ] Used words are persisted
 - [ ] Back buttons in some screens
 - [ ] New sound when longpressing my photo
 - [ ] Code cleanup
