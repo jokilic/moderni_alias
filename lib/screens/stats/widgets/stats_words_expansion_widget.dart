@@ -112,7 +112,6 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   void initState() {
     super.initState();
     initAnimationsAndAudio();
-    print('Audio recording -> ${widget.round.audioRecording}');
   }
 
   @override

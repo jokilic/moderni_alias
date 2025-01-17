@@ -282,7 +282,6 @@ const List<String> pridjevi = [
   'nevini',
   'nevjerojatna',
   'nezavisni',
-  'niježan',
   'niska',
   'nizak',
   'nizozemski',

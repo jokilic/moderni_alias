@@ -9,7 +9,7 @@ List<Team> getTeamsWithEnoughPoints({
 }) =>
     teams.where((team) => team.points >= pointsToWin).toList();
 
-// Find all teams that are tied for first place
+/// Find all teams that are tied for first place
 List<Team> getTiedTeams(List<Team> teamsWithEnoughPoints) {
   final maxPoints = teamsWithEnoughPoints.map((team) => team.points).reduce(max);
   return teamsWithEnoughPoints.where((team) => team.points == maxPoints).toList();
@@ -22,9 +22,6 @@ bool roundNotDone({
 }) {
   final currentTeamIndex = teamsToCheck.indexOf(playingTeam);
 
-  /// Find the maximum points among the teams with enough points
-  final maxPoints = teamsToCheck.map((team) => team.points).reduce(max);
-
-  /// Check if the current team has reached the maximum points but is not the last team to play
-  return playingTeam.points <= maxPoints && currentTeamIndex < teamsToCheck.length - 1;
+  /// Ensure every team in the tie has had a chance to play
+  return currentTeamIndex < teamsToCheck.length - 1;
 }

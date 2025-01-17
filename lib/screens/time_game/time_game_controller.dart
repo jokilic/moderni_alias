@@ -182,18 +182,23 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   void checkRoundDone({required BuildContext context}) {
     /// User has guessed the proper number of words, round is done
     if (value.playingTeam.points >= numberOfWords) {
+      /// Stop game
       gameStopped();
 
       final currentTeamIndex = value.teams.indexOf(
         value.playingTeam,
       );
 
+      /// Not every team has had it's turn, continue game
       if (currentTeamIndex < value.teams.length - 1) {
         continueGame(
           value.teams,
           context: context,
         );
-      } else {
+      }
+
+      /// Every team has played, end game
+      else {
         endGame(
           context: context,
         );
