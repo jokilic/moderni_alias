@@ -3648,5 +3648,5 @@ const List<String> imenice = [
   'žuriti',
   'žustro',
   'žutica',
-  'žvakanje'
+  'žvakanje',
 ];

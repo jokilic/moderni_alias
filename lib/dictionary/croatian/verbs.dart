@@ -313,5 +313,5 @@ const List<String> glagoli = [
   'žaliti',
   'žuboriti',
   'žuriti',
-  'žvakati'
+  'žvakati',
 ];

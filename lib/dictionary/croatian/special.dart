@@ -38,5 +38,5 @@ const List<String> specijalne = [
   'sivi saxo',
   'stalak za lakat',
   'stara jezgra Zadra',
-  'zidane'
+  'zidane',
 ];

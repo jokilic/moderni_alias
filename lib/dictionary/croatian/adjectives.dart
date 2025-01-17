@@ -641,5 +641,5 @@ const List<String> pridjevi = [
   'židovski',
   'živ',
   'živčani',
-  'žuta'
+  'žuta',
 ];
