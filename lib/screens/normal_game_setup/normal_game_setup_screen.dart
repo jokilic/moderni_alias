@@ -56,9 +56,8 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
 
   @override
   void dispose() {
-    getIt
-      ..unregister<BaseGameSetupController>()
-      ..unregister<NormalGameSetupController>();
+    unregisterIfInitialized<BaseGameSetupController>();
+    unregisterIfInitialized<NormalGameSetupController>();
 
     super.dispose();
   }

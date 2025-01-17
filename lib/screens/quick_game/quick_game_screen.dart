@@ -1,4 +1,5 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -37,7 +38,8 @@ class QuickGameScreen extends WatchingStatefulWidget {
 
 class _QuickGameScreenState extends State<QuickGameScreen> {
   late bool useCircularTimer;
-  late RecorderController recorderController;
+  RecorderController? recorderController;
+  AudioRecordController? audioRecord;
 
   @override
   void initState() {
@@ -47,15 +49,19 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
-    recorderController = RecorderController();
 
-    final audioRecord = registerIfNotInitialized<AudioRecordController>(
-      () => AudioRecordController(
-        recorderController: recorderController,
-        logger: getIt.get<LoggerService>(),
-      ),
-      afterRegister: (controller) => controller.init(),
-    );
+    /// Not running on `Web`, initialize audio recording
+    if (!kIsWeb) {
+      recorderController = RecorderController();
+
+      audioRecord = registerIfNotInitialized<AudioRecordController>(
+        () => AudioRecordController(
+          recorderController: recorderController!,
+          logger: getIt.get<LoggerService>(),
+        ),
+        afterRegister: (controller) => controller.init(),
+      );
+    }
 
     final baseGame = registerIfNotInitialized<BaseGameController>(
       () => BaseGameController(
@@ -84,12 +90,11 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
 
   @override
   void dispose() {
-    getIt
-      ..unregister<AudioRecordController>()
-      ..unregister<BaseGameController>()
-      ..unregister<QuickGameController>();
+    unregisterIfInitialized<AudioRecordController>();
+    unregisterIfInitialized<BaseGameController>();
+    unregisterIfInitialized<QuickGameController>();
 
-    recorderController.dispose();
+    recorderController?.dispose();
 
     super.dispose();
   }

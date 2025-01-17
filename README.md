@@ -64,5 +64,6 @@ The goal is to have 10 000.
 - [ ] Used words are persisted
 - [ ] Back buttons in some screens
 - [ ] New sound when long-pressing my photo
+- [ ] More words
 - [ ] Code cleanup
 - [ ] Update dependencies

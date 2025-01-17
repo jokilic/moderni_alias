@@ -1,4 +1,5 @@
 import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -39,7 +40,8 @@ class TimeGameScreen extends WatchingStatefulWidget {
 
 class _TimeGameScreenState extends State<TimeGameScreen> {
   late bool useCircularTimer;
-  late RecorderController recorderController;
+  RecorderController? recorderController;
+  AudioRecordController? audioRecord;
 
   @override
   void initState() {
@@ -49,15 +51,18 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
-    recorderController = RecorderController();
 
-    final audioRecord = registerIfNotInitialized<AudioRecordController>(
-      () => AudioRecordController(
-        recorderController: recorderController,
-        logger: getIt.get<LoggerService>(),
-      ),
-      afterRegister: (controller) => controller.init(),
-    );
+    if (!kIsWeb) {
+      recorderController = RecorderController();
+
+      audioRecord = registerIfNotInitialized<AudioRecordController>(
+        () => AudioRecordController(
+          recorderController: recorderController!,
+          logger: getIt.get<LoggerService>(),
+        ),
+        afterRegister: (controller) => controller.init(),
+      );
+    }
 
     final baseGame = registerIfNotInitialized<BaseGameController>(
       () => BaseGameController(
@@ -87,12 +92,11 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
 
   @override
   void dispose() {
-    getIt
-      ..unregister<AudioRecordController>()
-      ..unregister<BaseGameController>()
-      ..unregister<TimeGameController>();
+    unregisterIfInitialized<AudioRecordController>();
+    unregisterIfInitialized<BaseGameController>();
+    unregisterIfInitialized<TimeGameController>();
 
-    recorderController.dispose();
+    recorderController?.dispose();
 
     super.dispose();
   }

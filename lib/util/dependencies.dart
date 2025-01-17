@@ -31,6 +31,19 @@ T registerIfNotInitialized<T extends Object>(
   return getIt.get<T>(instanceName: instanceName);
 }
 
+/// Unrgisters a class if it's initialized
+void unregisterIfInitialized<T extends Object>({
+  String? instanceName,
+  void Function(T controller)? disposingFunction,
+}) {
+  if (getIt.isRegistered<T>(instanceName: instanceName)) {
+    getIt.unregister<T>(
+      instanceName: instanceName,
+      disposingFunction: disposingFunction,
+    );
+  }
+}
+
 void initializeServices() {
   getIt
     ..registerSingletonAsync(

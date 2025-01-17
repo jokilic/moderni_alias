@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<SettingsController>();
+    unregisterIfInitialized<SettingsController>();
     super.dispose();
   }
 

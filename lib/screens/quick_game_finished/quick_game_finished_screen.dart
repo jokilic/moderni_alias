@@ -34,10 +34,9 @@ class QuickGameFinishedScreen extends WatchingWidget {
 
   void restartGame(BuildContext context) {
     /// Dispose controllers
-    getIt
-      ..unregister<AudioRecordController>()
-      ..unregister<BaseGameController>()
-      ..unregister<QuickGameController>();
+    unregisterIfInitialized<AudioRecordController>();
+    unregisterIfInitialized<BaseGameController>();
+    unregisterIfInitialized<QuickGameController>();
 
     /// Go to [QuickGameScreen]
     openQuickGame(

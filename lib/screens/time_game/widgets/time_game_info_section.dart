@@ -12,7 +12,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 
 class TimeGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;
-  final RecorderController recorderController;
+  final RecorderController? recorderController;
   final Function() showScores;
   final Function() exitGame;
 
@@ -46,18 +46,19 @@ class TimeGameInfoSection extends StatelessWidget {
                       style: ModerniAliasTextStyles.playingTeam,
                     ),
                   ),
-                  AudioWaveforms(
-                    recorderController: recorderController,
-                    size: Size(MediaQuery.sizeOf(context).width, 48),
-                    padding: const EdgeInsets.symmetric(horizontal: 56),
-                    waveStyle: const WaveStyle(
-                      waveColor: ModerniAliasColors.white,
-                      middleLineColor: ModerniAliasColors.white,
-                      scaleFactor: 24,
-                      extendWaveform: true,
-                      showMiddleLine: false,
+                  if (recorderController != null)
+                    AudioWaveforms(
+                      recorderController: recorderController!,
+                      size: Size(MediaQuery.sizeOf(context).width, 48),
+                      padding: const EdgeInsets.symmetric(horizontal: 56),
+                      waveStyle: const WaveStyle(
+                        waveColor: ModerniAliasColors.white,
+                        middleLineColor: ModerniAliasColors.white,
+                        scaleFactor: 24,
+                        extendWaveform: true,
+                        showMiddleLine: false,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

@@ -43,7 +43,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<StatsController>();
+    unregisterIfInitialized<StatsController>();
     super.dispose();
   }
 

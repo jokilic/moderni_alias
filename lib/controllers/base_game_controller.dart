@@ -23,7 +23,7 @@ class BaseGameController implements Disposable {
   final DictionaryService dictionary;
   final PathProviderService pathProvider;
   final BackgroundImageService backgroundImage;
-  final AudioRecordController audioRecord;
+  final AudioRecordController? audioRecord;
 
   BaseGameController({
     required this.logger,
@@ -244,17 +244,21 @@ class BaseGameController implements Disposable {
 
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording() async {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final path = '${pathProvider.persistenceDirectory}/$timestamp';
-    await audioRecord.startRecording(path);
+    if (audioRecord != null) {
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final path = '${pathProvider.persistenceDirectory}/$timestamp';
+      await audioRecord!.startRecording(path);
+    }
   }
 
   /// Stores the audio file to application directory
   Future<String?> saveAudioFile() async {
-    try {
-      return await audioRecord.stopRecording();
-    } catch (e) {
-      logger.e('Error in saveAudioFile()\n$e');
+    if (audioRecord != null) {
+      try {
+        return await audioRecord!.stopRecording();
+      } catch (e) {
+        logger.e('Error in saveAudioFile()\n$e');
+      }
     }
     return null;
   }

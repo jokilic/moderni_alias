@@ -10,7 +10,7 @@ import '../../../widgets/animated_gesture_detector.dart';
 class QuickGameInfoSection extends StatelessWidget {
   final int correctAnswers;
   final int wrongAnswers;
-  final RecorderController recorderController;
+  final RecorderController? recorderController;
   final Function() exitGame;
   final Function() showScores;
 
@@ -47,18 +47,19 @@ class QuickGameInfoSection extends StatelessWidget {
                 ),
               ),
             ),
-            AudioWaveforms(
-              recorderController: recorderController,
-              size: Size(MediaQuery.sizeOf(context).width, 48),
-              padding: const EdgeInsets.symmetric(horizontal: 104),
-              waveStyle: const WaveStyle(
-                waveColor: ModerniAliasColors.white,
-                middleLineColor: ModerniAliasColors.white,
-                scaleFactor: 24,
-                extendWaveform: true,
-                showMiddleLine: false,
+            if (recorderController != null)
+              AudioWaveforms(
+                recorderController: recorderController!,
+                size: Size(MediaQuery.sizeOf(context).width, 48),
+                padding: const EdgeInsets.symmetric(horizontal: 104),
+                waveStyle: const WaveStyle(
+                  waveColor: ModerniAliasColors.white,
+                  middleLineColor: ModerniAliasColors.white,
+                  scaleFactor: 24,
+                  extendWaveform: true,
+                  showMiddleLine: false,
+                ),
               ),
-            ),
             Positioned(
               right: 20,
               child: AnimatedGestureDetector(

@@ -55,9 +55,8 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
 
   @override
   void dispose() {
-    getIt
-      ..unregister<BaseGameSetupController>()
-      ..unregister<TimeGameSetupController>();
+    unregisterIfInitialized<BaseGameSetupController>();
+    unregisterIfInitialized<TimeGameSetupController>();
 
     super.dispose();
   }
