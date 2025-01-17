@@ -54,7 +54,6 @@ The goal is to have 10 000.
 
 - [ ] Add more words
 - [ ] Make Web version and host it
-- [ ] Test on Android, iOS & Web
 - [ ] Check pull request by Krle
 
 ## Changelog
@@ -64,6 +63,7 @@ The goal is to have 10 000.
 - [ ] Used words are persisted
 - [ ] Back buttons in some screens
 - [ ] New sound when long-pressing my photo
+- [ ] New default background
 - [ ] More words
 - [ ] Code cleanup
 - [ ] Update dependencies

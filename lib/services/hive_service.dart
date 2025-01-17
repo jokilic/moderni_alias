@@ -92,7 +92,7 @@ class HiveService implements Disposable {
   SettingsHive getSettingsFromBox() =>
       settingsBox.get(0) ??
       SettingsHive(
-        background: ModerniAliasImages.starsStandard,
+        background: ModerniAliasImages.starsLight,
         useDynamicBackgrounds: true,
         useCircularTimer: false,
       );
