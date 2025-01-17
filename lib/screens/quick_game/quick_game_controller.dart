@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
@@ -105,6 +106,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     );
 
     await baseGame.startAudioRecording();
+    await WakelockPlus.enable();
   }
 
   /// Triggered when the counter finishes and round starts
@@ -149,8 +151,8 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     );
 
     await backgroundImage.revertBackground();
-
     await updateStatsAndUsedWords();
+    await WakelockPlus.disable();
 
     openQuickGameFinished(
       context,

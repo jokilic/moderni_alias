@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
@@ -150,6 +151,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     );
 
     await baseGame.startAudioRecording();
+    await WakelockPlus.enable();
   }
 
   /// Triggered when the counter finishes and round starts
@@ -211,14 +213,12 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     updateState(
       newGameState: GameState.idle,
     );
-
     backgroundImage.revertBackground();
-
     playSound(
       audioPlayer: timeGameEndAudioPlayer,
     );
-
     timer?.cancel();
+    WakelockPlus.disable();
   }
 
   /// Continues game with next team
@@ -251,7 +251,10 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     );
 
     await backgroundImage.revertBackground();
-    await updateStatsAndUsedWords(gameType: GameState.finished);
+    await updateStatsAndUsedWords(
+      gameType: GameState.finished,
+    );
+    await WakelockPlus.disable();
 
     openTimeGameFinished(
       context,

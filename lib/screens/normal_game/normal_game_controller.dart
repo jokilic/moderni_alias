@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../constants/enums.dart';
 import '../../constants/images.dart';
@@ -123,6 +124,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
 
     await baseGame.startAudioRecording();
+    await WakelockPlus.enable();
   }
 
   /// Triggered when the counter finishes and round starts
@@ -167,6 +169,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
     backgroundImage.revertBackground();
     baseGame.cancelTimers();
+    WakelockPlus.disable();
   }
 
   /// Check if there's a winner
@@ -280,10 +283,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
 
     await backgroundImage.revertBackground();
-
     await updateStatsAndUsedWords(
       gameType: GameState.finished,
     );
+    await WakelockPlus.disable();
 
     openNormalGameFinished(
       context,

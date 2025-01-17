@@ -36,6 +36,7 @@ dependencies:
   timeago: 3.7.0 # To show when were games played
   url_launcher: 6.3.1 # Used to launch URLs in native browser
   video_player: 2.9.2 # Used to play videos
+  wakelock_plus: 1.2.10 # Used for keeping the screen active while game is running
   watch_it: 1.6.2 # State management
 
 dev_dependencies:

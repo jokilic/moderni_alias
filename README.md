@@ -53,11 +53,13 @@ The goal is to have 10 000.
 ## Things I still want to do 👷‍♂️
 
 - [ ] Add more words
-- [ ] Tie break not working properly
+- [ ] Make Web version and host it
+- [ ] Test on Android, iOS & Web
 
 ## Changelog
 
 - [ ] Complete refactor of the app
+- [ ] Screen doesn't turn off when round is active
 - [ ] Used words are persisted
 - [ ] Back buttons in some screens
 - [ ] New sound when longpressing my photo
