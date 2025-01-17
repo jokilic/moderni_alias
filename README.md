@@ -49,19 +49,3 @@ The goal is to have 10 000.
 
 ![play](https://raw.githubusercontent.com/jokilic/moderni_alias/master/screenshots/play.png)
 &nbsp;
-
-## Things I still want to do 👷‍♂️
-
-- [ ] Add more words
-
-## Changelog
-
-- [ ] Complete refactor of the app
-- [ ] Screen doesn't turn off when round is active
-- [ ] Used words are persisted
-- [ ] Back buttons in some screens
-- [ ] New sound when long-pressing my photo
-- [ ] New default background
-- [ ] More words
-- [ ] Code cleanup
-- [ ] Update dependencies
