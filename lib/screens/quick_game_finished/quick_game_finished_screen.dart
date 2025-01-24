@@ -29,7 +29,6 @@ class QuickGameFinishedScreen extends WatchingWidget {
 
   const QuickGameFinishedScreen({
     required this.playedWords,
-    required super.key,
   });
 
   void restartGame(BuildContext context) {
@@ -113,12 +112,12 @@ class QuickGameFinishedScreen extends WatchingWidget {
                         AnimatedColumn(
                           children: [
                             PlayButton(
-                              text: 'quickGameFinishedPlayAgainString'.tr().toUpperCase(),
+                              text: 'gameFinishedPlayAgainString'.tr().toUpperCase(),
                               onPressed: () => restartGame(context),
                             ),
                             const SizedBox(height: 20),
                             PlayButton(
-                              text: 'quickGameFinishedExitString'.tr().toUpperCase(),
+                              text: 'gameFinishedExitString'.tr().toUpperCase(),
                               onPressed: () => disposeAndGoHome(context),
                             ),
                           ],

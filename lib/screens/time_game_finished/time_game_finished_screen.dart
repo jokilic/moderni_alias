@@ -8,26 +8,33 @@ import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/icons.dart';
 import '../../constants/text_styles.dart';
+import '../../controllers/audio_record_controller.dart';
+import '../../controllers/base_game_controller.dart';
 import '../../models/played_word/played_word.dart';
 import '../../models/round/round.dart';
 import '../../models/team/team.dart';
+import '../../util/dependencies.dart';
+import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/confetti.dart';
 import '../../widgets/exit_game/exit_game.dart';
+import '../../widgets/play_button.dart';
 import '../../widgets/scores/show_time_scores.dart';
+import '../time_game/time_game_controller.dart';
 
 class TimeGameFinishedScreen extends StatelessWidget {
   final List<Team> teams;
+  final int numberOfWords;
   final List<Round> rounds;
   final List<PlayedWord> playedWords;
 
   const TimeGameFinishedScreen({
     required this.teams,
+    required this.numberOfWords,
     required this.rounds,
     required this.playedWords,
-    required super.key,
   });
 
   List<Round> findFastestRounds(List<Round> rounds) {
@@ -35,6 +42,20 @@ class TimeGameFinishedScreen extends StatelessWidget {
     final fastestRounds = rounds.where((round) => round.durationSeconds == (rounds.first.durationSeconds ?? 0)).toList();
 
     return fastestRounds;
+  }
+
+  void restartGame(BuildContext context) {
+    /// Dispose controllers
+    unregisterIfInitialized<AudioRecordController>();
+    unregisterIfInitialized<BaseGameController>();
+    unregisterIfInitialized<TimeGameController>();
+
+    /// Go to [QuickGameScreen]
+    openTimeGame(
+      context,
+      teams: teams,
+      numberOfWords: numberOfWords,
+    );
   }
 
   String getTeamNamesFastestRounds(List<Round> fastestRounds) {
@@ -52,6 +73,8 @@ class TimeGameFinishedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+
     final fastestRounds = findFastestRounds(rounds);
     final teamNames = getTeamNamesFastestRounds(fastestRounds);
 
@@ -79,42 +102,54 @@ class TimeGameFinishedScreen extends StatelessWidget {
                     waitDuration: ModerniAliasDurations.verySlowAnimation,
                   ),
                 ),
-                Align(
-                  child: GestureDetector(
-                    onTap: () => disposeAndGoHome(context),
-                    behavior: HitTestBehavior.translucent,
-                    child: SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.8,
-                      height: 500,
-                      child: AnimatedColumn(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            ModerniAliasIcons.clapImage,
-                            height: 220,
+                Center(
+                  child: SizedBox(
+                    height: size.height,
+                    width: size.width * 0.8,
+                    child: AnimatedColumn(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          ModerniAliasIcons.clapImage,
+                          height: 220,
+                        ),
+                        const SizedBox(height: 30),
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: fastestRounds.length == 1 ? 'timeGameFinishedOneWinnerFirstString'.tr() : 'timeGameFinishedOneWinnerFirstStringPlural'.tr(),
+                            style: ModerniAliasTextStyles.winnerFirst,
+                            children: [
+                              TextSpan(
+                                text: teamNames,
+                                style: ModerniAliasTextStyles.winnerTeam,
+                              ),
+                              TextSpan(
+                                text: 'timeGameFinishedOneWinnerSecondString'.tr(),
+                              ),
+                              TextSpan(
+                                text:
+                                    '${Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}.',
+                                style: ModerniAliasTextStyles.winnerPoints,
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 30),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text: fastestRounds.length == 1 ? 'timeGameFinishedOneWinnerFirstString'.tr() : 'timeGameFinishedOneWinnerFirstStringPlural'.tr(),
-                              style: ModerniAliasTextStyles.winnerFirst,
-                              children: [
-                                TextSpan(
-                                  text: teamNames,
-                                  style: ModerniAliasTextStyles.winnerTeam,
-                                ),
-                                TextSpan(text: 'timeGameFinishedOneWinnerSecondString'.tr()),
-                                TextSpan(
-                                  text:
-                                      '${Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: fastestRounds.first.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}.',
-                                  style: ModerniAliasTextStyles.winnerPoints,
-                                ),
-                              ],
+                        ),
+                        const SizedBox(height: 72),
+                        AnimatedColumn(
+                          children: [
+                            PlayButton(
+                              text: 'gameFinishedPlayAgainString'.tr().toUpperCase(),
+                              onPressed: () => restartGame(context),
                             ),
-                          ),
-                        ],
-                      ),
+                            const SizedBox(height: 20),
+                            PlayButton(
+                              text: 'gameFinishedExitString'.tr().toUpperCase(),
+                              onPressed: () => disposeAndGoHome(context),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -26,38 +26,28 @@ import '../screens/time_game_setup/time_game_setup_screen.dart';
 import 'navigation.dart';
 
 void openHome(BuildContext context) => pushScreen(
-      const HomeScreen(
-        key: ValueKey('home'),
-      ),
+      HomeScreen(),
       context: context,
       popEverything: true,
     );
 
 void openSettings(BuildContext context) => pushScreen(
-      const SettingsScreen(
-        key: ValueKey('settings'),
-      ),
+      SettingsScreen(),
       context: context,
     );
 
 void openGeneralInfo(BuildContext context) => pushScreen(
-      const GeneralInfoScreen(
-        key: ValueKey('general-info'),
-      ),
+      GeneralInfoScreen(),
       context: context,
     );
 
 void openHowToPlay(BuildContext context) => pushScreen(
-      const HowToPlayScreen(
-        key: ValueKey('how-to-play'),
-      ),
+      HowToPlayScreen(),
       context: context,
     );
 
 void openNormalGameSetup(BuildContext context) => pushScreen(
-      const NormalGameSetupScreen(
-        key: ValueKey('normal-game-setup'),
-      ),
+      NormalGameSetupScreen(),
       context: context,
     );
 
@@ -72,7 +62,6 @@ void openNormalGame(
         teams: teams,
         pointsToWin: pointsToWin,
         lengthOfRound: lengthOfRound,
-        key: ValueKey(teams),
       ),
       context: context,
     );
@@ -80,13 +69,16 @@ void openNormalGame(
 void openNormalGameFinished(
   BuildContext context, {
   required List<Team> teams,
+  required int pointsToWin,
+  required int lengthOfRound,
   required List<PlayedWord> playedWords,
 }) =>
     pushScreen(
       NormalGameFinishedScreen(
         teams: teams,
+        pointsToWin: pointsToWin,
+        lengthOfRound: lengthOfRound,
         playedWords: playedWords,
-        key: ValueKey(teams),
       ),
       context: context,
     );
@@ -98,7 +90,6 @@ void openQuickGame(
     pushScreen(
       QuickGameScreen(
         lengthOfRound: lengthOfRound,
-        key: const ValueKey('quick-game'),
       ),
       context: context,
     );
@@ -110,15 +101,12 @@ void openQuickGameFinished(
     pushScreen(
       QuickGameFinishedScreen(
         playedWords: playedWords,
-        key: ValueKey(playedWords),
       ),
       context: context,
     );
 
 void openTimeGameSetup(BuildContext context) => pushScreen(
-      const TimeGameSetupScreen(
-        key: ValueKey('time-game-setup'),
-      ),
+      TimeGameSetupScreen(),
       context: context,
     );
 
@@ -131,7 +119,6 @@ void openTimeGame(
       TimeGameScreen(
         teams: teams,
         numberOfWords: numberOfWords,
-        key: ValueKey(teams),
       ),
       context: context,
     );
@@ -139,23 +126,22 @@ void openTimeGame(
 void openTimeGameFinished(
   BuildContext context, {
   required List<Team> teams,
+  required int numberOfWords,
   required List<Round> rounds,
   required List<PlayedWord> playedWords,
 }) =>
     pushScreen(
       TimeGameFinishedScreen(
         teams: teams,
+        numberOfWords: numberOfWords,
         rounds: rounds,
         playedWords: playedWords,
-        key: ValueKey(teams),
       ),
       context: context,
     );
 
 void openStats(BuildContext context) => pushScreen(
-      const StatsScreen(
-        key: ValueKey('stats'),
-      ),
+      StatsScreen(),
       context: context,
     );
 
@@ -166,7 +152,6 @@ void openStatsNormalGame(
     pushScreen(
       StatsNormalGameScreen(
         normalGameStats: normalGameStats,
-        key: ValueKey(normalGameStats),
       ),
       context: context,
     );
@@ -178,7 +163,6 @@ void openStatsTimeGame(
     pushScreen(
       StatsTimeGameScreen(
         timeGameStats: timeGameStats,
-        key: ValueKey(timeGameStats),
       ),
       context: context,
     );
@@ -190,7 +174,6 @@ void openStatsQuickGame(
     pushScreen(
       StatsQuickGameScreen(
         quickGameStats: quickGameStats,
-        key: ValueKey(quickGameStats),
       ),
       context: context,
     );

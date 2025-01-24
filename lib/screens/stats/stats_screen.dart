@@ -21,8 +21,6 @@ import 'widgets/stats_segmented_widget.dart';
 import 'widgets/stats_time_section.dart';
 
 class StatsScreen extends WatchingStatefulWidget {
-  const StatsScreen({required super.key});
-
   @override
   State<StatsScreen> createState() => _StatsScreenState();
 }

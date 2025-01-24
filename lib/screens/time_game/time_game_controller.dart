@@ -259,6 +259,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     openTimeGameFinished(
       context,
       teams: value.teams,
+      numberOfWords: numberOfWords,
       rounds: timeGameStats.rounds,
       playedWords: value.playedWords,
     );

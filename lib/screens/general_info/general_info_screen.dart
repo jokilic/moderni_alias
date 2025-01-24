@@ -24,8 +24,6 @@ import '../../widgets/standard_text.dart';
 import './widgets/my_quick_portfolio.dart';
 
 class GeneralInfoScreen extends StatefulWidget {
-  const GeneralInfoScreen({required super.key});
-
   @override
   State<GeneralInfoScreen> createState() => _GeneralInfoScreenState();
 }

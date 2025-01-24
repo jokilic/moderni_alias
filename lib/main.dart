@@ -61,9 +61,7 @@ class ModerniAliasWidget extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         onGenerateTitle: (_) => 'appNameString'.tr(),
         theme: theme,
-        home: const HomeScreen(
-          key: ValueKey('home'),
-        ),
+        home: HomeScreen(),
         builder: (context, child) {
           /// Generate `appWidget`, with [Moderni Alias] content
           final appWidget = child ??

@@ -291,6 +291,8 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     openNormalGameFinished(
       context,
       teams: value.teams,
+      pointsToWin: pointsToWin,
+      lengthOfRound: lengthOfRound,
       playedWords: value.playedWords,
     );
   }

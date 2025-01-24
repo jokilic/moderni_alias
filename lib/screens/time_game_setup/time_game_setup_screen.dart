@@ -28,8 +28,6 @@ import '../../widgets/play_button.dart';
 import 'time_game_setup_controller.dart';
 
 class TimeGameSetupScreen extends WatchingStatefulWidget {
-  const TimeGameSetupScreen({required super.key});
-
   @override
   State<TimeGameSetupScreen> createState() => _TimeGameSetupScreenState();
 }

@@ -20,8 +20,6 @@ import 'widgets/settings_backgrounds.dart';
 import 'widgets/settings_checkbox_tile.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
-  const SettingsScreen({required super.key});
-
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }

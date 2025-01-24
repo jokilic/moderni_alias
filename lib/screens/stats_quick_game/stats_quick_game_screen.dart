@@ -22,7 +22,6 @@ class StatsQuickGameScreen extends StatelessWidget {
 
   const StatsQuickGameScreen({
     required this.quickGameStats,
-    required super.key,
   });
 
   @override

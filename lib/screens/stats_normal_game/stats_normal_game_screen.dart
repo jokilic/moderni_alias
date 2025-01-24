@@ -22,7 +22,6 @@ class StatsNormalGameScreen extends StatelessWidget {
 
   const StatsNormalGameScreen({
     required this.normalGameStats,
-    required super.key,
   });
 
   @override

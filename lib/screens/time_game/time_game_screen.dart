@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,6 @@ class TimeGameScreen extends WatchingStatefulWidget {
   const TimeGameScreen({
     required this.teams,
     required this.numberOfWords,
-    required super.key,
   });
 
   @override
@@ -47,6 +48,8 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
   void initState() {
     super.initState();
 
+    log('Hello there -> ${widget.key}');
+
     final settings = getIt.get<HiveService>().getSettingsFromBox();
 
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
@@ -61,6 +64,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
           logger: getIt.get<LoggerService>(),
         ),
         afterRegister: (controller) => controller.init(),
+        instanceName: widget.key.toString(),
       );
     }
 

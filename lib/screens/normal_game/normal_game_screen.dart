@@ -34,7 +34,6 @@ class NormalGameScreen extends WatchingStatefulWidget {
     required this.teams,
     required this.pointsToWin,
     required this.lengthOfRound,
-    required super.key,
   });
 
   @override

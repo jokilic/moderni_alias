@@ -22,7 +22,6 @@ class StatsTimeGameScreen extends StatelessWidget {
 
   const StatsTimeGameScreen({
     required this.timeGameStats,
-    required super.key,
   });
 
   /// Return `true` if the passed round's duration is the same as the fastest round

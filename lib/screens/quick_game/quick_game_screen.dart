@@ -29,7 +29,6 @@ class QuickGameScreen extends WatchingStatefulWidget {
 
   const QuickGameScreen({
     required this.lengthOfRound,
-    required super.key,
   });
 
   @override

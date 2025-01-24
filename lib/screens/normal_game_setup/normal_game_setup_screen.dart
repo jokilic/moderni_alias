@@ -29,8 +29,6 @@ import '../../widgets/play_button.dart';
 import 'normal_game_setup_controller.dart';
 
 class NormalGameSetupScreen extends WatchingStatefulWidget {
-  const NormalGameSetupScreen({required super.key});
-
   @override
   State<NormalGameSetupScreen> createState() => _NormalGameSetupScreenState();
 }
