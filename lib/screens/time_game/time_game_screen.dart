@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +45,6 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
   @override
   void initState() {
     super.initState();
-
-    log('Hello there -> ${widget.key}');
 
     final settings = getIt.get<HiveService>().getSettingsFromBox();
 
