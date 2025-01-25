@@ -54,8 +54,8 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
 
-    /// Not running on `Web`, initialize audio recording
-    if (!kIsWeb) {
+    /// Initialize audio recording on mobile platforms
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
       recorderController = RecorderController();
 
       audioRecord = registerIfNotInitialized<AudioRecordController>(

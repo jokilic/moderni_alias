@@ -50,10 +50,19 @@ class TimeGameFinishedScreen extends StatelessWidget {
     unregisterIfInitialized<BaseGameController>();
     unregisterIfInitialized<TimeGameController>();
 
-    /// Go to [QuickGameScreen]
+    /// Go to [TeamGameScreen]
     openTimeGame(
       context,
-      teams: teams,
+      teams: List.from(
+        teams
+            .map(
+              (team) => Team(
+                name: team.name,
+                textEditingController: team.textEditingController,
+              ),
+            )
+            .toList(),
+      ),
       numberOfWords: numberOfWords,
     );
   }

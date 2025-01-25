@@ -51,7 +51,8 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
     final useDynamicBackgrounds = settings.useDynamicBackgrounds;
     useCircularTimer = settings.useCircularTimer;
 
-    if (!kIsWeb) {
+    /// Initialize audio recording on mobile platforms
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
       recorderController = RecorderController();
 
       audioRecord = registerIfNotInitialized<AudioRecordController>(
@@ -60,7 +61,6 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
           logger: getIt.get<LoggerService>(),
         ),
         afterRegister: (controller) => controller.init(),
-        instanceName: widget.key.toString(),
       );
     }
 

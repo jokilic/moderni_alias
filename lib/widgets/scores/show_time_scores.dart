@@ -72,7 +72,9 @@ class TimeScoresModal extends WatchingWidget {
     final currentTeam = teams[index];
     late Round? currentRound;
     try {
-      currentRound = calculatedRounds.firstWhere((round) => round.playingTeam == currentTeam);
+      currentRound = calculatedRounds.firstWhere(
+        (round) => round.playingTeam == currentTeam,
+      );
     } catch (e) {
       currentRound = null;
     }

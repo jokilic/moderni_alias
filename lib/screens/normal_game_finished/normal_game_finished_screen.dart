@@ -43,10 +43,19 @@ class NormalGameFinishedScreen extends WatchingWidget {
     unregisterIfInitialized<BaseGameController>();
     unregisterIfInitialized<NormalGameController>();
 
-    /// Go to [QuickGameScreen]
+    /// Go to [NormalGameScreen]
     openNormalGame(
       context,
-      teams: teams,
+      teams: List.from(
+        teams
+            .map(
+              (team) => Team(
+                name: team.name,
+                textEditingController: team.textEditingController,
+              ),
+            )
+            .toList(),
+      ),
       pointsToWin: pointsToWin,
       lengthOfRound: lengthOfRound,
     );
