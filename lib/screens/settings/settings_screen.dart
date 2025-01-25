@@ -18,6 +18,7 @@ import '../../widgets/hero_title.dart';
 import 'settings_controller.dart';
 import 'widgets/settings_backgrounds.dart';
 import 'widgets/settings_checkbox_tile.dart';
+import 'widgets/settings_language.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
   @override
@@ -125,6 +126,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: getIt.get<SettingsController>().openMicrophoneSettings,
                       title: 'settingsRecordingAudioTitle'.tr(),
                       subtitle: 'settingsRecordingAudioSubtitle'.tr(),
+                    ),
+                    const SizedBox(height: 16),
+                    SettingsLanguage(
+                      onPressed: (flag) => getIt.get<SettingsController>().languagePressed(
+                            flag: flag,
+                            context: context,
+                          ),
+                      title: 'settingsLanguageTitle'.tr(),
+                      subtitle: 'settingsLanguageSubtitle'.tr(),
                     ),
                     const SizedBox(height: 40),
                   ],

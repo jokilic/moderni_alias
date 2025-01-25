@@ -1,6 +1,8 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/enums.dart';
 import '../../models/settings/settings.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -37,5 +39,12 @@ class SettingsController extends ValueNotifier<SettingsHive> {
   }
 
   /// Opens phone microphone settings
-  Future<void> openMicrophoneSettings() async => AppSettings.openAppSettings();
+  void openMicrophoneSettings() => AppSettings.openAppSettings();
+
+  /// Triggered when the user taps some flag button
+  void languagePressed({
+    required Flag flag,
+    required BuildContext context,
+  }) =>
+      context.setLocale(Locale(flag == Flag.croatia ? 'hr' : 'en'));
 }

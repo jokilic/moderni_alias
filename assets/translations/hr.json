@@ -151,6 +151,8 @@
     "settingsCircularTimerSubtitle": "Koristi kružni timer koji pokazuje preostalo vrijeme u rundi",
     "settingsRecordingAudioTitle": "Snimanje zvuka",
     "settingsRecordingAudioSubtitle": "Snima runde tako da ih možete ponovno poslušati u 'Prethodnim igrama'",
+    "settingsLanguageTitle": "Jezik",
+    "settingsLanguageSubtitle": "Odaberi jezik koji će biti korišten u Modernom Aliasu",
     "statsTitle": "Prethodne igre",
     "statsGeneralTitle": "Ukupno odigrano",
     "statsGeneralNormalGames": "Normalne igre",

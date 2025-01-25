@@ -150,6 +150,8 @@
     "settingsCircularTimerSubtitle": "Use a circular timer which shows the remaining time in a round",
     "settingsRecordingAudioTitle": "Recording audio",
     "settingsRecordingAudioSubtitle": "Records rounds so you can replay them in 'Previous games'",
+    "settingsLanguageTitle": "Language",
+    "settingsLanguageSubtitle": "Choose a language to be used throughout Moderni Alias",
     "statsTitle": "Stats",
     "statsGeneralTitle": "Total games played",
     "statsGeneralNormalGames": "Normal games",
