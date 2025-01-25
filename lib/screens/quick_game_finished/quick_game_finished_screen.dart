@@ -60,6 +60,9 @@ class QuickGameFinishedScreen extends WatchingWidget {
             const BackgroundImage(),
             Stack(
               children: [
+                ///
+                /// CONFETTI
+                ///
                 const Confetti(),
                 Transform(
                   alignment: Alignment.center,
@@ -75,6 +78,10 @@ class QuickGameFinishedScreen extends WatchingWidget {
                     waitDuration: ModerniAliasDurations.verySlowAnimation,
                   ),
                 ),
+
+                ///
+                /// MAIN CONTENT
+                ///
                 Center(
                   child: SizedBox(
                     height: size.height,
@@ -126,9 +133,13 @@ class QuickGameFinishedScreen extends WatchingWidget {
                     ),
                   ),
                 ),
+
+                ///
+                /// SHOW SCORES
+                ///
                 Positioned(
-                  top: MediaQuery.paddingOf(context).top,
-                  right: 16,
+                  top: 86,
+                  right: 12,
                   child: AnimatedGestureDetector(
                     onTap: () => showScores(
                       context,
