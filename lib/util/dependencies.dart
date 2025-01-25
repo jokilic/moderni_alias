@@ -26,7 +26,7 @@ T registerIfNotInitialized<T extends Object>(
       final instance = getIt.get<T>(instanceName: instanceName);
       afterRegister(instance);
     }
-  } else {}
+  }
 
   return getIt.get<T>(instanceName: instanceName);
 }
@@ -41,7 +41,7 @@ void unregisterIfInitialized<T extends Object>({
       instanceName: instanceName,
       disposingFunction: disposingFunction,
     );
-  } else {}
+  }
 }
 
 void initializeServices() {
