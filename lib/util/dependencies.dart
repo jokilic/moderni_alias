@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get_it/get_it.dart';
 
 import '../services/background_image_service.dart';
@@ -28,11 +26,7 @@ T registerIfNotInitialized<T extends Object>(
       final instance = getIt.get<T>(instanceName: instanceName);
       afterRegister(instance);
     }
-
-    log('Registered $T');
-  } else {
-    log('Not registered $T');
-  }
+  } else {}
 
   return getIt.get<T>(instanceName: instanceName);
 }
@@ -47,11 +41,7 @@ void unregisterIfInitialized<T extends Object>({
       instanceName: instanceName,
       disposingFunction: disposingFunction,
     );
-
-    log('Unregistered $T');
-  } else {
-    log('Not unregistered $T');
-  }
+  } else {}
 }
 
 void initializeServices() {
