@@ -77,13 +77,13 @@ flutter_icons:
   ios: true
   image_path: 'assets/icon.png'
   min_sdk_android: 21
-  adaptive_icon_background: '#152544'
+  adaptive_icon_background: '#1C3D5F'
   adaptive_icon_foreground: 'assets/icon.png'
   web:
     generate: true
     image_path: 'assets/icon.png'
-    background_color: '#152544'
-    theme_color: '#152544'
+    background_color: '#1C3D5F'
+    theme_color: '#1C3D5F'
   windows:
     generate: true
     image_path: 'assets/icon.png'
@@ -100,5 +100,5 @@ flutter_native_splash:
   background_image: 'assets/splash.png'
   background_image_dark: 'assets/splash.png'
   android_12:
-    color: '#152544'
-    color_dark: '#152544'
+    color: '#1C3D5F'
+    color_dark: '#1C3D5F'
