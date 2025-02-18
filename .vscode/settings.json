@@ -1,4 +1,6 @@
 {
+    "dart.flutterSdkPath": "/Users/josipkilic/.puro/envs/3.27.4/flutter",
+    "dart.sdkPath": "/Users/josipkilic/.puro/envs/3.27.4/flutter/bin/cache/dart-sdk",
     "workbench.colorCustomizations": {
         "sash.hoverBorder": "#213a6b",
         "statusBar.background": "#152544",
@@ -7,5 +9,5 @@
         "statusBarItem.remoteBackground": "#152544",
         "statusBarItem.remoteForeground": "#e7e7e7"
     },
-    "peacock.color": "#152544"
+    "peacock.color": "#152544",
 }
