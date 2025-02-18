@@ -58,106 +58,109 @@ class QuickGameFinishedScreen extends WatchingWidget {
         body: Stack(
           children: [
             const BackgroundImage(),
-            Stack(
-              children: [
-                ///
-                /// CONFETTI
-                ///
-                const Confetti(),
-                Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.rotationX(pi),
-                  child: const Confetti(
-                    waitDuration: ModerniAliasDurations.slowAnimation,
+            SafeArea(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ///
+                  /// CONFETTI
+                  ///
+                  const Confetti(),
+                  Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationX(pi),
+                    child: const Confetti(
+                      waitDuration: ModerniAliasDurations.slowAnimation,
+                    ),
                   ),
-                ),
-                Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.rotationY(pi),
-                  child: const Confetti(
-                    waitDuration: ModerniAliasDurations.verySlowAnimation,
+                  Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationY(pi),
+                    child: const Confetti(
+                      waitDuration: ModerniAliasDurations.verySlowAnimation,
+                    ),
                   ),
-                ),
 
-                ///
-                /// MAIN CONTENT
-                ///
-                Center(
-                  child: SizedBox(
-                    height: size.height,
-                    width: size.width * 0.8,
-                    child: AnimatedColumn(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          ModerniAliasIcons.clapImage,
-                          height: 220,
-                        ),
-                        const SizedBox(height: 30),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: 'quickGameFinishedFirstString'.tr(),
-                            style: ModerniAliasTextStyles.quickGameFinished,
+                  ///
+                  /// MAIN CONTENT
+                  ///
+                  Center(
+                    child: SizedBox(
+                      height: size.height,
+                      width: size.width * 0.8,
+                      child: AnimatedColumn(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            ModerniAliasIcons.clapImage,
+                            height: 220,
+                          ),
+                          const SizedBox(height: 30),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: 'quickGameFinishedFirstString'.tr(),
+                              style: ModerniAliasTextStyles.quickGameFinished,
+                              children: [
+                                TextSpan(
+                                  text: correctAnswers,
+                                  style: ModerniAliasTextStyles.quickGameFinishedBold,
+                                ),
+                                TextSpan(text: 'quickGameFinishedSecondString'.tr()),
+                                TextSpan(
+                                  text: wrongAnswers,
+                                  style: ModerniAliasTextStyles.quickGameFinishedBold,
+                                ),
+                                TextSpan(
+                                  text: 'quickGameFinishedThirdString'.tr(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 72),
+                          AnimatedColumn(
                             children: [
-                              TextSpan(
-                                text: correctAnswers,
-                                style: ModerniAliasTextStyles.quickGameFinishedBold,
+                              PlayButton(
+                                text: 'gameFinishedPlayAgainString'.tr().toUpperCase(),
+                                onPressed: () => restartGame(context),
                               ),
-                              TextSpan(text: 'quickGameFinishedSecondString'.tr()),
-                              TextSpan(
-                                text: wrongAnswers,
-                                style: ModerniAliasTextStyles.quickGameFinishedBold,
-                              ),
-                              TextSpan(
-                                text: 'quickGameFinishedThirdString'.tr(),
+                              const SizedBox(height: 20),
+                              PlayButton(
+                                text: 'gameFinishedExitString'.tr().toUpperCase(),
+                                onPressed: () => disposeAndGoHome(context),
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 72),
-                        AnimatedColumn(
-                          children: [
-                            PlayButton(
-                              text: 'gameFinishedPlayAgainString'.tr().toUpperCase(),
-                              onPressed: () => restartGame(context),
-                            ),
-                            const SizedBox(height: 20),
-                            PlayButton(
-                              text: 'gameFinishedExitString'.tr().toUpperCase(),
-                              onPressed: () => disposeAndGoHome(context),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                ///
-                /// SHOW SCORES
-                ///
-                Positioned(
-                  top: 86,
-                  right: 12,
-                  child: AnimatedGestureDetector(
-                    onTap: () => showScores(
-                      context,
-                      playedWords: playedWords,
-                    ),
-                    end: 0.8,
-                    child: IconButton(
-                      onPressed: null,
-                      icon: Image.asset(
-                        ModerniAliasIcons.listImage,
-                        color: ModerniAliasColors.white,
-                        height: 28,
-                        width: 28,
+                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
+
+                  ///
+                  /// SHOW SCORES
+                  ///
+                  Positioned(
+                    top: 24,
+                    right: 12,
+                    child: AnimatedGestureDetector(
+                      onTap: () => showScores(
+                        context,
+                        playedWords: playedWords,
+                      ),
+                      end: 0.8,
+                      child: IconButton(
+                        onPressed: null,
+                        icon: Image.asset(
+                          ModerniAliasIcons.listImage,
+                          color: ModerniAliasColors.white,
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
