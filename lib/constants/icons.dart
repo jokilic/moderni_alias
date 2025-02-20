@@ -19,4 +19,5 @@ class ModerniAliasIcons {
   static const arrowSettingsImage = 'assets/icons/arrow_settings.webp';
   static const arrowStatsImage = 'assets/icons/arrow_stats.webp';
   static const diceImage = 'assets/icons/dice.webp';
+  static const share = 'assets/icons/share.webp';
 }

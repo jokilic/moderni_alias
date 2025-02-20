@@ -33,6 +33,7 @@ dependencies:
   package_info_plus: 8.2.1 # Used to get the app version
   path_provider: 2.1.5 # For finding commonly used locations on the filesystem
   rive: 0.13.20 # Renders Rive animations in Flutter
+  share_plus: 10.1.4 # Used for sharing played games
   timeago: 3.7.0 # To show when were games played
   url_launcher: 6.3.1 # Used to launch URLs in native browser
   video_player: 2.9.2 # Used to play videos

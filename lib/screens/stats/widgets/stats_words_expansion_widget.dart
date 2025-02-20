@@ -164,6 +164,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                 AnimatedGestureDetector(
                   onTap: toggleAudio,
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
                     onTap: () {},
                     child: AnimatedIcon(
                       icon: AnimatedIcons.play_pause,
@@ -198,7 +199,12 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         showSubtitle = !value;
         turns = value ? 0.75 : 0.25;
       }),
-      shape: const RoundedRectangleBorder(),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      collapsedShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       tilePadding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 8,
