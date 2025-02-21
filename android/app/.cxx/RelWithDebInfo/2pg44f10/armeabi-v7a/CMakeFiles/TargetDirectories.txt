@@ -1,0 +1,2 @@
+/Users/josipkilic/Projects/moderni_alias/android/app/.cxx/RelWithDebInfo/2pg44f10/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/josipkilic/Projects/moderni_alias/android/app/.cxx/RelWithDebInfo/2pg44f10/armeabi-v7a/CMakeFiles/rebuild_cache.dir

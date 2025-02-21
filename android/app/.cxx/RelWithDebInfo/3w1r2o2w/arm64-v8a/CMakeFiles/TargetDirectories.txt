@@ -1,0 +1,2 @@
+/Users/josipkilic/Projects/moderni_alias/android/app/.cxx/RelWithDebInfo/3w1r2o2w/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/josipkilic/Projects/moderni_alias/android/app/.cxx/RelWithDebInfo/3w1r2o2w/arm64-v8a/CMakeFiles/rebuild_cache.dir
