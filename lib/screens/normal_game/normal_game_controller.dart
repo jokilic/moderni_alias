@@ -124,8 +124,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
 
     await baseGame.startAudioRecording(
-      // TODO
-      path: '',
+      path: 'moderni_alias_normal_game_${normalGameStats.startTime.millisecondsSinceEpoch}_audio_${normalGameStats.rounds.length + 1}',
     );
     await WakelockPlus.enable();
   }

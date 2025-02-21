@@ -106,8 +106,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     );
 
     await baseGame.startAudioRecording(
-      // TODO
-      path: '',
+      path: 'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}_audio',
     );
     await WakelockPlus.enable();
   }

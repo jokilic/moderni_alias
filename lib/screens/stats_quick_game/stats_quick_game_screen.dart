@@ -1,13 +1,16 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
+import '../../models/round/round.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -23,6 +26,35 @@ class StatsQuickGameScreen extends StatelessWidget {
   const StatsQuickGameScreen({
     required this.quickGameStats,
   });
+
+  /// Shares `JSON` with game information
+  void shareGame() => Share.shareXFiles(
+        [
+          XFile.fromData(
+            utf8.encode(
+              const JsonEncoder.withIndent('  ').convert(
+                quickGameStats.toMap(),
+              ),
+            ),
+            mimeType: 'application/json',
+          ),
+        ],
+        fileNameOverrides: [
+          'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}.json',
+        ],
+      );
+
+  /// Shares `audio` of selected round
+  void shareRoundAudio({required Round round}) {
+    if (round.audioRecording != null) {
+      final name = 'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}_audio.m4a';
+
+      Share.shareXFiles(
+        [XFile(round.audioRecording!, name: name)],
+        fileNameOverrides: [name],
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,26 +76,41 @@ class StatsQuickGameScreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   const SizedBox(height: 26),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: AnimatedGestureDetector(
-                        onTap: Navigator.of(context).pop,
-                        end: 0.8,
-                        child: IconButton(
-                          onPressed: null,
-                          icon: Transform.rotate(
-                            angle: pi,
-                            child: Image.asset(
-                              ModerniAliasIcons.arrowStatsImage,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AnimatedGestureDetector(
+                          onTap: Navigator.of(context).pop,
+                          end: 0.8,
+                          child: IconButton(
+                            onPressed: null,
+                            icon: Transform.rotate(
+                              angle: pi,
+                              child: Image.asset(
+                                ModerniAliasIcons.arrowStatsImage,
+                                color: ModerniAliasColors.white,
+                                height: 26,
+                                width: 26,
+                              ),
+                            ),
+                          ),
+                        ),
+                        AnimatedGestureDetector(
+                          onTap: shareGame,
+                          end: 0.8,
+                          child: IconButton(
+                            onPressed: null,
+                            icon: Image.asset(
+                              ModerniAliasIcons.share,
                               color: ModerniAliasColors.white,
                               height: 26,
                               width: 26,
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -157,7 +204,9 @@ class StatsQuickGameScreen extends StatelessWidget {
                       index: 0,
                       round: quickGameStats.round,
                       someWords: quickGameStats.round.playedWords.take(3).map((word) => word.word).join(', '),
-                      onSharePressed: () {},
+                      onSharePressed: () => shareRoundAudio(
+                        round: quickGameStats.round,
+                      ),
                       quickGameStats: true,
                     ),
                   const SizedBox(height: 80),

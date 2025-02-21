@@ -49,12 +49,7 @@ class StatsTimeGameScreen extends StatelessWidget {
       final name = 'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}_audio_${timeGameStats.rounds.indexOf(round) + 1}.m4a';
 
       Share.shareXFiles(
-        [
-          XFile(
-            round.audioRecording!,
-            name: name,
-          ),
-        ],
+        [XFile(round.audioRecording!, name: name)],
         fileNameOverrides: [name],
       );
     }
