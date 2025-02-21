@@ -1,0 +1,30 @@
+Što je Alias?
+Alias je zabavna igra objašnjavanja pojmova koju igraju dva ili više tima igrača.
+U igri se objašnjavaju pojmovi upotrebljavajući riječi srodnog ili suprotnog značenja, asocijacije i slično, tako da pripadnici vaše ekipe pogode što više pojmova prije isteka vremena.
+
+
+Normalna igra
+Igrajte klasičnu igru Aliasa s više timova.
+Odaberite broj timova koji igraju, duljinu runde i broj bodova za pobjedu.
+Timovi se izmjenjuju, a onaj koji skupi odabrani broj bodova je pobjednik te može uživati u letu lijepih konfeta u njegovu čast.
+
+Vremenska igra
+Odaberite svoje timove i odaberite broj riječi koje trebaju biti pogođene.
+Runda počinje i nema vremenskog ograničenja.
+Postoji timer i imate svo vrijeme ovog svijeta da pogodite vaše riječi.
+Preskakanje riječi vam neće donijeti negativne bodove.
+Tim koji je pogodio riječi u najkraćem vremenu je pobjednik igre.
+
+Brza igra
+Nemate vremena za timove, bodove i duljine rundi, a dobili ste neutaživu želju za igrom?
+Odigrajte brzu igru gdje odmah uskačete u pogađanje riječi.
+Nakon jedne minute, vidjet ćete svoje rezultate uz let šarenih konfeta.
+
+
+O Modernom Aliasu
+Igra trenutno ima 7000 riječi koje čekaju da ih sve pogodite.
+Svakim novim updateom, broj riječi će se povećavati.
+Cilj je imati 10 000.
+
+
+Uživajte u ovoj zabavnoj igri.

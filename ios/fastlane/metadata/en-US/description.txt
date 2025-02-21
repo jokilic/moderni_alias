@@ -1,0 +1,30 @@
+What is Alias?
+Alias is a fun word-guessing game which is played by two or more teams.
+The main objective of the game is to explain the current word to other team members, but using words of similar or opposite meaning, associations or anything similar, so your team guesses as much words is possible before time runs out.
+
+
+Normal game
+You're playing a classic game of Alias with multiple teams.
+You pick the number of competing teams, length of the round and number of points to win.
+The teams interchange, and the team that first guesses the predetermined number of words is the winner of the game and can enjoy in a sea of colorful confetti.
+
+Time game
+Pick your teams and pick a number of words that have to be guessed.
+The round starts and there's no time limit.
+There's a timer and you have all the time in the world to guess your words.
+Skipping a word won't give you any negative points.
+The team who guessed words in the shortest amount of time is the winner of the game.
+
+Fast game
+You don't have time for teams, points or round lengths, but you got a craving for some word guessing?
+Play a fast game in which you jump in immediately.
+After one minute, you will see your score followed by loads of colorful confetti.
+
+
+About Moderni Alias
+The game currently has around 7000 words, waiting to be guessed.
+With each new update, the word count will increase.
+The goal is to have 10 000.
+
+
+Enjoy this fun game!
