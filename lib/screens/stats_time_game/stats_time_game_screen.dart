@@ -26,36 +26,38 @@ class StatsTimeGameScreen extends StatelessWidget {
     required this.timeGameStats,
   });
 
-  /// Shares game
-  Future<bool> shareGame() async {
-    final gameInfo = '''
-Teams: ${timeGameStats.teams.map((team) => team.name).toList()}!
-''';
-
-    final firstRecording = timeGameStats.rounds.first.audioRecording;
-    final lastRecording = timeGameStats.rounds.last.audioRecording;
-
-    if (firstRecording != null && lastRecording != null) {
-      await Share.shareXFiles(
+  /// Shares `JSON` with game information
+  void shareGame() => Share.shareXFiles(
         [
           XFile.fromData(
-            utf8.encode(gameInfo),
-            mimeType: 'text/plain',
+            utf8.encode(
+              const JsonEncoder.withIndent('  ').convert(
+                timeGameStats.toMap(),
+              ),
+            ),
+            mimeType: 'application/json',
           ),
-          XFile(firstRecording),
-          XFile(lastRecording),
         ],
         fileNameOverrides: [
-          'info.txt',
-          'first.m4a',
-          'last.m4a',
+          'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}.json',
         ],
-        text: 'My recording',
-        subject: 'My little subject',
+      );
+
+  /// Shares `audio` of selected round
+  void shareRoundAudio({required Round round}) {
+    if (round.audioRecording != null) {
+      final name = 'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}_audio_${timeGameStats.rounds.indexOf(round) + 1}.m4a';
+
+      Share.shareXFiles(
+        [
+          XFile(
+            round.audioRecording!,
+            name: name,
+          ),
+        ],
+        fileNameOverrides: [name],
       );
     }
-
-    return true;
   }
 
   /// Return `true` if the passed round's duration is the same as the fastest round
@@ -219,6 +221,9 @@ Teams: ${timeGameStats.teams.map((team) => team.name).toList()}!
                         index: index,
                         round: round,
                         someWords: someWords,
+                        onSharePressed: () => shareRoundAudio(
+                          round: round,
+                        ),
                       );
                     },
                   ),

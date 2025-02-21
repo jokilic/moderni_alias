@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive_ce/hive.dart';
 
 import '../../constants/enums.dart';
@@ -54,4 +56,15 @@ class TimeGameStats extends HiveObject {
 
   @override
   String toString() => 'TimeGameStats(startTime: $startTime, endTime: $endTime, teams: $teams, rounds: $rounds, language: $language, numberOfWords: $numberOfWords)';
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'startTime': startTime.toIso8601String(),
+        'endTime': endTime.toIso8601String(),
+        'teams': teams.map((x) => x.toMap()).toList(),
+        'language': language.name,
+        'numberOfWords': numberOfWords,
+        'rounds': rounds.map((x) => x.toMap()).toList(),
+      };
+
+  String toJson() => json.encode(toMap());
 }

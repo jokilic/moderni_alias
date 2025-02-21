@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
@@ -45,4 +47,13 @@ class Team extends HiveObject {
 
   @override
   String toString() => 'Team(name: $name, points: $points, correctPoints: $correctPoints, wrongPoints: $wrongPoints, textEditingController: $textEditingController)';
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'name': name,
+        'points': points,
+        'correctPoints': correctPoints,
+        'wrongPoints': wrongPoints,
+      };
+
+  String toJson() => json.encode(toMap());
 }

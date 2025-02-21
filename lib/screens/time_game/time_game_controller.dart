@@ -150,7 +150,9 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       },
     );
 
-    await baseGame.startAudioRecording();
+    await baseGame.startAudioRecording(
+      path: 'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}_audio_${timeGameStats.rounds.length + 1}',
+    );
     await WakelockPlus.enable();
   }
 

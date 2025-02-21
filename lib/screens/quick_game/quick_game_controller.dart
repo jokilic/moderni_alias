@@ -105,7 +105,10 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
       },
     );
 
-    await baseGame.startAudioRecording();
+    await baseGame.startAudioRecording(
+      // TODO
+      path: '',
+    );
     await WakelockPlus.enable();
   }
 

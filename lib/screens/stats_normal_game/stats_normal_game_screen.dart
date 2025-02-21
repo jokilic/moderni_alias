@@ -169,6 +169,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                         index: index,
                         round: round,
                         someWords: someWords,
+                        onSharePressed: () {},
                       );
                     },
                   ),

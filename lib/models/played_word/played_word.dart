@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive_ce/hive.dart';
 
 import '../../constants/enums.dart';
@@ -19,4 +21,11 @@ class PlayedWord extends HiveObject {
 
   @override
   String toString() => 'PlayedWord(word: $word, chosenAnswer: $chosenAnswer)';
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'word': word,
+        'chosenAnswer': chosenAnswer.name,
+      };
+
+  String toJson() => json.encode(toMap());
 }

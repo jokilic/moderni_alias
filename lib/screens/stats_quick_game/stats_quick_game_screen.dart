@@ -157,6 +157,7 @@ class StatsQuickGameScreen extends StatelessWidget {
                       index: 0,
                       round: quickGameStats.round,
                       someWords: quickGameStats.round.playedWords.take(3).map((word) => word.word).join(', '),
+                      onSharePressed: () {},
                       quickGameStats: true,
                     ),
                   const SizedBox(height: 80),

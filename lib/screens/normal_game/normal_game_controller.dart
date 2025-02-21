@@ -123,7 +123,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
       },
     );
 
-    await baseGame.startAudioRecording();
+    await baseGame.startAudioRecording(
+      // TODO
+      path: '',
+    );
     await WakelockPlus.enable();
   }
 

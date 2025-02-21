@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive_ce/hive.dart';
 
 import '../played_word/played_word.dart';
@@ -28,4 +30,12 @@ class Round extends HiveObject {
 
   @override
   String toString() => 'Round(playedWords: $playedWords, playingTeam: $playingTeam, audioRecording: $audioRecording, durationSeconds: $durationSeconds)';
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'playedWords': playedWords.map((x) => x.toMap()).toList(),
+        'playingTeam': playingTeam?.toMap(),
+        'durationSeconds': durationSeconds,
+      };
+
+  String toJson() => json.encode(toMap());
 }

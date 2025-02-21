@@ -14,11 +14,13 @@ class StatsWordsExpansionWidget extends StatefulWidget {
   final Round round;
   final String someWords;
   final bool quickGameStats;
+  final Function() onSharePressed;
 
   const StatsWordsExpansionWidget({
     required this.index,
     required this.round,
     required this.someWords,
+    required this.onSharePressed,
     this.quickGameStats = false,
   });
 
@@ -147,6 +149,21 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
             padding: const EdgeInsets.symmetric(horizontal: 36),
             child: Row(
               children: [
+                const SizedBox(width: 20),
+                AnimatedGestureDetector(
+                  onTap: widget.onSharePressed,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () {},
+                    child: Image.asset(
+                      ModerniAliasIcons.share,
+                      color: ModerniAliasColors.white,
+                      height: 26,
+                      width: 26,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 20),
                 Expanded(
                   child: AudioFileWaveforms(
                     playerController: audioController!,

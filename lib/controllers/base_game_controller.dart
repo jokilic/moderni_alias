@@ -243,11 +243,10 @@ class BaseGameController implements Disposable {
   }
 
   /// Generates proper `path` and starts audio recording
-  Future<void> startAudioRecording() async {
+  Future<void> startAudioRecording({required String path}) async {
     if (audioRecord != null) {
-      final timestamp = DateTime.now().millisecondsSinceEpoch;
-      final path = '${pathProvider.persistenceDirectory}/$timestamp';
-      await audioRecord!.startRecording(path);
+      final absolutePath = '${pathProvider.persistenceDirectory}/$path.m4a';
+      await audioRecord!.startRecording(absolutePath);
     }
   }
 
