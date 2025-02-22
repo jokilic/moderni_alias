@@ -8,7 +8,7 @@ platform :ios do
     # Build app
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
 
-    # Deliver on App Store
+    # Upload to App Store
     deliver(
       force: true,
       skip_metadata: true,
