@@ -5,7 +5,7 @@ default_platform(:ios)
 
 platform :ios do
   desc "Build & deploy a new release to the App Store"
-  lane :release do
+  lane :app_store_release do
     # Build Flutter app
     sh("puro flutter clean")
     sh("puro flutter pub get")
@@ -13,8 +13,8 @@ platform :ios do
 
     # Generate api_key
     api_key = app_store_connect_api_key(
-      key_id: "HJ7UCRZWJW",
-      issuer_id: "bb9c2b81-bdb6-4e82-ac17-246495645f7d",
+      key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
       key_filepath: "/Users/josipkilic/Documents/AuthKey_HJ7UCRZWJW.p8",
       )
 
@@ -32,9 +32,8 @@ platform :ios do
 
     # Show notification
     notification(
-      content_image: "/Users/josipkilic/Projects/moderni_alias/assets/icon.png",
+      content_image: "..assets/icon.png",
       title: "Moderni Alias",
-      subtitle: "Success",
       message: "New release deployed to the App Store"
       )
   end

@@ -122,3 +122,4 @@ app.*.symbols
 *.env
 .vscode/settings.json
 env
+android/fastlane/.env.default

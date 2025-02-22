@@ -4,8 +4,12 @@
 default_platform(:android)
 
 platform :android do
+  #
+  # Google Play
+  #
+
   desc "Build & deploy a new release to the Google Play"
-  lane :release do
+  lane :play_store_release do
     # Build Flutter app
     sh("puro flutter clean")
     sh("puro flutter pub get")
@@ -24,10 +28,42 @@ platform :android do
 
     # Show notification
     notification(
-      content_image: "/Users/josipkilic/Projects/moderni_alias/assets/icon.png",
+      content_image: "../assets/icon.png",
       title: "Moderni Alias",
-      subtitle: "Success",
       message: "New release deployed to the Play Store",
+      )
+  end
+
+  #
+  # GitHub Releases
+  #
+
+  desc "Build & deploy a new release to GitHub Releases"
+  lane :github_release do
+    # Build Flutter app
+    sh("puro flutter clean")
+    sh("puro flutter pub get")
+    sh("puro flutter build apk --target-platform=android-arm64")
+
+    # Rename built APK to `moderni_alias.apk`
+    sh("mv ../../build/app/outputs/flutter-apk/app-release.apk ../../build/app/outputs/flutter-apk/moderni_alias.apk")
+
+    # Upload to GitHub Releases
+    set_github_release(
+      repository_name: "jokilic/moderni_alias",
+      api_token: ENV["GITHUB_TOKEN"],
+      name: "Moderni Alias v4.1.7",
+      tag_name: "v4.1.7",
+      description: (File.read("metadata/android/en-GB/changelogs/default.txt") rescue "No changelog provided"),
+      commitish: "master",
+      upload_assets: ["../build/app/outputs/flutter-apk/moderni_alias.apk"],
+      )
+
+    # Show notification
+    notification(
+      content_image: "../assets/icon.png",
+      title: "Moderni Alias",
+      message: "New release deployed to GitHub Releases",
       )
   end
 end
