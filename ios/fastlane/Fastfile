@@ -1,25 +1,41 @@
-update_fastlane
+# Check for `Fastlane` updates
+# update_fastlane
 
 default_platform(:ios)
 
 platform :ios do
-  desc "Deploy a new release to the App Store"
+  desc "Build & deploy a new release to the App Store"
   lane :release do
-    # Build app
-    build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
+    # Build Flutter app
+    sh("puro flutter clean")
+    sh("puro flutter pub get")
+    sh("puro flutter build ipa")
+
+    # Generate api_key
+    api_key = app_store_connect_api_key(
+      key_id: "HJ7UCRZWJW",
+      issuer_id: "bb9c2b81-bdb6-4e82-ac17-246495645f7d",
+      key_filepath: "/Users/josipkilic/Documents/AuthKey_HJ7UCRZWJW.p8",
+      )
 
     # Upload to App Store
     deliver(
+      api_key: api_key,
+      ipa: "../build/ios/ipa/modernialias.ipa",
       force: true,
       skip_metadata: true,
       skip_screenshots: true,
       submit_for_review: true,
       automatic_release: true,
-      app_version: "4.1.3",
-      build_number: "413"
+      precheck_include_in_app_purchases: false,
       )
 
-      # Show notification
-      notification(subtitle: "Success", message: "New release deployed on the App Store")
+    # Show notification
+    notification(
+      content_image: "/Users/josipkilic/Projects/moderni_alias/assets/icon.png",
+      title: "Moderni Alias",
+      subtitle: "Success",
+      message: "New release deployed to the App Store"
+      )
   end
 end

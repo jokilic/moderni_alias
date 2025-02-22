@@ -1,26 +1,33 @@
-update_fastlane
+# Check for `Fastlane` updates
+# update_fastlane
 
 default_platform(:android)
 
 platform :android do
-  desc "Deploy a new release to the Google Play"
+  desc "Build & deploy a new release to the Google Play"
   lane :release do
-    # Build app
-    gradle(task: "clean assembleRelease")
+    # Build Flutter app
+    sh("puro flutter clean")
+    sh("puro flutter pub get")
+    sh("puro flutter build appbundle")
 
     # Upload to Play Store
     supply(
+      json_key: "/Users/josipkilic/Documents/fastlane-451713-01bb44a559be.json",
+      aab: "../build/app/outputs/bundle/release/app-release.aab",
+      track: "production",
+      skip_upload_apk: true,
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      skip_upload_changelogs: true,
-      track: "production",
-      json_key: "/Users/josipkilic/Documents/modernialias-b66055dd2c28.json",
-      version_name: "4.1.3",
-      version_code: "413"
       )
 
     # Show notification
-    notification(subtitle: "Success", message: "New release deployed on the Play Store")
+    notification(
+      content_image: "/Users/josipkilic/Projects/moderni_alias/assets/icon.png",
+      title: "Moderni Alias",
+      subtitle: "Success",
+      message: "New release deployed to the Play Store",
+      )
   end
 end
