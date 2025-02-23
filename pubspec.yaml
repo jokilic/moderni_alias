@@ -1,5 +1,7 @@
 name: modernialias
 description: Ovo je moja Alias aplikacija.
+publish_to: 'none'
+version: 4.1.7+417
 
 #
 # DEPLOYING APP
@@ -19,10 +21,6 @@ description: Ovo je moja Alias aplikacija.
 # iOS
 # `cd ios/ && fastlane app_store_release`
 #
-
-publish_to: 'none'
-
-version: 4.1.7+417
 
 environment:
   sdk: 3.8.0-91.0.dev
