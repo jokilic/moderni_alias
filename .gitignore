@@ -123,3 +123,4 @@ app.*.symbols
 .vscode/settings.json
 env
 android/fastlane/.env.default
+ios/fastlane/.env.default
