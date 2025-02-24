@@ -48,12 +48,15 @@ platform :android do
     # Rename built APK to `moderni_alias.apk`
     sh("mv ../../build/app/outputs/flutter-apk/app-release.apk ../../build/app/outputs/flutter-apk/moderni_alias.apk")
 
+    # Get version from `pubspec.yaml`
+    pubspec_version = File.open("../../pubspec.yaml", "r").read.match(/version: .*?(\d+\.\d+\.\d+)\+(\d+)/)[1]
+
     # Upload to GitHub Releases
     set_github_release(
       repository_name: "jokilic/moderni_alias",
       api_token: ENV["GITHUB_TOKEN"],
-      name: "Moderni Alias v4.1.7",
-      tag_name: "v4.1.7",
+      name: "Moderni Alias v#{pubspec_version}",
+      tag_name: "v#{pubspec_version}",
       description: (File.read("metadata/android/en-GB/changelogs/default.txt") rescue "No changelog provided"),
       commitish: "master",
       upload_assets: ["../build/app/outputs/flutter-apk/moderni_alias.apk"],
