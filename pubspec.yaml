@@ -8,7 +8,6 @@ version: 4.1.7+417
 # 1. `pubspec.yaml` -> Bump version number
 # 2. `release_notes.txt` -> Update changelog for all languages
 # 3. `default.txt` -> Update changelog for all languages
-# 4. `android/Fastfile` -> Update `name` & `tag_name` in GitHub lane
 #
 
 #
