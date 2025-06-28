@@ -6,6 +6,9 @@ import '../../../constants/durations.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
+import '../../../services/logger_service.dart';
+import '../../../util/dependencies.dart';
+import '../../../util/snackbars.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/scores/played_word_value.dart';
 
@@ -68,22 +71,31 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// Play / pause current `audioController`
   Future<void> toggleAudio() async {
-    switch (audioController?.playerState) {
-      case PlayerState.initialized:
-        await audioController?.startPlayer();
-        break;
-      case PlayerState.paused:
-        await audioController?.startPlayer();
-        break;
-      case PlayerState.playing:
-        await audioController?.pausePlayer();
-        break;
-      case PlayerState.stopped:
-        await audioController?.startPlayer();
-        break;
+    try {
+      switch (audioController?.playerState) {
+        case PlayerState.initialized:
+          await audioController?.startPlayer();
+          break;
+        case PlayerState.paused:
+          await audioController?.startPlayer();
+          break;
+        case PlayerState.playing:
+          await audioController?.pausePlayer();
+          break;
+        case PlayerState.stopped:
+          await audioController?.startPlayer();
+          break;
 
-      default:
-        await audioController?.startPlayer();
+        default:
+          await audioController?.startPlayer();
+      }
+    } catch (e) {
+      getIt.get<LoggerService>().e('$e');
+      showSnackbar(
+        context,
+        icon: ModerniAliasIcons.wrongImage,
+        text: '$e',
+      );
     }
   }
 
@@ -125,77 +137,77 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// Widgets which are shown when opening expansion tile
   List<Widget> buildExpansionTileChildren() => [
-        ///
-        /// WORDS
-        ///
-        ...List.generate(
-          widget.round.playedWords.length,
-          (index) {
-            final playedWord = widget.round.playedWords[index];
+    ///
+    /// WORDS
+    ///
+    ...List.generate(
+      widget.round.playedWords.length,
+      (index) {
+        final playedWord = widget.round.playedWords[index];
 
-            return PlayedWordValue(
-              word: playedWord.word,
-              chosenAnswer: playedWord.chosenAnswer,
-            );
-          },
-        ),
+        return PlayedWordValue(
+          word: playedWord.word,
+          chosenAnswer: playedWord.chosenAnswer,
+        );
+      },
+    ),
 
-        ///
-        /// AUDIO RECORDING
-        ///
-        if (audioController != null) ...[
-          const SizedBox(height: 12),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 36),
-            child: Row(
-              children: [
-                const SizedBox(width: 20),
-                AnimatedGestureDetector(
-                  onTap: widget.onSharePressed,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(100),
-                    onTap: () {},
-                    child: Image.asset(
-                      ModerniAliasIcons.share,
-                      color: ModerniAliasColors.white,
-                      height: 26,
-                      width: 26,
-                    ),
-                  ),
+    ///
+    /// AUDIO RECORDING
+    ///
+    if (audioController != null) ...[
+      const SizedBox(height: 12),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 36),
+        child: Row(
+          children: [
+            const SizedBox(width: 20),
+            AnimatedGestureDetector(
+              onTap: widget.onSharePressed,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(100),
+                onTap: () {},
+                child: Image.asset(
+                  ModerniAliasIcons.share,
+                  color: ModerniAliasColors.white,
+                  height: 26,
+                  width: 26,
                 ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: AudioFileWaveforms(
-                    playerController: audioController!,
-                    size: Size(MediaQuery.sizeOf(context).width, 48),
-                    continuousWaveform: false,
-                    playerWaveStyle: const PlayerWaveStyle(
-                      fixedWaveColor: ModerniAliasColors.white,
-                      liveWaveColor: ModerniAliasColors.white,
-                      scaleFactor: 144,
-                      showSeekLine: false,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                AnimatedGestureDetector(
-                  onTap: toggleAudio,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(100),
-                    onTap: () {},
-                    child: AnimatedIcon(
-                      icon: AnimatedIcons.play_pause,
-                      progress: animationController,
-                      color: ModerniAliasColors.white,
-                      size: 48,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
-      ];
+            const SizedBox(width: 20),
+            Expanded(
+              child: AudioFileWaveforms(
+                playerController: audioController!,
+                size: Size(MediaQuery.sizeOf(context).width, 48),
+                continuousWaveform: false,
+                playerWaveStyle: const PlayerWaveStyle(
+                  fixedWaveColor: ModerniAliasColors.white,
+                  liveWaveColor: ModerniAliasColors.white,
+                  scaleFactor: 144,
+                  showSeekLine: false,
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            AnimatedGestureDetector(
+              onTap: toggleAudio,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(100),
+                onTap: () {},
+                child: AnimatedIcon(
+                  icon: AnimatedIcons.play_pause,
+                  progress: animationController,
+                  color: ModerniAliasColors.white,
+                  size: 48,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  ];
 
   @override
   Widget build(BuildContext context) {

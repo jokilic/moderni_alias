@@ -98,16 +98,15 @@ class BaseGameController implements Disposable {
     required int lengthOfRound,
     required String background,
     required bool useDynamicBackgrounds,
-  }) =>
-      Timer(
-        Duration(seconds: lengthOfRound - chosenSeconds.round()),
-        () => useDynamicBackgrounds
-            ? backgroundImage.changeBackground(
-                background,
-                isTemporary: true,
-              )
-            : null,
-      );
+  }) => Timer(
+    Duration(seconds: lengthOfRound - chosenSeconds.round()),
+    () => useDynamicBackgrounds
+        ? backgroundImage.changeBackground(
+            background,
+            isTemporary: true,
+          )
+        : null,
+  );
 
   /// Starts the time countdown
   void startTimers(
@@ -173,8 +172,8 @@ class BaseGameController implements Disposable {
 
   /// Plays proper sound while pressing on the answers
   void playAnswerSound({required Answer chosenAnswer}) => playSound(
-        audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
-      );
+    audioPlayer: chosenAnswer == Answer.correct ? correctAudioPlayer : wrongAudioPlayer,
+  );
 
   /// Shows scores sheet and dismisses it after some time
   Future<void> showScoresSheet({
@@ -224,7 +223,6 @@ class BaseGameController implements Disposable {
         isTemporary: true,
       );
     }
-
     /// Show yellow background
     else if (percentageOfSolvedWords <= 0.4 && percentageOfSolvedWords > 0.15) {
       backgroundImage.changeBackground(
@@ -232,7 +230,6 @@ class BaseGameController implements Disposable {
         isTemporary: true,
       );
     }
-
     /// Show red background
     else if (percentageOfSolvedWords <= 0.15) {
       backgroundImage.changeBackground(
@@ -245,8 +242,12 @@ class BaseGameController implements Disposable {
   /// Generates proper `path` and starts audio recording
   Future<void> startAudioRecording({required String path}) async {
     if (audioRecord != null) {
-      final absolutePath = '${pathProvider.persistenceDirectory}/$path.m4a';
-      await audioRecord!.startRecording(absolutePath);
+      try {
+        final absolutePath = '${pathProvider.persistenceDirectory}/$path.m4a';
+        await audioRecord!.startRecording(absolutePath);
+      } catch (e) {
+        logger.e('Error in startAudioRecording()\n$e');
+      }
     }
   }
 

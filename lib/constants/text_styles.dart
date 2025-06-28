@@ -8,6 +8,12 @@ class ModerniAliasTextStyles {
     fontSize: 18,
     fontWeight: FontWeight.w700,
   );
+  static const snackbar = TextStyle(
+    color: ModerniAliasColors.white,
+    fontFamily: 'Sen',
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
   static const holdMeExitButton = TextStyle(
     color: ModerniAliasColors.white,
     fontFamily: 'Sen',
