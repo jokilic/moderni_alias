@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
@@ -15,6 +18,7 @@ import '../../services/logger_service.dart';
 import '../../util/dependencies.dart';
 import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
+import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/animated_list_view.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/flag_button.dart';
@@ -83,6 +87,26 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                 child: AnimatedColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 26),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: AnimatedGestureDetector(
+                        onTap: Navigator.of(context).pop,
+                        end: 0.8,
+                        child: IconButton(
+                          onPressed: null,
+                          icon: Transform.rotate(
+                            angle: pi,
+                            child: Image.asset(
+                              ModerniAliasIcons.arrowStatsImage,
+                              color: ModerniAliasColors.white,
+                              height: 26,
+                              width: 26,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     GameTitle('dictionaryString'.tr()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -111,14 +135,14 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                               (element) => createNumberOfTeamsButton(
                                 value: '$element',
                                 onTap: () => getIt.get<NormalGameSetupController>().updateState(
-                                      newTeams: List.generate(
-                                        element,
-                                        (_) => Team(
-                                          name: '',
-                                          textEditingController: TextEditingController(),
-                                        ),
-                                      ),
+                                  newTeams: List.generate(
+                                    element,
+                                    (_) => Team(
+                                      name: '',
+                                      textEditingController: TextEditingController(),
                                     ),
+                                  ),
+                                ),
                                 isActive: teams.length == element,
                               ),
                             )
@@ -129,14 +153,14 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                             title: 'teamsString'.tr(),
                             hintText: '${'numberBetweenString'.tr()} 2 - 10',
                             onValueSaved: (value) => getIt.get<NormalGameSetupController>().updateState(
-                                  newTeams: List.generate(
-                                    value,
-                                    (_) => Team(
-                                      name: '',
-                                      textEditingController: TextEditingController(),
-                                    ),
-                                  ),
+                              newTeams: List.generate(
+                                value,
+                                (_) => Team(
+                                  name: '',
+                                  textEditingController: TextEditingController(),
                                 ),
+                              ),
+                            ),
                             lowestNumber: 2,
                             highestNumber: 10,
                             backgroundImage: backgroundImage,
@@ -218,12 +242,12 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                               hintText: 'teamNameString'.tr(),
                               textInputAction: index == teams.length - 1 ? TextInputAction.done : TextInputAction.next,
                               onChanged: (value) => getIt.get<BaseGameSetupController>().onChangedTeamName(
-                                    passedTeam: team,
-                                    newName: value,
-                                  ),
+                                passedTeam: team,
+                                newName: value,
+                              ),
                               randomizePressed: () => getIt.get<BaseGameSetupController>().randomizeTeamName(
-                                    passedTeam: team,
-                                  ),
+                                passedTeam: team,
+                              ),
                             ),
                           );
                         },
@@ -250,8 +274,8 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                         onPressed: () {
                           /// Validate teams
                           final validationError = getIt.get<BaseGameSetupController>().validateTeams(
-                                teams: teams,
-                              );
+                            teams: teams,
+                          );
 
                           /// Validation successful, go to [NormalGameScreen]
                           if (validationError == null) {
@@ -262,12 +286,11 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                               lengthOfRound: lengthOfRound,
                             );
                           }
-
                           /// Validation not successful, show error
                           else {
                             getIt.get<NormalGameSetupController>().updateState(
-                                  newValidationMessage: validationError,
-                                );
+                              newValidationMessage: validationError,
+                            );
                           }
                         },
                       ),
