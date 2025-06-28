@@ -609,7 +609,6 @@ const List<String> imenice = [
   'rukomet',
   'ruksak',
   'ručnik',
-  'sada',
   'sadržaj',
   'saksofon',
   'salata',

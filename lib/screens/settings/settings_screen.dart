@@ -11,13 +11,14 @@ import '../../services/background_image_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/dependencies.dart';
+import '../../util/routing.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
+import '../../widgets/checkbox_tile_widget.dart';
 import '../../widgets/hero_title.dart';
 import 'settings_controller.dart';
 import 'widgets/settings_backgrounds.dart';
-import 'widgets/settings_checkbox_tile.dart';
 import 'widgets/settings_language.dart';
 
 class SettingsScreen extends WatchingStatefulWidget {
@@ -108,24 +109,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     const SizedBox(height: 56),
-                    SettingsCheckboxTile(
+                    CheckboxTileWidget(
                       onPressed: getIt.get<SettingsController>().useDynamicBackgroundsPressed,
                       title: 'settingsDynamicBackgroundsTitle'.tr(),
                       subtitle: 'settingsDynamicBackgroundsSubtitle'.tr(),
                       isActive: settings.useDynamicBackgrounds,
                     ),
                     const SizedBox(height: 16),
-                    SettingsCheckboxTile(
+                    CheckboxTileWidget(
                       onPressed: getIt.get<SettingsController>().useCircularTimerPressed,
                       title: 'settingsCircularTimerTitle'.tr(),
                       subtitle: 'settingsCircularTimerSubtitle'.tr(),
                       isActive: settings.useCircularTimer,
                     ),
                     const SizedBox(height: 16),
-                    SettingsCheckboxTile(
+                    CheckboxTileWidget(
                       onPressed: getIt.get<SettingsController>().openMicrophoneSettings,
                       title: 'settingsRecordingAudioTitle'.tr(),
                       subtitle: 'settingsRecordingAudioSubtitle'.tr(),
+                    ),
+                    const SizedBox(height: 16),
+                    CheckboxTileWidget(
+                      onPressed: () => openSettingsWords(context),
+                      title: 'settingsWordsTitle'.tr(),
+                      subtitle: 'settingsWordsSubtitle'.tr(),
                     ),
                     const SizedBox(height: 16),
                     SettingsLanguage(

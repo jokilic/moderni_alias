@@ -298,4 +298,10 @@ class ModerniAliasTextStyles {
     fontWeight: FontWeight.w700,
     height: 1.55,
   );
+  static const wordListTitle = TextStyle(
+    color: ModerniAliasColors.white,
+    fontFamily: 'Sen',
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+  );
 }
