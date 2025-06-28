@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const SizedBox(height: 8),
                     HeroTitle(smallText: 'settingsTitle'.tr()),
-                    const SizedBox(height: 64),
+                    const SizedBox(height: 48),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
@@ -103,9 +103,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       backgrounds: getIt.get<BackgroundImageService>().backgrounds,
                       activeBackground: activeBackground,
                       onPressed: (newBackground) => getIt.get<BackgroundImageService>().changeBackground(
-                            newBackground,
-                            isTemporary: false,
-                          ),
+                        newBackground,
+                        isTemporary: false,
+                      ),
                     ),
                     const SizedBox(height: 56),
                     SettingsCheckboxTile(
@@ -130,9 +130,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const SizedBox(height: 16),
                     SettingsLanguage(
                       onPressed: (flag) => getIt.get<SettingsController>().languagePressed(
-                            flag: flag,
-                            context: context,
-                          ),
+                        flag: flag,
+                        context: context,
+                      ),
                       title: 'settingsLanguageTitle'.tr(),
                       subtitle: 'settingsLanguageSubtitle'.tr(),
                     ),

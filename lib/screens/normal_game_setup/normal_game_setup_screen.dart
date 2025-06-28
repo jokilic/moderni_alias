@@ -29,6 +29,7 @@ import '../../widgets/game_setup/number_of_points.dart';
 import '../../widgets/game_setup/number_of_teams_button.dart';
 import '../../widgets/game_setup/show_custom_value_sheet.dart';
 import '../../widgets/game_title.dart';
+import '../../widgets/hero_title.dart';
 import '../../widgets/play_button.dart';
 import 'normal_game_setup_controller.dart';
 
@@ -107,6 +108,11 @@ class _NormalGameSetupScreenState extends State<NormalGameSetupScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    HeroTitle(
+                      smallText: 'startButtonString'.tr(),
+                    ),
+                    const SizedBox(height: 16),
                     GameTitle('dictionaryString'.tr()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

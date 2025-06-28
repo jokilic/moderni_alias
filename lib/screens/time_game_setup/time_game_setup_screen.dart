@@ -28,6 +28,7 @@ import '../../widgets/game_setup/number_of_teams_button.dart';
 import '../../widgets/game_setup/number_of_time_points.dart';
 import '../../widgets/game_setup/show_custom_value_sheet.dart';
 import '../../widgets/game_title.dart';
+import '../../widgets/hero_title.dart';
 import '../../widgets/play_button.dart';
 import 'time_game_setup_controller.dart';
 
@@ -105,6 +106,11 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    HeroTitle(
+                      smallText: 'timeStartButtonString'.tr(),
+                    ),
+                    const SizedBox(height: 16),
                     GameTitle('dictionaryString'.tr()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
