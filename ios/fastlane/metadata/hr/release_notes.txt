@@ -1,1 +1,4 @@
-* Testiranje nečega
+* Ažurirane riječi
+* Pokaži grešku ako snimka runde ne radi
+* Malo ažuriran UI
+* Mogućnost pregleda svih riječi korištenih u aplikaciji

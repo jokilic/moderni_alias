@@ -17,7 +17,7 @@ platform :android do
 
     # Upload to Play Store
     supply(
-      json_key: "/Users/josipkilic/Documents/fastlane-451713-01bb44a559be.json",
+      json_key: "/Users/josip_fastlane_android_key.json",
       aab: "../build/app/outputs/bundle/release/app-release.aab",
       track: "production",
       skip_upload_apk: true,

@@ -1,1 +1,4 @@
-* Testing something
+* Updated words
+* Show error if round recording doesn't work
+* Small UI update
+* See all words used in the app
