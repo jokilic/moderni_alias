@@ -1,7 +1,7 @@
 name: modernialias
 description: Ovo je moja Alias aplikacija.
 publish_to: 'none'
-version: 4.1.7+417
+version: 4.2.0+420
 
 #
 # DEPLOYING APP
@@ -22,7 +22,7 @@ version: 4.1.7+417
 #
 
 environment:
-  sdk: 3.8.0-91.0.dev
+  sdk: 3.8.1
 
 dependencies:
   flutter:

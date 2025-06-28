@@ -40,45 +40,46 @@ Future<void> main() async {
 class ModerniAliasApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => EasyLocalization(
-        useOnlyLangCode: true,
-        supportedLocales: const [
-          Locale('en'),
-          Locale('hr'),
-        ],
-        // startLocale: const Locale('hr'),
-        fallbackLocale: const Locale('hr'),
-        path: 'assets/translations',
-        child: ModerniAliasWidget(),
-      );
+    useOnlyLangCode: true,
+    supportedLocales: const [
+      Locale('en'),
+      Locale('hr'),
+    ],
+    // startLocale: const Locale('hr'),
+    fallbackLocale: const Locale('hr'),
+    path: 'assets/translations',
+    child: ModerniAliasWidget(),
+  );
 }
 
 class ModerniAliasWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        debugShowCheckedModeBanner: false,
-        onGenerateTitle: (_) => 'appNameString'.tr(),
-        theme: theme,
-        home: HomeScreen(),
-        builder: (context, child) {
-          /// Generate `appWidget`, with [Moderni Alias] content
-          final appWidget = child ??
-              const Scaffold(
-                body: SizedBox.shrink(),
-              );
+    localizationsDelegates: context.localizationDelegates,
+    supportedLocales: context.supportedLocales,
+    locale: context.locale,
+    debugShowCheckedModeBanner: false,
+    onGenerateTitle: (_) => 'appNameString'.tr(),
+    theme: theme,
+    home: HomeScreen(),
+    builder: (context, child) {
+      /// Generate `appWidget`, with [Moderni Alias] content
+      final appWidget =
+          child ??
+          const Scaffold(
+            body: SizedBox.shrink(),
+          );
 
-          /// Return `appWidget`, also [Banner] if app is `debug`
-          return kDebugMode
-              ? Banner(
-                  message: 'Josip'.toUpperCase(),
-                  color: ModerniAliasColors.blue,
-                  location: BannerLocation.topEnd,
-                  layoutDirection: TextDirection.ltr,
-                  child: appWidget,
-                )
-              : appWidget;
-        },
-      );
+      /// Return `appWidget`, also [Banner] if app is `debug`
+      return kDebugMode
+          ? Banner(
+              message: 'Josip'.toUpperCase(),
+              color: ModerniAliasColors.blue,
+              location: BannerLocation.topEnd,
+              layoutDirection: TextDirection.ltr,
+              child: appWidget,
+            )
+          : appWidget;
+    },
+  );
 }

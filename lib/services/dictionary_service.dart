@@ -63,7 +63,8 @@ class DictionaryService extends ValueNotifier<Flag> {
     usedEnglishWords = Set.from(usedWords.englishWords);
 
     /// Initialize `currentDictionary` excluding used words
-    currentDictionary = [...croatianDictionary]..removeWhere(
+    currentDictionary = [...croatianDictionary]
+      ..removeWhere(
         (word) => usedCroatianWords.contains(word),
       );
   }

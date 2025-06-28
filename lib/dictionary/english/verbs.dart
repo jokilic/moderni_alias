@@ -631,5 +631,5 @@ const List<String> verbs = [
   'yawn',
   'yell',
   'zip',
-  'zoom,'
+  'zoom,',
 ];

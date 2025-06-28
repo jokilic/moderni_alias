@@ -1,9 +1,12 @@
 analyzer:
-
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "**/l10n/**"
+
+formatter:
+  page_width: 180
+  trailing_commas: preserve
 
 linter:
   rules:
