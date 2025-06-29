@@ -1,12 +1,9 @@
 // ignore_for_file: use_setters_to_change_properties
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:timeago/timeago.dart';
 
-import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../models/normal_game_stats/normal_game_stats.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
@@ -14,7 +11,7 @@ import '../../models/time_game_stats/time_game_stats.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 
-class StatsController extends ValueNotifier<int?> implements Disposable {
+class StatsController extends ValueNotifier<int?> {
   final LoggerService logger;
   final HiveService hive;
 
@@ -35,8 +32,6 @@ class StatsController extends ValueNotifier<int?> implements Disposable {
   var totalTimeGames = 0;
   var totalQuickGames = 0;
   var totalGames = 0;
-
-  late PageController pageController;
 
   var totalCorrectAnswersNormalGames = 0;
   var totalCorrectAnswersTimeGames = 0;
@@ -60,8 +55,6 @@ class StatsController extends ValueNotifier<int?> implements Disposable {
   ///
 
   void init() {
-    pageController = PageController();
-
     /// Date formatting
     initializeDateFormatting('en');
     initializeDateFormatting('hr');
@@ -77,15 +70,6 @@ class StatsController extends ValueNotifier<int?> implements Disposable {
 
     /// Calculate stats
     calculateValues();
-  }
-
-  ///
-  /// DISPOSE
-  ///
-
-  @override
-  void onDispose() {
-    pageController.dispose();
   }
 
   ///
@@ -133,7 +117,8 @@ class StatsController extends ValueNotifier<int?> implements Disposable {
     if (totalGames != 0) {
       totalAverageCorrectAnswers = (totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) ~/ totalGames;
       totalAverageWrongAnswers = (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames + totalWrongAnswersTimeGames) ~/ totalGames;
-      totalAverageAnswers = ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) +
+      totalAverageAnswers =
+          ((totalCorrectAnswersNormalGames + totalCorrectAnswersQuickGames + totalCorrectAnswersTimeGames) +
               (totalWrongAnswersNormalGames + totalWrongAnswersQuickGames + totalWrongAnswersTimeGames)) ~/
           totalGames;
     }
@@ -145,19 +130,6 @@ class StatsController extends ValueNotifier<int?> implements Disposable {
       value = null;
     } else {
       value = newIndex;
-
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => pageController.animateToPage(
-          value ?? 4,
-          duration: ModerniAliasDurations.animation,
-          curve: Curves.easeIn,
-        ),
-      );
     }
-  }
-
-  /// Triggered when [PageView] page is changed (swiping)
-  void pageChanged(int newIndex) {
-    value = newIndex;
   }
 }

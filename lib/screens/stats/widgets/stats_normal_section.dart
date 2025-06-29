@@ -19,8 +19,8 @@ class StatsNormalSection extends StatelessWidget {
     final now = DateTime.now();
     final sortedGames = List<NormalGameStats>.from(normalGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ///
         /// NORMAL GAMES

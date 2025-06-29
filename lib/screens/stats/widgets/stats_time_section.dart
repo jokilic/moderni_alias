@@ -19,8 +19,8 @@ class StatsTimeSection extends StatelessWidget {
     final now = DateTime.now();
     final sortedGames = List<TimeGameStats>.from(timeGameStats)..sort((a, b) => a.startTime.difference(now).abs().compareTo(b.startTime.difference(now).abs()));
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ///
         /// TIME GAMES

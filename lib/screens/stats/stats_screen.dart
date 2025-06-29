@@ -54,10 +54,9 @@ class _StatsScreenState extends State<StatsScreen> {
         children: [
           const BackgroundImage(),
           SafeArea(
-            child: SizedBox(
-              height: double.infinity,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 26),
@@ -85,45 +84,38 @@ class _StatsScreenState extends State<StatsScreen> {
                   const SizedBox(height: 40),
                   StatsSegmentedWidget(
                     currentIndex: currentIndex,
-                    segmentedValuePressed: (value) => getIt.get<StatsController>().segmentedValuePressed(value),
+                    segmentedValuePressed: getIt.get<StatsController>().segmentedValuePressed,
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: AnimatedSwitcher(
-                      duration: ModerniAliasDurations.animation,
-                      switchInCurve: Curves.easeIn,
-                      switchOutCurve: Curves.easeIn,
-                      child: currentIndex != null
-                          ? PageView(
-                              controller: getIt.get<StatsController>().pageController,
-                              onPageChanged: getIt.get<StatsController>().pageChanged,
-                              children: [
-                                StatsNormalSection(
-                                  normalGameStats: getIt.get<StatsController>().normalGameStats,
-                                ),
-                                StatsTimeSection(
-                                  timeGameStats: getIt.get<StatsController>().timeGameStats,
-                                ),
-                                StatsQuickSection(
-                                  quickGameStats: getIt.get<StatsController>().quickGameStats,
-                                ),
-                              ],
-                            )
-                          : StatsGeneralSection(
-                              totalNormalGames: getIt.get<StatsController>().totalNormalGames,
-                              totalTimeGames: getIt.get<StatsController>().totalTimeGames,
-                              totalQuickGames: getIt.get<StatsController>().totalQuickGames,
-                              totalCorrectAnswersNormalGames: getIt.get<StatsController>().totalCorrectAnswersNormalGames,
-                              totalCorrectAnswersTimeGames: getIt.get<StatsController>().totalCorrectAnswersTimeGames,
-                              totalCorrectAnswersQuickGames: getIt.get<StatsController>().totalCorrectAnswersQuickGames,
-                              totalWrongAnswersNormalGames: getIt.get<StatsController>().totalWrongAnswersNormalGames,
-                              totalWrongAnswersTimeGames: getIt.get<StatsController>().totalWrongAnswersTimeGames,
-                              totalWrongAnswersQuickGames: getIt.get<StatsController>().totalWrongAnswersQuickGames,
-                              totalAverageCorrectAnswers: getIt.get<StatsController>().totalAverageCorrectAnswers,
-                              totalAverageWrongAnswers: getIt.get<StatsController>().totalAverageWrongAnswers,
-                              totalAverageAnswers: getIt.get<StatsController>().totalAverageAnswers,
-                            ),
-                    ),
+                  AnimatedSwitcher(
+                    duration: ModerniAliasDurations.animation,
+                    switchInCurve: Curves.easeIn,
+                    switchOutCurve: Curves.easeIn,
+                    child: switch (currentIndex) {
+                      0 => StatsNormalSection(
+                        normalGameStats: getIt.get<StatsController>().normalGameStats,
+                      ),
+                      1 => StatsTimeSection(
+                        timeGameStats: getIt.get<StatsController>().timeGameStats,
+                      ),
+                      2 => StatsQuickSection(
+                        quickGameStats: getIt.get<StatsController>().quickGameStats,
+                      ),
+                      _ => StatsGeneralSection(
+                        totalNormalGames: getIt.get<StatsController>().totalNormalGames,
+                        totalTimeGames: getIt.get<StatsController>().totalTimeGames,
+                        totalQuickGames: getIt.get<StatsController>().totalQuickGames,
+                        totalCorrectAnswersNormalGames: getIt.get<StatsController>().totalCorrectAnswersNormalGames,
+                        totalCorrectAnswersTimeGames: getIt.get<StatsController>().totalCorrectAnswersTimeGames,
+                        totalCorrectAnswersQuickGames: getIt.get<StatsController>().totalCorrectAnswersQuickGames,
+                        totalWrongAnswersNormalGames: getIt.get<StatsController>().totalWrongAnswersNormalGames,
+                        totalWrongAnswersTimeGames: getIt.get<StatsController>().totalWrongAnswersTimeGames,
+                        totalWrongAnswersQuickGames: getIt.get<StatsController>().totalWrongAnswersQuickGames,
+                        totalAverageCorrectAnswers: getIt.get<StatsController>().totalAverageCorrectAnswers,
+                        totalAverageWrongAnswers: getIt.get<StatsController>().totalAverageWrongAnswers,
+                        totalAverageAnswers: getIt.get<StatsController>().totalAverageAnswers,
+                      ),
+                    },
                   ),
                 ],
               ),
