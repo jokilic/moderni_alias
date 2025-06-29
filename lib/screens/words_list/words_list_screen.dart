@@ -26,36 +26,47 @@ class WordsListScreen extends StatelessWidget {
       children: [
         const BackgroundImage(),
         SafeArea(
-          child: SizedBox(
-            height: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 26),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: AnimatedGestureDetector(
-                    onTap: Navigator.of(context).pop,
-                    end: 0.8,
-                    child: IconButton(
-                      onPressed: null,
-                      icon: Transform.rotate(
-                        angle: pi,
-                        child: Image.asset(
-                          ModerniAliasIcons.arrowStatsImage,
-                          color: ModerniAliasColors.white,
-                          height: 26,
-                          width: 26,
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 26),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                sliver: SliverToBoxAdapter(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: AnimatedGestureDetector(
+                      onTap: Navigator.of(context).pop,
+                      end: 0.8,
+                      child: IconButton(
+                        onPressed: null,
+                        icon: Transform.rotate(
+                          angle: pi,
+                          child: Image.asset(
+                            ModerniAliasIcons.arrowStatsImage,
+                            color: ModerniAliasColors.white,
+                            height: 26,
+                            width: 26,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                HeroTitle(smallText: title),
-                const SizedBox(height: 32),
-                GameTitle(
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 8),
+              ),
+              SliverToBoxAdapter(
+                child: HeroTitle(smallText: title),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 32),
+              ),
+              SliverToBoxAdapter(
+                child: GameTitle(
                   'wordsListNumberOfWords'.tr(
                     namedArgs: {
                       'number': '${words.length}',
@@ -63,22 +74,23 @@ class WordsListScreen extends StatelessWidget {
                   ),
                   smallTitle: true,
                 ),
-                const SizedBox(height: 12),
-                Expanded(
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    itemCount: words.length,
-                    itemBuilder: (_, index) => ListTile(
-                      title: Text(
-                        words[index],
-                        style: ModerniAliasTextStyles.wordListTitle,
-                      ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 12),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                sliver: SliverList.builder(
+                  itemCount: words.length,
+                  itemBuilder: (_, index) => ListTile(
+                    title: Text(
+                      words[index],
+                      style: ModerniAliasTextStyles.wordListTitle,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],
