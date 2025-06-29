@@ -1,4 +1,2 @@
-* Updated words
-* Show error if round recording doesn't work
-* Small UI update
-* See all words used in the app
+* StatsScreen & WordsListScreen fully scrollable
+* Confetti not in SafeArea
