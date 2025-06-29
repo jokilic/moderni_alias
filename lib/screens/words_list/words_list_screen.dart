@@ -82,10 +82,13 @@ class WordsListScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 sliver: SliverList.builder(
                   itemCount: words.length,
-                  itemBuilder: (_, index) => ListTile(
-                    title: Text(
-                      words[index],
-                      style: ModerniAliasTextStyles.wordListTitle,
+                  itemBuilder: (_, index) => AnimatedGestureDetector(
+                    onTap: () {},
+                    child: ListTile(
+                      title: Text(
+                        words[index],
+                        style: ModerniAliasTextStyles.wordListTitle,
+                      ),
                     ),
                   ),
                 ),
