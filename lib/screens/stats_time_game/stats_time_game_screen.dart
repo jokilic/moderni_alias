@@ -27,30 +27,39 @@ class StatsTimeGameScreen extends StatelessWidget {
   });
 
   /// Shares `JSON` with game information
-  void shareGame() => Share.shareXFiles(
-        [
-          XFile.fromData(
-            utf8.encode(
-              const JsonEncoder.withIndent('  ').convert(
-                timeGameStats.toMap(),
-              ),
+  void shareGame() => SharePlus.instance.share(
+    ShareParams(
+      files: [
+        XFile.fromData(
+          utf8.encode(
+            const JsonEncoder.withIndent('  ').convert(
+              timeGameStats.toMap(),
             ),
-            mimeType: 'application/json',
           ),
-        ],
-        fileNameOverrides: [
-          'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}.json',
-        ],
-      );
+          mimeType: 'application/json',
+        ),
+      ],
+      fileNameOverrides: [
+        'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}.json',
+      ],
+    ),
+  );
 
   /// Shares `audio` of selected round
   void shareRoundAudio({required Round round}) {
     if (round.audioRecording != null) {
       final name = 'moderni_alias_time_game_${timeGameStats.startTime.millisecondsSinceEpoch}_audio_${timeGameStats.rounds.indexOf(round) + 1}.m4a';
 
-      Share.shareXFiles(
-        [XFile(round.audioRecording!, name: name)],
-        fileNameOverrides: [name],
+      SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile(
+              round.audioRecording!,
+              name: name,
+            ),
+          ],
+          fileNameOverrides: [name],
+        ),
       );
     }
   }
@@ -59,8 +68,7 @@ class StatsTimeGameScreen extends StatelessWidget {
   bool calculateRoundFastest({
     required Round passedRound,
     required Round fastestRound,
-  }) =>
-      (passedRound.durationSeconds ?? 0) <= (fastestRound.durationSeconds ?? 0);
+  }) => (passedRound.durationSeconds ?? 0) <= (fastestRound.durationSeconds ?? 0);
 
   @override
   Widget build(BuildContext context) {

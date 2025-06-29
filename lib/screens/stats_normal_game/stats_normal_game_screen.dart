@@ -28,30 +28,39 @@ class StatsNormalGameScreen extends StatelessWidget {
   });
 
   /// Shares `JSON` with game information
-  void shareGame() => Share.shareXFiles(
-        [
-          XFile.fromData(
-            utf8.encode(
-              const JsonEncoder.withIndent('  ').convert(
-                normalGameStats.toMap(),
-              ),
+  void shareGame() => SharePlus.instance.share(
+    ShareParams(
+      files: [
+        XFile.fromData(
+          utf8.encode(
+            const JsonEncoder.withIndent('  ').convert(
+              normalGameStats.toMap(),
             ),
-            mimeType: 'application/json',
           ),
-        ],
-        fileNameOverrides: [
-          'moderni_alias_normal_game_${normalGameStats.startTime.millisecondsSinceEpoch}.json',
-        ],
-      );
+          mimeType: 'application/json',
+        ),
+      ],
+      fileNameOverrides: [
+        'moderni_alias_normal_game_${normalGameStats.startTime.millisecondsSinceEpoch}.json',
+      ],
+    ),
+  );
 
   /// Shares `audio` of selected round
   void shareRoundAudio({required Round round}) {
     if (round.audioRecording != null) {
       final name = 'moderni_alias_normal_game_${normalGameStats.startTime.millisecondsSinceEpoch}_audio_${normalGameStats.rounds.indexOf(round) + 1}.m4a';
 
-      Share.shareXFiles(
-        [XFile(round.audioRecording!, name: name)],
-        fileNameOverrides: [name],
+      SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile(
+              round.audioRecording!,
+              name: name,
+            ),
+          ],
+          fileNameOverrides: [name],
+        ),
       );
     }
   }

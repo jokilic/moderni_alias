@@ -28,30 +28,39 @@ class StatsQuickGameScreen extends StatelessWidget {
   });
 
   /// Shares `JSON` with game information
-  void shareGame() => Share.shareXFiles(
-        [
-          XFile.fromData(
-            utf8.encode(
-              const JsonEncoder.withIndent('  ').convert(
-                quickGameStats.toMap(),
-              ),
+  void shareGame() => SharePlus.instance.share(
+    ShareParams(
+      files: [
+        XFile.fromData(
+          utf8.encode(
+            const JsonEncoder.withIndent('  ').convert(
+              quickGameStats.toMap(),
             ),
-            mimeType: 'application/json',
           ),
-        ],
-        fileNameOverrides: [
-          'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}.json',
-        ],
-      );
+          mimeType: 'application/json',
+        ),
+      ],
+      fileNameOverrides: [
+        'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}.json',
+      ],
+    ),
+  );
 
   /// Shares `audio` of selected round
   void shareRoundAudio({required Round round}) {
     if (round.audioRecording != null) {
       final name = 'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}_audio.m4a';
 
-      Share.shareXFiles(
-        [XFile(round.audioRecording!, name: name)],
-        fileNameOverrides: [name],
+      SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile(
+              round.audioRecording!,
+              name: name,
+            ),
+          ],
+          fileNameOverrides: [name],
+        ),
       );
     }
   }
@@ -195,7 +204,6 @@ class StatsQuickGameScreen extends StatelessWidget {
                         );
                       },
                     )
-
                   ///
                   /// WORDS & AUDIO RECORDING
                   ///
