@@ -94,33 +94,33 @@ class TimeGameFinishedScreen extends StatelessWidget {
         body: Stack(
           children: [
             const BackgroundImage(),
-            SafeArea(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  ///
-                  /// CONFETTI
-                  ///
-                  const Confetti(),
-                  Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.rotationX(pi),
-                    child: const Confetti(
-                      waitDuration: ModerniAliasDurations.slowAnimation,
-                    ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ///
+                /// CONFETTI
+                ///
+                const Confetti(),
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationX(pi),
+                  child: const Confetti(
+                    waitDuration: ModerniAliasDurations.slowAnimation,
                   ),
-                  Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.rotationY(pi),
-                    child: const Confetti(
-                      waitDuration: ModerniAliasDurations.verySlowAnimation,
-                    ),
+                ),
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: const Confetti(
+                    waitDuration: ModerniAliasDurations.verySlowAnimation,
                   ),
+                ),
 
-                  ///
-                  /// MAIN CONTENT
-                  ///
-                  Center(
+                ///
+                /// MAIN CONTENT
+                ///
+                SafeArea(
+                  child: Center(
                     child: SizedBox(
                       height: size.height,
                       width: size.width * 0.8,
@@ -171,13 +171,15 @@ class TimeGameFinishedScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
 
-                  ///
-                  /// SHOW SCORES
-                  ///
-                  Positioned(
-                    top: 24,
-                    right: 12,
+                ///
+                /// SHOW SCORES
+                ///
+                Positioned(
+                  top: 24,
+                  right: 12,
+                  child: SafeArea(
                     child: AnimatedGestureDetector(
                       onTap: () => showTimeScores(
                         context,
@@ -196,8 +198,8 @@ class TimeGameFinishedScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

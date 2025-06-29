@@ -50,6 +50,7 @@ class _ConfettiState extends State<Confetti> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) => controller != null
       ? RiveAnimation.asset(
+          fit: BoxFit.cover,
           ModerniAliasAnimations.confetti,
           controllers: [controller!],
           onInit: (_) => setState(() {}),
