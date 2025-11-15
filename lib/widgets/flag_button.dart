@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
 import '../constants/enums.dart';
@@ -24,43 +23,40 @@ class FlagButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(
-          top: 24,
-          bottom: 16,
-        ),
-        child: AnimatedGestureDetector(
-          onTap: onTap,
-          child: InkWell(
-            onTap: () {},
-            child: AnimatedColumn(
+    padding: const EdgeInsets.only(
+      top: 24,
+      bottom: 16,
+    ),
+    child: AnimatedGestureDetector(
+      onTap: onTap,
+      child: InkWell(
+        onTap: () {},
+        child: AnimatedColumn(
+          children: [
+            Stack(
+              alignment: Alignment.center,
               children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      color: backgroundColor,
-                      height: 75,
-                      width: 80,
-                    ),
-                    SvgPicture.asset(
-                      flagImage,
-                      width: 90,
-                      colorFilter: ColorFilter.mode(
-                        color,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ],
+                Container(
+                  color: backgroundColor,
+                  height: 75,
+                  width: 80,
                 ),
-                Text(
-                  countryName,
-                  style: ModerniAliasTextStyles.flagName,
+                Image.asset(
+                  flagImage,
+                  width: 90,
+                  color: color,
                 ),
               ],
             ),
-          ),
+            Text(
+              countryName,
+              style: ModerniAliasTextStyles.flagName,
+            ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 }
 
 Widget createFlagButton({
@@ -69,11 +65,10 @@ Widget createFlagButton({
   required String flagImage,
   required Function() onTap,
   required bool isActive,
-}) =>
-    FlagButton(
-      countryName: countryName,
-      backgroundColor: isActive ? ModerniAliasColors.white : Colors.transparent,
-      color: isActive ? ModerniAliasColors.darkBlue : ModerniAliasColors.white,
-      flagImage: flagImage,
-      onTap: onTap,
-    );
+}) => FlagButton(
+  countryName: countryName,
+  backgroundColor: isActive ? ModerniAliasColors.white : Colors.transparent,
+  color: isActive ? ModerniAliasColors.darkBlue : ModerniAliasColors.white,
+  flagImage: flagImage,
+  onTap: onTap,
+);

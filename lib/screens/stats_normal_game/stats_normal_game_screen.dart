@@ -99,7 +99,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                             icon: Transform.rotate(
                               angle: pi,
                               child: Image.asset(
-                                ModerniAliasIcons.arrowStatsImage,
+                                ModerniAliasIcons.arrowStats,
                                 color: ModerniAliasColors.white,
                                 height: 26,
                                 width: 26,
@@ -161,7 +161,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                         'textTime': textTime,
                       },
                     ),
-                    icon: ModerniAliasIcons.clockImage,
+                    icon: ModerniAliasIcons.clock,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(
@@ -175,7 +175,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                         'language': language,
                       },
                     ),
-                    icon: normalGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
+                    icon: normalGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
                     size: 58,
                   ),
                   const SizedBox(height: 16),
@@ -190,7 +190,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                         'lengthOfRound': '${normalGameStats.lengthOfRound}',
                       },
                     ),
-                    icon: ModerniAliasIcons.hourglassImage,
+                    icon: ModerniAliasIcons.hourglass,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(
@@ -204,7 +204,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                         'pointsToWin': '${normalGameStats.pointsToWin}',
                       },
                     ),
-                    icon: ModerniAliasIcons.pointsImage,
+                    icon: ModerniAliasIcons.points,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(

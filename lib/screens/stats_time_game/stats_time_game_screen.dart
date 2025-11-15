@@ -104,7 +104,7 @@ class StatsTimeGameScreen extends StatelessWidget {
                             icon: Transform.rotate(
                               angle: pi,
                               child: Image.asset(
-                                ModerniAliasIcons.arrowStatsImage,
+                                ModerniAliasIcons.arrowStats,
                                 color: ModerniAliasColors.white,
                                 height: 26,
                                 width: 26,
@@ -174,7 +174,7 @@ class StatsTimeGameScreen extends StatelessWidget {
                         'textTime': textTime,
                       },
                     ),
-                    icon: ModerniAliasIcons.clockImage,
+                    icon: ModerniAliasIcons.clock,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(
@@ -188,7 +188,7 @@ class StatsTimeGameScreen extends StatelessWidget {
                         'language': language,
                       },
                     ),
-                    icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
+                    icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
                     size: 58,
                   ),
                   const SizedBox(height: 16),
@@ -203,7 +203,7 @@ class StatsTimeGameScreen extends StatelessWidget {
                         'lengthOfWords': '${timeGameStats.numberOfWords}',
                       },
                     ),
-                    icon: ModerniAliasIcons.pointsImage,
+                    icon: ModerniAliasIcons.points,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(

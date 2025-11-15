@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
 import '../constants/text_styles.dart';
@@ -19,7 +18,7 @@ void showSnackbar(
           const SizedBox(width: 4),
           ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: SvgPicture.asset(
+            child: Image.asset(
               icon,
               height: 28,
               width: 28,

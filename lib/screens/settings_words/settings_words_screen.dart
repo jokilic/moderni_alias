@@ -44,7 +44,7 @@ class SettingsWordsScreen extends StatelessWidget {
                         icon: Transform.rotate(
                           angle: pi,
                           child: Image.asset(
-                            ModerniAliasIcons.arrowStatsImage,
+                            ModerniAliasIcons.arrowStats,
                             color: ModerniAliasColors.white,
                             height: 26,
                             width: 26,

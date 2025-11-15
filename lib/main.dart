@@ -7,6 +7,7 @@ import 'constants/colors.dart';
 import 'screens/home/home_screen.dart';
 import 'theme.dart';
 import 'util/dependencies.dart';
+import 'util/display_mode.dart';
 
 Future<void> main() async {
   /// Initialize Flutter related tasks
@@ -21,6 +22,12 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.light,
   );
+
+  /// Use `edge-to-edge` display
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+  /// Set refresh rate to high
+  await setDisplayMode();
 
   /// Initialize [EasyLocalization]
   await EasyLocalization.ensureInitialized();

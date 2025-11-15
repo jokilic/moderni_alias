@@ -97,7 +97,7 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
                           icon: Transform.rotate(
                             angle: pi,
                             child: Image.asset(
-                              ModerniAliasIcons.arrowStatsImage,
+                              ModerniAliasIcons.arrowStats,
                               color: ModerniAliasColors.white,
                               height: 26,
                               width: 26,
@@ -117,14 +117,14 @@ class _TimeGameSetupScreenState extends State<TimeGameSetupScreen> {
                       children: [
                         createFlagButton(
                           countryName: 'dictionaryCroatianString'.tr(),
-                          flagImage: ModerniAliasIcons.croatiaImage,
+                          flagImage: ModerniAliasIcons.croatia,
                           selectedCountry: Flag.croatia,
                           onTap: () => getIt.get<DictionaryService>().updateActiveDictionary(newLanguage: Flag.croatia),
                           isActive: chosenDictionary == Flag.croatia,
                         ),
                         createFlagButton(
                           countryName: 'dictionaryEnglishString'.tr(),
-                          flagImage: ModerniAliasIcons.unitedKingdomImage,
+                          flagImage: ModerniAliasIcons.unitedKingdom,
                           selectedCountry: Flag.unitedKingdom,
                           onTap: () => getIt.get<DictionaryService>().updateActiveDictionary(newLanguage: Flag.unitedKingdom),
                           isActive: chosenDictionary == Flag.unitedKingdom,

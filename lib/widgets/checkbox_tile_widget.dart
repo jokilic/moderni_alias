@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/colors.dart';
 import '../constants/durations.dart';
@@ -52,12 +51,9 @@ class CheckboxTileWidget extends StatelessWidget {
                 opacity: isActive! ? 1 : 0,
                 duration: ModerniAliasDurations.fastAnimation,
                 curve: Curves.easeIn,
-                child: SvgPicture.asset(
-                  ModerniAliasIcons.correctImage,
-                  colorFilter: const ColorFilter.mode(
-                    ModerniAliasColors.darkBlue,
-                    BlendMode.srcIn,
-                  ),
+                child: Image.asset(
+                  ModerniAliasIcons.correct,
+                  color: ModerniAliasColors.darkBlue,
                 ),
               ),
             )
@@ -66,7 +62,7 @@ class CheckboxTileWidget extends StatelessWidget {
               height: 44,
               width: 44,
               child: Image.asset(
-                ModerniAliasIcons.arrowSettingsImage,
+                ModerniAliasIcons.arrowSettings,
                 color: ModerniAliasColors.white,
                 height: 40,
                 width: 40,

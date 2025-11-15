@@ -93,7 +93,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
       getIt.get<LoggerService>().e('$e');
       showSnackbar(
         context,
-        icon: ModerniAliasIcons.wrongImage,
+        icon: ModerniAliasIcons.wrong,
         text: '$e',
       );
     }
@@ -276,7 +276,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         duration: ModerniAliasDurations.fastAnimation,
         curve: Curves.easeIn,
         child: Image.asset(
-          ModerniAliasIcons.arrowStatsImage,
+          ModerniAliasIcons.arrowStats,
           color: ModerniAliasColors.white,
           height: 26,
           width: 26,

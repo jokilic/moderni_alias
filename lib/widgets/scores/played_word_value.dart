@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/enums.dart';
@@ -22,28 +21,25 @@ class PlayedWordValue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: padding,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                word,
-                style: ModerniAliasTextStyles.highscore,
-              ),
-            ),
-            const SizedBox(width: 16),
-            SvgPicture.asset(
-              chosenAnswer == Answer.correct ? ModerniAliasIcons.correctImage : ModerniAliasIcons.wrongImage,
-              colorFilter: const ColorFilter.mode(
-                ModerniAliasColors.white,
-                BlendMode.srcIn,
-              ),
-              width: 24,
-              height: 24,
-            ),
-          ],
+    padding: padding,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            word,
+            style: ModerniAliasTextStyles.highscore,
+          ),
         ),
-      );
+        const SizedBox(width: 16),
+        Image.asset(
+          chosenAnswer == Answer.correct ? ModerniAliasIcons.correct : ModerniAliasIcons.wrong,
+          color: ModerniAliasColors.white,
+          width: 24,
+          height: 24,
+        ),
+      ],
+    ),
+  );
 }

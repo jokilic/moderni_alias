@@ -14,22 +14,22 @@ class WrongCorrectButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GameButton(
-            svgIconPath: ModerniAliasIcons.wrongImage,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24),
-            ),
-            onTap: wrongChosen,
-          ),
-          GameButton(
-            svgIconPath: ModerniAliasIcons.correctImage,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(24),
-            ),
-            onTap: correctChosen,
-          ),
-        ],
-      );
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      GameButton(
+        iconPath: ModerniAliasIcons.wrong,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+        ),
+        onTap: wrongChosen,
+      ),
+      GameButton(
+        iconPath: ModerniAliasIcons.correct,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(24),
+        ),
+        onTap: correctChosen,
+      ),
+    ],
+  );
 }

@@ -98,7 +98,7 @@ class StatsQuickGameScreen extends StatelessWidget {
                             icon: Transform.rotate(
                               angle: pi,
                               child: Image.asset(
-                                ModerniAliasIcons.arrowStatsImage,
+                                ModerniAliasIcons.arrowStats,
                                 color: ModerniAliasColors.white,
                                 height: 26,
                                 width: 26,
@@ -138,7 +138,7 @@ class StatsQuickGameScreen extends StatelessWidget {
                         'textTime': textTime,
                       },
                     ),
-                    icon: ModerniAliasIcons.clockImage,
+                    icon: ModerniAliasIcons.clock,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(
@@ -152,7 +152,7 @@ class StatsQuickGameScreen extends StatelessWidget {
                         'language': language,
                       },
                     ),
-                    icon: quickGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaImageColor : ModerniAliasIcons.unitedKingdomImageColor,
+                    icon: quickGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
                     size: 58,
                   ),
                   const SizedBox(height: 16),
@@ -163,7 +163,7 @@ class StatsQuickGameScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   StatsTextIconWidget(
                     text: 'statsLengthOfRoundQuickText'.tr(),
-                    icon: ModerniAliasIcons.hourglassImage,
+                    icon: ModerniAliasIcons.hourglass,
                   ),
                   const SizedBox(height: 16),
                   GameTitle(

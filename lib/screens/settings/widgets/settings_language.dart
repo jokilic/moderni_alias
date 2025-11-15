@@ -19,38 +19,38 @@ class SettingsLanguage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: ModerniAliasTextStyles.settingsTitle,
+        ),
+        Text(
+          subtitle,
+          style: ModerniAliasTextStyles.settingsSubtitle,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              title,
-              style: ModerniAliasTextStyles.settingsTitle,
+            createFlagButton(
+              countryName: 'dictionaryCroatianString'.tr(),
+              flagImage: ModerniAliasIcons.croatia,
+              selectedCountry: Flag.croatia,
+              onTap: () => onPressed(Flag.croatia),
+              isActive: context.locale == const Locale('hr'),
             ),
-            Text(
-              subtitle,
-              style: ModerniAliasTextStyles.settingsSubtitle,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                createFlagButton(
-                  countryName: 'dictionaryCroatianString'.tr(),
-                  flagImage: ModerniAliasIcons.croatiaImage,
-                  selectedCountry: Flag.croatia,
-                  onTap: () => onPressed(Flag.croatia),
-                  isActive: context.locale == const Locale('hr'),
-                ),
-                createFlagButton(
-                  countryName: 'dictionaryEnglishString'.tr(),
-                  flagImage: ModerniAliasIcons.unitedKingdomImage,
-                  selectedCountry: Flag.unitedKingdom,
-                  onTap: () => onPressed(Flag.unitedKingdom),
-                  isActive: context.locale == const Locale('en'),
-                ),
-              ],
+            createFlagButton(
+              countryName: 'dictionaryEnglishString'.tr(),
+              flagImage: ModerniAliasIcons.unitedKingdom,
+              selectedCountry: Flag.unitedKingdom,
+              onTap: () => onPressed(Flag.unitedKingdom),
+              isActive: context.locale == const Locale('en'),
             ),
           ],
         ),
-      );
+      ],
+    ),
+  );
 }
