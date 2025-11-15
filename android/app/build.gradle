@@ -30,15 +30,13 @@ if (keystorePropertiesFile.exists()) {
 
 android {
       compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
-    namespace "com.josipkilic.modernialias"
-
-    ndkVersion = "27.0.12077973"
-
-    compileSdkVersion 35
+    namespace = "com.josipkilic.modernialias"
+    compileSdk = 36
+    ndkVersion = "28.0.12433566"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -50,8 +48,8 @@ android {
 
     defaultConfig {
         applicationId "com.josipkilic.modernialias"
-        minSdkVersion 21
-        targetSdkVersion 35
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
