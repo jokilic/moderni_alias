@@ -22,7 +22,7 @@ version: 4.5.3+453
 #
 
 environment:
-  sdk: 3.9.0
+  sdk: 3.10.0
 
 dependencies:
   flutter:
@@ -40,27 +40,27 @@ dependencies:
   easy_localization: 3.0.8 # Localization
   flutter_staggered_animations: 1.1.1 # Used for animating widgets
   flutter_svg: 2.2.0 # SVG rendering library
-  get_it: 8.2.0 # Dependency injection
-  hive_ce: 2.11.3 # Used for persistent storage
-  hive_ce_flutter: 2.3.1 # Easier integration of Hive with Flutter
+  get_it: 9.0.5 # Dependency injection
+  hive_ce: 2.15.1 # Used for persistent storage
+  hive_ce_flutter: 2.3.3 # Easier integration of Hive with Flutter
   intl: 0.20.2 # Used for date formatting
-  just_audio: 0.10.4 # Used to play audio files
-  logger: 2.6.1 # Used for console logging
-  package_info_plus: 8.3.1 # Used to get the app version
+  just_audio: 0.10.5 # Used to play audio files
+  logger: 2.6.2 # Used for console logging
+  package_info_plus: 9.0.0 # Used to get the app version
   path_provider: 2.1.5 # For finding commonly used locations on the filesystem
   rive: 0.13.20 # Renders Rive animations in Flutter
-  share_plus: 11.1.0 # Used for sharing played games
+  share_plus: 12.0.1 # Used for sharing played games
   timeago: 3.7.1 # To show when were games played
   url_launcher: 6.3.2 # Used to launch URLs in native browser
-  video_player: 2.10.0 # Used to play videos
-  wakelock_plus: 1.3.2 # Used for keeping the screen active while game is running
-  watch_it: 1.6.5 # State management
+  video_player: 2.10.1 # Used to play videos
+  wakelock_plus: 1.4.0 # Used for keeping the screen active while game is running
+  watch_it: 2.1.1 # State management
 
 dev_dependencies:
-  build_runner: 2.7.0 # Used for code generation
+  build_runner: 2.10.3 # Used for code generation
   flutter_launcher_icons: 0.14.4 # Used to generate app icons
-  flutter_native_splash: 2.4.6 # Used to generate splash screen
-  hive_ce_generator: 1.9.3 # Generates Hive adapters
+  flutter_native_splash: 2.4.7 # Used to generate splash screen
+  hive_ce_generator: 1.10.0 # Generates Hive adapters
 
 flutter:
   uses-material-design: true
@@ -82,17 +82,22 @@ flutter:
         - asset: fonts/Sen/Sen-Bold.ttf
           weight: 700
 
-# Run Hive code generation with `dart run build_runner build -d`
+# Run code generation - `dart run build_runner build -d`
 
 # Configuration for 'flutter_launcher_icons'
 # Run icon generation with 'dart run flutter_launcher_icons:main'
-flutter_icons:
+flutter_launcher_icons:
+  image_path_android: 'assets/icon.png'
+  image_path_ios: 'assets/icon.png'
   android: true
   ios: true
-  image_path: 'assets/icon.png'
+  adaptive_icon_background: 'assets/background.png'
+  adaptive_icon_foreground: 'assets/splash_icon.png'
+  adaptive_icon_foreground_inset: 16
+  adaptive_icon_monochrome: 'assets/monochrome.png'
   min_sdk_android: 21
-  adaptive_icon_background: '#1C3D5F'
-  adaptive_icon_foreground: 'assets/icon.png'
+  remove_alpha_ios: true
+  background_color_ios: '#1C3D5F'
   web:
     generate: true
     image_path: 'assets/icon.png'
@@ -109,8 +114,6 @@ flutter_icons:
 # Configuration for 'flutter_native_splash'
 # Run splash screen generation with 'dart run flutter_native_splash:create'
 flutter_native_splash:
-  android: true
-  ios: true
   background_image: 'assets/splash.png'
   background_image_dark: 'assets/splash.png'
   android_12:
