@@ -1,2 +1,5 @@
-* StatsScreen & WordsListScreen fully scrollable
-* Confetti not in SafeArea
+* Code syntax updates
+* Update dependencies
+* Update icons & splash screen
+* Refactor icons and replace some
+* Answers buttons fill phone bottom padding
