@@ -26,7 +26,7 @@ class GameOff extends StatelessWidget {
         children: [
           Image.asset(
             ModerniAliasIcons.click,
-            height: 136,
+            height: 160,
           ),
           const SizedBox(height: 16),
           FadeInAnimation(

@@ -92,7 +92,7 @@ class QuickGameFinishedScreen extends WatchingWidget {
                         children: [
                           Image.asset(
                             ModerniAliasIcons.clap,
-                            height: 220,
+                            height: 184,
                           ),
                           const SizedBox(height: 30),
                           RichText(
