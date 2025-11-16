@@ -70,7 +70,7 @@ class NormalGameInfoSection extends StatelessWidget {
               onPressed: null,
               icon: Image.asset(
                 ModerniAliasIcons.wrong,
-                // color: ModerniAliasColors.white,
+                color: ModerniAliasColors.white,
                 height: 28,
                 width: 28,
               ),

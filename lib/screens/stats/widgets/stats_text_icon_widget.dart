@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
 import '../../../constants/text_styles.dart';
 
 class StatsTextIconWidget extends StatelessWidget {
@@ -31,7 +30,6 @@ class StatsTextIconWidget extends StatelessWidget {
           Image.asset(
             icon!,
             width: size,
-            color: ModerniAliasColors.white,
           ),
       ],
     ),

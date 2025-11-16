@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../controllers/audio_record_controller.dart';
@@ -104,6 +105,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
 
     final state = watchIt<TimeGameController>().value;
 
@@ -125,6 +127,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
           children: [
             const BackgroundImage(),
             SafeArea(
+              bottom: false,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -162,24 +165,24 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                           /// PLAYING GAME
                           ///
                           GameState.playing => TimeGameOn(
-                              currentWord: currentWord ?? '',
-                              time: duration,
-                              numberOfGuessedWords: numberOfGuessedWords,
-                            ),
+                            currentWord: currentWord ?? '',
+                            time: duration,
+                            numberOfGuessedWords: numberOfGuessedWords,
+                          ),
 
                           ///
                           /// COUNTDOWN
                           ///
                           GameState.starting => GameStarting(
-                              currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                            ),
+                            currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                          ),
 
                           ///
                           /// TAP TO START GAME
                           ///
                           GameState.idle => GameOff(
-                              onTap: getIt.get<TimeGameController>().start3SecondCountdown,
-                            ),
+                            onTap: getIt.get<TimeGameController>().start3SecondCountdown,
+                          ),
 
                           ///
                           /// FINISHED (shouldn't happen)
@@ -194,17 +197,29 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                   /// BOTTOM - ANSWERS BUTTONS
                   ///
                   Positioned(
-                    bottom: 0,
+                    bottom: bottomPadding,
                     width: width,
                     child: WrongCorrectButtons(
                       wrongChosen: () => getIt.get<TimeGameController>().answerChosen(
-                            chosenAnswer: Answer.wrong,
-                            context: context,
-                          ),
+                        chosenAnswer: Answer.wrong,
+                        context: context,
+                      ),
                       correctChosen: () => getIt.get<TimeGameController>().answerChosen(
-                            chosenAnswer: Answer.correct,
-                            context: context,
-                          ),
+                        chosenAnswer: Answer.correct,
+                        context: context,
+                      ),
+                    ),
+                  ),
+
+                  ///
+                  /// BOTTOM - PADDING COLOR
+                  ///
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: bottomPadding,
+                      width: width,
+                      color: ModerniAliasColors.white.withValues(alpha: 0.05),
                     ),
                   ),
                 ],

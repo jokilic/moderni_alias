@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_it/watch_it.dart';
 
+import '../../constants/colors.dart';
 import '../../constants/durations.dart';
 import '../../constants/enums.dart';
 import '../../controllers/audio_record_controller.dart';
@@ -101,6 +102,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
 
     final controller = watchIt<QuickGameController>();
     final state = controller.value;
@@ -118,6 +120,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
           children: [
             const BackgroundImage(),
             SafeArea(
+              bottom: false,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -156,26 +159,26 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                           /// PLAYING GAME
                           ///
                           GameState.playing => GameOn(
-                              currentWord: currentWord ?? '',
-                              length: widget.lengthOfRound,
-                              showCircularTimer: useCircularTimer,
-                            ),
+                            currentWord: currentWord ?? '',
+                            length: widget.lengthOfRound,
+                            showCircularTimer: useCircularTimer,
+                          ),
 
                           ///
                           /// COUNTDOWN
                           ///
                           GameState.starting => GameStarting(
-                              currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
-                            ),
+                            currentSecond: counter3Seconds != 0 ? '$counter3Seconds' : '',
+                          ),
 
                           ///
                           /// TAP TO START GAME
                           ///
                           GameState.idle => GameOff(
-                              onTap: () => getIt.get<QuickGameController>().start3SecondCountdown(
-                                    context: context,
-                                  ),
+                            onTap: () => getIt.get<QuickGameController>().start3SecondCountdown(
+                              context: context,
                             ),
+                          ),
 
                           ///
                           /// FINISHED (shouldn't happen)
@@ -190,17 +193,17 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                   /// BOTTOM - ANSWERS BUTTONS
                   ///
                   Positioned(
-                    bottom: 0,
+                    bottom: bottomPadding,
                     width: width,
                     child: WrongCorrectButtons(
                       correctChosen: () => getIt.get<QuickGameController>().answerChosen(
-                            chosenAnswer: Answer.correct,
-                            context: context,
-                          ),
+                        chosenAnswer: Answer.correct,
+                        context: context,
+                      ),
                       wrongChosen: () => getIt.get<QuickGameController>().answerChosen(
-                            chosenAnswer: Answer.wrong,
-                            context: context,
-                          ),
+                        chosenAnswer: Answer.wrong,
+                        context: context,
+                      ),
                     ),
                   ),
 
@@ -209,7 +212,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                   ///
                   if (!useCircularTimer)
                     Positioned(
-                      bottom: 0,
+                      bottom: bottomPadding,
                       left: 0,
                       child: IgnorePointer(
                         child: SizedBox(
@@ -222,6 +225,18 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                         ),
                       ),
                     ),
+
+                  ///
+                  /// BOTTOM - PADDING COLOR
+                  ///
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: bottomPadding,
+                      width: width,
+                      color: ModerniAliasColors.white.withValues(alpha: 0.05),
+                    ),
+                  ),
                 ],
               ),
             ),
