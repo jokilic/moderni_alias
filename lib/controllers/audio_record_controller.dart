@@ -35,11 +35,7 @@ class AudioRecordController {
     if (hasPermission) {
       /// Wrap it in `try / catch` because some devices don't have a microphone
       try {
-        await recorderController.record(
-          path: path,
-          bitRate: 128000,
-          sampleRate: 44100,
-        );
+        await recorderController.record(path: path);
       } catch (e) {
         logger.e('Error in startRecording()\n$e');
       }

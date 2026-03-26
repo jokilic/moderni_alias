@@ -29,10 +29,8 @@ linter:
     - avoid_escaping_inner_quotes
     - avoid_init_to_null
     - avoid_multiple_declarations_per_line
-    - avoid_null_checks_in_equality_operators
     - avoid_redundant_argument_values
     - avoid_return_types_on_setters
-    - avoid_returning_null
     - avoid_returning_null_for_void
     - avoid_returning_this
     - avoid_shadowing_type_parameters
@@ -110,7 +108,6 @@ linter:
     - unnecessary_this
     - use_full_hex_values_for_flutter_colors
     - use_function_type_syntax_for_parameters
-    - use_if_null_to_convert_nulls_to_bools
     - use_is_even_rather_than_modulo
     - use_late_for_private_fields_and_variables
     - use_named_constants
