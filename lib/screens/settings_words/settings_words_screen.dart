@@ -58,7 +58,6 @@ class SettingsWordsScreen extends StatelessWidget {
                     smallText: 'settingsWordsTitle'.tr(),
                   ),
                   const SizedBox(height: 24),
-
                   GameTitle(
                     'settingsWordsCroatian'.tr(),
                   ),
