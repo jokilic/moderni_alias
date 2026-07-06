@@ -1,5 +1,4 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
+platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -38,7 +37,21 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
 
+    if target.name == 'rive_native'
+      target.shell_script_build_phases.each do |phase|
+        next unless phase.name == '[CP-User] Rive Native Compile'
+
+        # Rive's podspec uses `dart run`, which cannot resolve Flutter SDK
+        # dependencies from a Flutter app. Keep the generated setup script on
+        # Flutter's package runner so clean pub caches still build.
+        phase.shell_script = phase.shell_script
+          .gsub('"$FLUTTER_ROOT/bin/dart" run', '"$FLUTTER_ROOT/bin/flutter" pub run')
+          .gsub('dart run rive_native:setup', 'flutter pub run rive_native:setup')
+      end
+    end
+
     target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
       config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
         '$(inherited)',
         'AUDIO_SESSION_MICROPHONE=0'
