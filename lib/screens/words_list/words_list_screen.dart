@@ -39,7 +39,6 @@ class WordsListScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: AnimatedGestureDetector(
                       onTap: Navigator.of(context).pop,
-                      end: 0.8,
                       child: IconButton(
                         onPressed: null,
                         icon: Transform.rotate(

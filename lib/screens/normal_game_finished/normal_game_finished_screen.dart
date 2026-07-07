@@ -163,7 +163,6 @@ class NormalGameFinishedScreen extends WatchingWidget {
                         teams: teams,
                         playedWords: playedWords,
                       ),
-                      end: 0.8,
                       child: IconButton(
                         onPressed: null,
                         icon: Image.asset(

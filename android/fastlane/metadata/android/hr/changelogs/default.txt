@@ -1,3 +1,4 @@
+* Less pronounced animation of buttons when pressed
 * Audio updates
 * Waveform updates
 * Animation updates

@@ -101,7 +101,6 @@ class StatsTimeGameScreen extends StatelessWidget {
                         children: [
                           AnimatedGestureDetector(
                             onTap: Navigator.of(context).pop,
-                            end: 0.8,
                             child: IconButton(
                               onPressed: null,
                               icon: Transform.rotate(
@@ -117,7 +116,6 @@ class StatsTimeGameScreen extends StatelessWidget {
                           ),
                           AnimatedGestureDetector(
                             onTap: shareGame,
-                            end: 0.8,
                             child: IconButton(
                               onPressed: null,
                               icon: Image.asset(

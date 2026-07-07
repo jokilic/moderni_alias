@@ -31,7 +31,6 @@ class QuickGameInfoSection extends StatelessWidget {
           left: 12,
           child: AnimatedGestureDetector(
             onTap: exitGame,
-            end: 0.8,
             child: IconButton(
               onPressed: null,
               icon: Image.asset(
@@ -60,7 +59,6 @@ class QuickGameInfoSection extends StatelessWidget {
           right: 20,
           child: AnimatedGestureDetector(
             onTap: showScores,
-            end: 0.8,
             child: Row(
               children: [
                 Text(

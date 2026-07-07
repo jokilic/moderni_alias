@@ -9,15 +9,14 @@ import '../../../widgets/animated_gesture_detector.dart';
 class StatsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedGestureDetector(
-        onTap: () => openStats(context),
-        end: 0.85,
-        child: TextButton(
-          onPressed: null,
-          style: TextButton.styleFrom(
-            textStyle: ModerniAliasTextStyles.howToPlayButton,
-            backgroundColor: ModerniAliasColors.black.withValues(alpha: 0.35),
-          ),
-          child: Text('statsButtonString'.tr()),
-        ),
-      );
+    onTap: () => openStats(context),
+    child: TextButton(
+      onPressed: null,
+      style: TextButton.styleFrom(
+        textStyle: ModerniAliasTextStyles.howToPlayButton,
+        backgroundColor: ModerniAliasColors.black.withValues(alpha: 0.35),
+      ),
+      child: Text('statsButtonString'.tr()),
+    ),
+  );
 }

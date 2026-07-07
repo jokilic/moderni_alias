@@ -9,7 +9,6 @@ class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedGestureDetector(
     onTap: () => openSettings(context),
-    end: 0.8,
     child: IconButton(
       onPressed: null,
       icon: Image.asset(

@@ -15,7 +15,7 @@ class AnimatedGestureDetector extends StatefulWidget {
     this.onTap,
     this.duration = ModerniAliasDurations.veryFastAnimation,
     this.begin = 1,
-    this.end = 0.9,
+    this.end = 0.975,
     this.curve = Curves.easeIn,
   });
 
@@ -40,15 +40,16 @@ class _AnimatedGestureDetectorState extends State<AnimatedGestureDetector> with 
       duration: widget.duration,
     );
 
-    scaleAnimation = Tween<double>(
-      begin: widget.begin,
-      end: widget.end,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: widget.curve,
-      ),
-    );
+    scaleAnimation =
+        Tween<double>(
+          begin: widget.begin,
+          end: widget.end,
+        ).animate(
+          CurvedAnimation(
+            parent: animationController,
+            curve: widget.curve,
+          ),
+        );
   }
 
   @override
@@ -59,33 +60,33 @@ class _AnimatedGestureDetectorState extends State<AnimatedGestureDetector> with 
 
   @override
   Widget build(BuildContext context) => Listener(
-        onPointerDown: (details) {
-          animationController.forward();
+    onPointerDown: (details) {
+      animationController.forward();
 
-          shouldTrigger = true;
-          downPosition = details.localPosition;
-        },
-        onPointerUp: (details) {
-          animationController.reverse();
+      shouldTrigger = true;
+      downPosition = details.localPosition;
+    },
+    onPointerUp: (details) {
+      animationController.reverse();
 
-          if (shouldTrigger) {
-            final upPosition = details.localPosition;
-            final distance = (upPosition - downPosition!).distance;
+      if (shouldTrigger) {
+        final upPosition = details.localPosition;
+        final distance = (upPosition - downPosition!).distance;
 
-            if (distance <= tolerance && widget.onTap != null) {
-              widget.onTap!();
-            }
-          }
-        },
-        onPointerMove: (details) {
-          final movePosition = details.localPosition;
-          final distance = (movePosition - downPosition!).distance;
+        if (distance <= tolerance && widget.onTap != null) {
+          widget.onTap!();
+        }
+      }
+    },
+    onPointerMove: (details) {
+      final movePosition = details.localPosition;
+      final distance = (movePosition - downPosition!).distance;
 
-          shouldTrigger = distance <= tolerance;
-        },
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: widget.child,
-        ),
-      );
+      shouldTrigger = distance <= tolerance;
+    },
+    child: ScaleTransition(
+      scale: scaleAnimation,
+      child: widget.child,
+    ),
+  );
 }

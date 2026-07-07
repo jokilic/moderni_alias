@@ -185,7 +185,6 @@ class TimeGameFinishedScreen extends StatelessWidget {
                         playedWords: playedWords,
                         gameFinished: true,
                       ),
-                      end: 0.8,
                       child: IconButton(
                         onPressed: null,
                         icon: Image.asset(

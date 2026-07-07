@@ -95,7 +95,6 @@ class StatsQuickGameScreen extends StatelessWidget {
                         children: [
                           AnimatedGestureDetector(
                             onTap: Navigator.of(context).pop,
-                            end: 0.8,
                             child: IconButton(
                               onPressed: null,
                               icon: Transform.rotate(
@@ -111,7 +110,6 @@ class StatsQuickGameScreen extends StatelessWidget {
                           ),
                           AnimatedGestureDetector(
                             onTap: shareGame,
-                            end: 0.8,
                             child: IconButton(
                               onPressed: null,
                               icon: Image.asset(

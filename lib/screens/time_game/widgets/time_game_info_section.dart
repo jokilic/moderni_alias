@@ -65,7 +65,6 @@ class TimeGameInfoSection extends StatelessWidget {
           left: 12,
           child: AnimatedGestureDetector(
             onTap: exitGame,
-            end: 0.8,
             child: IconButton(
               onPressed: null,
               icon: Image.asset(
@@ -81,7 +80,6 @@ class TimeGameInfoSection extends StatelessWidget {
           right: 12,
           child: AnimatedGestureDetector(
             onTap: showScores,
-            end: 0.8,
             child: IconButton(
               onPressed: null,
               icon: Image.asset(

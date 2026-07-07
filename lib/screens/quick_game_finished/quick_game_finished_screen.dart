@@ -148,7 +148,6 @@ class QuickGameFinishedScreen extends WatchingWidget {
                         context,
                         playedWords: playedWords,
                       ),
-                      end: 0.8,
                       child: IconButton(
                         onPressed: null,
                         icon: Image.asset(

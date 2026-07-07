@@ -33,7 +33,6 @@ class HowToPlayScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: AnimatedGestureDetector(
                       onTap: Navigator.of(context).pop,
-                      end: 0.8,
                       child: IconButton(
                         onPressed: null,
                         icon: Transform.rotate(
