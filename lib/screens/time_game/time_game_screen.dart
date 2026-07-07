@@ -17,6 +17,7 @@ import '../../services/path_provider_service.dart';
 import '../../util/dependencies.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/exit_game/exit_game.dart';
+import '../../widgets/game/game_finished.dart';
 import '../../widgets/game/game_off.dart';
 import '../../widgets/game/game_starting.dart';
 import '../../widgets/scores/show_time_scores.dart';
@@ -185,9 +186,9 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                           ),
 
                           ///
-                          /// FINISHED (shouldn't happen)
+                          /// FINISHED
                           ///
-                          _ => const SizedBox.shrink(),
+                          GameState.finished => GameFinished(),
                         },
                       ),
                     ),

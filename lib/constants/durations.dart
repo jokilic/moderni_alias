@@ -4,6 +4,4 @@ class ModerniAliasDurations {
   static const verySlowAnimation = Duration(milliseconds: 800);
   static const fastAnimation = Duration(milliseconds: 100);
   static const veryFastAnimation = Duration(milliseconds: 50);
-
-  static const audioRecordingTimeout = Duration(seconds: 2);
 }

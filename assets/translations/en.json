@@ -27,6 +27,7 @@
     "scoresModalString": "Current scores",
     "playedWordsModalString": "Current words",
     "startGameOnPressString": "Tap here and start game",
+    "gameFinished": "Game is finished!",
     "winnerFirstString": "The winner is\n",
     "winnerSecondString": " with\n",
     "winnerThirdString": " points!",
