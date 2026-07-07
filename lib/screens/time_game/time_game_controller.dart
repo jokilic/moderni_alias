@@ -42,16 +42,17 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     required this.numberOfWords,
     required this.useDynamicBackgrounds,
   }) : super(
-          (
-            gameState: GameState.idle,
-            counter3Seconds: 0,
-            playedWords: [],
-            currentWord: null,
-            teams: passedTeams,
-            playingTeam: passedTeams.first,
-            timeGameDuration: Duration.zero,
-          ),
-        );
+         (
+           gameState: GameState.idle,
+           counter3Seconds: 0,
+           isFinalizingRound: false,
+           playedWords: [],
+           currentWord: null,
+           teams: passedTeams,
+           playingTeam: passedTeams.first,
+           timeGameDuration: Duration.zero,
+         ),
+       );
 
   ///
   /// VARIABLES
@@ -102,34 +103,39 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   void updateState({
     GameState? newGameState,
     int? newCounter3Seconds,
+    bool? newIsFinalizingRound,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
     List<Team>? newTeams,
     Team? newPlayingTeam,
     Duration? newTimeGameDuration,
-  }) =>
-      value = (
-        gameState: newGameState ?? value.gameState,
-        counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
-        playedWords: newPlayedWords ?? value.playedWords,
-        currentWord: newCurrentWord ?? value.currentWord,
-        teams: newTeams ?? value.teams,
-        playingTeam: newPlayingTeam ?? value.playingTeam,
-        timeGameDuration: newTimeGameDuration ?? value.timeGameDuration,
-      );
+  }) => value = (
+    gameState: newGameState ?? value.gameState,
+    counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
+    isFinalizingRound: newIsFinalizingRound ?? value.isFinalizingRound,
+    playedWords: newPlayedWords ?? value.playedWords,
+    currentWord: newCurrentWord ?? value.currentWord,
+    teams: newTeams ?? value.teams,
+    playingTeam: newPlayingTeam ?? value.playingTeam,
+    timeGameDuration: newTimeGameDuration ?? value.timeGameDuration,
+  );
 
   /// Sets the variables and starts the `Timer`
   void startTimer() => timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) => updateState(
-          newTimeGameDuration: Duration(
-            seconds: timer.tick,
-          ),
-        ),
-      );
+    const Duration(seconds: 1),
+    (timer) => updateState(
+      newTimeGameDuration: Duration(
+        seconds: timer.tick,
+      ),
+    ),
+  );
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
+    if (value.isFinalizingRound) {
+      return;
+    }
+
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -200,7 +206,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
           context: context,
         );
       }
-
       /// Every team has played, end game
       else {
         endGame(
@@ -214,6 +219,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   void gameStopped() {
     updateState(
       newGameState: GameState.idle,
+      newIsFinalizingRound: true,
     );
     backgroundImage.revertBackground();
     playSound(
@@ -243,6 +249,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
 
     updateState(
       newPlayingTeam: value.teams[currentTeamIndex + 1],
+      newIsFinalizingRound: false,
     );
   }
 
@@ -250,6 +257,7 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
+      newIsFinalizingRound: true,
     );
 
     await backgroundImage.revertBackground();
@@ -275,6 +283,10 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     required Answer chosenAnswer,
     required BuildContext context,
   }) {
+    if (value.isFinalizingRound) {
+      return;
+    }
+
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
       start3SecondCountdown();

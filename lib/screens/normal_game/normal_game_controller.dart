@@ -41,16 +41,17 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     required this.lengthOfRound,
     required this.useDynamicBackgrounds,
   }) : super(
-          (
-            gameState: GameState.idle,
-            counter3Seconds: 0,
-            playedWords: [],
-            currentWord: null,
-            teams: passedTeams,
-            tieBreakTeams: null,
-            playingTeam: passedTeams.first,
-          ),
-        );
+         (
+           gameState: GameState.idle,
+           counter3Seconds: 0,
+           isFinalizingRound: false,
+           playedWords: [],
+           currentWord: null,
+           teams: passedTeams,
+           tieBreakTeams: null,
+           playingTeam: passedTeams.first,
+         ),
+       );
 
   ///
   /// VARIABLES
@@ -82,24 +83,29 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   void updateState({
     GameState? newGameState,
     int? newCounter3Seconds,
+    bool? newIsFinalizingRound,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
     List<Team>? newTeams,
     List<Team>? newTieBreakTeams,
     Team? newPlayingTeam,
-  }) =>
-      value = (
-        gameState: newGameState ?? value.gameState,
-        counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
-        playedWords: newPlayedWords ?? value.playedWords,
-        currentWord: newCurrentWord ?? value.currentWord,
-        teams: newTeams ?? value.teams,
-        tieBreakTeams: newTieBreakTeams ?? value.tieBreakTeams,
-        playingTeam: newPlayingTeam ?? value.playingTeam,
-      );
+  }) => value = (
+    gameState: newGameState ?? value.gameState,
+    counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
+    isFinalizingRound: newIsFinalizingRound ?? value.isFinalizingRound,
+    playedWords: newPlayedWords ?? value.playedWords,
+    currentWord: newCurrentWord ?? value.currentWord,
+    teams: newTeams ?? value.teams,
+    tieBreakTeams: newTieBreakTeams ?? value.tieBreakTeams,
+    playingTeam: newPlayingTeam ?? value.playingTeam,
+  );
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown({required BuildContext context}) async {
+    if (value.isFinalizingRound) {
+      return;
+    }
+
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -168,6 +174,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   void gameStopped() {
     updateState(
       newGameState: GameState.idle,
+      newIsFinalizingRound: true,
     );
     backgroundImage.revertBackground();
     baseGame.cancelTimers();
@@ -213,7 +220,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
         context: context,
       );
     }
-
     /// Round is finished, play tie break if there are tied teams or end game
     else {
       final tiedTeams = getTiedTeams(teamsWithEnoughPoints);
@@ -275,6 +281,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     /// Update state with next playing `team`
     updateState(
       newPlayingTeam: nextPlayingTeam,
+      newIsFinalizingRound: false,
     );
   }
 
@@ -282,6 +289,7 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
+      newIsFinalizingRound: true,
     );
 
     await backgroundImage.revertBackground();
@@ -303,6 +311,10 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     required Answer chosenAnswer,
     required BuildContext context,
   }) {
+    if (value.isFinalizingRound) {
+      return;
+    }
+
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
       start3SecondCountdown(

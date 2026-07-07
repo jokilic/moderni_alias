@@ -35,13 +35,14 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     required this.lengthOfRound,
     required this.useDynamicBackgrounds,
   }) : super(
-          (
-            gameState: GameState.idle,
-            counter3Seconds: 0,
-            playedWords: [],
-            currentWord: null,
-          ),
-        );
+         (
+           gameState: GameState.idle,
+           counter3Seconds: 0,
+           isFinalizingRound: false,
+           playedWords: [],
+           currentWord: null,
+         ),
+       );
 
   ///
   /// VARIABLES
@@ -70,18 +71,23 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
   void updateState({
     GameState? newGameState,
     int? newCounter3Seconds,
+    bool? newIsFinalizingRound,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
-  }) =>
-      value = (
-        gameState: newGameState ?? value.gameState,
-        counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
-        playedWords: newPlayedWords ?? value.playedWords,
-        currentWord: newCurrentWord ?? value.currentWord,
-      );
+  }) => value = (
+    gameState: newGameState ?? value.gameState,
+    counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
+    isFinalizingRound: newIsFinalizingRound ?? value.isFinalizingRound,
+    playedWords: newPlayedWords ?? value.playedWords,
+    currentWord: newCurrentWord ?? value.currentWord,
+  );
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown({required BuildContext context}) async {
+    if (value.isFinalizingRound) {
+      return;
+    }
+
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -150,6 +156,7 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
   Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
+      newIsFinalizingRound: true,
     );
 
     await backgroundImage.revertBackground();
@@ -166,6 +173,10 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
     required Answer chosenAnswer,
     required BuildContext context,
   }) {
+    if (value.isFinalizingRound) {
+      return;
+    }
+
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
       start3SecondCountdown(

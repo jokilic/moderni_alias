@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../constants/durations.dart';
 import '../constants/enums.dart';
 import '../constants/images.dart';
 import '../constants/sounds.dart';
@@ -244,7 +245,12 @@ class BaseGameController implements Disposable {
     if (audioRecord != null) {
       try {
         final absolutePath = '${pathProvider.persistenceDirectory}/$path.m4a';
-        await audioRecord!.startRecording(absolutePath);
+        await audioRecord!
+            .startRecording(absolutePath)
+            .timeout(
+              ModerniAliasDurations.audioRecordingTimeout,
+              onTimeout: () => logger.e('Timeout in startAudioRecording()'),
+            );
       } catch (e) {
         logger.e('Error in startAudioRecording()\n$e');
       }
@@ -255,7 +261,13 @@ class BaseGameController implements Disposable {
   Future<String?> saveAudioFile() async {
     if (audioRecord != null) {
       try {
-        return await audioRecord!.stopRecording();
+        return await audioRecord!.stopRecording().timeout(
+          ModerniAliasDurations.audioRecordingTimeout,
+          onTimeout: () {
+            logger.e('Timeout in saveAudioFile()');
+            return null;
+          },
+        );
       } catch (e) {
         logger.e('Error in saveAudioFile()\n$e');
       }
