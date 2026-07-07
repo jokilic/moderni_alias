@@ -1,5 +1,5 @@
-* Code syntax updates
+* Some new icons
+* Less pronounced animation of buttons when pressed
+* Shorter animations
+* Audio & waveform fixes
 * Update dependencies
-* Update icons & splash screen
-* Refactor icons and replace some
-* Answers buttons fill phone bottom padding

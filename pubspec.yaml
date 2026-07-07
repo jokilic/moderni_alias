@@ -1,7 +1,7 @@
 name: modernialias
 description: Ovo je moja Alias aplikacija.
 publish_to: 'none'
-version: 4.5.5+455
+version: 4.6.0+460
 
 #
 # DEPLOYING APP
@@ -73,7 +73,6 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/translations/
-    - assets/videos/
 
   fonts:
     - family: Sen

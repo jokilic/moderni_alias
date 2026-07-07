@@ -171,7 +171,7 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
                     ),
                   ),
                   MyQuickPortfolio(
-                    onLongPressVideo: () => playSound(
+                    onLongPress: () => playSound(
                       audioPlayer: audioPlayer,
                     ),
                   ),

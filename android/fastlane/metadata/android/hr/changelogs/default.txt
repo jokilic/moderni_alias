@@ -1,5 +1,5 @@
+* Some new icons
 * Less pronounced animation of buttons when pressed
-* Audio updates
-* Waveform updates
-* Animation updates
+* Shorter animations
+* Audio & waveform fixes
 * Update dependencies

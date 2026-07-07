@@ -1,4 +1,6 @@
 class ModerniAliasImages {
+  static const profile = 'assets/profile.webp';
+
   static const starsStandard = 'assets/images/stars_standard.webp';
   static const starsDark = 'assets/images/stars_dark.webp';
   static const starsLight = 'assets/images/stars_light.webp';
