@@ -36,23 +36,63 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   var turns = 0.25;
   var isPlaying = false;
 
+  var waveformData = <double>[];
+
   PlayerController? audioController;
   late final AnimationController animationController;
 
-  Future<void> initializeAnimations() async {
-    /// Icon toggle animation (play / pause)
-    animationController = AnimationController(
-      duration: ModerniAliasDurations.animation,
-      vsync: this,
-    );
-  }
+  /// Icon toggle animation (play / pause)
+  void initializeAnimations() => animationController = AnimationController(
+    duration: ModerniAliasDurations.animation,
+    vsync: this,
+  );
 
-  /// If there's an `audioRecording`, initialize `audioController` and show the Waveform widget
+  /// If there's an `audioRecording`, initialize `audioController` and show the [Waveform] widget
   Future<void> initializeAudio() async {
-    if (widget.round.audioRecording != null) {
-      audioController = PlayerController();
-      await audioController?.preparePlayer(path: widget.round.audioRecording!);
-      audioController?.onPlayerStateChanged.listen(audioControllerListener);
+    final audioRecording = widget.round.audioRecording;
+
+    if (audioRecording != null) {
+      final controller = PlayerController()..updateFrequency = UpdateFrequency.high;
+
+      audioController = controller;
+      var audioPrepared = false;
+
+      try {
+        await controller.preparePlayer(
+          path: audioRecording,
+          shouldExtractWaveform: false,
+        );
+        audioPrepared = true;
+
+        if (!mounted) {
+          return;
+        }
+        setState(() {});
+
+        controller.onPlayerStateChanged.listen(audioControllerListener);
+
+        waveformData = await controller.waveformExtraction.extractWaveformData(
+          path: audioRecording,
+          noOfSamples: 140,
+        );
+
+        if (waveformData.isEmpty) {
+          getIt.get<LoggerService>().w('No waveform data extracted from $audioRecording');
+        }
+
+        if (mounted) {
+          setState(() {});
+        }
+      } catch (e) {
+        if (!audioPrepared) {
+          audioController?.dispose();
+          audioController = null;
+        }
+
+        if (mounted) {
+          setState(() {});
+        }
+      }
     }
   }
 
@@ -90,7 +130,6 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
           await audioController?.startPlayer();
       }
     } catch (e) {
-      getIt.get<LoggerService>().e('$e');
       showSnackbar(
         context,
         icon: ModerniAliasIcons.wrong,
@@ -116,10 +155,9 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   }
 
   /// Initializes animations and audio
-  Future<void> initAnimationsAndAudio() async {
-    await initializeAnimations();
-    await initializeAudio();
-    setState(() {});
+  void initAnimationsAndAudio() {
+    initializeAnimations();
+    initializeAudio();
   }
 
   @override
@@ -177,16 +215,24 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: AudioFileWaveforms(
-                playerController: audioController!,
-                size: Size(MediaQuery.sizeOf(context).width, 48),
-                continuousWaveform: false,
-                playerWaveStyle: const PlayerWaveStyle(
-                  fixedWaveColor: ModerniAliasColors.white,
-                  liveWaveColor: ModerniAliasColors.white,
-                  scaleFactor: 144,
-                  showSeekLine: false,
-                ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  if (waveformData.isEmpty) {
+                    return const SizedBox(height: 48);
+                  }
+
+                  return AudioFileWaveforms(
+                    playerController: audioController!,
+                    size: Size(constraints.maxWidth, 48),
+                    waveformData: waveformData,
+                    playerWaveStyle: PlayerWaveStyle(
+                      fixedWaveColor: ModerniAliasColors.white.withValues(alpha: 0.05),
+                      liveWaveColor: ModerniAliasColors.white,
+                      scaleFactor: 144,
+                      showSeekLine: false,
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 20),
