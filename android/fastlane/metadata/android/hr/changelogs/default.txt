@@ -2,4 +2,5 @@
 * Less pronounced animation of buttons when pressed
 * Shorter animations
 * Audio & waveform fixes
+* Add GameFinished UI
 * Update dependencies
