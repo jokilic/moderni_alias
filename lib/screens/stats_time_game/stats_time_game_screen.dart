@@ -190,7 +190,7 @@ class StatsTimeGameScreen extends StatelessWidget {
                         },
                       ),
                       icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
-                      size: 58,
+                      size: 52,
                     ),
                     const SizedBox(height: 16),
                     GameTitle(

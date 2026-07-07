@@ -10,7 +10,7 @@ class StatsTextIconWidget extends StatelessWidget {
   const StatsTextIconWidget({
     required this.text,
     this.icon,
-    this.size = 68,
+    this.size = 64,
   });
 
   @override
@@ -25,12 +25,14 @@ class StatsTextIconWidget extends StatelessWidget {
             style: ModerniAliasTextStyles.stats,
           ),
         ),
-        const SizedBox(width: 28),
-        if (icon != null)
+        if (icon != null) ...[
+          const SizedBox(width: 24),
           Image.asset(
             icon!,
+            height: size,
             width: size,
           ),
+        ],
       ],
     ),
   );

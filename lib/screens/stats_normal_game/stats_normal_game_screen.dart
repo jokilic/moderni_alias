@@ -177,7 +177,7 @@ class StatsNormalGameScreen extends StatelessWidget {
                         },
                       ),
                       icon: normalGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
-                      size: 58,
+                      size: 52,
                     ),
                     const SizedBox(height: 16),
                     GameTitle(
