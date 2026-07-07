@@ -51,7 +51,7 @@ class QuickGameInfoSection extends StatelessWidget {
             waveStyle: const WaveStyle(
               waveColor: ModerniAliasColors.white,
               middleLineColor: ModerniAliasColors.white,
-              scaleFactor: 24,
+              scaleFactor: 104,
               extendWaveform: true,
               showMiddleLine: false,
             ),

@@ -282,7 +282,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
                     playerWaveStyle: PlayerWaveStyle(
                       fixedWaveColor: ModerniAliasColors.white.withValues(alpha: 0.05),
                       liveWaveColor: ModerniAliasColors.white,
-                      scaleFactor: 144,
+                      scaleFactor: 104,
                       showSeekLine: false,
                     ),
                   );
