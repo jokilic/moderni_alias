@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 
@@ -36,10 +38,14 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   var turns = 0.25;
   var isPlaying = false;
   var audioFinished = false;
+  var audioInitializationRunning = false;
+  var disposeRequested = false;
 
   var waveformData = <double>[];
 
   PlayerController? audioController;
+  StreamSubscription<PlayerState>? playerStateSubscription;
+  StreamSubscription<dynamic>? audioCompletionSubscription;
   late final AnimationController animationController;
 
   /// Icon toggle animation (play / pause)
@@ -57,6 +63,8 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
       audioController = controller;
       var audioPrepared = false;
+      var controllerReleased = false;
+      audioInitializationRunning = true;
 
       try {
         await controller.preparePlayer(
@@ -69,37 +77,59 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         );
         audioPrepared = true;
 
-        if (!mounted) {
+        if (!mounted || disposeRequested) {
           return;
         }
         setState(() {});
 
-        controller.onPlayerStateChanged.listen(audioControllerListener);
-        controller.onCompletion.listen(audioCompletionListener);
+        playerStateSubscription = controller.onPlayerStateChanged.listen(audioControllerListener);
+        audioCompletionSubscription = controller.onCompletion.listen(audioCompletionListener);
 
-        waveformData = await controller.waveformExtraction.extractWaveformData(
+        final extractedWaveformData = await controller.waveformExtraction.extractWaveformData(
           path: audioRecording,
           noOfSamples: 140,
         );
+
+        if (!mounted || disposeRequested) {
+          return;
+        }
+
+        waveformData = extractedWaveformData;
 
         if (waveformData.isEmpty) {
           getIt.get<LoggerService>().w('No waveform data extracted from $audioRecording');
         }
 
-        if (mounted) {
+        if (mounted && !disposeRequested) {
           setState(() {});
         }
       } catch (e) {
         if (!audioPrepared) {
-          audioController?.dispose();
+          await safelyReleaseAudioController(controller);
+          controllerReleased = true;
           audioController = null;
         }
 
-        if (mounted) {
+        if (mounted && !disposeRequested) {
           setState(() {});
+        }
+      } finally {
+        audioInitializationRunning = false;
+
+        if (disposeRequested && !controllerReleased) {
+          await safelyReleaseAudioController(controller);
         }
       }
     }
+  }
+
+  Future<void> safelyReleaseAudioController(PlayerController controller) async {
+    try {
+      if (controller.playerState != PlayerState.stopped) {
+        await controller.stopPlayer();
+      }
+      await controller.release();
+    } catch (_) {}
   }
 
   /// Triggered whenever [PlayerState] in `audioController` changes
@@ -182,8 +212,18 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   @override
   void dispose() {
+    disposeRequested = true;
     animationController.dispose();
-    audioController?.dispose();
+    playerStateSubscription?.cancel();
+    audioCompletionSubscription?.cancel();
+
+    final controller = audioController;
+    audioController = null;
+
+    if (controller != null && !audioInitializationRunning) {
+      safelyReleaseAudioController(controller);
+    }
+
     super.dispose();
   }
 
