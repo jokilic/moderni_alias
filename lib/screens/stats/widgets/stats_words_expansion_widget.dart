@@ -35,6 +35,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   var showSubtitle = true;
   var turns = 0.25;
   var isPlaying = false;
+  var audioFinished = false;
 
   var waveformData = <double>[];
 
@@ -62,6 +63,10 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
           path: audioRecording,
           shouldExtractWaveform: false,
         );
+
+        await controller.setFinishMode(
+          finishMode: FinishMode.pause,
+        );
         audioPrepared = true;
 
         if (!mounted) {
@@ -70,6 +75,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         setState(() {});
 
         controller.onPlayerStateChanged.listen(audioControllerListener);
+        controller.onCompletion.listen(audioCompletionListener);
 
         waveformData = await controller.waveformExtraction.extractWaveformData(
           path: audioRecording,
@@ -105,9 +111,13 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
     /// Show pause icon
     if (event.isPlaying) {
+      audioFinished = false;
       animateForward();
     }
   }
+
+  /// Triggered when the audio reaches the end
+  void audioCompletionListener(_) => audioFinished = true;
 
   /// Play / pause current `audioController`
   Future<void> toggleAudio() async {
@@ -117,6 +127,10 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
           await audioController?.startPlayer();
           break;
         case PlayerState.paused:
+          if (audioFinished) {
+            await audioController?.seekTo(0);
+            audioFinished = false;
+          }
           await audioController?.startPlayer();
           break;
         case PlayerState.playing:
