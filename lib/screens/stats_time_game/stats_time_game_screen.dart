@@ -11,6 +11,7 @@ import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/round/round.dart';
 import '../../models/time_game_stats/time_game_stats.dart';
+import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -87,151 +88,154 @@ class StatsTimeGameScreen extends StatelessWidget {
           SafeArea(
             child: SizedBox(
               height: double.infinity,
-              child: ListView(
+              child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 26),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AnimatedGestureDetector(
-                          onTap: Navigator.of(context).pop,
-                          end: 0.8,
-                          child: IconButton(
-                            onPressed: null,
-                            icon: Transform.rotate(
-                              angle: pi,
-                              child: Image.asset(
-                                ModerniAliasIcons.arrowStats,
+                child: AnimatedColumn(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 26),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AnimatedGestureDetector(
+                            onTap: Navigator.of(context).pop,
+                            end: 0.8,
+                            child: IconButton(
+                              onPressed: null,
+                              icon: Transform.rotate(
+                                angle: pi,
+                                child: Image.asset(
+                                  ModerniAliasIcons.arrowStats,
+                                  color: ModerniAliasColors.white,
+                                  height: 26,
+                                  width: 26,
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimatedGestureDetector(
+                            onTap: shareGame,
+                            end: 0.8,
+                            child: IconButton(
+                              onPressed: null,
+                              icon: Image.asset(
+                                ModerniAliasIcons.share,
                                 color: ModerniAliasColors.white,
                                 height: 26,
                                 width: 26,
                               ),
                             ),
                           ),
-                        ),
-                        AnimatedGestureDetector(
-                          onTap: shareGame,
-                          end: 0.8,
-                          child: IconButton(
-                            onPressed: null,
-                            icon: Image.asset(
-                              ModerniAliasIcons.share,
-                              color: ModerniAliasColors.white,
-                              height: 26,
-                              width: 26,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  const HeroTitle(),
-                  const SizedBox(height: 24),
-                  GameTitle(
-                    'statsWhoWonTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: sortedRounds.length,
-                    itemBuilder: (_, index) {
-                      final round = sortedRounds[index];
+                    const SizedBox(height: 8),
+                    const HeroTitle(),
+                    const SizedBox(height: 24),
+                    GameTitle(
+                      'statsWhoWonTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: sortedRounds.length,
+                      itemBuilder: (_, index) {
+                        final round = sortedRounds[index];
 
-                      final isFastest = calculateRoundFastest(
-                        passedRound: round,
-                        fastestRound: sortedRounds.first,
-                      );
+                        final isFastest = calculateRoundFastest(
+                          passedRound: round,
+                          fastestRound: sortedRounds.first,
+                        );
 
-                      final duration =
-                          '${Duration(seconds: round.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: round.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}';
+                        final duration =
+                            '${Duration(seconds: round.durationSeconds ?? 0).inMinutes.toString().padLeft(2, '0')}:${(Duration(seconds: round.durationSeconds ?? 0).inSeconds % 60).toString().padLeft(2, '0')}';
 
-                      return StatsValueWidget(
-                        text: round.playingTeam?.name ?? '',
-                        textValue: duration,
-                        bigText: true,
-                        yellowCircle: isFastest,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsWhenTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsWhenText'.tr(
-                      namedArgs: {
-                        'date': date,
-                        'time': time,
-                        'textTime': textTime,
+                        return StatsValueWidget(
+                          text: round.playingTeam?.name ?? '',
+                          textValue: duration,
+                          bigText: true,
+                          yellowCircle: isFastest,
+                        );
                       },
                     ),
-                    icon: ModerniAliasIcons.clock,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsLanguageTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsLanguageText'.tr(
-                      namedArgs: {
-                        'language': language,
-                      },
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsWhenTitle'.tr(),
+                      smallTitle: true,
                     ),
-                    icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
-                    size: 58,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsNumberOfWordsTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsNumberOfWordsText'.tr(
-                      namedArgs: {
-                        'lengthOfWords': '${timeGameStats.numberOfWords}',
-                      },
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsWhenText'.tr(
+                        namedArgs: {
+                          'date': date,
+                          'time': time,
+                          'textTime': textTime,
+                        },
+                      ),
+                      icon: ModerniAliasIcons.clock,
                     ),
-                    icon: ModerniAliasIcons.points,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsWordsTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: timeGameStats.rounds.length,
-                    itemBuilder: (_, index) {
-                      final round = timeGameStats.rounds[index];
-                      final someWords = round.playedWords.take(3).map((word) => word.word).join(', ');
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsLanguageTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsLanguageText'.tr(
+                        namedArgs: {
+                          'language': language,
+                        },
+                      ),
+                      icon: timeGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
+                      size: 58,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsNumberOfWordsTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsNumberOfWordsText'.tr(
+                        namedArgs: {
+                          'lengthOfWords': '${timeGameStats.numberOfWords}',
+                        },
+                      ),
+                      icon: ModerniAliasIcons.points,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsWordsTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: timeGameStats.rounds.length,
+                      itemBuilder: (_, index) {
+                        final round = timeGameStats.rounds[index];
+                        final someWords = round.playedWords.take(3).map((word) => word.word).join(', ');
 
-                      return StatsWordsExpansionWidget(
-                        index: index,
-                        round: round,
-                        someWords: someWords,
-                        onSharePressed: () => shareRoundAudio(
+                        return StatsWordsExpansionWidget(
+                          index: index,
                           round: round,
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 40),
-                ],
+                          someWords: someWords,
+                          onSharePressed: () => shareRoundAudio(
+                            round: round,
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 40),
+                  ],
+                ),
               ),
             ),
           ),

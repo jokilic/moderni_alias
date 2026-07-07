@@ -10,6 +10,7 @@ import '../../constants/icons.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../util/dependencies.dart';
+import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/hero_title.dart';
@@ -54,70 +55,73 @@ class _StatsScreenState extends State<StatsScreen> {
         children: [
           const BackgroundImage(),
           SafeArea(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 26),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: AnimatedGestureDetector(
-                      onTap: Navigator.of(context).pop,
-                      end: 0.8,
-                      child: IconButton(
-                        onPressed: null,
-                        icon: Transform.rotate(
-                          angle: pi,
-                          child: Image.asset(
-                            ModerniAliasIcons.arrowStats,
-                            color: ModerniAliasColors.white,
-                            height: 26,
-                            width: 26,
+            child: SizedBox(
+              height: double.infinity,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: AnimatedColumn(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 26),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: AnimatedGestureDetector(
+                        onTap: Navigator.of(context).pop,
+                        end: 0.8,
+                        child: IconButton(
+                          onPressed: null,
+                          icon: Transform.rotate(
+                            angle: pi,
+                            child: Image.asset(
+                              ModerniAliasIcons.arrowStats,
+                              color: ModerniAliasColors.white,
+                              height: 26,
+                              width: 26,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  HeroTitle(smallText: 'statsTitle'.tr()),
-                  const SizedBox(height: 40),
-                  StatsSegmentedWidget(
-                    currentIndex: currentIndex,
-                    segmentedValuePressed: getIt.get<StatsController>().segmentedValuePressed,
-                  ),
-                  const SizedBox(height: 16),
-                  AnimatedSwitcher(
-                    duration: ModerniAliasDurations.animation,
-                    switchInCurve: Curves.easeIn,
-                    switchOutCurve: Curves.easeIn,
-                    child: switch (currentIndex) {
-                      0 => StatsNormalSection(
-                        normalGameStats: getIt.get<StatsController>().normalGameStats,
-                      ),
-                      1 => StatsTimeSection(
-                        timeGameStats: getIt.get<StatsController>().timeGameStats,
-                      ),
-                      2 => StatsQuickSection(
-                        quickGameStats: getIt.get<StatsController>().quickGameStats,
-                      ),
-                      _ => StatsGeneralSection(
-                        totalNormalGames: getIt.get<StatsController>().totalNormalGames,
-                        totalTimeGames: getIt.get<StatsController>().totalTimeGames,
-                        totalQuickGames: getIt.get<StatsController>().totalQuickGames,
-                        totalCorrectAnswersNormalGames: getIt.get<StatsController>().totalCorrectAnswersNormalGames,
-                        totalCorrectAnswersTimeGames: getIt.get<StatsController>().totalCorrectAnswersTimeGames,
-                        totalCorrectAnswersQuickGames: getIt.get<StatsController>().totalCorrectAnswersQuickGames,
-                        totalWrongAnswersNormalGames: getIt.get<StatsController>().totalWrongAnswersNormalGames,
-                        totalWrongAnswersTimeGames: getIt.get<StatsController>().totalWrongAnswersTimeGames,
-                        totalWrongAnswersQuickGames: getIt.get<StatsController>().totalWrongAnswersQuickGames,
-                        totalAverageCorrectAnswers: getIt.get<StatsController>().totalAverageCorrectAnswers,
-                        totalAverageWrongAnswers: getIt.get<StatsController>().totalAverageWrongAnswers,
-                        totalAverageAnswers: getIt.get<StatsController>().totalAverageAnswers,
-                      ),
-                    },
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    HeroTitle(smallText: 'statsTitle'.tr()),
+                    const SizedBox(height: 40),
+                    StatsSegmentedWidget(
+                      currentIndex: currentIndex,
+                      segmentedValuePressed: getIt.get<StatsController>().segmentedValuePressed,
+                    ),
+                    const SizedBox(height: 16),
+                    AnimatedSwitcher(
+                      duration: ModerniAliasDurations.animation,
+                      switchInCurve: Curves.easeIn,
+                      switchOutCurve: Curves.easeIn,
+                      child: switch (currentIndex) {
+                        0 => StatsNormalSection(
+                          normalGameStats: getIt.get<StatsController>().normalGameStats,
+                        ),
+                        1 => StatsTimeSection(
+                          timeGameStats: getIt.get<StatsController>().timeGameStats,
+                        ),
+                        2 => StatsQuickSection(
+                          quickGameStats: getIt.get<StatsController>().quickGameStats,
+                        ),
+                        _ => StatsGeneralSection(
+                          totalNormalGames: getIt.get<StatsController>().totalNormalGames,
+                          totalTimeGames: getIt.get<StatsController>().totalTimeGames,
+                          totalQuickGames: getIt.get<StatsController>().totalQuickGames,
+                          totalCorrectAnswersNormalGames: getIt.get<StatsController>().totalCorrectAnswersNormalGames,
+                          totalCorrectAnswersTimeGames: getIt.get<StatsController>().totalCorrectAnswersTimeGames,
+                          totalCorrectAnswersQuickGames: getIt.get<StatsController>().totalCorrectAnswersQuickGames,
+                          totalWrongAnswersNormalGames: getIt.get<StatsController>().totalWrongAnswersNormalGames,
+                          totalWrongAnswersTimeGames: getIt.get<StatsController>().totalWrongAnswersTimeGames,
+                          totalWrongAnswersQuickGames: getIt.get<StatsController>().totalWrongAnswersQuickGames,
+                          totalAverageCorrectAnswers: getIt.get<StatsController>().totalAverageCorrectAnswers,
+                          totalAverageWrongAnswers: getIt.get<StatsController>().totalAverageWrongAnswers,
+                          totalAverageAnswers: getIt.get<StatsController>().totalAverageAnswers,
+                        ),
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

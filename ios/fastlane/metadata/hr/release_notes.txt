@@ -1,3 +1,4 @@
 * Audio updates
 * Waveform updates
+* Animation updates
 * Update dependencies

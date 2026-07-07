@@ -1,3 +1,4 @@
+// TODO: Bit faster
 class ModerniAliasDurations {
   static const animation = Duration(milliseconds: 300);
   static const slowAnimation = Duration(milliseconds: 600);

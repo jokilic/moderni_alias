@@ -11,6 +11,7 @@ import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
 import '../../models/round/round.dart';
+import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
 import '../../widgets/game_title.dart';
@@ -81,144 +82,147 @@ class StatsQuickGameScreen extends StatelessWidget {
           SafeArea(
             child: SizedBox(
               height: double.infinity,
-              child: ListView(
+              child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 26),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AnimatedGestureDetector(
-                          onTap: Navigator.of(context).pop,
-                          end: 0.8,
-                          child: IconButton(
-                            onPressed: null,
-                            icon: Transform.rotate(
-                              angle: pi,
-                              child: Image.asset(
-                                ModerniAliasIcons.arrowStats,
+                child: AnimatedColumn(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 26),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AnimatedGestureDetector(
+                            onTap: Navigator.of(context).pop,
+                            end: 0.8,
+                            child: IconButton(
+                              onPressed: null,
+                              icon: Transform.rotate(
+                                angle: pi,
+                                child: Image.asset(
+                                  ModerniAliasIcons.arrowStats,
+                                  color: ModerniAliasColors.white,
+                                  height: 26,
+                                  width: 26,
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimatedGestureDetector(
+                            onTap: shareGame,
+                            end: 0.8,
+                            child: IconButton(
+                              onPressed: null,
+                              icon: Image.asset(
+                                ModerniAliasIcons.share,
                                 color: ModerniAliasColors.white,
                                 height: 26,
                                 width: 26,
                               ),
                             ),
                           ),
-                        ),
-                        AnimatedGestureDetector(
-                          onTap: shareGame,
-                          end: 0.8,
-                          child: IconButton(
-                            onPressed: null,
-                            icon: Image.asset(
-                              ModerniAliasIcons.share,
-                              color: ModerniAliasColors.white,
-                              height: 26,
-                              width: 26,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const HeroTitle(),
-                  const SizedBox(height: 24),
-                  GameTitle(
-                    'statsWhenTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsWhenText'.tr(
-                      namedArgs: {
-                        'date': date,
-                        'time': time,
-                        'textTime': textTime,
-                      },
-                    ),
-                    icon: ModerniAliasIcons.clock,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsLanguageTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsLanguageText'.tr(
-                      namedArgs: {
-                        'language': language,
-                      },
-                    ),
-                    icon: quickGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
-                    size: 58,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsLengthOfRoundTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsTextIconWidget(
-                    text: 'statsLengthOfRoundQuickText'.tr(),
-                    icon: ModerniAliasIcons.hourglass,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsPointsToWinQuickTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsValueWidget(
-                    text: 'statsCorrectQuick'.tr(),
-                    value: quickGameStats.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.correct).length,
-                    bigText: true,
-                  ),
-                  const SizedBox(height: 8),
-                  StatsValueWidget(
-                    text: 'statsWrongQuick'.tr(),
-                    value: quickGameStats.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.wrong).length,
-                    bigText: true,
-                  ),
-                  const SizedBox(height: 16),
-                  GameTitle(
-                    'statsWordsTitle'.tr(),
-                    smallTitle: true,
-                  ),
-                  const SizedBox(height: 16),
-
-                  ///
-                  /// WORDS
-                  ///
-                  if (quickGameStats.round.audioRecording == null)
-                    ...List.generate(
-                      quickGameStats.round.playedWords.length,
-                      (index) {
-                        final playedWord = quickGameStats.round.playedWords[index];
-
-                        return PlayedWordValue(
-                          word: playedWord.word,
-                          chosenAnswer: playedWord.chosenAnswer,
-                        );
-                      },
-                    )
-                  ///
-                  /// WORDS & AUDIO RECORDING
-                  ///
-                  else
-                    StatsWordsExpansionWidget(
-                      index: 0,
-                      round: quickGameStats.round,
-                      someWords: quickGameStats.round.playedWords.take(3).map((word) => word.word).join(', '),
-                      onSharePressed: () => shareRoundAudio(
-                        round: quickGameStats.round,
+                        ],
                       ),
-                      quickGameStats: true,
                     ),
-                  const SizedBox(height: 80),
-                ],
+                    const SizedBox(height: 8),
+                    const HeroTitle(),
+                    const SizedBox(height: 24),
+                    GameTitle(
+                      'statsWhenTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsWhenText'.tr(
+                        namedArgs: {
+                          'date': date,
+                          'time': time,
+                          'textTime': textTime,
+                        },
+                      ),
+                      icon: ModerniAliasIcons.clock,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsLanguageTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsLanguageText'.tr(
+                        namedArgs: {
+                          'language': language,
+                        },
+                      ),
+                      icon: quickGameStats.language == Flag.croatia ? ModerniAliasIcons.croatiaColor : ModerniAliasIcons.unitedKingdomColor,
+                      size: 58,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsLengthOfRoundTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsTextIconWidget(
+                      text: 'statsLengthOfRoundQuickText'.tr(),
+                      icon: ModerniAliasIcons.hourglass,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsPointsToWinQuickTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsValueWidget(
+                      text: 'statsCorrectQuick'.tr(),
+                      value: quickGameStats.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.correct).length,
+                      bigText: true,
+                    ),
+                    const SizedBox(height: 8),
+                    StatsValueWidget(
+                      text: 'statsWrongQuick'.tr(),
+                      value: quickGameStats.round.playedWords.where((playedWord) => playedWord.chosenAnswer == Answer.wrong).length,
+                      bigText: true,
+                    ),
+                    const SizedBox(height: 16),
+                    GameTitle(
+                      'statsWordsTitle'.tr(),
+                      smallTitle: true,
+                    ),
+                    const SizedBox(height: 16),
+
+                    ///
+                    /// WORDS
+                    ///
+                    if (quickGameStats.round.audioRecording == null)
+                      ...List.generate(
+                        quickGameStats.round.playedWords.length,
+                        (index) {
+                          final playedWord = quickGameStats.round.playedWords[index];
+
+                          return PlayedWordValue(
+                            word: playedWord.word,
+                            chosenAnswer: playedWord.chosenAnswer,
+                          );
+                        },
+                      )
+                    ///
+                    /// WORDS & AUDIO RECORDING
+                    ///
+                    else
+                      StatsWordsExpansionWidget(
+                        index: 0,
+                        round: quickGameStats.round,
+                        someWords: quickGameStats.round.playedWords.take(3).map((word) => word.word).join(', '),
+                        onSharePressed: () => shareRoundAudio(
+                          round: quickGameStats.round,
+                        ),
+                        quickGameStats: true,
+                      ),
+                    const SizedBox(height: 80),
+                  ],
+                ),
               ),
             ),
           ),
