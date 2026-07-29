@@ -259,30 +259,34 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     required BuildContext context,
     int? overriddenIndex,
   }) async {
-    /// Show sheet with scores
-    await baseGame.showScoresSheet(
-      teams: value.teams,
-      playedWords: value.playedWords,
-      backgroundImage: backgroundImage.value,
-      context: context,
-    );
-
-    /// Update stats which will go in [Hive]
-    await updateStatsAndUsedWords(
-      gameType: GameState.idle,
-    );
-
     final nextPlayingTeam = getNextPlayingTeam(
       teams: playingTeams,
       previousTeam: value.playingTeam,
       overriddenIndex: overriddenIndex,
     );
 
-    /// Update state with next playing `team`
-    updateState(
-      newPlayingTeam: nextPlayingTeam,
-      newIsFinalizingRound: false,
-    );
+    try {
+      /// Show sheet with scores
+      await baseGame.showScoresSheet(
+        teams: value.teams,
+        playedWords: value.playedWords,
+        backgroundImage: backgroundImage.value,
+        context: context,
+      );
+
+      /// Update stats which will go in [Hive]
+      await updateStatsAndUsedWords(
+        gameType: GameState.idle,
+      );
+    } catch (e, stackTrace) {
+      logger.e('Error in continueGame()\n$e\n$stackTrace');
+    } finally {
+      /// Audio and persistence failures must not leave the game in limbo.
+      updateState(
+        newPlayingTeam: nextPlayingTeam,
+        newIsFinalizingRound: false,
+      );
+    }
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
@@ -292,19 +296,29 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
       newIsFinalizingRound: true,
     );
 
-    await backgroundImage.revertBackground();
-    await updateStatsAndUsedWords(
-      gameType: GameState.finished,
-    );
-    await WakelockPlus.disable();
+    try {
+      await backgroundImage.revertBackground();
+      await updateStatsAndUsedWords(
+        gameType: GameState.finished,
+      );
+    } catch (e, stackTrace) {
+      logger.e('Error in endGame()\n$e\n$stackTrace');
+    } finally {
+      try {
+        await WakelockPlus.disable();
+      } catch (e, stackTrace) {
+        logger.e('Error disabling wakelock in endGame()\n$e\n$stackTrace');
+      }
 
-    openNormalGameFinished(
-      context,
-      teams: value.teams,
-      pointsToWin: pointsToWin,
-      lengthOfRound: lengthOfRound,
-      playedWords: value.playedWords,
-    );
+      /// Finishing the game must not depend on optional audio or stats persistence.
+      openNormalGameFinished(
+        context,
+        teams: value.teams,
+        pointsToWin: pointsToWin,
+        lengthOfRound: lengthOfRound,
+        playedWords: value.playedWords,
+      );
+    }
   }
 
   void answerChosen({

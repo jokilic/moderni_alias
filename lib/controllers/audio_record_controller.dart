@@ -33,6 +33,11 @@ class AudioRecordController {
 
     /// Start recording
     if (hasPermission) {
+      if (recorderController.isRecording) {
+        logger.w('Skipped startRecording() because recording is already active');
+        return;
+      }
+
       /// Wrap it in `try / catch` because some devices don't have a microphone
       try {
         await recorderController.record(path: path);
@@ -44,6 +49,11 @@ class AudioRecordController {
 
   /// Stops recording and returns `path` of the file
   Future<String?> stopRecording() async {
+    if (!recorderController.isRecording) {
+      logger.w('Skipped stopRecording() because recording is not active');
+      return null;
+    }
+
     try {
       return await recorderController.stop();
     } catch (e) {

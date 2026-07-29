@@ -628,7 +628,6 @@ const List<String> imenice = [
   'siječanj',
   'sin',
   'sinagoga',
-  'sintetizator',
   'sir',
   'sirup',
   'siva',
