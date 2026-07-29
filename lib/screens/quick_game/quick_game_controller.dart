@@ -38,7 +38,6 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
          (
            gameState: GameState.idle,
            counter3Seconds: 0,
-           isFinalizingRound: false,
            playedWords: [],
            currentWord: null,
          ),
@@ -71,23 +70,17 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
   void updateState({
     GameState? newGameState,
     int? newCounter3Seconds,
-    bool? newIsFinalizingRound,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
   }) => value = (
     gameState: newGameState ?? value.gameState,
     counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
-    isFinalizingRound: newIsFinalizingRound ?? value.isFinalizingRound,
     playedWords: newPlayedWords ?? value.playedWords,
     currentWord: newCurrentWord ?? value.currentWord,
   );
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown({required BuildContext context}) async {
-    if (value.isFinalizingRound) {
-      return;
-    }
-
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -156,27 +149,31 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
   Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
-      newIsFinalizingRound: true,
     );
 
-    await backgroundImage.revertBackground();
-    await updateStatsAndUsedWords();
-    await WakelockPlus.disable();
+    try {
+      await backgroundImage.revertBackground();
+      await updateStatsAndUsedWords();
+    } catch (e, stackTrace) {
+      logger.e('Error in endGame()\n$e\n$stackTrace');
+    } finally {
+      try {
+        await WakelockPlus.disable();
+      } catch (e, stackTrace) {
+        logger.e('Error disabling wakelock in endGame()\n$e\n$stackTrace');
+      }
 
-    openQuickGameFinished(
-      context,
-      playedWords: value.playedWords,
-    );
+      openQuickGameFinished(
+        context,
+        playedWords: value.playedWords,
+      );
+    }
   }
 
   void answerChosen({
     required Answer chosenAnswer,
     required BuildContext context,
   }) {
-    if (value.isFinalizingRound) {
-      return;
-    }
-
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
       start3SecondCountdown(
@@ -185,8 +182,8 @@ class QuickGameController extends ValueNotifier<QuickGameState> {
       return;
     }
 
-    /// Game is starting, don't do anything
-    if (value.gameState == GameState.starting) {
+    /// Only accept answers while the round is running
+    if (value.gameState != GameState.playing) {
       return;
     }
 

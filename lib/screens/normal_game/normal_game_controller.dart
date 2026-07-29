@@ -44,7 +44,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
          (
            gameState: GameState.idle,
            counter3Seconds: 0,
-           isFinalizingRound: false,
            playedWords: [],
            currentWord: null,
            teams: passedTeams,
@@ -83,7 +82,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   void updateState({
     GameState? newGameState,
     int? newCounter3Seconds,
-    bool? newIsFinalizingRound,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
     List<Team>? newTeams,
@@ -92,7 +90,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   }) => value = (
     gameState: newGameState ?? value.gameState,
     counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
-    isFinalizingRound: newIsFinalizingRound ?? value.isFinalizingRound,
     playedWords: newPlayedWords ?? value.playedWords,
     currentWord: newCurrentWord ?? value.currentWord,
     teams: newTeams ?? value.teams,
@@ -102,10 +99,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown({required BuildContext context}) async {
-    if (value.isFinalizingRound) {
-      return;
-    }
-
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -174,7 +167,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
   void gameStopped() {
     updateState(
       newGameState: GameState.idle,
-      newIsFinalizingRound: true,
     );
     backgroundImage.revertBackground();
     baseGame.cancelTimers();
@@ -266,34 +258,31 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     );
 
     try {
-      /// Show sheet with scores
-      await baseGame.showScoresSheet(
-        teams: value.teams,
-        playedWords: value.playedWords,
-        backgroundImage: backgroundImage.value,
-        context: context,
-      );
-
-      /// Update stats which will go in [Hive]
-      await updateStatsAndUsedWords(
-        gameType: GameState.idle,
-      );
+      /// Finalize the round while the scores sheet is visible
+      await Future.wait([
+        baseGame.showScoresSheet(
+          teams: value.teams,
+          playedWords: value.playedWords,
+          backgroundImage: backgroundImage.value,
+          context: context,
+        ),
+        updateStatsAndUsedWords(
+          gameType: GameState.idle,
+        ),
+      ]);
     } catch (e, stackTrace) {
       logger.e('Error in continueGame()\n$e\n$stackTrace');
-    } finally {
-      /// Audio and persistence failures must not leave the game in limbo.
-      updateState(
-        newPlayingTeam: nextPlayingTeam,
-        newIsFinalizingRound: false,
-      );
     }
+
+    updateState(
+      newPlayingTeam: nextPlayingTeam,
+    );
   }
 
   /// Ends game and goes to [NormalGameFinishedScreen]
   Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
-      newIsFinalizingRound: true,
     );
 
     try {
@@ -325,10 +314,6 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
     required Answer chosenAnswer,
     required BuildContext context,
   }) {
-    if (value.isFinalizingRound) {
-      return;
-    }
-
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
       start3SecondCountdown(
@@ -337,8 +322,8 @@ class NormalGameController extends ValueNotifier<NormalGameState> {
       return;
     }
 
-    /// Game is starting, don't do anything
-    if (value.gameState == GameState.starting) {
+    /// Only accept answers while the round is running
+    if (value.gameState != GameState.playing) {
       return;
     }
 

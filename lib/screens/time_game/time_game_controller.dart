@@ -45,7 +45,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
          (
            gameState: GameState.idle,
            counter3Seconds: 0,
-           isFinalizingRound: false,
            playedWords: [],
            currentWord: null,
            teams: passedTeams,
@@ -103,7 +102,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   void updateState({
     GameState? newGameState,
     int? newCounter3Seconds,
-    bool? newIsFinalizingRound,
     List<PlayedWord>? newPlayedWords,
     String? newCurrentWord,
     List<Team>? newTeams,
@@ -112,7 +110,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   }) => value = (
     gameState: newGameState ?? value.gameState,
     counter3Seconds: newCounter3Seconds ?? value.counter3Seconds,
-    isFinalizingRound: newIsFinalizingRound ?? value.isFinalizingRound,
     playedWords: newPlayedWords ?? value.playedWords,
     currentWord: newCurrentWord ?? value.currentWord,
     teams: newTeams ?? value.teams,
@@ -132,10 +129,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
 
   /// Counts down the 3 seconds before starting new round
   Future<void> start3SecondCountdown() async {
-    if (value.isFinalizingRound) {
-      return;
-    }
-
     updateState(
       newGameState: GameState.starting,
       newCounter3Seconds: 3,
@@ -219,7 +212,6 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   void gameStopped() {
     updateState(
       newGameState: GameState.idle,
-      newIsFinalizingRound: true,
     );
     backgroundImage.revertBackground();
     playSound(
@@ -234,22 +226,28 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     List<Team> playingTeams, {
     required BuildContext context,
   }) async {
-    await baseGame.showTimeScoresSheet(
-      context: context,
-      playedWords: value.playedWords,
-    );
-
-    await updateStatsAndUsedWords(
-      gameType: GameState.idle,
-    );
-
     final currentTeamIndex = playingTeams.indexWhere(
       (team) => team.name == value.playingTeam.name,
     );
+    final nextPlayingTeam = value.teams[currentTeamIndex + 1];
+
+    /// Finalize the round while the scores sheet is visible
+    try {
+      await Future.wait([
+        baseGame.showTimeScoresSheet(
+          context: context,
+          playedWords: value.playedWords,
+        ),
+        updateStatsAndUsedWords(
+          gameType: GameState.idle,
+        ),
+      ]);
+    } catch (e, stackTrace) {
+      logger.e('Error in continueGame()\n$e\n$stackTrace');
+    }
 
     updateState(
-      newPlayingTeam: value.teams[currentTeamIndex + 1],
-      newIsFinalizingRound: false,
+      newPlayingTeam: nextPlayingTeam,
     );
   }
 
@@ -257,22 +255,30 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
   Future<void> endGame({required BuildContext context}) async {
     updateState(
       newGameState: GameState.finished,
-      newIsFinalizingRound: true,
     );
 
-    await backgroundImage.revertBackground();
-    await updateStatsAndUsedWords(
-      gameType: GameState.finished,
-    );
-    await WakelockPlus.disable();
+    try {
+      await backgroundImage.revertBackground();
+      await updateStatsAndUsedWords(
+        gameType: GameState.finished,
+      );
+    } catch (e, stackTrace) {
+      logger.e('Error in endGame()\n$e\n$stackTrace');
+    } finally {
+      try {
+        await WakelockPlus.disable();
+      } catch (e, stackTrace) {
+        logger.e('Error disabling wakelock in endGame()\n$e\n$stackTrace');
+      }
 
-    openTimeGameFinished(
-      context,
-      teams: value.teams,
-      numberOfWords: numberOfWords,
-      rounds: timeGameStats.rounds,
-      playedWords: value.playedWords,
-    );
+      openTimeGameFinished(
+        context,
+        teams: value.teams,
+        numberOfWords: numberOfWords,
+        rounds: timeGameStats.rounds,
+        playedWords: value.playedWords,
+      );
+    }
   }
 
   ///
@@ -283,18 +289,14 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
     required Answer chosenAnswer,
     required BuildContext context,
   }) {
-    if (value.isFinalizingRound) {
-      return;
-    }
-
     /// Game is not running, handle tapping answer
     if (value.gameState == GameState.idle) {
       start3SecondCountdown();
       return;
     }
 
-    /// Game is starting, don't do anything
-    if (value.gameState == GameState.starting) {
+    /// Only accept answers while the round is running
+    if (value.gameState != GameState.playing) {
       return;
     }
 

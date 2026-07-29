@@ -18,7 +18,6 @@ typedef TimeGameSetupState = ({
 typedef QuickGameState = ({
   GameState gameState,
   int counter3Seconds,
-  bool isFinalizingRound,
   List<PlayedWord> playedWords,
   String? currentWord,
 });
@@ -26,7 +25,6 @@ typedef QuickGameState = ({
 typedef NormalGameState = ({
   GameState gameState,
   int counter3Seconds,
-  bool isFinalizingRound,
   List<PlayedWord> playedWords,
   String? currentWord,
   List<Team> teams,
@@ -37,7 +35,6 @@ typedef NormalGameState = ({
 typedef TimeGameState = ({
   GameState gameState,
   int counter3Seconds,
-  bool isFinalizingRound,
   List<PlayedWord> playedWords,
   String? currentWord,
   List<Team> teams,
