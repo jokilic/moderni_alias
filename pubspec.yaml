@@ -44,13 +44,14 @@ dependencies:
   hive_ce_flutter: 2.3.4 # Easier integration of Hive with Flutter
   intl: 0.20.3 # Used for date formatting
   just_audio: 0.10.6 # Used to play audio files
+  just_waveform: 0.0.7 # Used to extract amplitudes from audio files
   logger: 2.7.0 # Used for console logging
   package_info_plus: 10.2.1 # Used to get the app version
   path_provider: 2.1.6 # For finding commonly used locations on the filesystem
-  record: 7.1.1 # Used to record audio
+  record: 7.1.1 # Used to record audio files
   rive: 0.14.10 # Renders Rive animations in Flutter
   share_plus: 13.3.0 # Used for sharing played games
-  siri_wave: 2.3.1 # Used for visualizing audio
+  siri_wave: 2.3.1 # Used for visualizing audio files
   timeago: 3.7.1 # To show when were games played
   url_launcher: 6.3.2 # Used to launch URLs in native browser
   wakelock_plus: 1.7.0 # Used for keeping the screen active while game is running

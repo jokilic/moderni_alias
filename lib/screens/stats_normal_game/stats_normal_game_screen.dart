@@ -48,22 +48,23 @@ class StatsNormalGameScreen extends StatelessWidget {
   );
 
   /// Shares `audio` of selected round
-  void shareRoundAudio({required Round round}) {
-    if (round.audioRecording != null) {
-      final name = 'moderni_alias_normal_game_${normalGameStats.startTime.millisecondsSinceEpoch}_audio_${normalGameStats.rounds.indexOf(round) + 1}.m4a';
+  void shareRoundAudio({
+    required Round round,
+    required String audioRecording,
+  }) {
+    final name = 'moderni_alias_normal_game_${normalGameStats.startTime.millisecondsSinceEpoch}_audio_${normalGameStats.rounds.indexOf(round) + 1}.m4a';
 
-      SharePlus.instance.share(
-        ShareParams(
-          files: [
-            XFile(
-              round.audioRecording!,
-              name: name,
-            ),
-          ],
-          fileNameOverrides: [name],
-        ),
-      );
-    }
+    SharePlus.instance.share(
+      ShareParams(
+        files: [
+          XFile(
+            audioRecording,
+            name: name,
+          ),
+        ],
+        fileNameOverrides: [name],
+      ),
+    );
   }
 
   @override
@@ -226,8 +227,9 @@ class StatsNormalGameScreen extends StatelessWidget {
                           index: index,
                           round: round,
                           someWords: someWords,
-                          onSharePressed: () => shareRoundAudio(
+                          onSharePressed: (audioRecording) => shareRoundAudio(
                             round: round,
+                            audioRecording: audioRecording,
                           ),
                         );
                       },

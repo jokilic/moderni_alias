@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_waveform/just_waveform.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:siri_wave/siri_wave.dart';
 
 import '../../../constants/colors.dart';
@@ -9,6 +13,9 @@ import '../../../constants/durations.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
+import '../../../services/path_provider_service.dart';
+import '../../../util/audio_recording_path.dart';
+import '../../../util/dependencies.dart';
 import '../../../util/snackbars.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/scores/played_word_value.dart';
@@ -18,7 +25,7 @@ class StatsWordsExpansionWidget extends StatefulWidget {
   final Round round;
   final String someWords;
   final bool quickGameStats;
-  final Function() onSharePressed;
+  final void Function(String audioRecording) onSharePressed;
 
   const StatsWordsExpansionWidget({
     required this.index,
@@ -43,6 +50,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   var audioDuration = Duration.zero;
   var audioPosition = Duration.zero;
 
+  String? audioRecordingPath;
   AudioPlayer? audioController;
 
   StreamSubscription<PlayerState>? playerStateSubscription;
@@ -50,6 +58,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   late final AnimationController animationController;
   late IOS7SiriWaveformController playbackWaveformController;
+  Waveform? audioWaveform;
 
   /// Icon toggle animation (play / pause)
   void initializeAnimations() => animationController = AnimationController(
@@ -66,11 +75,15 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// If there's an `audioRecording`, initialize `audioController` and show the playback controls
   Future<void> initializeAudio() async {
-    final audioRecording = widget.round.audioRecording;
+    final audioRecording = resolveAudioRecordingPath(
+      storedPath: widget.round.audioRecording,
+      persistenceDirectory: getIt.get<PathProviderService>().persistenceDirectory,
+    );
 
     if (audioRecording != null) {
       final controller = AudioPlayer();
 
+      audioRecordingPath = audioRecording;
       audioController = controller;
       var audioPrepared = false;
       var controllerReleased = false;
@@ -87,10 +100,15 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
         playerStateSubscription = controller.playerStateStream.listen(audioControllerListener);
         audioPositionSubscription = controller.positionStream.listen(audioPositionListener);
+
+        unawaited(
+          initializeAudioWaveform(audioRecording),
+        );
       } catch (e) {
         if (!audioPrepared) {
           await safelyReleaseAudioController(controller);
           controllerReleased = true;
+          audioRecordingPath = null;
           audioController = null;
         }
 
@@ -107,6 +125,72 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     }
   }
 
+  /// Extracts and caches the recording's real amplitude data
+  Future<void> initializeAudioWaveform(String audioRecording) async {
+    try {
+      final temporaryDirectory = await getTemporaryDirectory();
+      final waveformFile = File('${temporaryDirectory.path}/${audioRecording.hashCode}.wave');
+
+      Waveform waveform;
+
+      try {
+        waveform = await JustWaveform.parse(waveformFile);
+      } catch (_) {
+        final progress =
+            await JustWaveform.extract(
+              audioInFile: File(audioRecording),
+              waveOutFile: waveformFile,
+            ).firstWhere(
+              (progress) => progress.waveform != null,
+            );
+
+        waveform = progress.waveform!;
+      }
+
+      if (!mounted || disposeRequested) {
+        return;
+      }
+
+      setState(() {
+        audioWaveform = waveform;
+
+        if (audioController?.playing ?? false) {
+          playbackWaveformController.amplitude = playbackAmplitudeAt(audioPosition);
+        }
+      });
+    } catch (_) {}
+  }
+
+  /// Returns the loudest sample around the current playback position
+  double playbackAmplitudeAt(Duration position) {
+    final waveform = audioWaveform;
+
+    if (waveform == null || waveform.length == 0) {
+      return 0.35;
+    }
+
+    final pixel = waveform.positionToPixel(position).round().clamp(0, waveform.length - 1).toInt();
+    final firstPixel = math.max(0, pixel - 10);
+    final lastPixel = math.min(waveform.length - 1, pixel + 10);
+    var peak = 0;
+
+    for (var index = firstPixel; index <= lastPixel; index++) {
+      peak = math.max(
+        peak,
+        math.max(
+          waveform.getPixelMin(index).abs(),
+          waveform.getPixelMax(index).abs(),
+        ),
+      );
+    }
+
+    final maximumSample = waveform.flags == 0 ? 32767 : 127;
+    final normalizedPeak = (peak / maximumSample).clamp(0.0, 1.0);
+
+    /// Square root scaling keeps normal speech visible while preserving loud peaks
+    return (0.04 + math.sqrt(normalizedPeak) * 0.96).clamp(0.04, 1.0).toDouble();
+  }
+
   Future<void> safelyReleaseAudioController(AudioPlayer controller) async {
     try {
       await controller.stop();
@@ -120,7 +204,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
     /// A new controller makes `siri_wave` rebuild with the updated playback values.
     playbackWaveformController = IOS7SiriWaveformController(
-      amplitude: waveformPlaying ? 0.65 : 0.04,
+      amplitude: waveformPlaying ? playbackAmplitudeAt(audioPosition) : 0.04,
       color: ModerniAliasColors.white,
       frequency: 4,
       speed: waveformPlaying ? 0.2 : 0.05,
@@ -149,9 +233,13 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   void audioPositionListener(Duration position) {
     if (mounted && !disposeRequested) {
-      setState(
-        () => audioPosition = position,
-      );
+      setState(() {
+        audioPosition = position;
+
+        if (audioController?.playing ?? false) {
+          playbackWaveformController.amplitude = playbackAmplitudeAt(position);
+        }
+      });
     }
   }
 
@@ -164,14 +252,16 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         return;
       }
 
-      if (controller.playing) {
-        await controller.pause();
-        return;
-      }
-
       if (audioFinished) {
         await controller.seek(Duration.zero);
         audioFinished = false;
+        await controller.play();
+        return;
+      }
+
+      if (controller.playing) {
+        await controller.pause();
+        return;
       }
 
       await controller.play();
@@ -258,7 +348,13 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
           children: [
             const SizedBox(width: 20),
             AnimatedGestureDetector(
-              onTap: widget.onSharePressed,
+              onTap: () {
+                final audioRecording = audioRecordingPath;
+
+                if (audioRecording != null) {
+                  widget.onSharePressed(audioRecording);
+                }
+              },
               child: InkWell(
                 borderRadius: BorderRadius.circular(100),
                 onTap: () {},

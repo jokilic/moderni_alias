@@ -10,7 +10,6 @@ import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../constants/icons.dart';
 import '../../models/quick_game_stats/quick_game_stats.dart';
-import '../../models/round/round.dart';
 import '../../widgets/animated_column.dart';
 import '../../widgets/animated_gesture_detector.dart';
 import '../../widgets/background_image.dart';
@@ -48,22 +47,20 @@ class StatsQuickGameScreen extends StatelessWidget {
   );
 
   /// Shares `audio` of selected round
-  void shareRoundAudio({required Round round}) {
-    if (round.audioRecording != null) {
-      final name = 'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}_audio.m4a';
+  void shareRoundAudio({required String audioRecording}) {
+    final name = 'moderni_alias_quick_game_${quickGameStats.startTime.millisecondsSinceEpoch}_audio.m4a';
 
-      SharePlus.instance.share(
-        ShareParams(
-          files: [
-            XFile(
-              round.audioRecording!,
-              name: name,
-            ),
-          ],
-          fileNameOverrides: [name],
-        ),
-      );
-    }
+    SharePlus.instance.share(
+      ShareParams(
+        files: [
+          XFile(
+            audioRecording,
+            name: name,
+          ),
+        ],
+        fileNameOverrides: [name],
+      ),
+    );
   }
 
   @override
@@ -213,8 +210,8 @@ class StatsQuickGameScreen extends StatelessWidget {
                         index: 0,
                         round: quickGameStats.round,
                         someWords: quickGameStats.round.playedWords.take(3).map((word) => word.word).join(', '),
-                        onSharePressed: () => shareRoundAudio(
-                          round: quickGameStats.round,
+                        onSharePressed: (audioRecording) => shareRoundAudio(
+                          audioRecording: audioRecording,
                         ),
                         quickGameStats: true,
                       ),
