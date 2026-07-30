@@ -54,21 +54,27 @@ class BaseGameController implements Disposable {
   ///
 
   void init() {
-    roundEndAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.timer,
-        preload: false,
-      );
-    correctAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.correct,
-        preload: false,
-      );
-    wrongAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.wrong,
-        preload: false,
-      );
+    roundEndAudioPlayer =
+        AudioPlayer(
+          handleAudioSessionActivation: false,
+        )..setAsset(
+          ModerniAliasSounds.timer,
+          preload: false,
+        );
+    correctAudioPlayer =
+        AudioPlayer(
+          handleAudioSessionActivation: false,
+        )..setAsset(
+          ModerniAliasSounds.correct,
+          preload: false,
+        );
+    wrongAudioPlayer =
+        AudioPlayer(
+          handleAudioSessionActivation: false,
+        )..setAsset(
+          ModerniAliasSounds.wrong,
+          preload: false,
+        );
   }
 
   ///

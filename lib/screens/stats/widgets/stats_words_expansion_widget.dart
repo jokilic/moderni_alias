@@ -81,7 +81,9 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     );
 
     if (audioRecording != null) {
-      final controller = AudioPlayer();
+      final controller = AudioPlayer(
+        handleAudioSessionActivation: false,
+      );
 
       audioRecordingPath = audioRecording;
       audioController = controller;

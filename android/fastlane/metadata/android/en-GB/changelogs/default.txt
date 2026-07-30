@@ -1,4 +1,1 @@
-* Migrate to different recording package
-* Update recording logic
-* New recording UI
-* Update dependencies
+* Fix audio record stopping when sound triggers

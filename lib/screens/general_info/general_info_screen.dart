@@ -35,11 +35,13 @@ class _GeneralInfoScreenState extends State<GeneralInfoScreen> {
   void initState() {
     super.initState();
 
-    audioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.welcomeToModerniAlias,
-        preload: false,
-      );
+    audioPlayer =
+        AudioPlayer(
+          handleAudioSessionActivation: false,
+        )..setAsset(
+          ModerniAliasSounds.welcomeToModerniAlias,
+          preload: false,
+        );
   }
 
   @override

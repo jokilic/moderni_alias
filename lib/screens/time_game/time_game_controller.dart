@@ -77,11 +77,13 @@ class TimeGameController extends ValueNotifier<TimeGameState> implements Disposa
       language: dictionary.value,
     );
 
-    timeGameEndAudioPlayer = AudioPlayer()
-      ..setAsset(
-        ModerniAliasSounds.timeGameEnd,
-        preload: false,
-      );
+    timeGameEndAudioPlayer =
+        AudioPlayer(
+          handleAudioSessionActivation: false,
+        )..setAsset(
+          ModerniAliasSounds.timeGameEnd,
+          preload: false,
+        );
   }
 
   ///
