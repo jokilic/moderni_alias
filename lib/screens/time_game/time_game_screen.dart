@@ -140,7 +140,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                     width: width,
                     child: TimeGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
-                      recorder: recorder,
+                      recorder: gameState == GameState.starting || gameState == GameState.playing ? recorder : null,
                       exitGame: () => exitGameModal(context),
                       showScores: () => showTimeScores(
                         context,

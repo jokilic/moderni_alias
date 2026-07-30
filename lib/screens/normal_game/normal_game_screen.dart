@@ -142,7 +142,7 @@ class _NormalGameScreenState extends State<NormalGameScreen> {
                     width: width,
                     child: NormalGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
-                      recorder: recorder,
+                      recorder: gameState == GameState.starting || gameState == GameState.playing ? recorder : null,
                       exitGame: () => exitGameModal(context),
                       showScores: () => showScores(
                         context,

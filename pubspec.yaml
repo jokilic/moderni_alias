@@ -50,6 +50,7 @@ dependencies:
   record: 7.1.1 # Used to record audio
   rive: 0.14.10 # Renders Rive animations in Flutter
   share_plus: 13.3.0 # Used for sharing played games
+  siri_wave: 2.3.1 # Used for visualizing audio
   timeago: 3.7.1 # To show when were games played
   url_launcher: 6.3.2 # Used to launch URLs in native browser
   wakelock_plus: 1.7.0 # Used for keeping the screen active while game is running

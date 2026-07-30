@@ -132,7 +132,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                     top: 0,
                     width: width,
                     child: QuickGameInfoSection(
-                      recorder: recorder,
+                      recorder: gameState == GameState.starting || gameState == GameState.playing ? recorder : null,
                       correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
                       wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
                       exitGame: () => exitGameModal(context),
