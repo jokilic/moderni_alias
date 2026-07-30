@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:siri_wave/siri_wave.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/durations.dart';
@@ -43,14 +44,24 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   var audioPosition = Duration.zero;
 
   AudioPlayer? audioController;
+
   StreamSubscription<PlayerState>? playerStateSubscription;
   StreamSubscription<Duration>? audioPositionSubscription;
+
   late final AnimationController animationController;
+  late IOS7SiriWaveformController playbackWaveformController;
 
   /// Icon toggle animation (play / pause)
   void initializeAnimations() => animationController = AnimationController(
     duration: ModerniAliasDurations.animation,
     vsync: this,
+  );
+
+  void initializePlaybackWaveform() => playbackWaveformController = IOS7SiriWaveformController(
+    amplitude: 0.04,
+    color: ModerniAliasColors.white,
+    frequency: 4,
+    speed: 0.05,
   );
 
   /// If there's an `audioRecording`, initialize `audioController` and show the playback controls
@@ -105,6 +116,16 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
 
   /// Triggered whenever [PlayerState] in `audioController` changes
   void audioControllerListener(PlayerState event) {
+    final waveformPlaying = event.playing && event.processingState != ProcessingState.completed;
+
+    /// A new controller makes `siri_wave` rebuild with the updated playback values.
+    playbackWaveformController = IOS7SiriWaveformController(
+      amplitude: waveformPlaying ? 0.65 : 0.04,
+      color: ModerniAliasColors.white,
+      frequency: 4,
+      speed: waveformPlaying ? 0.2 : 0.05,
+    );
+
     /// Show play icon
     if (!event.playing) {
       animateBackward();
@@ -119,6 +140,10 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     if (event.processingState == ProcessingState.completed) {
       audioFinished = true;
       animateBackward();
+    }
+
+    if (mounted && !disposeRequested) {
+      setState(() {});
     }
   }
 
@@ -178,6 +203,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   /// Initializes animations and audio
   void initAnimationsAndAudio() {
     initializeAnimations();
+    initializePlaybackWaveform();
     initializeAudio();
   }
 
@@ -246,22 +272,42 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  activeTrackColor: ModerniAliasColors.white,
-                  inactiveTrackColor: ModerniAliasColors.white.withValues(alpha: 0.05),
-                  thumbColor: ModerniAliasColors.white,
-                  overlayColor: ModerniAliasColors.white.withValues(alpha: 0.12),
-                  trackHeight: 3,
-                ),
-                child: Slider(
-                  max: audioDuration.inMilliseconds > 0 ? audioDuration.inMilliseconds.toDouble() : 1,
-                  value: audioPosition.inMilliseconds.clamp(0, audioDuration.inMilliseconds).toDouble(),
-                  onChanged: audioDuration.inMilliseconds > 0
-                      ? (value) => audioController?.seek(
-                          Duration(milliseconds: value.round()),
-                        )
-                      : null,
+              child: SizedBox(
+                height: 48,
+                child: LayoutBuilder(
+                  builder: (context, constraints) => Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      ClipRect(
+                        child: SiriWaveform.ios7(
+                          controller: playbackWaveformController,
+                          options: IOS7SiriWaveformOptions(
+                            height: 48,
+                            width: constraints.maxWidth,
+                          ),
+                        ),
+                      ),
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: Colors.transparent,
+                          inactiveTrackColor: Colors.transparent,
+                          thumbColor: ModerniAliasColors.white,
+                          overlayColor: ModerniAliasColors.white.withValues(alpha: 0.12),
+                          trackHeight: 2,
+                        ),
+                        child: Slider(
+                          padding: EdgeInsets.zero,
+                          max: audioDuration.inMilliseconds > 0 ? audioDuration.inMilliseconds.toDouble() : 1,
+                          value: audioPosition.inMilliseconds.clamp(0, audioDuration.inMilliseconds).toDouble(),
+                          onChanged: audioDuration.inMilliseconds > 0
+                              ? (value) => audioController?.seek(
+                                  Duration(milliseconds: value.round()),
+                                )
+                              : null,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

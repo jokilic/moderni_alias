@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';
+import 'package:siri_wave/siri_wave.dart';
 
 import '../constants/colors.dart';
 
@@ -20,7 +20,11 @@ class RecordingWaveform extends StatefulWidget {
 }
 
 class RecordingWaveformState extends State<RecordingWaveform> {
-  final amplitudes = <double>[];
+  final waveformController = IOS7SiriWaveformController(
+    amplitude: 0.04,
+    color: ModerniAliasColors.white,
+    frequency: 4,
+  );
   StreamSubscription<Amplitude>? amplitudeSubscription;
   StreamSubscription<RecordState>? recordStateSubscription;
 
@@ -33,8 +37,10 @@ class RecordingWaveformState extends State<RecordingWaveform> {
   }
 
   void recordStateChanged(RecordState state) {
-    if (state == RecordState.record && mounted) {
-      setState(amplitudes.clear);
+    if (mounted) {
+      setState(() {
+        waveformController.amplitude = state == RecordState.record ? 0.04 : 0;
+      });
     }
   }
 
@@ -43,17 +49,12 @@ class RecordingWaveformState extends State<RecordingWaveform> {
       return;
     }
 
-    /// `record` reports dBFS values
-    /// Normalize the useful microphone range
+    /// `record` reports dBFS values, so normalize the useful microphone range
     final normalizedAmplitude = ((amplitude.current + 60) / 60).clamp(0.04, 1.0);
 
-    setState(() {
-      amplitudes.add(normalizedAmplitude);
-
-      if (amplitudes.length > 140) {
-        amplitudes.removeAt(0);
-      }
-    });
+    setState(
+      () => waveformController.amplitude = normalizedAmplitude,
+    );
   }
 
   @override
@@ -66,51 +67,16 @@ class RecordingWaveformState extends State<RecordingWaveform> {
   @override
   Widget build(BuildContext context) => Padding(
     padding: widget.padding,
-    child: SizedBox(
-      height: 48,
-      width: double.infinity,
-      child: CustomPaint(
-        painter: RecordingWaveformPainter(
-          amplitudes: amplitudes,
+    child: LayoutBuilder(
+      builder: (context, constraints) => ClipRect(
+        child: SiriWaveform.ios7(
+          controller: waveformController,
+          options: IOS7SiriWaveformOptions(
+            height: 48,
+            width: constraints.maxWidth,
+          ),
         ),
       ),
     ),
   );
-}
-
-class RecordingWaveformPainter extends CustomPainter {
-  final List<double> amplitudes;
-
-  RecordingWaveformPainter({
-    required this.amplitudes,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = ModerniAliasColors.white
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 2;
-
-    const spacing = 4.0;
-    final numberOfBars = max(1, (size.width / spacing).floor());
-    final visibleAmplitudes = amplitudes.length > numberOfBars ? amplitudes.sublist(amplitudes.length - numberOfBars) : amplitudes;
-    final leadingEmptyBars = numberOfBars - visibleAmplitudes.length;
-
-    for (var index = 0; index < numberOfBars; index++) {
-      final amplitudeIndex = index - leadingEmptyBars;
-      final amplitude = amplitudeIndex >= 0 ? visibleAmplitudes[amplitudeIndex] : 0.04;
-      final barHeight = max(2, amplitude * size.height);
-      final x = index * spacing + paint.strokeWidth / 2;
-
-      canvas.drawLine(
-        Offset(x, (size.height - barHeight) / 2),
-        Offset(x, (size.height + barHeight) / 2),
-        paint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(RecordingWaveformPainter oldDelegate) => true;
 }
