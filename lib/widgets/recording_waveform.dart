@@ -24,7 +24,9 @@ class RecordingWaveformState extends State<RecordingWaveform> {
     amplitude: 0.04,
     color: ModerniAliasColors.white,
     frequency: 4,
+    speed: 0.15,
   );
+
   StreamSubscription<Amplitude>? amplitudeSubscription;
   StreamSubscription<RecordState>? recordStateSubscription;
 

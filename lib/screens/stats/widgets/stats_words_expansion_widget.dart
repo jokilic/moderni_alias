@@ -202,12 +202,12 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   void audioControllerListener(PlayerState event) {
     final waveformPlaying = event.playing && event.processingState != ProcessingState.completed;
 
-    /// A new controller makes `siri_wave` rebuild with the updated playback values.
+    /// A new controller makes `siri_wave` rebuild with the updated playback values
     playbackWaveformController = IOS7SiriWaveformController(
       amplitude: waveformPlaying ? playbackAmplitudeAt(audioPosition) : 0.04,
       color: ModerniAliasColors.white,
       frequency: 4,
-      speed: waveformPlaying ? 0.2 : 0.05,
+      speed: waveformPlaying ? 0.15 : 0.05,
     );
 
     /// Show play icon
