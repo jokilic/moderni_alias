@@ -45,7 +45,6 @@ class AudioRecordController {
 
       /// Start recording
       await recorder.start(
-        // TODO: Check possibilities here
         const RecordConfig(),
         path: path,
       );
