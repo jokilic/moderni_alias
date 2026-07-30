@@ -35,7 +35,6 @@ dependencies:
   #
 
   app_settings: 8.0.3 # Used to check and update microphone permission
-  audio_waveforms: 2.0.2 # Generate waveforms while recording audio and when listening to audio files
   circular_countdown_timer: 0.2.4 # Used for showing the timer
   easy_localization: 3.0.8 # Localization
   flutter_displaymode: 0.7.0 # For enabling high refresh rate
@@ -48,6 +47,7 @@ dependencies:
   logger: 2.7.0 # Used for console logging
   package_info_plus: 10.2.1 # Used to get the app version
   path_provider: 2.1.6 # For finding commonly used locations on the filesystem
+  record: 7.1.1 # Used to record audio
   rive: 0.14.10 # Renders Rive animations in Flutter
   share_plus: 13.3.0 # Used for sharing played games
   timeago: 3.7.1 # To show when were games played
@@ -56,10 +56,10 @@ dependencies:
   watch_it: 2.4.2 # State management
 
 dev_dependencies:
-  build_runner: 2.15.3 # Used for code generation
-  flutter_launcher_icons: 0.14.4 # Used to generate app icons
-  flutter_native_splash: 2.4.8 # Used to generate splash screen
-  hive_ce_generator: 1.11.3 # Generates Hive adapters
+  # build_runner: 2.15.3 # Used for code generation
+  # flutter_launcher_icons: 0.14.4 # Used to generate app icons
+  # flutter_native_splash: 2.4.8 # Used to generate splash screen
+  # hive_ce_generator: 1.11.3 # Generates Hive adapters
 
 dependency_overrides:
   intl: 0.20.3

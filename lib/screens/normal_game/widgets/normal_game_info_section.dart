@@ -1,6 +1,6 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/icons.dart';
@@ -8,16 +8,17 @@ import '../../../constants/text_styles.dart';
 import '../../../models/team/team.dart';
 import '../../../widgets/animated_column.dart';
 import '../../../widgets/animated_gesture_detector.dart';
+import '../../../widgets/recording_waveform.dart';
 
 class NormalGameInfoSection extends StatelessWidget {
   final Team currentlyPlayingTeam;
-  final RecorderController? recorderController;
+  final AudioRecorder? recorder;
   final Function() showScores;
   final Function() exitGame;
 
   const NormalGameInfoSection({
     required this.currentlyPlayingTeam,
-    required this.recorderController,
+    required this.recorder,
     required this.showScores,
     required this.exitGame,
   });
@@ -45,18 +46,10 @@ class NormalGameInfoSection extends StatelessWidget {
                   style: ModerniAliasTextStyles.playingTeam,
                 ),
               ),
-              if (recorderController != null)
-                AudioWaveforms(
-                  recorderController: recorderController!,
-                  size: Size(MediaQuery.sizeOf(context).width, 48),
+              if (recorder != null)
+                RecordingWaveform(
+                  recorder: recorder!,
                   padding: const EdgeInsets.symmetric(horizontal: 56),
-                  waveStyle: const WaveStyle(
-                    waveColor: ModerniAliasColors.white,
-                    middleLineColor: ModerniAliasColors.white,
-                    scaleFactor: 104,
-                    extendWaveform: true,
-                    showMiddleLine: false,
-                  ),
                 ),
             ],
           ),

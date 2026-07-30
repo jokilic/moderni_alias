@@ -1,15 +1,13 @@
 import 'dart:async';
 
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/durations.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../models/round/round.dart';
-import '../../../services/logger_service.dart';
-import '../../../util/dependencies.dart';
 import '../../../util/snackbars.dart';
 import '../../../widgets/animated_gesture_detector.dart';
 import '../../../widgets/scores/played_word_value.dart';
@@ -41,11 +39,12 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
   var audioInitializationRunning = false;
   var disposeRequested = false;
 
-  var waveformData = <double>[];
+  var audioDuration = Duration.zero;
+  var audioPosition = Duration.zero;
 
-  PlayerController? audioController;
+  AudioPlayer? audioController;
   StreamSubscription<PlayerState>? playerStateSubscription;
-  StreamSubscription<dynamic>? audioCompletionSubscription;
+  StreamSubscription<Duration>? audioPositionSubscription;
   late final AnimationController animationController;
 
   /// Icon toggle animation (play / pause)
@@ -54,12 +53,12 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     vsync: this,
   );
 
-  /// If there's an `audioRecording`, initialize `audioController` and show the [Waveform] widget
+  /// If there's an `audioRecording`, initialize `audioController` and show the playback controls
   Future<void> initializeAudio() async {
     final audioRecording = widget.round.audioRecording;
 
     if (audioRecording != null) {
-      final controller = PlayerController()..updateFrequency = UpdateFrequency.high;
+      final controller = AudioPlayer();
 
       audioController = controller;
       var audioPrepared = false;
@@ -67,14 +66,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
       audioInitializationRunning = true;
 
       try {
-        await controller.preparePlayer(
-          path: audioRecording,
-          shouldExtractWaveform: false,
-        );
-
-        await controller.setFinishMode(
-          finishMode: FinishMode.pause,
-        );
+        audioDuration = await controller.setFilePath(audioRecording) ?? Duration.zero;
         audioPrepared = true;
 
         if (!mounted || disposeRequested) {
@@ -82,27 +74,8 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
         }
         setState(() {});
 
-        playerStateSubscription = controller.onPlayerStateChanged.listen(audioControllerListener);
-        audioCompletionSubscription = controller.onCompletion.listen(audioCompletionListener);
-
-        final extractedWaveformData = await controller.waveformExtraction.extractWaveformData(
-          path: audioRecording,
-          noOfSamples: 140,
-        );
-
-        if (!mounted || disposeRequested) {
-          return;
-        }
-
-        waveformData = extractedWaveformData;
-
-        if (waveformData.isEmpty) {
-          getIt.get<LoggerService>().w('No waveform data extracted from $audioRecording');
-        }
-
-        if (mounted && !disposeRequested) {
-          setState(() {});
-        }
+        playerStateSubscription = controller.playerStateStream.listen(audioControllerListener);
+        audioPositionSubscription = controller.positionStream.listen(audioPositionListener);
       } catch (e) {
         if (!audioPrepared) {
           await safelyReleaseAudioController(controller);
@@ -123,56 +96,60 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     }
   }
 
-  Future<void> safelyReleaseAudioController(PlayerController controller) async {
+  Future<void> safelyReleaseAudioController(AudioPlayer controller) async {
     try {
-      if (controller.playerState != PlayerState.stopped) {
-        await controller.stopPlayer();
-      }
-      await controller.release();
+      await controller.stop();
+      await controller.dispose();
     } catch (_) {}
   }
 
   /// Triggered whenever [PlayerState] in `audioController` changes
   void audioControllerListener(PlayerState event) {
     /// Show play icon
-    if (event.isInitialised || event.isPaused || event.isStopped) {
+    if (!event.playing) {
       animateBackward();
     }
 
     /// Show pause icon
-    if (event.isPlaying) {
+    if (event.playing) {
       audioFinished = false;
       animateForward();
     }
+
+    if (event.processingState == ProcessingState.completed) {
+      audioFinished = true;
+      animateBackward();
+    }
   }
 
-  /// Triggered when the audio reaches the end
-  void audioCompletionListener(_) => audioFinished = true;
+  void audioPositionListener(Duration position) {
+    if (mounted && !disposeRequested) {
+      setState(
+        () => audioPosition = position,
+      );
+    }
+  }
 
   /// Play / pause current `audioController`
   Future<void> toggleAudio() async {
     try {
-      switch (audioController?.playerState) {
-        case PlayerState.initialized:
-          await audioController?.startPlayer();
-          break;
-        case PlayerState.paused:
-          if (audioFinished) {
-            await audioController?.seekTo(0);
-            audioFinished = false;
-          }
-          await audioController?.startPlayer();
-          break;
-        case PlayerState.playing:
-          await audioController?.pausePlayer();
-          break;
-        case PlayerState.stopped:
-          await audioController?.startPlayer();
-          break;
+      final controller = audioController;
 
-        default:
-          await audioController?.startPlayer();
+      if (controller == null) {
+        return;
       }
+
+      if (controller.playing) {
+        await controller.pause();
+        return;
+      }
+
+      if (audioFinished) {
+        await controller.seek(Duration.zero);
+        audioFinished = false;
+      }
+
+      await controller.play();
     } catch (e) {
       showSnackbar(
         context,
@@ -215,7 +192,7 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
     disposeRequested = true;
     animationController.dispose();
     playerStateSubscription?.cancel();
-    audioCompletionSubscription?.cancel();
+    audioPositionSubscription?.cancel();
 
     final controller = audioController;
     audioController = null;
@@ -269,24 +246,23 @@ class _StatsWordsExpansionWidgetState extends State<StatsWordsExpansionWidget> w
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  if (waveformData.isEmpty) {
-                    return const SizedBox(height: 48);
-                  }
-
-                  return AudioFileWaveforms(
-                    playerController: audioController!,
-                    size: Size(constraints.maxWidth, 48),
-                    waveformData: waveformData,
-                    playerWaveStyle: PlayerWaveStyle(
-                      fixedWaveColor: ModerniAliasColors.white.withValues(alpha: 0.05),
-                      liveWaveColor: ModerniAliasColors.white,
-                      scaleFactor: 104,
-                      showSeekLine: false,
-                    ),
-                  );
-                },
+              child: SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  activeTrackColor: ModerniAliasColors.white,
+                  inactiveTrackColor: ModerniAliasColors.white.withValues(alpha: 0.05),
+                  thumbColor: ModerniAliasColors.white,
+                  overlayColor: ModerniAliasColors.white.withValues(alpha: 0.12),
+                  trackHeight: 3,
+                ),
+                child: Slider(
+                  max: audioDuration.inMilliseconds > 0 ? audioDuration.inMilliseconds.toDouble() : 1,
+                  value: audioPosition.inMilliseconds.clamp(0, audioDuration.inMilliseconds).toDouble(),
+                  onChanged: audioDuration.inMilliseconds > 0
+                      ? (value) => audioController?.seek(
+                          Duration(milliseconds: value.round()),
+                        )
+                      : null,
+                ),
               ),
             ),
             const SizedBox(width: 20),

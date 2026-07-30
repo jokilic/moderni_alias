@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         applicationId "com.josipkilic.modernialias"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 23
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

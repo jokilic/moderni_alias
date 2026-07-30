@@ -1,6 +1,4 @@
-* Some new icons
-* Less pronounced animation of buttons when pressed
-* Shorter animations
-* Audio & waveform fixes
-* Add GameFinished UI
+* Migrate to different recording package
+* Update recording logic
+* New recording UI
 * Update dependencies

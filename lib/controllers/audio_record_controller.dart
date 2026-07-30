@@ -1,14 +1,14 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
+import 'package:record/record.dart';
 
 import '../services/logger_service.dart';
 
 class AudioRecordController {
   final LoggerService logger;
-  final RecorderController recorderController;
+  final AudioRecorder recorder;
 
   AudioRecordController({
     required this.logger,
-    required this.recorderController,
+    required this.recorder,
   });
 
   ///
@@ -23,39 +23,50 @@ class AudioRecordController {
   /// METHODS
   ///
 
-  /// Asks for permission and returns value
-  Future<bool> askRecordPermission() async => recorderController.checkPermission();
+  /// Checks for permission and returns value
+  Future<bool> askRecordPermission() async => recorder.hasPermission();
 
   /// Starts recording audio
   Future<void> startRecording(String path) async {
-    /// Check for permission
-    final hasPermission = await askRecordPermission();
+    /// Wrap it in `try / catch` because some devices don't have a microphone
+    try {
+      /// Check for permission
+      final hasPermission = await askRecordPermission();
 
-    /// Start recording
-    if (hasPermission) {
-      if (recorderController.isRecording) {
+      if (!hasPermission) {
+        return;
+      }
+
+      /// Check if already recording
+      if (await recorder.isRecording()) {
         logger.w('Skipped startRecording() because recording is already active');
         return;
       }
 
-      /// Wrap it in `try / catch` because some devices don't have a microphone
-      try {
-        await recorderController.record(path: path);
-      } catch (e) {
-        logger.e('Error in startRecording()\n$e');
-      }
+      /// Start recording
+      await recorder.start(
+        // TODO: Check possibilities here
+        const RecordConfig(),
+        path: path,
+      );
+    } catch (e) {
+      logger.e('Error in startRecording()\n$e');
     }
   }
 
   /// Stops recording and returns `path` of the file
   Future<String?> stopRecording() async {
-    if (!recorderController.isRecording) {
-      logger.w('Skipped stopRecording() because recording is not active');
-      return null;
-    }
-
+    /// Wrap it in `try / catch` because some devices don't have a microphone
     try {
-      return await recorderController.stop();
+      /// Check if already stopped recording
+      if (!await recorder.isRecording()) {
+        logger.w('Skipped stopRecording() because recording is not active');
+        return null;
+      }
+
+      final path = await recorder.stop();
+
+      return path;
     } catch (e) {
       logger.e('Error in stopRecording()\n$e');
     }

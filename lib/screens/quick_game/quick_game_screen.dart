@@ -1,6 +1,6 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
@@ -39,7 +39,7 @@ class QuickGameScreen extends WatchingStatefulWidget {
 
 class _QuickGameScreenState extends State<QuickGameScreen> {
   late bool useCircularTimer;
-  RecorderController? recorderController;
+  AudioRecorder? recorder;
   AudioRecordController? audioRecord;
 
   @override
@@ -52,12 +52,12 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
     useCircularTimer = settings.useCircularTimer;
 
     /// Initialize audio recording on mobile platforms
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
-      recorderController = RecorderController();
+    if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS)) {
+      recorder = AudioRecorder();
 
       audioRecord = registerIfNotInitialized<AudioRecordController>(
         () => AudioRecordController(
-          recorderController: recorderController!,
+          recorder: recorder!,
           logger: getIt.get<LoggerService>(),
         ),
         afterRegister: (controller) => controller.init(),
@@ -95,7 +95,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
     unregisterIfInitialized<BaseGameController>();
     unregisterIfInitialized<QuickGameController>();
 
-    recorderController?.dispose();
+    recorder?.dispose();
 
     super.dispose();
   }
@@ -132,7 +132,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                     top: 0,
                     width: width,
                     child: QuickGameInfoSection(
-                      recorderController: recorderController,
+                      recorder: recorder,
                       correctAnswers: playedWords.where((word) => word.chosenAnswer == Answer.correct).length,
                       wrongAnswers: playedWords.where((word) => word.chosenAnswer == Answer.wrong).length,
                       exitGame: () => exitGameModal(context),

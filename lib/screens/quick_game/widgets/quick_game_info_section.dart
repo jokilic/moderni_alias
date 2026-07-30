@@ -1,22 +1,23 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/icons.dart';
 import '../../../constants/text_styles.dart';
 import '../../../widgets/animated_gesture_detector.dart';
+import '../../../widgets/recording_waveform.dart';
 
 class QuickGameInfoSection extends StatelessWidget {
   final int correctAnswers;
   final int wrongAnswers;
-  final RecorderController? recorderController;
+  final AudioRecorder? recorder;
   final Function() exitGame;
   final Function() showScores;
 
   const QuickGameInfoSection({
     required this.correctAnswers,
     required this.wrongAnswers,
-    required this.recorderController,
+    required this.recorder,
     required this.exitGame,
     required this.showScores,
   });
@@ -42,18 +43,10 @@ class QuickGameInfoSection extends StatelessWidget {
             ),
           ),
         ),
-        if (recorderController != null)
-          AudioWaveforms(
-            recorderController: recorderController!,
-            size: Size(MediaQuery.sizeOf(context).width, 48),
+        if (recorder != null)
+          RecordingWaveform(
+            recorder: recorder!,
             padding: const EdgeInsets.symmetric(horizontal: 104),
-            waveStyle: const WaveStyle(
-              waveColor: ModerniAliasColors.white,
-              middleLineColor: ModerniAliasColors.white,
-              scaleFactor: 104,
-              extendWaveform: true,
-              showMiddleLine: false,
-            ),
           ),
         Positioned(
           right: 20,

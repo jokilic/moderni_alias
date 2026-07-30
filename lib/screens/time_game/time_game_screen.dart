@@ -1,6 +1,6 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../constants/colors.dart';
@@ -41,7 +41,7 @@ class TimeGameScreen extends WatchingStatefulWidget {
 
 class _TimeGameScreenState extends State<TimeGameScreen> {
   late bool useCircularTimer;
-  RecorderController? recorderController;
+  AudioRecorder? recorder;
   AudioRecordController? audioRecord;
 
   @override
@@ -54,12 +54,12 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
     useCircularTimer = settings.useCircularTimer;
 
     /// Initialize audio recording on mobile platforms
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
-      recorderController = RecorderController();
+    if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS)) {
+      recorder = AudioRecorder();
 
       audioRecord = registerIfNotInitialized<AudioRecordController>(
         () => AudioRecordController(
-          recorderController: recorderController!,
+          recorder: recorder!,
           logger: getIt.get<LoggerService>(),
         ),
         afterRegister: (controller) => controller.init(),
@@ -98,7 +98,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
     unregisterIfInitialized<BaseGameController>();
     unregisterIfInitialized<TimeGameController>();
 
-    recorderController?.dispose();
+    recorder?.dispose();
 
     super.dispose();
   }
@@ -140,7 +140,7 @@ class _TimeGameScreenState extends State<TimeGameScreen> {
                     width: width,
                     child: TimeGameInfoSection(
                       currentlyPlayingTeam: currentlyPlayingTeam,
-                      recorderController: recorderController,
+                      recorder: recorder,
                       exitGame: () => exitGameModal(context),
                       showScores: () => showTimeScores(
                         context,
